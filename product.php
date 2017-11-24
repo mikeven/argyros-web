@@ -30,7 +30,7 @@
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content="" />
   <?php if( $is_p ) { ?>
-  	<title><?php echo $producto["name"]; ?></title>
+  	<title><?php echo $producto["name"]; ?>::Argyros</title>
   <?php } else { ?>
   	<title>Argyros</title>
   <?php }  ?>
@@ -75,6 +75,7 @@
 	<!-- Tooltips -->
 	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
 	
+	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 
 	<style type="text/css">
@@ -196,22 +197,34 @@
 											
 											<div id="product-header" class="clearfix">
 												<div id="product-info-right" class="group_sidebar">
-													<div class="description sb-wrapper left-sample-block">
-														<span><?php echo $producto["description"]; ?></span>
-														<ul class="list-unstyled sb-content list-styled">
-														  <li> </li>
-														  <li> <i class="fa fa-circle"></i><?php echo $producto["material"]; ?></li>
-														  <li> <i class="fa fa-circle"></i><?php echo $producto["pais"]; ?></li>
-														  <li> </li>
-														  <?php foreach ( $detalle as $pdet ) { ?>
-														  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
-															  <span class="gs_circ"><?php echo $pdet["color"]; ?></span> | 
-															  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> | 
-															  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"> </span></span>
-														  </div>
-														  <?php } ?>
-														</ul>
+													<div><span><?php echo $producto["description"]; ?></span></div>
+
+													<div class="row description sb-wrapper left-sample-block">
+														<div class="col-sm-12">
+															<ul class="list-unstyled sb-content list-styled">
+															  <li> </li>
+															  <li> <i class="fa fa-circle"></i><?php echo $producto["material"]; ?></li>
+															  <li> <i class="fa fa-circle"></i>País: <?php echo $producto["pais"]; ?></li>
+															  <li> </li>
+															  <?php foreach ( $detalle as $pdet ) { ?>
+															  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
+																  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
+																  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> | 
+																  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"> </span></span>
+															  </div>
+															  <?php } ?>
+															</ul>
+														</div>
+														<div id="" class="col-sm-12">
+															<ul class="list-unstyled sb-content list-styled">
+															  <li> </li>
+															  <li> <i class="fa fa-circle"></i>Trabajos:<?php //echo $producto["material"]; ?></li>
+															  <li> <i class="fa fa-circle"></i>Línea: <?php //echo $producto["pais"]; ?></li>
+															  
+															</ul>	
+														</div>
 													</div>     
+													
 													<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
 														<meta itemprop="priceCurrency" content="USD">              
 														<link itemprop="availability" href="http://schema.org/InStock">

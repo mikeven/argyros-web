@@ -78,10 +78,9 @@
 	/* ----------------------------------------------------------------------------------- */
 	function registrarUsuario( $dbh, $usuario ){
 		//Registro de nuevo usuario (cliente)
-		$q = "insert into users ( first_name, last_name, email, password, 
-			country_code, company_type, token ) 
-		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[passw1]', 
-			'$usuario[pais]', '$usuario[tcliente]', '$usuario[token]' )";
+		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
+		$q = "insert into users ( first_name, last_name, email, password, country_code, company_type, token, user_group_id ) 
+		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[passw1]', '$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
 		//echo $q;
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	

@@ -594,7 +594,7 @@ h6.general-title{text-align:center;margin-top:57px;margin-bottom:67px;}
 .deal-product-wrapper .element.full_width .row-right .product-price{margin-bottom:5px;}
 .sb-wrapper ul > li{padding-top:0;padding-bottom:0;}
 .sb-wrapper.left-sample-block > ul{margin-bottom:0;}
-.sb-wrapper.left-sample-block ul > li{border-bottom:1px solid #eaeaea;padding:2px 0;} /*modified: padding: 10*/
+.sb-wrapper.left-sample-block ul > li{} /*border-bottom: 1px solid #eaeaea; padding:2px; modified: padding: 10 */
 .sb-wrapper.left-sample-block ul > li:first-child{padding-top:0;}
 .sb-wrapper.left-sample-block ul > li:last-child{border:none;padding-bottom:0;}
 .element .row-right span.dash,

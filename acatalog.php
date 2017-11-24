@@ -28,7 +28,7 @@
   <link rel="canonical" href="http://demo.designshopify.com/"/>
   <meta name="description" content=""/>
   <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-  <title>Página de catálogo - Argyros</title>
+  <title>Catálogo::Argyros</title>
   
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
     
@@ -61,10 +61,14 @@
 	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
+	
+	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-product.js" type="text/javascript"></script>
+
 	<script>
 		$( document ).ready(function() {
 			$("#catalog-filters").hide();
-			$("#tfilters").click( function(){ 
+			$("#tfilters").hover( function(){ 
                $("#catalog-filters").fadeToggle( 100, "linear" );
             });
             /*$("#tfilters").click( function(){ 
@@ -77,7 +81,8 @@
 
 		 });
 	</script>
-	<script src="js/fn-product.js" type="text/javascript"></script>
+
+	
 </head>
 <style>
 	#options {

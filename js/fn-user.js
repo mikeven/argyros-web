@@ -52,6 +52,8 @@ function iniciarSesion( form, mode ){
 }
 
 // ================================================================================== //
+jQuery.fn.exists = function(){ return ($(this).length > 0); }
+// ================================================================================== //
 
 $( document ).ready(function() {	
     
@@ -61,100 +63,102 @@ $( document ).ready(function() {
         iniciarSesion( $("#frm_login_bar"), "min" );
     });
     /* ......................................................................*/
-    $('#frm_registro').bootstrapValidator({
+    if ( $('#frm_registro').exists() ) {
         
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            name: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar su nombre'
+        $('#frm_registro').bootstrapValidator({
+            
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar su nombre'
+                        }
                     }
-                }
-            },
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar un email'
-                    },
-                    emailAddress: {
-                        message: 'Debe indicar un email válido'
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar un email'
+                        },
+                        emailAddress: {
+                            message: 'Debe indicar un email válido'
+                        }
                     }
-                }
-            },
-            passw1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar contraseña'
+                },
+                passw1: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar contraseña'
+                        }
                     }
-                }
-            },
-            passw2: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar contraseña'
-                    },
-                    identical: {
-                        field: 'passw1',
-                        message: 'Las contraseñas deben coincidir'
-                    },
-                }
-            },
-        }
-    });
+                },
+                passw2: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar contraseña'
+                        },
+                        identical: {
+                            field: 'passw1',
+                            message: 'Las contraseñas deben coincidir'
+                        },
+                    }
+                },
+            }
+        });
 
-    $('#frm_registro').bootstrapValidator().on('submit', function (e) {
-	  if (e.isDefaultPrevented()) {
-	   
-	  } else {
-	  	registrarUsuario();
-	  	return false;
-	  }
-	});
-
+        $('#frm_registro').bootstrapValidator().on('submit', function (e) {
+    	  if (e.isDefaultPrevented()) {
+    	   
+    	  } else {
+    	  	registrarUsuario();
+    	  	return false;
+    	  }
+    	});
+    }
     /* ......................................................................*/
-
-    $('#frm_login').bootstrapValidator({
-        
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar un email'
-                    },
-                    emailAddress: {
-                        message: 'Debe indicar un email válido'
-                    }
-                }
+    if ( $('#frm_login').exists() ) {
+        $('#frm_login').bootstrapValidator({
+            
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'Debe indicar contraseña'
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar un email'
+                        },
+                        emailAddress: {
+                            message: 'Debe indicar un email válido'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar contraseña'
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
-    $('#frm_login').bootstrapValidator().on('submit', function (e) {
-      if (e.isDefaultPrevented()) {
-        
-      } else {
-        iniciarSesion( $("#frm_login"), "full" );
-        return false;
-      }
-    });
-
+        $('#frm_login').bootstrapValidator().on('submit', function (e) {
+          if (e.isDefaultPrevented()) {
+            
+          } else {
+            iniciarSesion( $("#frm_login"), "full" );
+            return false;
+          }
+        });
+    }
     /* ......................................................................*/
     /*
     $('#frm_login_bar').bootstrapValidator({

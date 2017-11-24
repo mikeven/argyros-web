@@ -33,7 +33,7 @@
 	}
 
 
-	//$purl = "../argyros/trunk/admin_/"; //Localhost
-	$purl = "admin/"; //Server
+	$purl = "../../argyros/trunk/admin_/"; //Localhost
+	//$purl = "admin/"; //Server
 	/* ----------------------------------------------------------------------------------- */
 ?>
