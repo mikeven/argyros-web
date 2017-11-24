@@ -1,0 +1,22 @@
+# BEGIN ArgyrosWeb
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	#RewriteBase /
+	#RewriteRule ^index\.php$ - [L]
+	#RewriteCond %{REQUEST_FILENAME} !-f
+	#RewriteCond %{REQUEST_FILENAME} !-d
+	#RewriteRule . /index.php [L]
+
+	# redirect "/section.php?id=xxx" to "/section/xxx"
+	#RewriteCond %{THE_REQUEST} \s/section\.php\?id=([0-9]+)\s [NC]
+	#RewriteRule ^ /section/%1? [R=301,L]
+
+	# internally rewrite "/section/xxx" to "/section.php?id=xxx"
+	#RewriteRule ^section/([0-9]+)$ /section.php?id=$1 [L]
+	#RewriteRule  ^catalogo/([A-Za-z0-9-]+)/([A-Za-z0-9-]+) acatalog.php?c=$1&sc=$2 [NC,L]    #Catálogo
+	RewriteRule  ^catalogo/([A-Za-z0-9-]+)/([A-Za-z0-9-]+) acatalog.php?c=$1&sc=$2 [NC,L]    #Catálogo
+
+</IfModule>
+
+# END ArgyrosWeb
