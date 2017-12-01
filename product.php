@@ -1,18 +1,20 @@
 <?php
     /*
-     * Argyros - Página de producto
-     * 
-     */
+    * Argyros - Página de producto
+    * 
+    */
     session_start();
     ini_set( 'display_errors', 1 );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
-    include( "fn/fn-product.php");
+    include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
-    
+    include( "fn/fn-cart.php" );
+    print_r($_SESSION["cart"]);
     checkSession( '' );
+    //print_r($detalle);
 ?>
 
 <!doctype html>
@@ -28,7 +30,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
-  <meta name="description" content="" />
+  <meta name="description" content=""/>
   <?php if( $is_p ) { ?>
   	<title><?php echo $producto["name"]; ?>::Argyros</title>
   <?php } else { ?>
@@ -75,10 +77,13 @@
 	<!-- Tooltips -->
 	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
 	
+	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
 
 	<style type="text/css">
+		#alert-msgs{ display: none; }
 		.rdet_view{ display: none; }
 		.rdet_view_t{ display: none; }
 		.rdet_prop{ display: none; }
@@ -94,6 +99,7 @@
 		}
 
 	</style>
+
 </head>
 
 <body style="height: 2671px;" itemscope="" itemtype="http://schema.org/WebPage" class="templateProduct notouch">
@@ -131,6 +137,7 @@
 					<div class="container">
 						<?php if( $is_p && $is_pd ) { ?> 
 						<div class="row">
+							
 							<div class="left-slidebar col-xs-24 col-sm-6 hidden-xs">
 								<div class="group_sidebar">											
 									<?php include("sections/product-categories.php");?>  
@@ -156,7 +163,8 @@
 											<div class="image featured fadeInUp not-animated" data-animate="fadeInUp"> 
 												<img src="<?php echo $purl.$img_pp;?>" alt="">
 											</div>
-											
+
+											<!-- Galería de imágenes de un detalle de producto -->
 											<div id="gallery_main" class="product-image-thumb thumbs mobile_full_width product_detail_views">
 												<?php foreach ( $detalle as $pdet ) {  
 													$imgs_rdet = $pdet["images"]; ?>
@@ -174,6 +182,7 @@
 													</div>
 												<?php } ?>
 											</div>
+                                            <!-- /.Galería de imágenes de un detalle de producto -->
                                             
                                             <!--<h4 id="page-title" class="text-left">
 												<span itemprop="name">Más opciones</span>
@@ -190,7 +199,7 @@
 										</div>
 
 										<div id="product-information" class="product-information row text-center no_full_width col-sm-12">        
-											
+											<?php include( "sections/alert-msg.html" ); ?>
                                             <h2 id="page-title" class="text-left">
 												<span itemprop="name"><?php echo $producto["name"]; ?></span>
 											</h2>
@@ -206,13 +215,6 @@
 															  <li> <i class="fa fa-circle"></i><?php echo $producto["material"]; ?></li>
 															  <li> <i class="fa fa-circle"></i>País: <?php echo $producto["pais"]; ?></li>
 															  <li> </li>
-															  <?php foreach ( $detalle as $pdet ) { ?>
-															  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
-																  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
-																  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> | 
-																  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"> </span></span>
-															  </div>
-															  <?php } ?>
 															</ul>
 														</div>
 														<div id="" class="col-sm-12">
@@ -223,12 +225,25 @@
 															  
 															</ul>	
 														</div>
+													</div>
+
+													<div id="description-2" class="col-sm-24 group-variants">
+														<?php foreach ( $detalle as $pdet ) { ?>
+														  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
+															  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
+															  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> |
+															  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
+															  <?php if( $pdet["tipo_precio"] == "g" ) { ?>
+															  | <span class="gs_circ">Precio por g: <span id="rpreciop_g">$ <?php echo $pdet["precio_peso"]; ?> </span> </span>
+														  	  <?php } ?>
+														  </div>
+													  	<?php } ?>	
 													</div>     
 													
 													<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
 														<meta itemprop="priceCurrency" content="USD">              
 														<link itemprop="availability" href="http://schema.org/InStock">
-														<form action="cart.php" method="post" class="variants" id="product-actions">
+														<form id="frm_scart" method="post" class="variants">
 															<div id="product-actions-1293235843" class="options clearfix">
 																<style scoped>
 																  label[for="product-select-option-0"] { display: none; }
@@ -277,25 +292,34 @@
 																	</div>																	
 																</div>-->
 
-																<div id="purchase-1293235843">
-																	<div class="detail-price" itemprop="price">
-																		<span class="price">$21.99</span>
+																<div id="purchase-1293235843" class="row">
+																	<div class="detail-price col-sm-12" itemprop="price">
+																		<span id="vprice_visible" class="price"><?php echo $pre_pp; ?> </span>
+																		<input id="hprice_type" type="hidden" value="<?php echo $pre_pp; ?>">
+																		<input id="hprice_val" type="hidden" value="<?php echo $pre_pp; ?>">
 																	</div>
 																</div>
 
 																<!-- Bloque selección tallas -->
 																<div class="swatch clearfix" data-option-index="1">
 																	<div class="header"> Tallas </div>
-																	<?php $cn = 0; foreach ( $detalle as $pdet ) {
+																	<?php 
+																		$cn = 0; 
+																		foreach ( $detalle as $pdet ) { //./f.each*0 
 																		$tallas = $pdet["sizes"]; $ct = 0;
 																	?>
 																	<div id="rdt-t<?php echo $pdet["id"]; ?>" class="rdet_view_t rdet<?php echo $pdet["id"] ?>">
-																		<?php  foreach ( $tallas as $ptalla ) { ?>
+																		<?php  
+																			foreach ( $tallas as $ptalla ) {
+																				if( !isset( $ptalla["precio"] ) ) $ptalla["precio"] = "";
+																		?>
 																			<div data-value="<?php echo $ptalla["talla"]; ?>" 
 																			class="swatch-element medium available seltdp" 
-																			data-trg="rtallp<?php echo $pdet["id"]; ?>" data-peso="<?php echo $ptalla["peso"]; ?> gr">
+																			data-trg="rtallp<?php echo $pdet["id"]; ?>" data-peso="<?php echo $ptalla["peso"]; ?> gr" 
+																			data-tprecio="<?php echo $pdet["tipo_precio"]; ?>"
+																			data-precio="<?php echo $ptalla["precio"]; ?>">
 																				<input id="<?php echo $cn."-".$ptalla["idtalla"]; ?>" name="opt<?php echo $pdet["id"] ?>" 
-																				value="<?php echo $ptalla["talla"]; ?>" type="radio">
+																				value="<?php echo $ptalla["talla"]; ?>" type="radio" class="sizeselector">
 																				
 																				<label for="<?php echo $cn."-".$ptalla["idtalla"]; ?>">
 																					<?php echo $ptalla["talla"]; ?> 
@@ -304,7 +328,7 @@
 																			</div>
 																		<?php $ct++; $cn++; } ?>
 																	</div>
-																	<?php } ?>
+																	<?php } //./f.each*0 ?>
 																</div>
 																<!-- /.Bloque selección tallas -->
 
@@ -334,6 +358,7 @@
 																    	<input type="hidden" id="idprod" name="idproducto" value="<?php echo $pid; ?>">
 																    	<input type="hidden" id="iddetalle" name="iddetalle" value="<?php echo $detalle[0]["id"]; ?>">
 																    	<input type="hidden" id="stalla" name="seltalla" value="">
+																    	<input type="hidden" id="vprice_cart" name="unit_price" value="<?php echo $pre_pp; ?>">
 																    </div>
 																    <th valign="bottom">
 																    	<!-- Botón agregar al carrito -->
@@ -351,14 +376,18 @@
 																	<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
 																	
 																	<?php foreach ( $detalle as $pdet ) { 
-																		$i = $pdet["images"][0]; ?>
-																		<li class="image">
-																			<a href="<?php echo $purl.$i["path"] ?>" 
-																			class="cloud-zoom-gallery active select_pdetail" 
-																			data-regdet="rdet<?php echo $pdet["id"] ?>" data-select-iddet="<?php echo $pdet["id"] ?>">
-																				<img src="<?php echo $purl.$i["path"] ?>" alt="<?php echo $producto["name"]; ?>">
-																			</a>
-																		</li>
+																		if( isset( $pdet["images"][0] ) ){
+																			$i = $pdet["images"][0]; ?>
+																			<li class="image">
+																				<a href="<?php echo $purl.$i["path"] ?>" 
+																				class="cloud-zoom-gallery active select_pdetail" 
+																				data-regdet="rdet<?php echo $pdet["id"] ?>" data-select-iddet="<?php echo $pdet["id"] ?>" 
+																				data-tprecio="<?php echo $pdet["tipo_precio"] ?>" 
+																				data-precio="<?php echo $pdet["precio"] ?>">
+																					<img src="<?php echo $purl.$i["path"] ?>" alt="<?php echo $producto["name"]; ?>">
+																				</a>
+																			</li>
+																		<?php } ?>
 																	<?php } ?>
 																	
 																	</ul>

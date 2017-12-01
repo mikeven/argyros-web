@@ -278,7 +278,7 @@
 															</span>
 														</div>
 														<div class="product-content-right">
-															<div class="product-price">
+															<div class="product-price hidden">
 																<span class="price_sale">$25.00</span>
 																<del class="price_compare"> $30.00</del>
 															</div>
@@ -290,10 +290,12 @@
 															<form action="#" method="post">
 																<div class="effect-ajax-cart">
 																	<input name="quantity" value="1" type="hidden">
-																	<button class="select-option" type="button" onclick="window.location.href='product.php'"><i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span></button>
+																	<button class="select-option" type="button" onclick="window.location.href='product.php?id=<?php echo $p["id"] ?>'">
+																	<i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span>
+																	</button>
 																</div>
 															</form>
-															<div class="product-ajax-qs hidden-xs hidden-sm">
+															<div class="product-ajax-qs hidden-xs hidden-sm hidden">
 																<div data-handle="curabitur-cursus-dignis" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
 																	<i class="fa fa-eye" title="Vista rápida"></i><span class="list-mode">Vista rápida</span>
 																	

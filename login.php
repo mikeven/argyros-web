@@ -66,9 +66,7 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
 
-	<style>
-		#alert-msgs{ display: none; }
-	</style>
+	<style> #alert-msgs{ display: none; } </style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">

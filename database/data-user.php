@@ -8,12 +8,13 @@
 		$q = "select date_format(ultima_act_doc,'%Y-%m-%d') as fecha from usuario 
 			where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
+		
 		return $data["fecha"];
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function chequearActualizacion( $dbh, $hoy, $idu ){
 		//Chequea el estado de actualización de documentos e invoca a su revisión
-		include("bd/data-documento.php");
+		include( "bd/data-documento.php" );
 		$fult_act_docs = ultimaActualizacion( $dbh, $idu );
 		
 		if( $fult_act_docs < $hoy ){
@@ -40,6 +41,37 @@
 
 		return $valido;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerValoresGrupoUsuarioDefecto( $dbh ){
+		//Devuelve los multiplicadores asociados a los precios del perfil de usuario por defecto
+		$q = "select id, name, description, variable_a, variable_b, variable_c, variable_d, material 
+		from user_group where name = 'Defecto'";
+		
+		$data_user = mysqli_fetch_array( mysqli_query( $dbh, $q ) );
+		return $data_user;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerValoresGrupoUsuario( $dbh, $grupo ){
+		//Devuelve los multiplicadores asociados a los precios de acuerdo al perfil de usuario
+		$q = "select id, name, description, variable_a, variable_b, variable_c, variable_d, material 
+		from user_group where id = $grupo";
+		
+		$data_user = mysqli_fetch_array( mysqli_query( $dbh, $q ) );
+		return $data_user;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function variablesGrupoUsuario( $dbh ){
+		//Devuelve los valores de las variables según el perfil de la cuenta en sesión o sin sesión
+		if( isset( $_SESSION["user"]["user_group_id"] ) ){
+			$grupo_u = $_SESSION["user"]["user_group_id"];
+			$var_gr_usuario = obtenerValoresGrupoUsuario( $dbh, $grupo_u );
+		}
+		else
+			$var_gr_usuario = obtenerValoresGrupoUsuarioDefecto( $dbh );
+
+		return $var_gr_usuario;
+	}
+	
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaUsuarios( $dbh ){
 		//Devuelve la lista de usuarios
@@ -89,7 +121,7 @@
 	function registrarRolUsuario( $dbh, $idu, $idr, $nombre_rol ){
 		//Asociación rol a un usuario
 		$q = "insert into role_user ( user_id, role_id ) values ( $idu, $idr )";
-		//echo $q;
+		
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );
 	}
@@ -97,9 +129,10 @@
 	function obtenerUsuarioLogin( $lnk, $email, $pass ){
 		//Obtiene los datos de un usuario por email y contraseña
 		$sql = "select * from users where email = '$email' and password='$pass'";
-	
+		
 		$data = mysqli_query ( $lnk, $sql );		
 		$data_user = mysqli_fetch_array( $data );
+		//print_r($data);
 		return $data_user;
 	}
 	/* ----------------------------------------------------------------------------------- */

@@ -28,7 +28,7 @@
 		//Devuelve un arreglo con los resultados de un resultset de BD
 		$lista_c = array();
 		if( $data ){
-			while( $c = mysqli_fetch_array( $data ) ){
+			while( $c = mysqli_fetch_array( $data, MYSQLI_ASSOC ) ){
 				$lista_c[] = $c;	
 			}
 		}
