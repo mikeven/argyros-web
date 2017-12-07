@@ -1,17 +1,18 @@
-<div class="items control-container">
+<div id="itemc{n_i}" class="items control-container itemc{n_i}">
 	<div class="row items-wrapper">
-		<a class="cart-close" title="Quitar" href="javascript:void(0);"><i class="fa fa-times"></i></a>
+		<a href="#!" class="cart-close delitemcart" title="Quitar" 
+		data-item="itemc{n_i}" data-idi="{idi}" onclick="delcartitem(this)"><i class="fa fa-times"></i></a>
 		<div class="col-md-8 cart-left">
-			<a class="cart-image" href="product.html">
-				<img src="assets/images/BRY613-10IL.jpg" alt="" title="" height="50">
+			<a class="cart-image" href="product.php?id={idproducto}">
+				<img src="{img}" alt="" title="{nombre}" height="50">
 			</a>
 		</div>
 		<div class="col-md-16 cart-right">
 			<div class="cart-title">
-				<a href="product.php">Nombre del producto</a>
+				<a href="product.php?id={idproducto}">{nombre}</a>
 			</div>
 			<div class="cart-price">
-				$20.00<span class="x"> x </span>1 | Size: 10
+				${precio}<span class="x"> x </span>{cantidad} | Talla: {talla}
 			</div>
 		</div>
 	</div>

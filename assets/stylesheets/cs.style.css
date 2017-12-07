@@ -130,7 +130,7 @@ header#top.affix #umbrella .cart-link:after{margin-top:17px;}
 #top nav.navbar .dropdown-menu li.list-title{margin-top:0;}
 #cart-info{padding:20px;}
 #cart-content { text-transform:none; }
-#cart-content .cart-close{border:1px solid #cecece;border-radius:50%;width:27px;line-height:25px;text-align:center;bottom:0;right:0;position:absolute;margin-bottom:27px;z-index:2;}
+#cart-content .cart-close{border:1px solid #cecece;border-radius:10%;width:27px;line-height:25px;text-align:center;bottom:0;right:0;position:absolute;margin-bottom:45px;z-index:2;}
 #cart-content .cart-close .fa-times,
 .cart-items .fa-times{font-size:14px;color:#cecece;vertical-align:1px;padding-left:1px;}
 #cart-content .cart-close:hover .fa-times{color:#a7b239;}
@@ -1365,6 +1365,11 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 	left: 100%;
 	margin-left: 25px;	
 }
+
+/*added*/
+#item_content_cart{ max-height: 240px; overflow-y:scroll; }
+/*added*/
+
 @media(min-width: 1200px){
 	.top-navigation .navigation .nav .nav-item.dropdown  .dropdown-menu > .dropdown > .dropdown-menu{
 		-ms-transform: scale(1,0); /* IE 9 */

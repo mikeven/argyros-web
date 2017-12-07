@@ -1,3 +1,23 @@
+<?php
+    /*
+    * Argyros - Página de carrito de compra
+    * 
+    */
+    session_start();
+    ini_set( 'display_errors', 1 );
+    include( "database/bd.php" );
+	include( "database/data-user.php" );
+    include( "database/data-products.php" );
+    include( "database/data-categories.php" );
+    include( "fn/fn-product.php" );
+    include( "fn/fn-catalog.php" );
+    include( "fn/fn-cart.php" );
+    
+    $carrito = $_SESSION["cart"];
+    //imprimirCarrito();
+    checkSession( '' );
+    //print_r($detalle);
+?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
@@ -14,16 +34,48 @@
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
   
-	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 	
+	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 
+	<link href="assets/stylesheets/jquery.camera.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.fancybox-buttons.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/application.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/swatch.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.bxslider.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/bootstrap.min.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.bootstrap.3x.css" rel="stylesheet" type="text/css" media="all">
-	<link href="assets/stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.global.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.style.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
-	
+	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
+	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->
+
+
 	<script src="assets/javascripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.imagesloaded.min.js" type="text/javascript"></script>
 	<script src="assets/javascripts/bootstrap.min.3x.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.camera.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.mobile.customized.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/cookies.js" type="text/javascript"></script>
+	<script src="assets/javascripts/modernizr.js" type="text/javascript"></script>  
+	<script src="assets/javascripts/application.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.owl.carousel.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.bxslider.js" type="text/javascript"></script>
+	<script src="assets/javascripts/skrollr.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
+	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
+	<!-- Tooltips -->
+	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
+	
+	<script src="js/fn-ui.js" type="text/javascript"></script>
+	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCart notouch">
@@ -54,96 +106,31 @@
 								<h1 id="page-title">Carrito de compra</h1>
 							</div>
 							<div id="col-main" class="col-md-24 cart-page content">
-								<form action="http://demo.designshopify.com/cart" method="post" id="cartform" class="clearfix">
+								<form action="cart.php" method="post" id="cartform" class="clearfix">
 									<div class="row table-cart">
 										<div class="wrap-table">
 											<table class="cart-items haft-border">
 											<colgroup>
-											<col class="checkout-image">
-											<col class="checkout-info">
-											<col class="checkout-price">
-											<col class="checkout-quantity">
-											<col class="checkout-totals">
+												<col class="checkout-image">
+												<col class="checkout-info">
+												<col class="checkout-price">
+												<col class="checkout-quantity">
+												<col class="checkout-totals">
 											</colgroup>
 											<thead>
 											<tr class="top-labels">
-												<th>
-													Items
-												</th>
-												<th>
-													Precio
-												</th>
-												<th>
-													Cant
-												</th>
-												<th>
-													SubTotal
-												</th>
-												<th>
-													&nbsp;
-												</th>
+												<th> Items </th>
+												<th> Precio </th>
+												<th> Cant </th>
+												<th> SubTotal </th>
+												<th> &nbsp; </th>
 											</tr>
 											</thead>
-											<tbody>
-											<tr class="item donec-condime-fermentum">
-												<td class="title text-left">
-													<ul class="list-inline">
-														<li class="image">
-															<a href="product.php"> <img src="assets/images/BRY613-10IL.jpg" alt="Donec condime fermentum" width="100"> </a>
-														</li>
-														<li class="link">
-															<a href="product.php">
-																<span class="title-5">Brazalete 1</span>
-															</a>
-														</li>
-													</ul>
-												</td>
-												<td class="title-1">
-													$12.00
-												</td>
-												<td>
-													<input class="form-control input-1 replace" maxlength="5" size="5" id="updates_3947646083" name="updates[]" value="1">
-												</td>
-												<td class="total title-1">
-													$12.00
-												</td>
-												<td class="action">
-													<button type="button" onclick="window.location='http://demo.designshopify.com/cart/change?line=1&amp;quantity=0'">
-													<i class="fa fa-times"></i>Quitar
-													</button>
-												</td>
-											</tr>
-											<tr class="item curabitur-cursus-dignis-1">
-												<td class="title text-left">
-													<ul class="list-inline">
-														<li class="image">
-														<a href="product.html">
-															<img src="assets/images/BRY613-10IL.jpg" alt="Curabitur cursus dignis" width="100">
-														</a>
-														</li>
-														<li class="link">
-														<a href="product.html">
-														<span class="title-5">Brazalete 2</span>
-														</a>
-														<br>
-														</li>
-													</ul>
-												</td>
-												<td class="title-1">
-													$15.00
-												</td>
-												<td>
-													<input class="form-control input-1 replace" maxlength="5" size="5" id="updates_5141875779" name="updates[]" value="7">
-												</td>
-												<td class="total title-1">
-													$105.00
-												</td>
-												<td class="action">
-													<button type="button" onclick="window.location='http://demo.designshopify.com/cart/change?line=2&amp;quantity=0'">
-													<i class="fa fa-times"></i>Quitar</button>
-												</td>
-											</tr>
+											
+											<tbody id="list_content_cart">											
+
 											</tbody>
+											
 											<tfoot>
 											<tr class="bottom-summary">
 												<td>
@@ -152,11 +139,12 @@
 												<td>
 													&nbsp;
 												</td>
-												<td class="update-quantities">
-													<button type="submit" id="update-cart" class="btn btn-2" name="update">Actualizar</button>
+												<td class="subtotal title-1">
+													<span>Total pedido</span>
+													<!--<button type="submit" id="update-cart" class="btn btn-2 hidden" name="update">Actualizar</button>-->
 												</td>
 												<td class="subtotal title-1">
-													$117.00
+													$<span class="total_price_cart"></span>
 												</td>
 												<td>
 													&nbsp;

@@ -11,6 +11,7 @@
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
+    include( "fn/fn-cart.php" );
     
     checkSession( '' );
 ?>
@@ -57,6 +58,7 @@
 	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.gmap.min.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
 	
 </head>
 
@@ -111,7 +113,7 @@
 												<li class="clearfix"></li>
 												<li class="">
 												<label class="control-label" for="message">Mensaje <span class="req">*</span></label>
-												<textarea id="message" rows="5" class="form-control" name="contact[body]"></textarea>
+												<textarea id="message" rows="4" class="form-control" name="contact[body]" style="resize:none; overflow:hidden;"></textarea>
 												</li>
 												<li class="clearfix"></li>
 												<li class="unpadding-top">

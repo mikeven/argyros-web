@@ -3,8 +3,38 @@
  *
  */
 /* ----------------------------------------------------------------------------------- */
+ function imprimirCarritoTienda( cart ){
+    //Imprime el contenido y elementos del carrito de compra
+    $("#item_content_cart").html(cart.cart);
+    $("#list_content_cart").html(cart.lpag);
+    
+    $("#nitems_cart_drop").html(cart.nitems);
+    $(".total_price_cart").html(cart.total_price);
+ }
+/* ----------------------------------------------------------------------------------- */
+function obtenerCarritoCompra(){
+    //Solicita los elementos en el carrito de compra
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-cart.php",
+        data:{ get_cart: 1 },
+        success: function( response ){
+            //console.log( response );
+            cart = jQuery.parseJSON( response );
+            imprimirCarritoTienda( cart );            
+        }
+    });   
+}
+/* ----------------------------------------------------------------------------------- */
+ function asignarIdItem(){
+    //Asignar id item carrito compra
+    var idd = $("#iddetalle").val();
+    var vta = $("#stalla").val();
+    $("#idi_cart").val( idd + "-" + vta );
+ }
+/* ----------------------------------------------------------------------------------- */
  function validarSeleccionCarrito(){
- 	//
+ 	//Chequeo de valores y condiciones para permitir agregar un ítem al carrito de compra
  	var valido = true;
  	if( $("#stalla").val() == "" ){
  		valido = false;	
@@ -12,35 +42,93 @@
  	return valido;
  }
 /* ----------------------------------------------------------------------------------- */
+ function eliminarItemCarrito( elem, nitem ){
+    //Elimina un elemento del carrito de compra
+    
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-cart.php",
+        data:{ delitem_c: nitem },
+        success: function( response ){
+            //console.log( response );
+            $( "." + elem ).fadeOut( 500, function(){
+                obtenerCarritoCompra(); 
+            });
+        }
+    });
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function actualizarItemCarrito( iditem, cant ){
+    //Modifica valor de cantidad en un ítem de carrito de compra dado el id
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-cart.php",
+        data:{ mitem_c: iditem, q:cant },
+        success: function( response ){
+            //console.log( response );
+            obtenerCarritoCompra();
+        }
+    });
+ }
+ /* ----------------------------------------------------------------------------------- */
  function agregarItemCarrito(){
- 	//
- 	var cart = $('#frm_scart').serialize();
-
-	$.ajax({
+ 	//Agrega un ítem de compra al carrito
+ 	asignarIdItem();
+    var cart = $('#frm_scart').serialize();
+	
+    $.ajax({
         type:"POST",
         url:"fn/fn-cart.php",
         data:{ item_cart: cart },
         success: function( response ){
-        	console.log( response );
-        	$("#item_content_cart").html(response);			
+        	console.log(response);
+            obtenerCarritoCompra();			
         }
     });
  }
 
- /* ----------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------- */
+function delcartitem( item ){
+    //Invoca la eliminación de un ítem del carrito de compra ( Menú desplegable ) 
+    var html_item = $(item).attr("data-item");
+    var nitem = $(item).attr("data-idi");
+    eliminarItemCarrito( html_item, nitem );
+}
+/* ----------------------------------------------------------------------------------- */
 
 $( document ).ready(function() {	
     // ============================================================================ //
-
-	//Clic: agregar elemento de catálogo a carrito de compra
+    
+    obtenerCarritoCompra();
+	
+    //Clic: agregar elemento de catálogo a carrito de compra
     $("#add-to-cart").on( "click", function(){
     	if ( validarSeleccionCarrito() == true ){
-    		agregarItemCarrito();	
+    		
+            agregarItemCarrito();	
     	}
     	else{
     		mensajeAlerta( "#alert-msgs", "Debe seleccionar un valor de talla primero" );
     		eliminarMensaje( ".close_alert", 5000 );
     	}
+    });
+
+    //Blur: actualización de cantidad de ítem carrito de compra
+    $("#list_content_cart").on('blur', '.mq_itemcart', function(){
+        var iditem  = $(this).attr("data-idi");
+        var cant    = $(this).val();
+        
+        actualizarItemCarrito( iditem, cant );
+        
+    });
+
+    //Click: Invoca la eliminación de un ítem del carrito de compra ( página carrito )
+    $("#list_content_cart").on('click', '.e_itemcart', function(){
+        var html_e = $(this).attr("data-row");
+        var iditem = $(this).attr("data-idi");
+        
+        eliminarItemCarrito( html_e, iditem );
+
     });
 
 });

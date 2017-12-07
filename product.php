@@ -12,7 +12,8 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
-    print_r($_SESSION["cart"]);
+    
+    //imprimirCarrito();
     checkSession( '' );
     //print_r($detalle);
 ?>
@@ -32,7 +33,7 @@
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content=""/>
   <?php if( $is_p ) { ?>
-  	<title><?php echo $producto["name"]; ?>::Argyros</title>
+  	<title><?php echo $producto["name"]; ?> :: Argyros</title>
   <?php } else { ?>
   	<title>Argyros</title>
   <?php }  ?>
@@ -161,7 +162,7 @@
 										<div id="product-image" class="product-image row no_full_width col-sm-12">           
 											
 											<div class="image featured fadeInUp not-animated" data-animate="fadeInUp"> 
-												<img src="<?php echo $purl.$img_pp;?>" alt="">
+												<img id="feat_img_producto" src="<?php echo $purl.$img_pp;?>" alt="">
 											</div>
 
 											<!-- Galería de imágenes de un detalle de producto -->
@@ -355,8 +356,12 @@
 																		<!-- /.Bloque selección cantidad -->
 																    </th>
 																    <div id="data_cart" class="hidden">
+																    	<input type="hidden" id="idi_cart" name="idicart" value="<?php echo $pre_pp; ?>">
 																    	<input type="hidden" id="idprod" name="idproducto" value="<?php echo $pid; ?>">
 																    	<input type="hidden" id="iddetalle" name="iddetalle" value="<?php echo $detalle[0]["id"]; ?>">
+																    	<input type="hidden" id="nproducto" name="nombre_producto" value="<?php echo $producto["name"]; ?>">
+																    	<input type="hidden" id="dproducto" name="descripcion_producto" value="<?php echo $producto["description"]; ?>">
+																    	<input type="hidden" id="imgproducto" name="img_producto" value="<?php echo $img_pp; ?>">
 																    	<input type="hidden" id="stalla" name="seltalla" value="">
 																    	<input type="hidden" id="vprice_cart" name="unit_price" value="<?php echo $pre_pp; ?>">
 																    </div>

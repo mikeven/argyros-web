@@ -11,6 +11,7 @@
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
+    include( "fn/fn-cart.php" );
     
     checkSession( '' );
 ?>
@@ -57,6 +58,8 @@
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
+	
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templatePage notouch">

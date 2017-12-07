@@ -6,7 +6,7 @@
 			<div class="num-items-in-cart">
 				<span class="icon">
 				  <i class="fa fa-2 fa-shopping-cart"></i>
-				  <span class="number">0</span>
+				  <span id="nitems_cart_drop" class="number">0</span>
 				</span>
 			</div>
 		</a>
@@ -18,11 +18,11 @@
 				</div>
 
 				<div class="subtotal">
-					<span>Subtotal: </span><span class="cart-total-right"> $0.00</span>
+					<span>Subtotal: $</span><span id="total_price_cart" class="cart-total-right total_price_cart">0.00</span>
 				</div>
 				<div class="action">
 					<button class="btn" onclick="window.location='#!'">Checkout</button>
-					<a class="btn btn-1" href="#!">Ver carrito</a>
+					<a class="btn btn-1" href="cart.php">Ver carrito</a>
 				</div>
 			</div>
 		</div>

@@ -152,6 +152,7 @@
 	
 		$_SESSION["login"] = 1;
 		$_SESSION["user"] = $data_user;
+		$_SESSION["cart"] = array();
 		//registrarInicioSesion( $data_user, $dbh );
 		$login = true; 
 
@@ -262,6 +263,7 @@
 		//include( "bd.php" );
 		unset( $_SESSION["login"] );
 		unset( $_SESSION["user"] );
+		unset( $_SESSION["cart"] );
 		echo "<script> window.location = 'index.php'</script>";		
 	}	
 	/* ----------------------------------------------------------------------------------- */

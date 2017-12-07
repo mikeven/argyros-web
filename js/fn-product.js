@@ -55,10 +55,11 @@ $( document ).ready(function() {
 	$(".select_pdetail").on( "click", function(){
 		
 		inicializarValoresSelDetalle();
-		var trg = $(this).attr("data-regdet");		//asignación de un detalle 
+		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
 		asignarPrecioFichaProducto( "detalle", $(this) );
 		$("#iddetalle").val( $(this).attr("data-select-iddet") );
+		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
     });
 
 	//Clic: selección de tallas de un detalle de producto

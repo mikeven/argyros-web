@@ -1,6 +1,6 @@
 <?php
     /*
-     * Argyros - Página de inicio de sesión
+     * Argyros - Página de registro
      * 
      */
     session_start();
@@ -9,10 +9,10 @@
 	include( "database/data-user.php" );
 	include( "database/data-system.php" );
     include( "database/data-products.php" );
+    include( "database/data-countries.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
-    include( "fn/fn-cart.php" );
     
     checkSession( '' );
 ?>
@@ -20,7 +20,7 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 
-<!-- Mirrored from demo.designshopify.com/html_jewelry/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:53:17 GMT -->
+<!-- Mirrored from demo.designshopify.com/html_jewelry/account.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:53:16 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="UTF-8">
@@ -28,10 +28,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content="" />
-  <title>Inicio de sesión::Argyros</title>
+  <title>Mi cuenta::Argyros</title>
   
-<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
-	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
+    <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
 	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 	
 	<link href="assets/stylesheets/bootstrap.min.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.bootstrap.3x.css" rel="stylesheet" type="text/css" media="all">
@@ -57,18 +56,12 @@
 	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
-	<!-- Tooltips -->
-	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
 
 	<!-- Select -->
 	<script src="assets/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
 
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
-	<script src="js/fn-cart.js" type="text/javascript"></script>
-	<script src="js/fn-ui.js" type="text/javascript"></script>
-
-	<style> #alert-msgs{ display: none; } </style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
@@ -86,7 +79,7 @@
 							<div class="col-md-24">
 								<a href="index.php" class="homepage-link" title="Back to the frontpage">Inicio</a>
 								<span>/</span>
-								<span class="page-title">Inicio de sesión</span>
+								<span class="page-title">Mi cuenta</span>
 							</div>
 						</div>
 					</div>
@@ -95,99 +88,142 @@
 					<div class="container">
 						<div class="row">
 							<div id="page-header" class="col-md-24">
-								<h1 id="page-title">Inicio de sesión</h1> 
+								<h1 id="page-title">Mi cuenta</h1> 
 							</div>
-							<div id="col-main" class="col-md-24 register-page clearfix">
-								<div class="row checkout-form">
-									<div class="col-md-12 row-left">
-										<!-- Customer Account Login -->
-										<div id="customer-login">
-											<div class="checkout-title">
-												<span class="general-title">Ingreso de clientes</span>
+							<div class="col-sm-6 col-md-6">
+								<?php if( isset( $_SESSION["login"] ) ) { ?>
+								<div class="group_sidebar">
+									<div class="row sb-wrapper unpadding-top">
+										<h4 class="sb-title">Datos de la cuenta</h4>
+										<span class="mini-line"></span>
+										<ul id="customer_detail" class="list-unstyled sb-content">
+											<li>
+											<address class="clearfix">
+											<div class="info">
+												<i class="fa fa-user"></i>
+												<span class="address-group">
+													<span class="author">
+														<?php echo $_SESSION["user"]["first_name"]?>
+													</span>
+													<span class="email">
+														<?php echo $_SESSION["user"]["email"]?>
+													</span>
+												</span>
 											</div>
-											<form method="post" id="frm_login" accept-charset="UTF-8" data-toggle="validator">
-												
-												<input type="hidden" value="customer_login" name="form_type"><input type="hidden" name="utf8" value="✓">
-												
-												<?php include( "sections/alert-msg.html" ); ?>
-
-												<ul id="login-form" class="list-unstyled">
-													<li class="clearfix"></li>
-													<li id="login_email" class="col-md-21">
-													<label class="control-label" for="customer_email">Email<span class="req">*</span></label>
-													<input type="email" value="" name="email" id="customer_email" class="form-control">
-													</li>
-													<li class="clearfix"></li>
-													<li id="login_password" class="col-md-21">
-													<label class="control-label" for="customer_password">Password <span class="req">*</span></label>
-													<input type="password" value="" name="password" id="customer_password" class="form-control password">
-													</li>
-													<li class="col-md-21 unpadding-top">
-													<ul class="login-wrapper list-unstyled">
-														<li>
-															<button id="btn_login" class="btn" type="submit">Ingresar</button>
-														</li>
-														<li>
-															<a href="javascript:;" onclick="">¿ Recuperar contraseña ?</a>
-														</li>
-														<li>
-															<a href="register.php">Registrarse</a>
-														</li>
-													</ul>
-													</li>
-													<div id="rrss"></div>
-												</ul>
-											</form>
-										</div>
-										<!-- Password Recovery -->
-										<div id="recover-password" style="display: none;">
-											<div class="checkout-title">
-												<span class="general-title">Reset Password</span>
-												<span class="line"></span>
+											<div class="address">
+												<span class="address-group">
+												<span class="address1">Ung Van Khiem, Ho Chi Minh city, Vietnam<span class="phone-number"></span></span>
+												</span>
 											</div>
-											<p class="note">
-												We will send you an email to reset your password.
-											</p>
-											<form method="post" action="http://demo.designshopify.com/account/recover" accept-charset="UTF-8">
-												<input type="hidden" value="recover_customer_password" name="form_type"><input type="hidden" name="utf8" value="✓">
-												<ul id="recover-form" class="list-unstyled clearfix">
-													<li class="clearfix"></li>
-													<li id="recover_email" class="col-md-21">
-													<label class="control-label">Email Address <span class="req">*</span></label>
-													<input type="email" value="" name="email" id="recover-email" class="form-control">
-													</li>
-													<li class="col-md-21 unpadding-top">
-													<ul class="login-wrapper list-unstyled">
-														<li>
-														<a class="action" href="javascript:;" onclick="hideRecoverPasswordForm()">Return to login?</a>
-														or <a class="return" href="index-2.html">Return to store</a>
-														</li>
-														<li>
-														<button class="btn btn-1" type="submit">Submit</button>
-														</li>
-													</ul>
-													</li>
-												</ul>
-											</form>
-										</div>
+											</address>
+											</li>
+											<li>
+											<button class="btn btn-1" id="btn_edit_profile">Editar datos</button>
+											</li>
+										</ul>
 									</div>
 								</div>
-							</div>   
+								<?php } else { ?>
+								<p>Ingresa a tu cuenta para acceder a tus datos</p>
+								<a href="login.php" class="btn">Iniciar sesión</a>
+								<?php } ?>
+							</div>
+							
+							<div id="col-main" class="account-page col-sm-18 col-md-18 clearfix">
+								<?php if( isset( $_SESSION["login"] ) ) { ?>
+								<div id="customer_orders">
+									<h4 class="sb-title">Historial de órdenes</h4>
+									<span class="mini-line"></span>
+									<div class="row wrap-table">
+										<table class="table-hover">
+										<thead>
+										<tr>
+											<th class="order_number">
+												Order
+											</th>
+											<th class="date">
+												Date
+											</th>
+											<th class="payment_status">
+												Payment Status
+											</th>
+											<th class="fulfillment_status">
+												Fulfillment Status
+											</th>
+											<th class="total">
+												Total
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr class="odd ">
+											<td>
+												<a href="#" title="">#1001</a>
+											</td>
+											<td>
+												<span class="note">Oct, 30 2015</span>
+											</td>
+											<td>
+												<span class="status_authorized">authorized</span>
+											</td>
+											<td>
+												<span class="status_unfulfilled">unfulfilled</span>
+											</td>
+											<td>
+												<span class="total">$668.00</span>
+											</td>
+										</tr>
+										<tr class="odd ">
+											<td>
+												<a href="#" title="">#1002</a>
+											</td>
+											<td>
+												<span class="note">Oct, 30 2015</span>
+											</td>
+											<td>
+												<span class="status_authorized">authorized</span>
+											</td>
+											<td>
+												<span class="status_unfulfilled">unfulfilled</span>
+											</td>
+											<td>
+												<span class="total">$668.00</span>
+											</td>
+										</tr>
+										<tr class="odd ">
+											<td>
+												<a href="#" title="">#1003</a>
+											</td>
+											<td>
+												<span class="note">Oct, 30 2015</span>
+											</td>
+											<td>
+												<span class="status_authorized">authorized</span>
+											</td>
+											<td>
+												<span class="status_unfulfilled">unfulfilled</span>
+											</td>
+											<td>
+												<span class="total">$668.00</span>
+											</td>
+										</tr>
+										</tbody>
+										</table>
+									</div>
+								</div>
+								<?php } ?>
+							</div>  
 						</div>
 					</div>
 				</section>        
 			</div>
 		</div>
 	</div>
+
 	<!-- Validator -->
 	<script src="assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js" type="text/javascript"></script>
-	<?php include("sections/footer.php"); ?>
 	
-	<?php if( isset( $_GET["err"] ) ){ ?>
-		<script>
-			mensajeAlerta( "#alert-msgs", "USUARIO O CONTRASEÑA INCORRECTA, CHEQUEE SUS CREDENCIALES" );
-		</script>
-	<?php } ?>
-	
+	<!-- Footer -->
 	<?php include("sections/footer.php"); ?>
+
 </body>
