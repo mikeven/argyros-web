@@ -9,7 +9,12 @@
 			echo $e["idicart"]."<br>";
 		}
 	}
-
+	/* ----------------------------------------------------------------------------------- */
+	function vaciarCarrito(){
+		//Reinicia el vector de sesión del carrito de compra
+		$_SESSION["cart"] = array();
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function eliminarItemCarrito( $pos ){
 		//Elimina un item de la sesión de carrito de compra
 		unset( $_SESSION["cart"][$pos] );
@@ -30,6 +35,17 @@
 	function obtenerTotalItem( $item ){
 		//Devuelve el monto de un ítem de carrito de compra
 		return $item["quantity"] * $item["unit_price"];
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerMontoTotalCarritoCompra(){
+		//Devuelve el monto total del carrito de compra
+
+		$carrito = $_SESSION["cart"];
+		$total_cart = 0.00;
+
+		foreach ( $carrito as $item )	
+			$total_cart += obtenerTotalItem( $item ); 
+		return $total_cart;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function escribirItem( $n, $base_i, $item ){

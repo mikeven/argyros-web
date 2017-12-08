@@ -105,7 +105,7 @@
 					</form>
 				</div>
 			</li>					
-			<li class="umbrella hidden-xs">
+			<li id="cart-drop-icon" class="umbrella hidden-xs">
 				<?php include( "drop-cart.php" ); ?>
 				<!-- Carrito de compras -->
 			</li>		  		 

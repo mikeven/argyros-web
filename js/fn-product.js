@@ -68,6 +68,7 @@ $( document ).ready(function() {
 		var trg = $(this).attr("data-trg");
 		$("#" + trg).html( $(this).attr("data-peso") );
 		$("#stalla").val( $(this).attr("data-value") );
+		$("#vidseltalla").val( $(this).attr("data-idt") );
 		asignarPrecioFichaProducto( "talla", $(this) );
     });
 	

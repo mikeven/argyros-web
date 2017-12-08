@@ -567,7 +567,7 @@ h6.general-title{text-align:center;margin-top:57px;margin-bottom:67px;}
 .home-collection-wrapper.sb-wrapper ul > li a > span.collection-count{padding-left:0;}
 .sb-wrapper ul.sb-content a{color:#808080;font-style:normal;font-weight:500;text-transform:capitalize;}
 .sb-wrapper ul.sb-content a:hover,
-.sb-wrapper ul.sb-content a:focus{color:#a7b239;font-style:normal;}
+.sb-wrapper ul.sb-content a:focus{color:#fff;font-style:normal;} /*modified: color:#a7b239;*/
 .home-collection-wrapper.sb-wrapper ul > li{border-bottom:1px solid #eaeaea;padding:12px 0;}
 .home-collection-wrapper.sb-wrapper ul > li:last-child{border:none;padding-bottom:0;}
 .home-collection-wrapper.sb-wrapper ul > li:first-child{padding-top:0;}

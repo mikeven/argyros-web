@@ -318,7 +318,8 @@
 																			class="swatch-element medium available seltdp" 
 																			data-trg="rtallp<?php echo $pdet["id"]; ?>" data-peso="<?php echo $ptalla["peso"]; ?> gr" 
 																			data-tprecio="<?php echo $pdet["tipo_precio"]; ?>"
-																			data-precio="<?php echo $ptalla["precio"]; ?>">
+																			data-precio="<?php echo $ptalla["precio"]; ?>"
+																			data-idt="<?php echo $ptalla["idtalla"]; ?>">
 																				<input id="<?php echo $cn."-".$ptalla["idtalla"]; ?>" name="opt<?php echo $pdet["id"] ?>" 
 																				value="<?php echo $ptalla["talla"]; ?>" type="radio" class="sizeselector">
 																				
@@ -363,6 +364,7 @@
 																    	<input type="hidden" id="dproducto" name="descripcion_producto" value="<?php echo $producto["description"]; ?>">
 																    	<input type="hidden" id="imgproducto" name="img_producto" value="<?php echo $img_pp; ?>">
 																    	<input type="hidden" id="stalla" name="seltalla" value="">
+																    	<input type="hidden" id="vidseltalla" name="idseltalla" value="">
 																    	<input type="hidden" id="vprice_cart" name="unit_price" value="<?php echo $pre_pp; ?>">
 																    </div>
 																    <th valign="bottom">

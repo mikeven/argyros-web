@@ -7,6 +7,7 @@
     ini_set( 'display_errors', 1 );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
+	include( "database/data-order.php" );
 	include( "database/data-system.php" );
     include( "database/data-products.php" );
     include( "database/data-countries.php" );
@@ -15,6 +16,8 @@
     include( "fn/fn-catalog.php" );
     
     checkSession( '' );
+    $ordenes = obtenerOrdenesUsuario( $dbh, $_SESSION["user"]["id"] );
+    
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -90,7 +93,7 @@
 							<div id="page-header" class="col-md-24">
 								<h1 id="page-title">Mi cuenta</h1> 
 							</div>
-							<div class="col-sm-6 col-md-6">
+							<div class="col-sm-6 col-md-6 sidebar">
 								<?php if( isset( $_SESSION["login"] ) ) { ?>
 								<div class="group_sidebar">
 									<div class="row sb-wrapper unpadding-top">
@@ -139,16 +142,13 @@
 										<thead>
 										<tr>
 											<th class="order_number">
-												Order
+												Orden
 											</th>
 											<th class="date">
-												Date
+												Fecha
 											</th>
 											<th class="payment_status">
-												Payment Status
-											</th>
-											<th class="fulfillment_status">
-												Fulfillment Status
+												Status
 											</th>
 											<th class="total">
 												Total
@@ -156,57 +156,22 @@
 										</tr>
 										</thead>
 										<tbody>
-										<tr class="odd ">
+										<?php foreach ( $ordenes as $orden ) { ?>
+										<tr class="odd">
 											<td>
-												<a href="#" title="">#1001</a>
+												<a href="#" title="">#Pedido <?php echo $orden["id"] ?></a>
 											</td>
 											<td>
-												<span class="note">Oct, 30 2015</span>
+												<span class="note"><?php echo $orden["fecha"] ?></span>
 											</td>
 											<td>
-												<span class="status_authorized">authorized</span>
+												<span class="status_authorized"><?php echo $orden["estado"] ?></span>
 											</td>
 											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
+												<span class="status_unfulfilled"><?php echo $orden["total"] ?></span>
 											</td>
 										</tr>
-										<tr class="odd ">
-											<td>
-												<a href="#" title="">#1002</a>
-											</td>
-											<td>
-												<span class="note">Oct, 30 2015</span>
-											</td>
-											<td>
-												<span class="status_authorized">authorized</span>
-											</td>
-											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
-											</td>
-										</tr>
-										<tr class="odd ">
-											<td>
-												<a href="#" title="">#1003</a>
-											</td>
-											<td>
-												<span class="note">Oct, 30 2015</span>
-											</td>
-											<td>
-												<span class="status_authorized">authorized</span>
-											</td>
-											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
-											</td>
-										</tr>
+										<?php } ?>
 										</tbody>
 										</table>
 									</div>

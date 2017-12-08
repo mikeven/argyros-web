@@ -13,7 +13,10 @@
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
-    
+    include( "fn/fn-cart.php" );
+
+    $carrito = $_SESSION["cart"];
+    $total = obtenerMontoTotalCarritoCompra();
     checkSession( '' );
 ?>
 <!doctype html>
@@ -27,8 +30,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
-  <meta name="description" content="" />
-  <title>Mi cuenta::Argyros</title>
+  <meta name="description" content=""/>
+  <title>Revisión de orden::Argyros</title>
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
 	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 	
@@ -60,8 +63,16 @@
 	<!-- Select -->
 	<script src="assets/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
 
+	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-order.js" type="text/javascript"></script>
+
+	<style type="text/css">
+		#col-main{ margin-right: 70px; }
+		#col-sec{ margin: 0 auto; }
+		#cart-drop-icon{ visibility: hidden; }
+	</style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
@@ -88,37 +99,94 @@
 					<div class="container">
 						<div class="row">
 							<div id="page-header" class="col-md-24">
-								<h1 id="page-title">Mi cuenta</h1> 
+								<h1 id="page-title">Revisión de orden</h1> 
 							</div>
-							<div class="col-sm-6 col-md-6">
+							
+							<div id="col-main" class="account-page col-sm-16 col-md-16 clearfix">
+								<?php if( isset( $_SESSION["login"] ) ) { ?>
+								<div id="customer_orders">
+									<h4 class="sb-title">Contenido del pedido</h4>
+									<span class="mini-line"></span>
+									<div class="row wrap-table">
+										<table class="table-hover">
+											<thead>
+												<tr>
+													<th class="order_number">
+														Item
+													</th>
+													<th class="date">
+														Cant
+													</th>
+													<th class="payment_status">
+														Precio
+													</th>
+													<th class="fulfillment_status">
+														Subtotal
+													</th>
+												</tr>
+											</thead>
+										
+											<tbody>
+											<?php foreach ( $carrito as $item ) { ?>
+												<tr class="odd ">
+													<td>
+														<img src="<?php echo $item["img_producto"]?>" 
+														alt="<?php echo $item["nombre_producto"]?>" width="50">
+														<a href="#!" title=""><?php echo $item["nombre_producto"]?></a>
+														<div>
+														<span class="note"><?php echo $item["descripcion_producto"]?></span>
+														(Talla: <?php echo $item["seltalla"]?>)
+														</div>
+													</td>
+													<td>
+														<span class="note"><?php echo $item["quantity"]?></span>
+													</td>
+													<td>
+														<span class="note">$<?php echo $item["unit_price"]?></span>
+													</td>
+													<td align="right">
+														<span class="note">$<?php echo $item["subtotal"]?></span>
+													</td>
+												</tr>
+											<?php } ?>
+											</tbody>
+										
+										</table>
+									</div>
+								</div>
+								<?php } ?>
+							</div>
+
+							<div id="col-sec" class="col-sm-6 col-md-6 sidebar">
 								<?php if( isset( $_SESSION["login"] ) ) { ?>
 								<div class="group_sidebar">
 									<div class="row sb-wrapper unpadding-top">
-										<h4 class="sb-title">Datos de la cuenta</h4>
+										<h4 class="sb-title">Confirmar orden</h4>
 										<span class="mini-line"></span>
 										<ul id="customer_detail" class="list-unstyled sb-content">
 											<li>
 											<address class="clearfix">
 											<div class="info">
-												<i class="fa fa-user"></i>
-												<span class="address-group">
-													<span class="author">
-														<?php echo $_SESSION["user"]["first_name"]?>
-													</span>
-													<span class="email">
-														<?php echo $_SESSION["user"]["email"]?>
-													</span>
+												<i class="fa fa-archive"></i>
+												<span class="author">
+													<?php echo count( $carrito )?> ítems
 												</span>
 											</div>
 											<div class="address">
-												<span class="address-group">
-												<span class="address1">Ung Van Khiem, Ho Chi Minh city, Vietnam<span class="phone-number"></span></span>
+												<span class="author">
+													Total orden: $<?php echo $total ?>
 												</span>
 											</div>
 											</address>
 											</li>
 											<li>
-											<button class="btn btn-1" id="btn_edit_profile">Editar datos</button>
+											<?php if ( count( $_SESSION["cart"] ) > 0 ) { ?>
+												<a href="#!" id="btn_order" class="btn btn-1" 
+												id="btn_order">Hacer pedido</a>
+											<?php } else { ?>
+												<a href="account.php" id="btn_order" class="btn btn-1" 
+												id="btn_account">Ver mis órdenes</a>
+											<?php } ?>
 											</li>
 										</ul>
 									</div>
@@ -128,91 +196,7 @@
 								<a href="login.php" class="btn">Iniciar sesión</a>
 								<?php } ?>
 							</div>
-							
-							<div id="col-main" class="account-page col-sm-18 col-md-18 clearfix">
-								<?php if( isset( $_SESSION["login"] ) ) { ?>
-								<div id="customer_orders">
-									<h4 class="sb-title">Historial de órdenes</h4>
-									<span class="mini-line"></span>
-									<div class="row wrap-table">
-										<table class="table-hover">
-										<thead>
-										<tr>
-											<th class="order_number">
-												Order
-											</th>
-											<th class="date">
-												Date
-											</th>
-											<th class="payment_status">
-												Payment Status
-											</th>
-											<th class="fulfillment_status">
-												Fulfillment Status
-											</th>
-											<th class="total">
-												Total
-											</th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr class="odd ">
-											<td>
-												<a href="#" title="">#1001</a>
-											</td>
-											<td>
-												<span class="note">Oct, 30 2015</span>
-											</td>
-											<td>
-												<span class="status_authorized">authorized</span>
-											</td>
-											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
-											</td>
-										</tr>
-										<tr class="odd ">
-											<td>
-												<a href="#" title="">#1002</a>
-											</td>
-											<td>
-												<span class="note">Oct, 30 2015</span>
-											</td>
-											<td>
-												<span class="status_authorized">authorized</span>
-											</td>
-											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
-											</td>
-										</tr>
-										<tr class="odd ">
-											<td>
-												<a href="#" title="">#1003</a>
-											</td>
-											<td>
-												<span class="note">Oct, 30 2015</span>
-											</td>
-											<td>
-												<span class="status_authorized">authorized</span>
-											</td>
-											<td>
-												<span class="status_unfulfilled">unfulfilled</span>
-											</td>
-											<td>
-												<span class="total">$668.00</span>
-											</td>
-										</tr>
-										</tbody>
-										</table>
-									</div>
-								</div>
-								<?php } ?>
-							</div>  
+
 						</div>
 					</div>
 				</section>        

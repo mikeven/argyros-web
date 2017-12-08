@@ -87,7 +87,7 @@ blockquote p{font-weight:600;margin-bottom:15px;line-height:1.3em;font-size:13em
 #customer_orders table td{font-family:'Lato', sans-serif;font-weight:500;border-bottom:1px dotted #ebebeb;color:#000000;font-size:13px;}
 #customer_orders table td a{color:#000000;font-size:14px;font-weight:500;}
 #customer_orders table td .total{font-size:14px;color:#828282;}
-#customer_orders table tbody td{padding:34px 17px;}
+#customer_orders table tbody td{ padding:4px 2px; } /* modified: padding:34px 17px; */
 .status_authorized{text-transform:capitalize;color:#1e1e1e;}
 .status_unauthorized{text-transform:capitalize;color:#000000;}
 .status_fulfilled{text-transform:capitalize;color:#666666;}

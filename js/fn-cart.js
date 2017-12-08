@@ -104,12 +104,11 @@ $( document ).ready(function() {
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#add-to-cart").on( "click", function(){
     	if ( validarSeleccionCarrito() == true ){
-    		
             agregarItemCarrito();	
     	}
     	else{
     		mensajeAlerta( "#alert-msgs", "Debe seleccionar un valor de talla primero" );
-    		eliminarMensaje( ".close_alert", 5000 );
+    		clickElement( ".close_alert", 5000 );
     	}
     });
 

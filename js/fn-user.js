@@ -18,7 +18,7 @@ function registrarUsuario(){
             scroll_To();
             mensajeAlerta( "#alert-msgs", res.mje );
             if( res.exito != 1 ){
-                activarBoton( "#btn_register" );  
+                activarBoton( "#btn_register", true );  
             }
         }
     });

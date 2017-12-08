@@ -106,7 +106,7 @@
 								<h1 id="page-title">Carrito de compra</h1>
 							</div>
 							<div id="col-main" class="col-md-24 cart-page content">
-								<form action="cart.php" method="post" id="cartform" class="clearfix">
+								<form action="" method="post" id="cartform" class="clearfix">
 									<div class="row table-cart">
 										<div class="wrap-table">
 											<table class="cart-items haft-border">
@@ -156,7 +156,7 @@
 									</div>
 									<div class="clearfix">
 										<div id="checkout-proceed" class="last1 text-right">
-											<button class="btn" type="submit" id="checkout" name="checkout">Proceder</button>
+											<a href="order-review.php" class="btn" type="button" id="checkout" name="checkout">Proceder</a>
 										</div>
 									</div>
 									<!--<div class="row">
