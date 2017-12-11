@@ -165,10 +165,10 @@
 												<span class="note"><?php echo $orden["fecha"] ?></span>
 											</td>
 											<td>
-												<span class="status_authorized"><?php echo $orden["estado"] ?></span>
+												<span class="note"><?php echo $orden["estado"] ?></span>
 											</td>
 											<td>
-												<span class="status_unfulfilled"><?php echo $orden["total"] ?></span>
+												<span class="note">$<?php echo $orden["total"] ?></span>
 											</td>
 										</tr>
 										<?php } ?>
