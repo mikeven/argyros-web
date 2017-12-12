@@ -21,7 +21,7 @@
 					<span>Subtotal: $</span><span id="total_price_cart" class="cart-total-right total_price_cart">0.00</span>
 				</div>
 				<div class="action">
-					<button class="btn" onclick="window.location='#!'">Checkout</button>
+					<button class="btn" onclick="window.location='order-review.php'">Checkout</button>
 					<a class="btn btn-1" href="cart.php">Ver carrito</a>
 				</div>
 			</div>

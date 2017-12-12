@@ -12,11 +12,12 @@
     include( "database/data-products.php" );
     include( "database/data-countries.php" );
     include( "database/data-categories.php" );
+    include( "fn/fn-order.php");
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
     
     checkSession( '' );
-    $ordenes = obtenerOrdenesUsuario( $dbh, $_SESSION["user"]["id"] );
+    
     
 ?>
 <!doctype html>
@@ -121,7 +122,7 @@
 											</address>
 											</li>
 											<li>
-											<button class="btn btn-1" id="btn_edit_profile">Editar datos</button>
+												<a href="account-edit.php" class="btn btn-1" id="btn_edit_profile">Editar datos</a>
 											</li>
 										</ul>
 									</div>
@@ -159,7 +160,7 @@
 										<?php foreach ( $ordenes as $orden ) { ?>
 										<tr class="odd">
 											<td>
-												<a href="#" title="">#Pedido <?php echo $orden["id"] ?></a>
+												<a href="order.php?id=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
 											</td>
 											<td>
 												<span class="note"><?php echo $orden["fecha"] ?></span>

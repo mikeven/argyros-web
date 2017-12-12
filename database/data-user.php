@@ -42,6 +42,16 @@
 		return $valido;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerUsuarioSesion( $dbh ){
+		//Devuelve los datos del usuario con sesión iniciada
+
+		$idu = $_SESSION["user"]["id"];
+		$q = "select * from users where id = $idu";
+		//echo $q;
+		$data_user = mysqli_fetch_array( mysqli_query( $dbh, $q ) );
+		return $data_user;					
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerValoresGrupoUsuarioDefecto( $dbh ){
 		//Devuelve los multiplicadores asociados a los precios del perfil de usuario por defecto
 		$q = "select id, name, description, variable_a, variable_b, variable_c, variable_d, material 

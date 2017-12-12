@@ -113,6 +113,9 @@
 				echo mensajeRespuestaOrden();
 			}
 		}
+		else 
+			echo "Error al guardar su pedido";
+		//echo mensajeRespuestaOrden();
 	}
 	/* ----------------------------------------------------------------------------------- */
 	

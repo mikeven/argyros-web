@@ -55,6 +55,7 @@
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
 	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->

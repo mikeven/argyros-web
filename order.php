@@ -15,6 +15,9 @@
     include( "fn/fn-order.php" );
     include( "fn/fn-cart.php" );
     
+    if( !isset( $_SESSION["user"] ) ){
+		header("Location: account.php");
+	}
     $carrito = $_SESSION["cart"];
     checkSession( '' );
 ?>
@@ -34,16 +37,49 @@
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
   
-	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 	
+	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 
+	<link href="assets/stylesheets/jquery.camera.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.fancybox-buttons.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/application.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/swatch.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.owl.carousel.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/jquery.bxslider.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/bootstrap.min.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.bootstrap.3x.css" rel="stylesheet" type="text/css" media="all">
-	<link href="assets/stylesheets/cs.animate.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.global.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.style.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
-	
+	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->
+
+
 	<script src="assets/javascripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.imagesloaded.min.js" type="text/javascript"></script>
 	<script src="assets/javascripts/bootstrap.min.3x.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.camera.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.mobile.customized.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/cookies.js" type="text/javascript"></script>
+	<script src="assets/javascripts/modernizr.js" type="text/javascript"></script>  
+	<script src="assets/javascripts/application.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.owl.carousel.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.bxslider.js" type="text/javascript"></script>
+	<script src="assets/javascripts/skrollr.min.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
+	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
+	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
+	<!-- Tooltips -->
+	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
+	
+	<script src="js/fn-ui.js" type="text/javascript"></script>
+	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
@@ -69,10 +105,13 @@
 					</div>
 				</div>              
 				<section class="content">
+					
 					<div class="container">
 						<div class="row">
 							<div id="page-header" class="col-md-24">
-								<h1 id="page-title">Orden <?php echo "#".$orden["id"]?></h1> 
+								<?php if( isset($orden ) ) { ?>
+								<h1 id="page-title">Orden <?php echo "#".$orden["id"]?></h1>
+								<?php } ?>
 							</div>
 							<div id="col-main" class="address-page manage-address clearfix">								
 								<div class="clearfix">
@@ -83,7 +122,9 @@
 										<div id="parent_address_226447297" class="address_table">
 										  
 										  <div id="view_address_226447297" class="customer_address view_address clearfix">
+											<?php if( isset($orden ) ) { ?>
 											<div class="address_info col-md-14">
+												
 												<div class="info">
 													<i class="fa fa-file-text-o"></i>
 													<span class="address-group">
@@ -94,21 +135,21 @@
 													<div><?php echo $orden["nitems"]?> ítems</div>
 													</div>
 												</div>
-													
+												
 											</div>
-												<div id="tool_address_1940927491" class="address_actions col-md-10">
-													
-													<span class="action_delete">
-													<a href="#" onclick="HTML.CustomerAddress.destroy(226447297);return false" title="remove"><i class="fa fa-times"></i><span>Cancelar</span></a>
-													</span>
-												</div>
+											<div id="tool_address_1940927491" class="address_actions col-md-10">
+												<span class="action_delete">
+												<a href="#" onclick="HTML.CustomerAddress.destroy(226447297);return false" title="remove"><i class="fa fa-times"></i><span>Cancelar</span></a>
+												</span>
+											</div>
+											<?php } ?>
 										  </div>
 										</div>
 									  </div>
 
 									  <div class="col-md-12 first">
 										<div id="parent_address_226447297" class="address_table">
-										  
+										<?php if( isset($orden ) ) { ?>  
 										<table class="table-hover">
 											<thead>
 											<tr>
@@ -132,7 +173,7 @@
 											    <?php } ?>
 											</tbody>
 										</table>		
-									
+										<?php } ?>
 										</div>
 									  </div>
 
@@ -169,6 +210,7 @@
 							  </div>						
 						</div>
 					</div>
+
 				</section>        
 			</div>
 		</div>

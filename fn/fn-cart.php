@@ -6,7 +6,7 @@
 	function imprimirCarrito(){
 		$c = $_SESSION["cart"];
 		foreach ( $c as $e ) {
-			echo $e["idicart"]."<br>";
+			echo print_r($e)."<br>";
 		}
 	}
 	/* ----------------------------------------------------------------------------------- */

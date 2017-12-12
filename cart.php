@@ -49,6 +49,7 @@
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
 	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->
@@ -76,6 +77,9 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+	<style>
+		.cart-qty-group{ border: 0; }	
+	</style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCart notouch">
@@ -121,7 +125,7 @@
 											<tr class="top-labels">
 												<th> Items </th>
 												<th> Precio </th>
-												<th> Cant </th>
+												<th width="10%"> Cant </th>
 												<th> SubTotal </th>
 												<th> &nbsp; </th>
 											</tr>

@@ -5,16 +5,15 @@
 	/* ----------------------------------------------------------------------------------- */
 	
 	/* ----------------------------------------------------------------------------------- */
-	if( isset( $_GET["id"] ) ){
+	if( isset( $_GET["id"] ) && isset( $_SESSION["user"] ) ){
 		$data_orden = obtenerOrdenPorId( $dbh, $_GET["id"] );
 		$orden = $data_orden["orden"];
 		$odetalle = $data_orden["detalle"];
-	} else {
-
 	}
-
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; // Server
+	
+	if( isset( $_SESSION["user"] ) ){
+		$ordenes = obtenerOrdenesUsuario( $dbh, $_SESSION["user"]["id"] );
+	}
 	
 	/* ----------------------------------------------------------------------------------- */
 ?>

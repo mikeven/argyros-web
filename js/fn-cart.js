@@ -95,9 +95,19 @@ function delcartitem( item ){
     eliminarItemCarrito( html_item, nitem );
 }
 /* ----------------------------------------------------------------------------------- */
+function modificarCantidadCarrito( trg, cant ){
+    //Actualiza sumando o restando en 1 el campo cantidad carrito de compra
+    var valor_actual = parseInt( $( "#q" + trg ).val() );
+    var nuevo_valor = valor_actual + cant;
+    if( nuevo_valor < 1 ) nuevo_valor = 1;
+    $( "#q" + trg ).val( nuevo_valor );
+
+    return nuevo_valor;
+}
+/* ----------------------------------------------------------------------------------- */
 
 $( document ).ready(function() {	
-    // ============================================================================ //
+// =================================================================================== //
     
     obtenerCarritoCompra();
 	
@@ -128,6 +138,18 @@ $( document ).ready(function() {
         
         eliminarItemCarrito( html_e, iditem );
 
+    });
+
+    //Click: Suma en 1 el número mostrado en el campo cantidad del carrito de compra ( página carrito )
+    $("#list_content_cart").on('click', '.sum_qty_cart', function(){
+        ncant = modificarCantidadCarrito( $(this).attr("data-idi"), 1 ); 
+        actualizarItemCarrito( $(this).attr("data-idi"), ncant );     
+    });
+    
+    //Click: Resta en 1 el número mostrado en el campo cantidad del carrito de compra ( página carrito )
+    $("#list_content_cart").on('click', '.subs_qty_cart', function(){
+        ncant = modificarCantidadCarrito( $(this).attr("data-idi"), -1 );
+        actualizarItemCarrito( $(this).attr("data-idi"), ncant ); 
     });
 
 });
