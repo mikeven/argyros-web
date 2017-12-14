@@ -4,11 +4,11 @@
  */
 
  function inicializarValoresSelDetalle(){
-	//
+	
 	$("#stalla").val("");						//anula valor de talla seleccionado
  	$(".rdet_view").hide();						//oculta carruseles de imágenes de un mismo detalle de producto
 	$(".rdet_view_t").hide();					//oculta opciones de talla de un mismo detalle de producto
-	$(".rdet_prop").hide("10");					//oculta propiedades de un mismo detalle de producto
+	$(".rdet_prop").hide();						//oculta propiedades de un mismo detalle de producto
 	$(".sizeselector").prop('checked', false);	//desmarca todas las selecciones de talla
  }
 

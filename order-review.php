@@ -72,6 +72,8 @@
 		#col-main{ margin-right: 70px; }
 		#col-sec{ margin: 0 auto; }
 		#cart-drop-icon{ visibility: hidden; }
+		.oreview:hover{ color: #969d58 !important; }
+		#regresar_carrito{ padding: 10px 0; }
 	</style>
 </head>
 
@@ -161,7 +163,7 @@
 								<?php if( isset( $_SESSION["login"] ) ) { ?>
 								<div class="group_sidebar">
 									<div class="row sb-wrapper unpadding-top">
-										<h4 class="sb-title">Confirmar orden</h4>
+										<h4 class="sb-title">Confirmación de orden</h4>
 										<span class="mini-line"></span>
 										<ul id="customer_detail" class="list-unstyled sb-content">
 											<li>
@@ -181,12 +183,15 @@
 											</li>
 											<li>
 											<?php if ( count( $_SESSION["cart"] ) > 0 ) { ?>
-												<a href="#!" id="btn_order" class="btn btn-1" 
-												id="btn_order">Hacer pedido</a>
+												<a href="#!" id="btn_order" class="btn btn-1">Hacer pedido</a>
+												<div id="regresar_carrito">
+													<a href="cart.php" id="btn_order" class="oreview" 
+													id="btn_cart">Regresar al carrito</a>
+												</div>
 											<?php } else { ?>
-												<a href="account.php" id="btn_order" class="btn btn-1" 
-												id="btn_account">Ver mis órdenes</a>
+												<a href="account.php" id="btn_account" class="btn btn-1">Ver mis órdenes</a>
 											<?php } ?>
+												
 											</li>
 										</ul>
 									</div>

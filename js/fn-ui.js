@@ -30,7 +30,13 @@ function activarBoton( boton, val ){
 }
 /* ----------------------------------------------------------------------------------- */
 function ocultarElemento( elemento, t, e ){
-	$(elemento).fadeOut({ duration: t, easing: e });
+	$(elemento).fadeOut({ duration: t });
+}
+/* ----------------------------------------------------------------------------------- */
+function ocultarElementoDelay( elemento, t, delay ){
+	setTimeout(function() {
+        ocultarElemento( elemento, t );
+    }, delay );
 }
 /* ----------------------------------------------------------------------------------- */
 function mostrarContenidoElemento( elemento, contenido, t, e ){
@@ -39,7 +45,7 @@ function mostrarContenidoElemento( elemento, contenido, t, e ){
     });	
 }
 /* ----------------------------------------------------------------------------------- */
-function clickElement( id, delay ){
+function clickElemento( id, delay ){
 	setTimeout(function() {
         $(id).click();
     }, delay );

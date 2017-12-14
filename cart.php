@@ -78,7 +78,9 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<style>
-		.cart-qty-group{ border: 0; }	
+		.cart-qty-group{ border: 0; }
+		#label-msgs{ display: none; }
+		.icon-msg{ float: left; margin-right: 10px; }
 	</style>
 </head>
 
@@ -106,8 +108,12 @@
 				<section class="content">
 					<div class="container">
 						<div class="row">
-							<div id="page-header" class="col-md-24">
+							
+							<div id="page-header" class="col-md-12">
 								<h1 id="page-title">Carrito de compra</h1>
+							</div>
+							<div id="page-header" class="col-md-12">
+								<?php include( "sections/label-msg.html" ); ?>
 							</div>
 							<div id="col-main" class="col-md-24 cart-page content">
 								<form action="" method="post" id="cartform" class="clearfix">
@@ -140,11 +146,11 @@
 												<td>
 													&nbsp;
 												</td>
-												<td>
-													&nbsp;
-												</td>
 												<td class="subtotal title-1">
 													<span>Total pedido</span>
+												</td>
+												<td class="subtotal title-1">
+													<div class="total_cant_cart"></div>
 													<!--<button type="submit" id="update-cart" class="btn btn-2 hidden" name="update">Actualizar</button>-->
 												</td>
 												<td class="subtotal title-1">

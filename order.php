@@ -78,8 +78,12 @@
 	
 	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
-	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-order.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<style>
+		.action_confirm{ display: none; }
+	</style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
@@ -118,41 +122,66 @@
 								  <div id="address_tables">
 									
 									<div class="clearfix">
-									  <div class="col-md-12 first">
+									  <div class="col-md-10 first">
 										<div id="parent_address_226447297" class="address_table">
 										  
 										  <div id="view_address_226447297" class="customer_address view_address clearfix">
-											<?php if( isset($orden ) ) { ?>
+											<?php if( isset( $orden ) ) { ?>
 											<div class="address_info col-md-14">
 												
 												<div class="info">
-													<i class="fa fa-file-text-o"></i>
+													<?php echo $orden["icono_e"]; ?>
+													<input type="hidden" id="idorden" value="<?php echo $orden["id"]?>">
+													<input type="hidden" id="accion_orden" value="">
 													<span class="address-group">
 													<span class="author">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>
 													<div style="margin-left:60px">
 													<div>Total: $<?php echo $orden["total"]?></div>
 													<div><?php echo $orden["nitems"]?> ítems</div>
+													<div>Estado: <?php echo $orden["estado"]?> </div>
 													</div>
 												</div>
 												
 											</div>
 											<div id="tool_address_1940927491" class="address_actions col-md-10">
-												<span class="action_delete">
-												<a href="#" onclick="HTML.CustomerAddress.destroy(226447297);return false" title="remove"><i class="fa fa-times"></i><span>Cancelar</span></a>
+												<?php if( $orden["estado"] == "pendiente" ) { ?>
+													<span id="_a_cancel_o" class="action_delete">
+														<a id="a_cancel_o" href="#!" class="lnco" title="Cancelar" 
+														data-cnt="_a_cancel_o" data-sta="cancelado">
+															<i class="fa fa-times"></i><span>Cancelar</span>
+														</a>
+													</span>
+												<?php } ?>
+												<span id="cn_co" class="action_delete action_confirm">
+													<a id="a_cancel_conf" href="#!" title="Cancelar">
+														<span>Confirmar</span>
+													</a> &nbsp; | &nbsp;
+													<a id="cancel_cancel" href="#!" title="Cancelar" data-trg="">
+														<span>Cancelar</span>
+													</a>
 												</span>
+												<?php if( $orden["estado"] == "cancelado" ) { ?>
+													<span id="_a_cancel_ro" class="action_delete">
+														<a id="a_react_o" href="#!" class="lnco" title="Reactivar"  
+														data-cnt="_a_cancel_ro" data-sta="pendiente">
+															<i class="fa fa-history"></i><span> Reactivar</span>
+														</a>
+													</span>
+												<?php } ?>
 											</div>
 											<?php } ?>
 										  </div>
 										</div>
 									  </div>
 
-									  <div class="col-md-12 first">
+									  <div class="col-md-14 first">
 										<div id="parent_address_226447297" class="address_table">
 										<?php if( isset($orden ) ) { ?>  
 										<table class="table-hover">
 											<thead>
 											<tr>
+												<th> </th>
 												<th>Producto</th>
 												<th>Cantidad</th>
 												<th>Precio unit</th>
@@ -165,6 +194,7 @@
 											        $total_item = $r["quantity"] * $r["price"];
 											    ?>
 											    <tr>
+											      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
 											      <td><a href="#!"><?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?></a></td>
 											      <td align="center"><?php echo $r["quantity"]; ?></td>
 											      <td>$<?php echo $r["price"]; ?></td>

@@ -5,11 +5,13 @@
 /* ----------------------------------------------------------------------------------- */
  function imprimirCarritoTienda( cart ){
     //Imprime el contenido y elementos del carrito de compra
-    $("#item_content_cart").html(cart.cart);
-    $("#list_content_cart").html(cart.lpag);
     
-    $("#nitems_cart_drop").html(cart.nitems);
-    $(".total_price_cart").html(cart.total_price);
+    $("#item_content_cart").html(cart.cart);        //Impresión en la lista desplegable
+    $("#list_content_cart").html(cart.lpag);        //Impresión en la página del carrito
+    
+    $("#nitems_cart_drop").html(cart.nitems);       //Cantidad de ítems en el carrito
+    $(".total_price_cart").html(cart.total_price);  //Monto total en carrito
+    $(".total_cant_cart").html(cart.total_cant);  //Cantidad de unidades total en carrito
  }
 /* ----------------------------------------------------------------------------------- */
 function obtenerCarritoCompra(){
@@ -24,6 +26,18 @@ function obtenerCarritoCompra(){
             imprimirCarritoTienda( cart );            
         }
     });   
+}
+/* ----------------------------------------------------------------------------------- */
+function notificarCarritoActualizado(){
+    //Muestra un mensaje notificando la actulización del carrito de compras
+    
+    if( typeof( timer ) != "undefined" && timer !== null ) {
+        clearTimeout( timer );
+    }
+    mensajeAlerta( "#label-msgs", "Carrito de compras actualizado" );
+    timer = setTimeout(function() {
+        ocultarElemento( "#label-msgs", 100 );
+    }, 10000 );
 }
 /* ----------------------------------------------------------------------------------- */
  function asignarIdItem(){
@@ -67,6 +81,7 @@ function obtenerCarritoCompra(){
         success: function( response ){
             //console.log( response );
             obtenerCarritoCompra();
+            notificarCarritoActualizado();
         }
     });
  }
@@ -118,7 +133,7 @@ $( document ).ready(function() {
     	}
     	else{
     		mensajeAlerta( "#alert-msgs", "Debe seleccionar un valor de talla primero" );
-    		clickElement( ".close_alert", 5000 );
+    		clickElemento( ".close_alert", 5000 );
     	}
     });
 

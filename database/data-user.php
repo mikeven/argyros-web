@@ -73,7 +73,8 @@
 	function variablesGrupoUsuario( $dbh ){
 		//Devuelve los valores de las variables según el perfil de la cuenta en sesión o sin sesión
 		if( isset( $_SESSION["user"]["user_group_id"] ) ){
-			$grupo_u = $_SESSION["user"]["user_group_id"];
+			$usuario = obtenerUsuarioSesion( $dbh );
+			$grupo_u = $usuario["user_group_id"];
 			$var_gr_usuario = obtenerValoresGrupoUsuario( $dbh, $grupo_u );
 		}
 		else

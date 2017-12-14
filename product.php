@@ -224,7 +224,6 @@
 															  <li> </li>
 															  <li> <i class="fa fa-circle"></i>Trabajos:<?php //echo $producto["material"]; ?></li>
 															  <li> <i class="fa fa-circle"></i>Línea: <?php //echo $producto["pais"]; ?></li>
-															  
 															</ul>	
 														</div>
 													</div>

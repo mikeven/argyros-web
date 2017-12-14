@@ -25,9 +25,12 @@
 		print_r( $reg_det );		
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerImagenesDetalleProducto( $dbh, $idd ){
+	function obtenerImagenesDetalleProducto( $dbh, $idd, $limite ){
 		//Devuelve los registros de imágenes de detalle de producto
-		$q = "select id, path from images where product_detail_id = $idd";
+		$l = "";
+		if( $limite != NULL ) $l = "LIMIT $limite";
+		
+		$q = "select id, path from images where product_detail_id = $idd $l";
 		//echo $q;
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -46,9 +49,16 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerPrecioPorGramo( $var, $precio_gramo ){
+		//Devuelve el valor del precio del gramo de acuerdo al perfil de cliemte
+		$precio = $precio_gramo * $var["variable_b"];
+		
+		return number_format( $precio, 2, ".", " " );	
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorPeso( $var, $peso, $precio_gramo ){
 		//Devuelve el precio del producto por peso
-		$precio = ( $peso * $precio_gramo ) * $var["variable_b"];
+		$precio = $peso * $precio_gramo;
 		
 		return number_format( $precio, 2, ".", " " );
 	}
@@ -68,15 +78,17 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPreciosPorPesoTalla( $dbh, $var, $rdetalle ){
-		//Devuelve el valor del precio asociado de acuerdo al perfil del usuario y tipo de precio 
+		//Devuelve el valor del precio asociado de acuerdo al perfil del cliente y tipo de precio 
 		$ntallas = array();
 		$tallas = $rdetalle["sizes"];
 
 		foreach ( $tallas as $r ) {
 			if( $rdetalle["tipo_precio"] == "g" )
 				$r["precio"] = obtenerPrecioPorPeso( $var, $r["peso"], $rdetalle["precio_peso"] );
+			
 			if( $rdetalle["tipo_precio"] == "mo" )
 				$r["precio"] = obtenerPrecioPorManoObra( $var, $r["peso"], $rdetalle["precio_mo"] );
+			
 			if( $rdetalle["tipo_precio"] == "p" )
 				$r["precio"] = obtenerPrecioPorPieza( $var, $rdetalle["precio_pieza"] );
 			
@@ -105,17 +117,15 @@
 		return $peso;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerValorPrecioPorTipoPrecio( $dbh, $reg_detalle ){
+	function obtenerValorPrecioPorTipoPrecio( $dbh, $var, $reg_detalle ){
 		//Devuelve el valor del precio del producto calculado por tipo de precio y perfil de usuario
 		
-		$var_gr_usuario = variablesGrupoUsuario( $dbh );
-		$peso = obtenerPesoProducto( $dbh, $reg_detalle );
 		$precio = NULL;
 		
 		if( $reg_detalle["tipo_precio"] == "p" ){
-			$precio = obtenerPrecioPorPieza( $var_gr_usuario, $reg_detalle["precio_pieza"] );
+			$precio = obtenerPrecioPorPieza( $var, $reg_detalle["precio_pieza"] );
 		}
-		/*if( $reg_detalle["tipo_precio"] == "mo" ){
+		/*if( $reg_detalle["tipo_precio"] == "g" ){
 			$precio = obtenerPrecioPorManoObra( $var_gr_usuario, $peso, $reg_detalle["precio_mo"] );
 		}*/
 
@@ -126,10 +136,14 @@
 		//Devuelve los precios de cada registro de detalle de producto, asociado al perfil de 
 		//usuario y tipos de precio.
 		$ndetalle = array();
+		$var_gr_usuario = variablesGrupoUsuario( $dbh );
 
 		foreach ( $detalle as $det ) {
-			$precio = obtenerValorPrecioPorTipoPrecio( $dbh, $det );
-			$det["precio"] = $precio;
+			$det["precio"] = obtenerValorPrecioPorTipoPrecio( $dbh, $var_gr_usuario, $det );
+			
+			if( $det["tipo_precio"] == "g" )
+				$det["precio_peso"] = obtenerPrecioPorGramo( $var_gr_usuario, $det["precio_peso"] );
+			
 			$ndetalle[] = $det;
 		}
 		return $ndetalle;
@@ -139,7 +153,7 @@
 		//Devuelve las imagenes de cada registro de detalle de producto
 		$ndetalle = array();
 		foreach ( $detalle as $det ) {
-			$det["images"] = obtenerImagenesDetalleProducto( $dbh, $det["id"] );
+			$det["images"] = obtenerImagenesDetalleProducto( $dbh, $det["id"], NULL );
 			$ndetalle[] = $det;
 		}
 		return $ndetalle;

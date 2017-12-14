@@ -37,7 +37,7 @@ function iniciarSesion( form, mode ){
             console.log(response);
             res = jQuery.parseJSON( response );
             if( res.exito == 1 ){
-                window.location.href = "index.php";
+                location.reload();
             }else{
                 if( mode == "full" ){
                     mensajeAlerta( "#alert-msgs", res.mje );

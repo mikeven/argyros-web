@@ -48,6 +48,17 @@
 		return $total_cart;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerCantidadTotalCarritoCompra(){
+		//Devuelve total de cantidades del carrito de compra
+
+		$carrito = $_SESSION["cart"];
+		$total_cant = 0;
+
+		foreach ( $carrito as $item )	
+			$total_cant += $item["quantity"]; 
+		return $total_cant;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function escribirItem( $n, $base_i, $item ){
 		//Asigna valores de un item a la plantilla del carrito 
 		
@@ -78,7 +89,7 @@
 
 		$carrito = $_SESSION["cart"];
 		$cart = ""; $lpag = ""; 
-		$ni = 0; $total_cart = 0.00;
+		$ni = 0; $total_cart = 0.00; $total_cant = 0;
 		
 		foreach ( $carrito as $item ) {
 			
@@ -86,12 +97,14 @@
 			$content_item_pag = escribirItem( $ni, $plantilla_item_pag, $item );
 			$cart .= $content_item_dsp;
 			$lpag .= $content_item_pag; 
-			$total_cart += obtenerTotalItem( $item ); 
+			$total_cart += obtenerTotalItem( $item );
+			$total_cant += $item["quantity"];  
 			$ni++; 
 		}
 		$res["cart"] = $cart;
 		$res["lpag"] = $lpag;
 		$res["total_price"] = $total_cart;
+		$res["total_cant"] = $total_cant;
 		$res["nitems"] = count( $carrito );
 
 		mostrarCarrito( $res );	
@@ -126,7 +139,7 @@
 		$index = obtenerPosicionItem( $item["idicart"] );
 		$item["subtotal"] = obtenerTotalItem( $item );
 		
-		if( $index == -1 )
+		if( $index == -1 )	//Elemento ya encontrado en el carrito de compra
 			agregarItemCarrito( $item );
 		else
 			actualizarItemDuplicadoCarrito( $item, $index );

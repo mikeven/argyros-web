@@ -34,11 +34,23 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenesProductoOrden( $dbh, $detalle ){
+		//Devuelve las imágenes de los productos de una orden
+		$ndetalle = array();
+		foreach ( $detalle as $reg ) {
+			$data = obtenerImagenesDetalleProducto( $dbh, $reg["product_detail_id"], 1 );
+			$reg["imagen"] = $data[0]["path"];
+			$ndetalle[] = $reg;		
+		}
+		return $ndetalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerOrdenPorId( $dbh, $ido ){
 		//Devuelve el contenido de una orden, su detalle dado su id
 		$idu = $_SESSION["user"]["id"];
 		$orden["orden"] = obtenerRegistroOrdenPorId( $dbh, $ido, $idu );
 		$orden["detalle"] = obtenerDetalleOrden( $dbh, $ido );
+		$orden["detalle"] = obtenerImagenesProductoOrden( $dbh, $orden["detalle"] );
 		
 		return $orden;
 	}
@@ -95,6 +107,12 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function cambiarEstadoOrden( $dbh, $ido, $estado ){
+		//Cambia el estado de un pedido a cancelado
+		$q = "update orders set order_status = '$estado' where id = $ido";
+		echo $q;
+		return mysqli_query( $dbh, $q );
+	}
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de órdenes */
 	/* ----------------------------------------------------------------------------------- */
@@ -118,6 +136,11 @@
 		//echo mensajeRespuestaOrden();
 	}
 	/* ----------------------------------------------------------------------------------- */
-	
+	//Petición para cancelar una orden ( pedido )
+	if( isset( $_POST["status_orden"] ) ){
+		include( "../database/bd.php" );
+		
+		echo cambiarEstadoOrden( $dbh, $_POST["id_orden"], $_POST["status_orden"] );
+	}
 	/* ----------------------------------------------------------------------------------- */
 ?>
