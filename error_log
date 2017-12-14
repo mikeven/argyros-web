@@ -1,8 +1,0 @@
-[08-Dec-2017 13:03:16 America/Denver] PHP Fatal error:  Call to undefined function obtenerOrdenesUsuario() in /home4/mgideasn/public_html/argyros/account.php on line 19
-[12-Dec-2017 07:57:58 America/Denver] PHP Notice:  Undefined variable: ordenes in /home4/mgideasn/public_html/argyros/account.php on line 160
-[12-Dec-2017 07:57:58 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/mgideasn/public_html/argyros/account.php on line 160
-[12-Dec-2017 08:13:28 America/Denver] PHP Notice:  Undefined variable: cat in /home4/mgideasn/public_html/argyros/acatalog.php on line 166
-[12-Dec-2017 08:13:28 America/Denver] PHP Notice:  Undefined variable: h_ncat in /home4/mgideasn/public_html/argyros/acatalog.php on line 167
-[12-Dec-2017 08:13:28 America/Denver] PHP Notice:  Undefined variable: productos in /home4/mgideasn/public_html/argyros/acatalog.php on line 250
-[12-Dec-2017 08:13:28 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/mgideasn/public_html/argyros/acatalog.php on line 250
-[12-Dec-2017 08:51:53 America/Denver] PHP Notice:  Undefined offset: 0 in /home4/mgideasn/public_html/argyros/fn/fn-product.php on line 7
