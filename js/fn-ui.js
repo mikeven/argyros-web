@@ -19,6 +19,25 @@ function soloNumeros( evt ){
 	return respuesta;  
 }
 /* ----------------------------------------------------------------------------------- */
+/* Ventanas modales */
+	function ventanaModal( ventana, w, h ){
+		$.fancybox(
+	      $( ventana ),
+	      {
+	        'autoDimensions'    : false,
+	        'width'             : w,
+	        'height'            : h,
+	        'autoSize' 			: false,
+	        'transitionIn'      : 'none',
+	        'transitionOut'     : 'none',
+	        afterLoad: function(){
+	        	setTimeout( function() {$.fancybox.close(); }, 500000 );
+	        }
+	      }
+	    );
+	}
+/* Ventanas modales */
+/* ----------------------------------------------------------------------------------- */
 /* Mensajes de alerta */
 function mensajeAlerta( ventana, mensaje ){
     $("#body_msg").html( mensaje );

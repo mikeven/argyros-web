@@ -37,6 +37,8 @@
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
   
+	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
+  
 	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 
 	<link href="assets/stylesheets/jquery.camera.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/jquery.fancybox-buttons.css" rel="stylesheet" type="text/css" media="all">
@@ -52,7 +54,7 @@
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
-	<link href="assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
 	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->
@@ -78,11 +80,35 @@
 	
 	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
-	<script src="js/fn-order.js" type="text/javascript"></script>
+	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+	<script src="js/fn-order.js" type="text/javascript"></script>
+	<script>
+		jQuery(document).ready(function($) {
+			//ventanaModal( "#confirmar-accion", 870, 410 );
+		});
+	</script>
 
 	<style>
-		.action_confirm{ display: none; }
+		.action_confirm, .panel_desplegable{ display: none; }
+		.tit_pedido{ 
+			background: #e7e7e7;
+    		padding: 5px 10px;
+    		margin: 5px 0px;
+    	}
+    	.separador{ padding: 10px 0; }
+    	.tp_active{ background: #a7b239; }
+		.tit_pedido h2{ margin: 0; }
+		.tit_pedido:hover{ cursor: pointer; background: #a7b239; }
+		
+		.tabla-pedido tbody td, table tfoot td {
+		    padding: 5px 20px;
+		}
+		.tabla-pedido thead th, table thead td {
+		    padding: 0px 20px;
+		}
+
+		.icancelp:hover{ cursor: pointer; }
 	</style>
 </head>
 
@@ -176,35 +202,31 @@
 									  </div>
 
 									  <div class="col-md-14 first">
-										<div id="parent_address_226447297" class="address_table">
-										<?php if( isset($orden ) ) { ?>  
-										<table class="table-hover">
-											<thead>
-											<tr>
-												<th> </th>
-												<th>Producto</th>
-												<th>Cantidad</th>
-												<th>Precio unit</th>
-												<th>Total</th>
-											</tr>
-											</thead>
-											<tbody>
-												<?php 
-											      foreach ( $odetalle as $r ) {
-											        $total_item = $r["quantity"] * $r["price"];
-											    ?>
-											    <tr>
-											      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
-											      <td><a href="#!"><?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?></a></td>
-											      <td align="center"><?php echo $r["quantity"]; ?></td>
-											      <td>$<?php echo $r["price"]; ?></td>
-											      <td>$<?php echo $total_item; ?></td>
-											    </tr>
-											    <?php } ?>
-											</tbody>
-										</table>		
-										<?php } ?>
+										<div class="pop" style="display: none;">1</div>
+										<div class="tit_pedido" data-t="pedido_inicial">
+											<h2>Pedido Inicial</h2>
 										</div>
+										<div id="pedido_inicial" class="panel_desplegable">
+											<?php 
+												if( isset( $orden ) ) { 
+													include( "sections/tablas/tabla-pedido-revision.php" );
+												}
+											?>  
+										</div>
+
+										<?php if( isset( $orden ) && ( $orden["estado"] == "revisado" ) ) { ?>
+										<div class="tit_pedido" data-t="pedido_revision">
+											<h2>Pedido revisado</h2>
+										</div>
+										
+										<?php include( "sections/modal-confirmacion.html" ); ?>
+										
+										<div id="pedido_revision" class="panel_desplegable">
+											
+											<?php include( "sections/tablas/tabla-pedido-revision.php" );?>
+													
+										</div>
+									  	<?php } ?>
 									  </div>
 
 									</div>

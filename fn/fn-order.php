@@ -9,7 +9,7 @@
 		$iconos = array( 
 			"pendiente" 	=> "<i class='fa fa-clock-o'></i>",
 			"cancelado" 	=> "<i class='fa fa-ban'></i>",
-			"revisado" 		=> "fa-eye",
+			"revisado" 		=> "<i class='fa fa-eye'></i>",
 			"confirmado" 	=> "fa-bell",
 			"finalizado" 	=> "fa-arrow-right",
 		);

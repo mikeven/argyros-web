@@ -60,7 +60,7 @@
 
 $( document ).ready(function() {	
     // ============================================================================ //
-	
+
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#btn_order").on( "click", function(){
         registrarOrden();
@@ -82,6 +82,14 @@ $( document ).ready(function() {
         $("#cancel_cancel").attr( "data-trg", $(this).attr("data-cnt") );
         $("#" + $(this).attr("data-cnt") ).hide(100);
         $("#cn_co").show(100);
+    });
+
+    $(".tit_pedido").on( "click", function(){
+        $(".tit_pedido").removeClass("tp_active");
+        $(this).addClass("tp_active");
+        $(".panel_desplegable").hide();
+        var t = $(this).attr("data-t");
+        $( "#" + t ).slideToggle(200);
     });
 
 });
