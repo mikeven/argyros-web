@@ -58,9 +58,9 @@
 	/* ----------------------------------------------------------------------------------- */
 	function guardarRegistroDetalleOrden( $dbh, $orden, $reg ){
 		//Guarda un registro de detalle de orden
-		$q = "insert into order_details ( order_id, product_id, product_detail_id, 
+		$q = "insert into order_details ( order_id, product_id, product_detail_id, item_status, 
 		size_id, quantity, price, created_at ) values ( $orden[id], $reg[idproducto], $reg[iddetalle], 
-		$reg[idseltalla], $reg[quantity], $reg[unit_price], NOW() )";
+		'', $reg[idseltalla], $reg[quantity], $reg[unit_price], NOW() )";
 		
 		//echo $q;
 		$data = mysqli_query( $dbh, $q );
@@ -115,8 +115,28 @@
 		return mysqli_query( $dbh, $q );
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function cambiarEstadoItemPedidoRevisado( $dbh, $ido, $iddp, $estado ){
+		//Cambia el estado de un ítem de pedido revisado
+		$q = "update order_details set item_status = '$estado' where id = $iddp and order_id = $ido";
+		echo $q;
+		return mysqli_query( $dbh, $q );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function retirarItemsPedido( $dbh, $pedido ){
+		//Recorre los ítems del pedido y envía a actualización de estado los marcados para eliminar
+		$items = $pedido["ielims"];
+		$noper = 0;
+		foreach ( $items as $i ) {
+			if( $i != 0 )
+				$noper += cambiarEstadoItemPedidoRevisado( $dbh, $pedido["id_orden"], $i, "retirado" );	
+		}
+		return $noper;
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de órdenes */
 	/* ----------------------------------------------------------------------------------- */
+	
 	//Petición para crear un nuevo registro de orden ( pedido )
 	if( isset( $_POST["neworder"] ) ){
 		session_start();
@@ -136,12 +156,26 @@
 			echo "Error al guardar su pedido";
 		//echo mensajeRespuestaOrden();
 	}
+	
 	/* ----------------------------------------------------------------------------------- */
+	
 	//Petición para cancelar una orden ( pedido )
 	if( isset( $_POST["status_orden"] ) ){
 		include( "../database/bd.php" );
 		
 		echo cambiarEstadoOrden( $dbh, $_POST["id_orden"], $_POST["status_orden"] );
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	//Petición para modificar ítems de una orden ( pedido )
+	if( isset( $_POST["modif_pedido"] ) ){
+		include( "../database/bd.php" );
+		parse_str( $_POST["modif_pedido"], $pedido );
+		$res = retirarItemsPedido( $dbh, $pedido );
+		
+		cambiarEstadoOrden( $dbh, $pedido["id_orden"], "confirmado" );
+
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

@@ -110,19 +110,6 @@
 		}
 
 		.icancelp:hover{ cursor: pointer; }
-
-		.colrev{ background: #a7b239; }
-		.modal-dialog {
-			max-width: 400px;
-		    width: 100%;
-		}
-
-		.tabla-pedido tbody tr{
-			transition: background-color 0.5s ease;
-		}
-		#i_rmped{
-			margin-left: 15px;
-		}
 	</style>
 </head>
 
@@ -153,7 +140,7 @@
 					<div class="container">
 						<div class="row">
 							<div id="page-header" class="col-md-24">
-								<?php if( isset( $orden ) ) { ?>
+								<?php if( isset($orden ) ) { ?>
 								<h1 id="page-title">Orden <?php echo "#".$orden["id"]?></h1>
 								<?php } ?>
 							</div>
@@ -162,15 +149,16 @@
 								  <div id="address_tables">
 									
 									<div class="clearfix">
-									  <div class="col-md-8 first">
+									  <div class="col-md-10 first">
 										<div id="parent_address_226447297" class="address_table">
 										  
 										  <div id="view_address_226447297" class="customer_address view_address clearfix">
 											<?php if( isset( $orden ) ) { ?>
-											<div class="address_info col-md-24">
+											<div class="address_info col-md-14">
 												
 												<div class="info">
 													<?php echo $orden["icono_e"]; ?>
+													<input type="hidden" id="idorden" value="<?php echo $orden["id"]?>">
 													<input type="hidden" id="accion_orden" value="">
 													<span class="address-group">
 													<span class="author">Fecha: <?php echo $orden["fecha"]?></span>
@@ -214,29 +202,33 @@
 										</div>
 									  </div>
 
-									  <div class="col-md-16 first">
+									  <div class="col-md-14 first">
 										<div class="pop" style="display: none;">1</div>
-										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) ) { ?>
-										<div id="pedido_inicial">
-											<form id="frm_mpedido" name="form_pedido_modificado">
-												<input type="hidden" id="idorden" name="id_orden" 
-												value="<?php echo $orden["id"]?>">
-												<?php 
-													if( isset( $orden ) ) { 
-														include( "sections/tablas/tabla-pedido-inicial.php" );
-													}
-												?>
-											</form>
-											<?php include( "sections/modal-confirmation.html" ); ?>
+										<div class="tit_pedido" data-t="pedido_inicial">
+											<h2>Pedido Inicial</h2>
 										</div>
-										<?php } ?>
-										
-										<?php if( $orden["estado"] == "confirmado" ) { ?>
-											<div id="pedido_confirmado">
-												<?php include( "sections/tablas/tabla-pedido-confirmado.php" ); ?>
-											</div>
-										<?php } ?>
+										<div id="pedido_inicial" class="panel_desplegable">
+											<?php 
+												if( isset( $orden ) ) { 
+													include( "sections/tablas/tabla-pedido-inicial.php" );
+												}
+											?>  
+										</div>
 
+										<?php if( isset( $orden ) && ( $orden["estado"] == "revisado" ) ) { ?>
+										<div class="tit_pedido" data-t="pedido_revision">
+											<h2>Pedido revisado</h2>
+											<div id="cn_eio"></div>
+										</div>
+										
+										<?php include( "sections/modal-confirmation.html" ); ?>
+										
+										<div id="pedido_revision" class="panel_desplegable">
+											
+											<?php include( "sections/tablas/tabla-pedido-revision.php" );?>
+													
+										</div>
+									  	<?php } ?>
 									  </div>
 
 									</div>

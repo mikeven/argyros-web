@@ -10,7 +10,7 @@
 			"pendiente" 	=> "<i class='fa fa-clock-o'></i>",
 			"cancelado" 	=> "<i class='fa fa-ban'></i>",
 			"revisado" 		=> "<i class='fa fa-eye'></i>",
-			"confirmado" 	=> "fa-bell",
+			"confirmado" 	=> "<i class='fa fa-bell'></i>",
 			"finalizado" 	=> "fa-arrow-right",
 		);
 
@@ -28,7 +28,7 @@
 		$ordenes = obtenerOrdenesUsuario( $dbh, $_SESSION["user"]["id"] );
 	}
 	
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; // Server
+	//$purl = "../../argyros/trunk/admin_/"; //Localhost
+	$purl = "admin/"; // Server
 	/* ----------------------------------------------------------------------------------- */
 ?>

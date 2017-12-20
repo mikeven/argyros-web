@@ -17,7 +17,7 @@
     include( "fn/fn-catalog.php" );
     
     checkSession( '' );
-    
+	$carrito = $_SESSION["cart"];    
     
 ?>
 <!doctype html>
@@ -65,6 +65,7 @@
 	<script src="assets/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
 
 	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 </head>
 

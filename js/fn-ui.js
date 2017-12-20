@@ -76,6 +76,16 @@ $( document ).ready(function() {
 		$( "#" + trg ).fadeOut( "slow" );	
     });
 });
+/* /.Mensajes de alerta */
 
-/* Mensajes de alerta */
+/* ----------------------------------------------------------------------------------- */
+/* Ventana modal */
+function iniciarVentanaModal( val_id, idcanc, enc, texto, tx_btnok ){
+	$(".btn-ok").attr( "id", val_id );
+	$(".btn-ok").html( tx_btnok );
+	$(".btn-canc").attr( "id", idcanc );
+    $("#confirmar-accion .modal-header h6").html( enc );
+    $("#confirmar-accion #texto_pregunta").html( texto );
+}
+/* /.Ventana modal */
 // =================================================================================== //

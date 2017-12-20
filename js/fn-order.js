@@ -11,10 +11,34 @@
     $("#regresar_carrito").hide();
  }
 /* ----------------------------------------------------------------------------------- */
- function actualizarBotonConfirmarAccionOrden(){
+ function inicializarBotonConfirmacion(){
     //
-
+    iniciarVentanaModal( 
+        "btn_modificar_pedido",
+        "btn_cancelar", 
+        "Confirmar acción",             
+        "Confirme los cambios sobre el pedido",
+        "Confirmar" 
+    );
  }
+/* ----------------------------------------------------------------------------------- */
+function marcarItemPedidoRevisado( id, valor, elemento, color ){
+    //Guarda/Elimina el id del item marcado para eliminar y marca/desmarca la franja del ítem a eliminar
+    $( "#iditem" + id ).val( valor );
+    $( elemento ).css( "background", color );
+}
+/* ----------------------------------------------------------------------------------- */
+function obtenerMarcadoItem( item ){
+    //Obtiene los valores del marcado/desmarcado al seleccionar un ítem de pedido
+    var idi = $(item).attr("data-t");
+    var elemento = $( "#ir" + idi );
+     
+    var valor = 0; color = "#f7f7f7";
+    if( $( "#iditem" + idi ).val() == 0 ){
+        valor = idi; color = "#eb8f8f";
+    }
+    marcarItemPedidoRevisado( idi, valor, elemento, color );
+}
 /* ----------------------------------------------------------------------------------- */
  function mensajeRespuestaOrden( contenido ){
     //Muestra el mensaje de respuesta después de 
@@ -22,12 +46,11 @@
     $("#customer_orders").fadeOut( 500, "easeInOutQuart", function(){
         /* container is now hidden so change the html and fade it back in */
         $(this).html( contenido ).fadeIn({ duration: 300, easing: "easeInOutQuart" });
-        
     });
  }
 /* ----------------------------------------------------------------------------------- */
  function registrarOrden(){
-    //Invoca el registro de un pedido
+    //Invoca el registro de un pedido nuevo
     $.ajax({
         type:"POST",
         url:"database/data-order.php",
@@ -57,10 +80,31 @@
     });
  }
 /* ----------------------------------------------------------------------------------- */
+function registrarCambiosPedido(){
+    //Invoca el registro de los cambios realizados a un pedido
+    form = $("#frm_mpedido").serialize();
+    $.ajax({
+        type:"POST",
+        url:"database/data-order.php",
+        data:{ modif_pedido: form },
+        beforeSend: function (){
+            $( "#btn_cancelar").click();
+            $("#i_rmped").html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
+        },
+        success: function( response ){
+            $("#i_rmped").html("");
+            console.log( response );
+            location.reload();
+        }
+    });
+}
+/* ----------------------------------------------------------------------------------- */
 
 $( document ).ready(function() {	
-    // ============================================================================ //
+    // =============================================================================== //
 
+    inicializarBotonConfirmacion();
+    
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#btn_order").on( "click", function(){
         registrarOrden();
@@ -76,14 +120,16 @@ $( document ).ready(function() {
     $("#a_cancel_conf").on( "click", function(){
         cambiarEstadoOrden();
     });
-
+    
+    //Clic: 
     $(".lnco").on( "click", function(){
         $("#accion_orden").val( $(this).attr("data-sta") );
         $("#cancel_cancel").attr( "data-trg", $(this).attr("data-cnt") );
         $("#" + $(this).attr("data-cnt") ).hide(100);
         $("#cn_co").show(100);
     });
-
+    
+    //Clic:
     $(".tit_pedido").on( "click", function(){
         $(".tit_pedido").removeClass("tp_active");
         $(this).addClass("tp_active");
@@ -91,7 +137,20 @@ $( document ).ready(function() {
         var t = $(this).attr("data-t");
         $( "#" + t ).slideToggle(200);
     });
-
+    
+    /* ----------------------------------------------------------------------------------- */
+    
+    //Clic: marca/desmarca un ítem para quitar del pedido 
+    $(".icancelp").on( "click", function(){
+        obtenerMarcadoItem( $(this) );    
+    });
+    /* ----------------------------------------------------------------------------------- */
+    
+    //Clic: Invoca el registro de cambios realizados a un pedido
+    $("#btn_modificar_pedido").on( "click", function(){
+        registrarCambiosPedido()
+    });
+    /* ----------------------------------------------------------------------------------- */
 });
 
 /*

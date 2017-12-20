@@ -14,15 +14,15 @@
 	      foreach ( $odetalle as $r ) {
 	        $total_item = $r["cant_rev"] * $r["price"];
 	    ?>
-	    <tr id="i<?php echo $r["id"]; ?>">
+	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
 	      <td><a href="#!"><?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?></a></td>
 	      <td align="center"><?php echo $r["cant_rev"]; ?></td>
 	      <td>$<?php echo $r["price"]; ?></td>
 	      <td>$<?php echo $total_item; ?></td>
 	      <td>
-	      	<i class="fa fa-times icancelp" data-t="i<?php echo $r["id"]; ?>" 
-	      		data-toggle="modal" data-target="#confirmar-accion"></i>
+	      	<i class="fa fa-times icancelp" data-t="ir<?php echo $r["id"]; ?>" 
+	      		data-toggle="modal" data-target="#confirmar-accion" data-idi="<?php echo $r["id"]; ?>"></i>
 	      </td>
 	    </tr>
 	    <?php } ?>

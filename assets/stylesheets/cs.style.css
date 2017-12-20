@@ -1367,7 +1367,8 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 }
 
 /*added*/
-#item_content_cart{ max-height: 240px; overflow-y:scroll; }
+	#item_content_cart{ max-height: 240px; overflow-y:scroll; }
+	.btn-conf{ background: #969d58 !important; color: #FFF; }
 /*added*/
 
 @media(min-width: 1200px){
