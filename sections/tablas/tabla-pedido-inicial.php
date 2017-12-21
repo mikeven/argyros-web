@@ -27,9 +27,13 @@
 	      </td>
 	      <td align="center"><?php echo $r["quantity"]; ?></td>
 	      <td>$<?php echo $r["price"]; ?></td>
-	      <td>$<?php echo $total_item; ?></td>
+	      <td>
+	      	$<?php echo number_format( $total_item, 2, ".", " " ); ?>
+	      	<input type="hidden" id="monto<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
+	      	<input class="sumatmp" type="hidden" id="montotmp<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
+	      </td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
-		      <td align="center"><?php echo $r["cant_rev"]; ?></td>
+		      <td align="center"><span id="qd<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span></td>
 		      <td>
 		      	<i class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>

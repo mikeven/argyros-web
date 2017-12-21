@@ -173,17 +173,19 @@
 													<?php echo $orden["icono_e"]; ?>
 													<input type="hidden" id="accion_orden" value="">
 													<span class="address-group">
-													<span class="author">Fecha: <?php echo $orden["fecha"]?></span>
+													<span class="date">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>
 													<div style="margin-left:60px">
-													<div>Total: $<?php echo $orden["total"]?></div>
+													<div>
+														Total: $<span id="monto_total_orden"><?php echo $orden["total"]?></span>
+													</div>
 													<div><?php echo $orden["nitems"]?> ítems</div>
 													<div>Estado: <?php echo $orden["estado"]?> </div>
 													</div>
 												</div>
 												
 											</div>
-											<div id="tool_address_1940927491" class="address_actions col-md-10">
+											<div id="tool_address_1940927491" class="address_actions col-md-24">
 												<?php if( $orden["estado"] == "pendiente" ) { ?>
 													<span id="_a_cancel_o" class="action_delete">
 														<a id="a_cancel_o" href="#!" class="lnco" title="Cancelar" 
@@ -216,7 +218,7 @@
 
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
-										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) ) { ?>
+										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) || ( $orden["estado"] == "cancelado" ) ) { ?>
 										<div id="pedido_inicial">
 											<form id="frm_mpedido" name="form_pedido_modificado">
 												<input type="hidden" id="idorden" name="id_orden" 
@@ -230,7 +232,7 @@
 											<?php include( "sections/modal-confirmation.html" ); ?>
 										</div>
 										<?php } ?>
-										
+
 										<?php if( $orden["estado"] == "confirmado" ) { ?>
 											<div id="pedido_confirmado">
 												<?php include( "sections/tablas/tabla-pedido-confirmado.php" ); ?>

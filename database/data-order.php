@@ -154,9 +154,7 @@
 		}
 		else 
 			echo "Error al guardar su pedido";
-		//echo mensajeRespuestaOrden();
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
 	
 	//Petición para cancelar una orden ( pedido )

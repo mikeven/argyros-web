@@ -21,11 +21,33 @@
         "Confirmar" 
     );
  }
+ /* ----------------------------------------------------------------------------------- */
+ function mostrarMontoPrevio( monto ){
+    //Muestra el monto previo después de marcar/desmarcar ítems en la revisión de pedido
+    $("#monto_total_orden").html( monto );
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function calcularTotalOrdenPrevio(){
+    //Suma los montos de los ítems no marcados para eliminar
+    monto = 0.00;
+    $(".sumatmp").each( function() {
+        monto = parseFloat( $( this ).val() ) + parseFloat( monto );
+    });
+    mostrarMontoPrevio( monto );
+ }
 /* ----------------------------------------------------------------------------------- */
 function marcarItemPedidoRevisado( id, valor, elemento, color ){
     //Guarda/Elimina el id del item marcado para eliminar y marca/desmarca la franja del ítem a eliminar
     $( "#iditem" + id ).val( valor );
     $( elemento ).css( "background", color );
+}
+/* ----------------------------------------------------------------------------------- */
+function asignarMontoDesmarcado( id, monto ){
+    //Asigna el monto del ítem al ser desmarcdo
+    var cant = $.trim( $("#qd" + id ).html() );
+    if( cant == 0 ) monto = 0.00;
+    
+    montoItemMarcado( id, monto );   
 }
 /* ----------------------------------------------------------------------------------- */
 function obtenerMarcadoItem( item ){
@@ -34,10 +56,14 @@ function obtenerMarcadoItem( item ){
     var elemento = $( "#ir" + idi );
      
     var valor = 0; color = "#f7f7f7";
+    asignarMontoDesmarcado( idi, $("#monto" + idi ).val() );
     if( $( "#iditem" + idi ).val() == 0 ){
+        //marcar para eliminar
         valor = idi; color = "#eb8f8f";
+        montoItemMarcado( idi, 0.00 );
     }
     marcarItemPedidoRevisado( idi, valor, elemento, color );
+    calcularTotalOrdenPrevio();
 }
 /* ----------------------------------------------------------------------------------- */
  function mensajeRespuestaOrden( contenido ){
@@ -48,7 +74,12 @@ function obtenerMarcadoItem( item ){
         $(this).html( contenido ).fadeIn({ duration: 300, easing: "easeInOutQuart" });
     });
  }
-/* ----------------------------------------------------------------------------------- */
+ /* ----------------------------------------------------------------------------------- */
+ function montoItemMarcado( id, val ){
+    //Asigna el valor del monto temporal de ítem de pedido
+    $("#montotmp" + id).val( val );
+ }
+ /* ----------------------------------------------------------------------------------- */
  function registrarOrden(){
     //Invoca el registro de un pedido nuevo
     $.ajax({
