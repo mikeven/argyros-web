@@ -161,7 +161,7 @@
 										<?php foreach ( $ordenes as $orden ) { ?>
 										<tr class="odd">
 											<td>
-												<a href="order.php?id=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
+												<a href="order.php?orderid=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
 											</td>
 											<td>
 												<span class="note"><?php echo $orden["fecha"] ?></span>

@@ -17,8 +17,8 @@
 		return $iconos[$estado];
 	}
 	/* ----------------------------------------------------------------------------------- */
-	if( isset( $_GET["id"] ) && isset( $_SESSION["user"] ) ){
-		$data_orden = obtenerOrdenPorId( $dbh, $_GET["id"] );
+	if( isset( $_GET["orderid"] ) && isset( $_SESSION["user"] ) ){
+		$data_orden = obtenerOrdenPorId( $dbh, $_GET["orderid"] );
 		$orden = $data_orden["orden"];
 		$odetalle = $data_orden["detalle"];
 		$orden["icono_e"] = obtenerIconoEstado( $orden["estado"] );
