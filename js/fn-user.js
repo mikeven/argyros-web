@@ -26,7 +26,7 @@ function registrarUsuario(){
 /* ----------------------------------------------------------------------------------- */
 function iniciarSesion( form, mode ){
     //Envía al servidor la petición de inicio de sesión
-    
+    //mode: full: Página de login. min: ventana emergente del menú navegación
     var form_log = form.serialize();
     
     $.ajax({
@@ -37,7 +37,12 @@ function iniciarSesion( form, mode ){
             console.log(response);
             res = jQuery.parseJSON( response );
             if( res.exito == 1 ){
-                location.reload();
+                if( mode == "full" ){
+                    //Redirigir a pantalla de cuenta de usuario
+                    window.location.href = "account.php"; 
+                }else{
+                    location.reload();
+                }
             }else{
                 if( mode == "full" ){
                     mensajeAlerta( "#alert-msgs", res.mje );

@@ -17,6 +17,17 @@
 		return $iconos[$estado];
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerTotalItemOrden( $item, $estado ){
+		//Devuelve el monto total de un ítem de acuerdo a la disponibilidad del mismo y el estatus del pedido
+
+		if( $estado == "revisado" ){
+			$monto = $item["cant_rev"] * $item["price"];
+		}else
+			$monto = $item["quantity"] * $item["price"];
+		
+		return $monto;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_GET["orderid"] ) && isset( $_SESSION["user"] ) ){
 		$data_orden = obtenerOrdenPorId( $dbh, $_GET["orderid"] );
 		$orden = $data_orden["orden"];

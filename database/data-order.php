@@ -21,6 +21,11 @@
 		return mysqli_fetch_array( $data );
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function calcularTotalOrdenRevisado(){
+		//
+			
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleOrden( $dbh, $ido ){
 		//Devuelve los registros correspondientes a un detalle de pedido dado su id
 		$q = "select od.id, od.order_id, od.product_id, od.product_detail_id, 

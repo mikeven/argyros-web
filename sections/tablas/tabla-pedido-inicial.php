@@ -4,18 +4,18 @@
 		<th> </th>
 		<th>Producto</th>
 		<th>Cantidad</th>
+		<?php if( $orden["estado"] == "revisado" ) { ?>
+			<th class="colrev">Cant Disp</th>
+		<?php } ?>
 		<th>Precio unit</th>
 		<th>Total</th>
-		<?php if( $orden["estado"] == "revisado" ) { ?>
-		<th class="colrev">Cant Disp</th>
-		<th class="colrev"> </th>
-		<?php } ?>
+		<th class="colrev_"> </th>
 	</tr>
 	</thead>
 	<tbody>
 		<?php 
 	      foreach ( $odetalle as $r ) {
-	        $total_item = $r["quantity"] * $r["price"];
+	        $total_item = obtenerTotalItemOrden( $r, $orden["estado"] );
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
@@ -26,6 +26,10 @@
 	      	</a>
 	      </td>
 	      <td align="center"><?php echo $r["quantity"]; ?></td>
+	      <?php if( $orden["estado"] == "revisado" ) { ?>
+		      <td align="center"><span id="qd<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span></td>
+		      
+	      <?php } ?>
 	      <td>$<?php echo $r["price"]; ?></td>
 	      <td>
 	      	$<?php echo number_format( $total_item, 2, ".", " " ); ?>
@@ -33,7 +37,7 @@
 	      	<input class="sumatmp" type="hidden" id="montotmp<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
 	      </td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
-		      <td align="center"><span id="qd<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span></td>
+		      
 		      <td>
 		      	<i class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>

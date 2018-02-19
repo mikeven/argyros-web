@@ -114,13 +114,13 @@
 												<ul id="login-form" class="list-unstyled">
 													<li class="clearfix"></li>
 													<li id="login_email" class="col-md-21">
-													<label class="control-label" for="customer_email">Email<span class="req">*</span></label>
-													<input type="email" value="" name="email" id="customer_email" class="form-control">
+													<label class="control-label" for="email_login">Email<span class="req">*</span></label>
+													<input type="email" value="" name="email" id="email_login" class="form-control">
 													</li>
 													<li class="clearfix"></li>
 													<li id="login_password" class="col-md-21">
-													<label class="control-label" for="customer_password">Password <span class="req">*</span></label>
-													<input type="password" value="" name="password" id="customer_password" class="form-control password">
+													<label class="control-label" for="cpassword_login">Password <span class="req">*</span></label>
+													<input type="password" value="" name="password" id="password_login" class="form-control password">
 													</li>
 													<li class="col-md-21 unpadding-top">
 													<ul class="login-wrapper list-unstyled">
