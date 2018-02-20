@@ -24,7 +24,7 @@
  /* ----------------------------------------------------------------------------------- */
  function mostrarMontoPrevio( monto ){
     //Muestra el monto previo después de marcar/desmarcar ítems en la revisión de pedido
-    $("#monto_total_orden").html( monto );
+    $(".monto_total_orden").html( monto.toFixed(2) );
  }
  /* ----------------------------------------------------------------------------------- */
  function calcularTotalOrdenPrevio(){
@@ -120,7 +120,7 @@ function registrarCambiosPedido(){
         data:{ modif_pedido: form },
         beforeSend: function (){
             $( "#btn_cancelar").click();
-            $("#i_rmped").html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
+            $( "#i_rmped" ).html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
         },
         success: function( response ){
             $("#i_rmped").html("");

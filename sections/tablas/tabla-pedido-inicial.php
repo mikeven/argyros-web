@@ -37,7 +37,6 @@
 	      	<input class="sumatmp" type="hidden" id="montotmp<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
 	      </td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
-		      
 		      <td>
 		      	<i class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>
@@ -45,13 +44,34 @@
 	      <?php } ?>
 	    </tr>
 	    <?php } ?>
+	    <tr id="monto_orden_tabla">
+	    	<td colspan="4"></td>
+	    	<td colspan="2" style="text-align:right;">
+	    		$ <span class="monto_total_orden total_order_table"> 
+	    		<?php 
+	    			if( $orden["estado"] == "pendiente" ) 	echo $orden["total"]; 
+					if( $orden["estado"] == "revisado" ) 	echo $orden["total_ajuste"]; 
+	    		?>
+	    		</span>
+	    	</td>
+	    	<td></td>
+	    </tr>
 	</tbody>
 </table>
 <?php if( $orden["estado"] == "revisado" ) { ?>
 <div class="separador"><hr></div>
 <div id="panel_confirmacion">
-	<a href="#!" data-toggle="modal" data-target="#confirmar-accion" 
-	class="btn btn-1" id="btn_conf_ped" style="float:left">Confirmar cambios en pedido</a>
+	<ul id="orden_observaciones_form" class="list-unstyled">
+		<li class="clearfix"></li>
+		<li id="li_orden_obs">
+			<label class="control-label" for="orden_obs">Observaciones</label>
+			<input type="email" value="" name="observaciones" id="orden_obs" class="form-control">
+		</li>
+	</ul>
+	<div id="b_confirmacion_pedido">
+		<a href="#!" data-toggle="modal" data-target="#confirmar-accion" 
+		class="btn btn-1" id="btn_conf_ped" style="float:left">Confirmar cambios en pedido</a>
+	</div>
 </div>
 <div id="i_rmped" style="float:left"></div>
 <?php } ?>

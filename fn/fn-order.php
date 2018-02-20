@@ -33,6 +33,7 @@
 		$orden = $data_orden["orden"];
 		$odetalle = $data_orden["detalle"];
 		$orden["icono_e"] = obtenerIconoEstado( $orden["estado"] );
+		$orden["total_ajuste"] = calcularTotalOrdenRevisada( $odetalle );
 	}
 	
 	if( isset( $_SESSION["user"] ) ){

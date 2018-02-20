@@ -12,8 +12,8 @@
 	function obtenerRegistroOrdenPorId( $dbh, $ido, $idu ){
 		//Devuelve el registro de una orden dado su id
 		$q = "select o.id, o.user_id as idu, o.total_price as total, o.total_count as nitems, 
-		o.order_status as estado, date_format( o.created_at,'%d/%m/%Y') as fecha, u.id as cid, 
-		u.first_name nombre, u.last_name as apellido, g.name as grupo_cliente 
+		o.client_note, o.admin_note, o.order_status as estado, date_format( o.created_at,'%d/%m/%Y') as fecha, 
+		u.id as cid, u.first_name nombre, u.last_name as apellido, g.name as grupo_cliente 
 		from orders o, users u, user_group g where o.user_id = u.id and u.user_group_id = g.id 
 		and o.id = $ido and o.user_id = $idu";
 
@@ -21,9 +21,14 @@
 		return mysqli_fetch_array( $data );
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function calcularTotalOrdenRevisado(){
-		//
-			
+	function calcularTotalOrdenRevisada( $detalle ){
+		//Devuelve el total de una orden después de haber sido revisado/confirmado
+		$monto = 0;
+		foreach ( $detalle as $item ) {
+			$monto += $item["cant_rev"] * $item["price"];
+		}
+
+		return $monto;		
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleOrden( $dbh, $ido ){
@@ -123,7 +128,14 @@
 	function cambiarEstadoItemPedidoRevisado( $dbh, $ido, $iddp, $estado ){
 		//Cambia el estado de un ítem de pedido revisado
 		$q = "update order_details set item_status = '$estado' where id = $iddp and order_id = $ido";
-		echo $q;
+		//echo $q;
+		return mysqli_query( $dbh, $q );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function ingresarObservacionesCliente( $dbh, $pedido ){
+		//Guarda observaciones por parte del cliente al confirmar un pedido
+		$q = "update orders set client_note = '$pedido[observaciones]' where id = $pedido[id_orden]";
+		//echo $q;
 		return mysqli_query( $dbh, $q );
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -161,24 +173,21 @@
 			echo "Error al guardar su pedido";
 	}
 	/* ----------------------------------------------------------------------------------- */
-	
 	//Petición para cancelar una orden ( pedido )
 	if( isset( $_POST["status_orden"] ) ){
 		include( "../database/bd.php" );
 		
 		echo cambiarEstadoOrden( $dbh, $_POST["id_orden"], $_POST["status_orden"] );
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-	
 	//Petición para modificar ítems de una orden ( pedido )
 	if( isset( $_POST["modif_pedido"] ) ){
 		include( "../database/bd.php" );
 		parse_str( $_POST["modif_pedido"], $pedido );
-		$res = retirarItemsPedido( $dbh, $pedido );
-		
-		cambiarEstadoOrden( $dbh, $pedido["id_orden"], "confirmado" );
 
+		$res = retirarItemsPedido( $dbh, $pedido );
+		ingresarObservacionesCliente( $dbh, $pedido );
+		cambiarEstadoOrden( $dbh, $pedido["id_orden"], "confirmado" );
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

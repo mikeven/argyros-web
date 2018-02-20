@@ -123,6 +123,9 @@
 		#i_rmped{
 			margin-left: 15px;
 		}
+		#b_confirmacion_pedido{
+			padding: 10px 0; 
+		}
 	</style>
 </head>
 
@@ -176,11 +179,28 @@
 													<span class="date">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>
 													<div style="margin-left:60px">
+													<?php if( $orden["estado"] == "pendiente" ) { ?>
 													<div>
-														Total: $<span id="monto_total_orden"><?php echo $orden["total"]?></span>
+														Total: $<span class="monto_total_orden"><?php echo $orden["total"]?></span>
 													</div>
+													<?php } ?>
+													<?php if( $orden["estado"] == "revisado" ) { ?>
+													<div>
+														Total: $<span class="monto_total_orden"><?php echo $orden["total_ajuste"]; ?></span>
+													</div>
+													<?php } ?>
+
 													<div><?php echo $orden["nitems"]?> ítems</div>
 													<div>Estado: <?php echo $orden["estado"]?> </div>
+													<hr>
+													<?php if( $orden["estado"] == "confirmado" || $orden["estado"] == "entregado" ) { ?>
+														<div><b>Observaciones del cliente: </b></div>
+														<div><?php echo $orden["client_note"]?> </div>
+													<?php } ?>
+													<?php if( $orden["estado"] == "entregado" ) { ?>	
+														<div><b>Observaciones del administrador: </b></div>
+														<div><?php echo $orden["admin_note"]?> </div>
+													<?php } ?>
 													</div>
 												</div>
 												

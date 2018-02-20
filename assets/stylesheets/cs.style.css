@@ -1369,6 +1369,15 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 /*added*/
 	#item_content_cart{ max-height: 240px; overflow-y:scroll; }
 	.btn-conf{ background: #969d58 !important; color: #FFF; }
+
+	.total_order_table{
+		text-align: right;
+		font-size: 18px;
+		font-weight: bold;
+	    font-family: 'Lato', sans-serif;
+	    color: #202020;
+	}
+
 /*added*/
 
 @media(min-width: 1200px){
