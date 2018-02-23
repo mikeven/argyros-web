@@ -84,11 +84,6 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-order.js" type="text/javascript"></script>
-	<script>
-		jQuery(document).ready(function($) {
-			//ventanaModal( "#confirmar-accion", 870, 410 );
-		});
-	</script>
 
 	<style>
 		.action_confirm, .panel_desplegable{ display: none; }

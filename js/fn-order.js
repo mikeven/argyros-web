@@ -12,7 +12,7 @@
  }
 /* ----------------------------------------------------------------------------------- */
  function inicializarBotonConfirmacion(){
-    //
+    //Asigna los valores de la ventana de confirmación para actualizar un pedido
     iniciarVentanaModal( 
         "btn_modificar_pedido",
         "btn_cancelar", 
@@ -20,6 +20,17 @@
         "Confirme los cambios sobre el pedido",
         "Confirmar" 
     );
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function marcadoAutomaticoCantidadesCero(){
+    //Chequea todas los ítems de un pedido revisado y marca en rojo los no disponibles
+    $(".qdisponibles").each( function() {
+        var cantidad = $(this).text();
+        if ( cantidad == 0 ){
+            var trg = $("#" + $(this).attr("data-xt") )
+            obtenerMarcadoItem( $(trg) );
+        }
+    });
  }
  /* ----------------------------------------------------------------------------------- */
  function mostrarMontoPrevio( monto ){
@@ -134,6 +145,7 @@ function registrarCambiosPedido(){
 $( document ).ready(function() {	
     // =============================================================================== //
 
+    marcadoAutomaticoCantidadesCero();
     inicializarBotonConfirmacion();
     
     //Clic: agregar elemento de catálogo a carrito de compra

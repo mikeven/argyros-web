@@ -27,8 +27,10 @@
 	      </td>
 	      <td align="center"><?php echo $r["quantity"]; ?></td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
-		      <td align="center"><span id="qd<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span></td>
-		      
+		      <td align="center">
+		      	<span class="qdisponibles" id="qd<?php echo $r["id"]; ?>" 
+		      	data-xt="x<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span>
+		      </td>
 	      <?php } ?>
 	      <td>$<?php echo $r["price"]; ?></td>
 	      <td>
@@ -38,7 +40,7 @@
 	      </td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
 		      <td>
-		      	<i class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
+		      	<i id="x<?php echo $r["id"]; ?>" class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>
 		      </td>
 	      <?php } ?>
