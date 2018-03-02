@@ -27,8 +27,9 @@
     $(".qdisponibles").each( function() {
         var cantidad = $(this).text();
         if ( cantidad == 0 ){
-            var trg = $("#" + $(this).attr("data-xt") )
+            var trg = $("#" + $(this).attr("data-xt") );
             obtenerMarcadoItem( $(trg) );
+            $(trg).hide();
         }
     });
  }
@@ -47,10 +48,18 @@
     mostrarMontoPrevio( monto );
  }
 /* ----------------------------------------------------------------------------------- */
-function marcarItemPedidoRevisado( id, valor, elemento, color ){
+function cambiarIconoAccionItemPedido( item, icono_class ){
+    //
+    $(item).removeClass("fa-check-circle");
+    $(item).removeClass("fa-times");
+    $(item).addClass( icono_class );
+}
+/* ----------------------------------------------------------------------------------- */
+function marcarItemPedidoRevisado( id, valor, elemento, color, item, icono_class ){
     //Guarda/Elimina el id del item marcado para eliminar y marca/desmarca la franja del ítem a eliminar
     $( "#iditem" + id ).val( valor );
     $( elemento ).css( "background", color );
+    cambiarIconoAccionItemPedido( item, icono_class );
 }
 /* ----------------------------------------------------------------------------------- */
 function asignarMontoDesmarcado( id, monto ){
@@ -66,14 +75,15 @@ function obtenerMarcadoItem( item ){
     var idi = $(item).attr("data-t");
     var elemento = $( "#ir" + idi );
      
-    var valor = 0; color = "#f7f7f7";
+    var valor = 0; color = "#f7f7f7"; icono_class = "fa-check-circle";
     asignarMontoDesmarcado( idi, $("#monto" + idi ).val() );
     if( $( "#iditem" + idi ).val() == 0 ){
         //marcar para eliminar
         valor = idi; color = "#eb8f8f";
         montoItemMarcado( idi, 0.00 );
+        icono_class = "fa-times";
     }
-    marcarItemPedidoRevisado( idi, valor, elemento, color );
+    marcarItemPedidoRevisado( idi, valor, elemento, color, item, icono_class );
     calcularTotalOrdenPrevio();
 }
 /* ----------------------------------------------------------------------------------- */

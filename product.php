@@ -12,10 +12,8 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
-    
-    //imprimirCarrito();
+   
     checkSession( '' );
-    //print_r($detalle);
 ?>
 
 <!doctype html>
@@ -369,10 +367,17 @@
 																    </div>
 																    <th valign="bottom">
 																    	<!-- Botón agregar al carrito -->
+																		<?php if( isset( $_SESSION["login"] ) ) { ?>
 																		<div class="others-bottom clearfix">
 																			<!-- <button id="add-to-cart" class="btn btn-1 add-to-cart" data-parent=".product-information" type="submit" name="add">Agregar a carrito</button>-->
 																			<a id="add-to-cart" class="action btn btn-1" href="#!">Agregar a compra</a>
 																		</div>
+																		<?php } else { ?>
+																		<div class="others-bottom clearfix">
+																			<!-- <button id="add-to-cart" class="btn btn-1 add-to-cart" data-parent=".product-information" type="submit" name="add">Agregar a carrito</button>-->
+																			<a href="login.php">Inicie sesión para comprar</a>
+																		</div>
+																		<?php } ?>
 																		<!-- /.Botón agregar al carrito -->
 																    </th> 
 																  </tr>

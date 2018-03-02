@@ -14,8 +14,10 @@
 	</thead>
 	<tbody>
 		<?php 
+		  $total_n_items = 0;
 	      foreach ( $odetalle as $r ) {
 	        $total_item = obtenerTotalItemOrden( $r, $orden["estado"] );
+	        $total_n_items += $r["cant_rev"]; 
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
@@ -40,14 +42,16 @@
 	      </td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
 		      <td>
-		      	<i id="x<?php echo $r["id"]; ?>" class="fa fa-times icancelp" data-t="<?php echo $r["id"]; ?>">
+		      	<i id="x<?php echo $r["id"]; ?>" class="fa fa-check-circle icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>
 		      </td>
 	      <?php } ?>
 	    </tr>
 	    <?php } ?>
 	    <tr id="monto_orden_tabla">
-	    	<td colspan="4"></td>
+	    	<td colspan="2"></td>
+	    	<td> <span class="total_order_table">Total </span></td>
+	    	<td> <span class="total_order_table"><?php echo $total_n_items; ?></span> </td>
 	    	<td colspan="2" style="text-align:right;">
 	    		$ <span class="monto_total_orden total_order_table"> 
 	    		<?php 
