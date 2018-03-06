@@ -14,6 +14,7 @@
     include( "fn/fn-cart.php" );
     
     checkSession( '' );
+
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -216,6 +217,7 @@
 													</ul>
 													</li>
 													<li class="sortBy">
+													<!--
 													<div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
 														<strong class="title-6">Ordenar por</strong>
 														<button id="sortButton">
@@ -234,7 +236,7 @@
 															<li class="sort" data-option-value="price-descending" data-order="desc">Precio: Mayor a menor</li>
 															
 														</ul>
-													</div>
+													</div>-->
 													</li>
 												</ul>
 											</div>
@@ -248,82 +250,31 @@
 														<h6 class="general-title">CATEGORÍAS DESTACADAS</h6>
 														<div class="home_collections_wrapper">												
 															<div id="home_collections">
+															
+															<?php foreach ( $lh_cat_ppal as $rcp ) { 
+																if( $rcp["id"] != 0 ){
+															?>
+																
 																<div class="home_collections_item">
 																	<div class="home_collections_item_inner">
 																		<div class="collection-details">
-																			<a href="collection.html" title="Browse our Earrings">
-																			<img src="assets/images/2_large.png" alt="Earrings">
-																			</a>
-																		</div>
-																		<div class="hover-overlay">
-																			<span class="col-name"><a href="collection.html">ZARCILLOS</a></span>
-																			<div class="collection-action">
-																				<a href="collection.html">VER CATÁLOGO</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="home_collections_item">
-																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="collection.html" title="Browse our Necklaces">
-																			<img src="assets/images/1_79ec3305-7c83-4daa-804c-fac19b2d1b7b_large.png" alt="Necklaces">
-																			</a>
-																		</div>
-																		<div class="hover-overlay">
-																			<span class="col-name"><a href="collection.html">COLLARES</a></span>
-																			<div class="collection-action">
-																				<a href="collection.html">VER CATÁLOGO</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="home_collections_item">
-																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="collection.html" title="Browse our Rings">
+																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="Browse our Rings">
 																			<img src="assets/images/4_large.png" alt="Rings">
 																			</a>
 																		</div>
 																		<div class="hover-overlay">
-																			<span class="col-name"><a href="collection.html">ANILLOS</a></span>
+																			<span class="col-name">
+																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"> 
+																				<?php echo $rcp["name"]; ?></a> 
+																			</span>
 																			<div class="collection-action">
-																				<a href="collection.html">VER CATÁLOGO</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-																<div class="home_collections_item">
-																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="collection.html" title="Browse our Bracelets">
-																				<img src="assets/images/3_large.png" alt="Bracelets">
-																			</a>
-																		</div>
-																		<div class="hover-overlay">
-																			<span class="col-name"><a href="collection.html">BRAZALETES</a></span>
-																			<div class="collection-action">
-																				<a href="collection.html">VER CATÁLOGO</a>
+																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
 																			</div>
 																		</div>
 																	</div>
 																</div>
 
-																<div class="home_collections_item">
-																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="collection.html" title="Browse our Bracelets">
-																				<img src="assets/images/3_large.png" alt="Bracelets">
-																			</a>
-																		</div>
-																		<div class="hover-overlay">
-																			<span class="col-name"><a href="collection.html">BRAZALETES</a></span>
-																			<div class="collection-action">
-																				<a href="collection.html">VER CATÁLOGO</a>
-																			</div>
-																		</div>
-																	</div>
-																</div>
+															<?php }} ?>	
 																
 															</div>													
 														</div>

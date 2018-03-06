@@ -25,13 +25,13 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 		$h_nscat = obtenerSubCategoriaPorUname( $dbh, $sub );
 	}
+
 	if( isset( $_GET["c"] ) && !isset( $_GET["s"] ) ){
 		$cat = $_GET["c"];
 
 		$productos = obtenerProductosC_( $dbh, oic( $dbh, $cat, 'c' ) );
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
-
 
 	$purl = "../../argyros/trunk/admin_/"; //Localhost
 	//$purl = "admin/"; //Server

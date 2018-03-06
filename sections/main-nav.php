@@ -70,7 +70,7 @@
 								
 								</li>
 								<li id="drop-catalog" class="dropdown mega-menu">
-									<a href="acatalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+									<a href="catalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Catálogo</span>
 										<!-- <i class="fa fa-caret-down"></i> -->
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
