@@ -179,22 +179,24 @@
 				<section class="content">
 					<div class="container">
 						<div class="row"> 
-							<div id="collection-content" >
-								<div id="page-header" ></div>
+							<div id="collection-content">
+								<div id="page-header"></div>
+								<!--
 								<div class="navbar-collapse">
 									<ul class="nav">
 										<li class="dropdown mega-menu">
 										<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Filtros <i class="fa fa-caret-down"></i></span>
-										<!-- <i class="fa fa-caret-down"></i> -->
+										<i class="fa fa-caret-down"></i>
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 										</a>
 										<hr>
-										<?php include( "sections/filters.php" );?>
+										<?php //include( "sections/filters.php" );?>
 										</li>
 									</ul>
 								</div>
+								-->
 								<!--<div class="collection-warper col-sm-24 clearfix"> 
 									<div class="collection-panner">
 										<img src="assets/images/collection_banner.jpg" class="img-responsive" alt="">
@@ -204,6 +206,7 @@
 									<div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
 										<div class="container-nav clearfix">
 											<div id="options" class="container-nav clearfix">
+												<!--
 												<ul class="list-inline text-right">
 													<li class="grid_list">
 													<ul class="list-inline option-set hidden-xs" 
@@ -217,7 +220,7 @@
 													</ul>
 													</li>
 													<li class="sortBy">
-													<!--
+													
 													<div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
 														<strong class="title-6">Ordenar por</strong>
 														<button id="sortButton">
@@ -236,9 +239,10 @@
 															<li class="sort" data-option-value="price-descending" data-order="desc">Precio: Mayor a menor</li>
 															
 														</ul>
-													</div>-->
+													</div>
 													</li>
 												</ul>
+												-->
 											</div>
 										</div>
 
