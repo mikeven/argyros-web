@@ -305,6 +305,17 @@
 		return $detalle;
 		
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function obtenerTallasPorCategoria( $dbh, $idc ){
+		//Devuelve las tallas asociadas a una categoría de producto
+		$q = "select id, name, unit from sizes where category_id = $idc order by name ASC";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;	
+	}
 		
 	/* ----------------------------------------------------------------------------------- */
 	function existeRegistroTallaDetalle( $dbh, $iddet, $id_talla ){

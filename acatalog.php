@@ -12,6 +12,7 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
+    include( "fn/fn-filters.php" );
     
     checkSession( '' );
 ?>
@@ -71,7 +72,7 @@
 	<script>
 		$( document ).ready(function() {
 			$("#catalog-filters").hide();
-			$("#tfilters").hover( function(){ 
+			$("#tfilters").click( function(){ 
                $("#catalog-filters").fadeToggle( 100, "linear" );
             });
             /*$("#tfilters").click( function(){ 
@@ -96,6 +97,7 @@
 		position: absolute;
 		width: 100%;
 		z-index: 998;
+
 		background: #e7e7e7 !important;
 		border:1px solid #818285;
 	}
@@ -247,7 +249,7 @@
 										<div id="sandBox-wrapper" class="group-product-item row collection-full">
 											<ul id="sandBox" class="list-unstyled">
 												<?php 
-													foreach ( $productos as $p ) {
+													foreach ( $productos as $p ) {	//$productos: fn-catalog.php
 														$img = obtenerImagenProducto( $dbh, $p["id"]);														
 												?>
 												<li class="element first no_full_width" data-alpha="Nombre del producto" data-price="25900">

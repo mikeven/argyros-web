@@ -205,8 +205,8 @@
 								<div class="collection-main-content">									
 									<div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
 										<div class="container-nav clearfix">
-											<div id="options" class="container-nav clearfix">
-												<!--
+											<!--<div id="options" class="container-nav clearfix">
+												
 												<ul class="list-inline text-right">
 													<li class="grid_list">
 													<ul class="list-inline option-set hidden-xs" 
@@ -242,8 +242,8 @@
 													</div>
 													</li>
 												</ul>
-												-->
-											</div>
+												
+											</div>-->
 										</div>
 
 										<div id="sandBox-wrapper" class="group-product-item row collection-full">
@@ -252,36 +252,35 @@
 												<div class="col-md-24">
 													<div class="home_collections">
 														<h6 class="general-title">CATEGORÍAS DESTACADAS</h6>
-														<div class="home_collections_wrapper">												
-															<div id="home_collections">
-															
-															<?php foreach ( $lh_cat_ppal as $rcp ) { 
-																if( $rcp["id"] != 0 ){
-															?>
-																
-																<div class="home_collections_item">
-																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="Browse our Rings">
-																			<img src="assets/images/4_large.png" alt="Rings">
-																			</a>
-																		</div>
-																		<div class="hover-overlay">
-																			<span class="col-name">
-																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"> 
-																				<?php echo $rcp["name"]; ?></a> 
-																			</span>
-																			<div class="collection-action">
-																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
-																			</div>
+														<?php foreach ( $lh_cat_ppal as $rcp ) { 
+															if( $rcp["id"] != 0 ){
+														?>
+															<div class="home_collections_item col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
+																<div class="home_collections_item_inner">
+																	<div class="collection-details">
+																		<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
+																		<img src="assets/images/4_large.png" alt="Rings">
+																		</a>
+																	</div>
+																	<div class="hover-overlay" align="center">
+																		<span class="col-name">
+																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"><h6> 
+																			<?php echo $rcp["name"]; ?></h6></a> 
+																		</span>
+																		<div class="collection-action hidden">
+																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
 																		</div>
 																	</div>
 																</div>
-
-															<?php }} ?>	
+															</div>
+														<?php }} ?>
+														<!--<div class="home_collections_wrapper">												
+															<div id="home_collections">
+															
+																
 																
 															</div>													
-														</div>
+														</div>-->
 													</div>
 												</div>
 													<script>
