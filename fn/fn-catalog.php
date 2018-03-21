@@ -4,6 +4,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	function oic( $dbh, $uname, $t ){
+		//Obtiene el id de las categorías dado su uname
 		if( $t == 'c' ) $tabla = "categories";
 		if( $t == 's' ) $tabla = "subcategories";
 

@@ -32,52 +32,130 @@
 				<!-- tags groupd 2 -->
 
 				<!-- tags groupd 3 -->
-				<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
-					<div class="tag-group" id="coll-filter-3">
-						<p class="title">
-							Precio producto
-						</p>
-						De
-						<input type="text" id="flt_pre_pro_min" class="form-control_" name="f_pprod_min" value="" style="width:25%">
-						Hasta
-						<input type="text" id="flt_pre_pro_max" class="form-control_" name="f_pprod_max" value="" style="width:25%">
-					</div>
-					<div class="tag-group" id="coll-filter-3">
-						<p class="title">
-							Precio por gramo
-						</p>
-						De
-						<input type="text" id="flt_pre_pes_min" class="form-control_" name="f_ppeso_min" value="" style="width:25%">
-						Hasta
-						<input type="text" id="flt_pre_pes_max" class="form-control_" name="f_ppeso_max" value="" style="width:25%">
-					</div>
-				</div>
-
-
-				<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
-				<div class="tag-group" id="coll-filter-3">
-					<p class="title">
-						Talla
-					</p>
-					<ul>
-						<?php foreach ( $filtro_tallas as $t ) { ?>
-							<li><a title="Talla 1" href="#"><span class="fe-checkbox"></span> <?php echo $t["name"]?></a></li>
-						<?php } ?>
-					</ul>
-				</div>
-				</div>
-
-
-				<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
+				
+				<div class="col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
 					<div class="tag-group" id="coll-filter-3">
 						<ul>
-							<li><a title="Baño" href="#"><span class="fe-checkbox"></span> Baño</a></li>
-							<li><a title="Trabajo" href="#"><span class="fe-checkbox"></span> Trabajo</a></li>
-							<li><a title="Línea" href="#"><span class="fe-checkbox"></span> Línea</a></li>
-							<li><a title="Color" href="#"><span class="fe-checkbox"></span> Color</a></li>
+							<li><a title="Precio producto" href="#!" class="flt_selector" data-flt-cnt="flt_precio_prod"> Precio producto</a></li>
+							<li><a title="Precio por gramo" href="#!" class="flt_selector" data-flt-cnt="flt_precio_gramo"> Precio por gramo</a></li>
+							<li><a title="Talla" href="#!" class="flt_selector" data-flt-cnt="flt_talla">Talla</a></li>
+							<li><a title="Baño" href="#!" class="flt_selector" data-flt-cnt="flt_bano">Baño</a></li>
+							<li><a title="Trabajo" href="#!" class="flt_selector" data-flt-cnt="flt_trabajo">Trabajo</a></li>
+							<li><a title="Línea" href="#!" class="flt_selector" data-flt-cnt="flt_linea"> Línea</a></li>
+							<li><a title="Color" href="#!" class="flt_selector" data-flt-cnt="flt_color"> Color</a></li>
 						</ul>						
 					</div>
 				</div>
+
+				<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
+
+					<div id="flt_precio_prod" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Precio producto
+							</p>
+							De
+							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" name="f_pprod_min" value="" style="width:50%">
+							Hasta
+							<input type="text" id="flt_pre_pro_max" class="form-control input_flt" name="f_pprod_max" value="" style="width:50%">
+							<button id="btn_mpassw" class="btn btn-2" type="button">Aceptar</button>
+						</div>
+					</div>
+
+					<div id="flt_precio_gramo" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Precio por gramo
+							</p>
+							De
+							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" name="f_ppeso_min" value="" style="width:50%">
+							Hasta
+							<input type="text" id="flt_pre_pes_max" class="form-control input_flt" name="f_ppeso_max" value="" style="width:50%">
+							<button id="btn_mpassw" class="btn btn-2" type="button">Aceptar</button>
+						</div>
+					</div>
+
+					<div id="flt_talla" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Talla
+							</p>
+							<ul>
+								<?php foreach ( $filtro_tallas as $t ) { ?>
+									<li><a title="Talla <?php echo $t["name"]?>" href="#">
+										<span class="fe-checkbox"></span> <?php echo $t["name"]?></a>
+									</li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<div id="flt_bano" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Baños
+							</p>
+							<ul>
+								<?php 
+									foreach ( $filtro_banos as $b ) { ?>
+									<li><a title="Talla 1" href="#!">
+									<span class="fe-checkbox"></span> <?php echo $b["bano"]?></a>
+									</li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<div id="flt_trabajo" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Trabajo
+							</p>
+							<ul>
+								<?php foreach ( $filtro_trabajos as $t ) { ?>
+									<li><a title="Talla 1" href="#">
+									<span class="fe-checkbox"></span> <?php echo $t["nombre"]?></a>
+									</li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<div id="flt_linea" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Línea
+							</p>
+							<ul>
+								<?php foreach ( $filtro_lineas as $l ) { ?>
+									<li><a title="Talla 1" href="#"><span class="fe-checkbox"></span> <?php echo $l["nombre"]?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<div id="flt_color" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Colores
+							</p>
+							<ul>
+								<?php foreach ( $filtro_colores as $c ) { ?>
+									<li><a title="Talla 1" href="#"><span class="fe-checkbox"></span> <?php echo $c["color"]?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+
+				<!--<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
+				
+				</div>-->
+
+
+				
 
 				<!-- tags groupd 3 -->
 			</div>

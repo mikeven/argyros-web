@@ -68,6 +68,7 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+	<script src="js/fn-filters.js" type="text/javascript"></script>
 
 	<script>
 		$( document ).ready(function() {
@@ -93,15 +94,20 @@
 	    margin-top: 20px;
 	    margin-bottom: 30px;
 	}
+
 	#catalog-filters{
 		position: absolute;
 		width: 100%;
 		z-index: 998;
-
-		background: #e7e7e7 !important;
-		border:1px solid #818285;
+		background: #f1f2ed !important;
+		border-top:1px solid #818285;
+		border-bottom:1px solid #818285;
 	}
 	
+	.tab_filtro_contenido{ display: none; }
+	.flt_selected{ color: #a7b239 !important; }
+	.input_flt{ height: 30px !important; }
+
 	.product-information #quick-shop-container .quantity-wrapper .wrapper span.qty-up, 
 	.product-information #quick-shop-container .quantity-wrapper .wrapper span.qty-down {
 	    position: absolute;

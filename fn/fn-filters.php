@@ -4,12 +4,12 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	
-	function yaAgregadoVectores( $elem, $vector, $ke, $kv ){
+	function yaAgregadoVectores( $elem, $vector, $clave ){
 		//Retorna verdadero o falso si un registro está contenido en un vector de registros comparando con una clave del registro
 
 		$contenido = false;
 		foreach ( $vector as $reg ) {
-			if( $reg[$kv] == $elem[$ke] )
+			if( $reg[$clave] == $elem[$clave] )
 				$contenido = true;	
 		}
 		return $contenido;
@@ -24,7 +24,7 @@
 		foreach ( $productos as $p ) {
 			$trabajos_p = obtenerTrabajosDeProductoPorId( $dbh, $p["id"] );
 			foreach ( $trabajos_p as $trabajo ) {
-				if( yaAgregadoVectores( $trabajo, $filtros_trab_productos, "idtrabajo", "idtrabajo" ) == false )
+				if( yaAgregadoVectores( $trabajo, $filtros_trab_productos, "idtrabajo" ) == false )
 					$filtros_trab_productos[] = $trabajo;
 			}
 		}
@@ -40,11 +40,51 @@
 		foreach ( $productos as $p ) {
 			$lineas_p = obtenerLineasDeProductoPorId( $dbh, $p["id"] );
 			foreach ( $lineas_p as $linea ) {
-				if( yaAgregadoVectores( $linea, $filtros_linea_productos, "idlinea", "idlinea" ) == false )
+				if( yaAgregadoVectores( $linea, $filtros_linea_productos, "idlinea" ) == false )
 					$filtros_linea_productos[] = $linea;
 			}
 		}
 		return $filtros_linea_productos;
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function obtenerBanosProductos( $dbh, $productos ){
+		//Devuelve los baños incluídos en los productos
+		$filtros_bano_productos = array();
+		
+		foreach ( $productos as $producto ) {
+			$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
+			foreach ( $detalle as $reg ) {
+				if( yaAgregadoVectores( $reg, $filtros_bano_productos, "id_bano" ) == false ){
+					$bano["id_bano"] = $reg["id_bano"];
+					$bano["bano"] = $reg["bano"];
+					$filtros_bano_productos[] = $bano;
+				}
+			}
+		}
+
+		return $filtros_bano_productos;
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+
+	function obtenerColoresProductos( $dbh, $productos ){
+		//Devuelve los baños incluídos en los productos
+		$filtros_color_productos = array();
+		
+		foreach ( $productos as $producto ) {
+			$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
+			foreach ( $detalle as $reg ) {
+				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
+					$color["id_color"] = $reg["id_color"];
+					$color["color"] = $reg["color"];
+					$filtros_color_productos[] = $color;
+				}
+			}
+		}
+
+		return $filtros_color_productos;
 	}
 
 	/* ----------------------------------------------------------------------------------- */
@@ -58,9 +98,10 @@
 		$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
 	}
 	
-	//$filtro_trabajos = obtenerTrabajosProductos( $dbh, $productos );
+	$filtro_trabajos = obtenerTrabajosProductos( $dbh, $productos );
 	$filtro_lineas = obtenerLineasProductos( $dbh, $productos );
-
+	$filtro_banos = obtenerBanosProductos( $dbh, $productos );
+	$filtro_colores = obtenerColoresProductos( $dbh, $productos );
 
 	$purl = "../../argyros/trunk/admin_/"; //Localhost
 	//$purl = "admin/"; // Server
