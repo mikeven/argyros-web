@@ -149,13 +149,9 @@
 
 				</div>
 
-
 				<!--<div class="col-md-8 col-sm-8 col-xs-24 fadeInUp animated">
 				
 				</div>-->
-
-
-				
 
 				<!-- tags groupd 3 -->
 			</div>

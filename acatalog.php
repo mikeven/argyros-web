@@ -84,6 +84,12 @@
             	$("#catalog-filters").fadeOut( 100, "linear" );
             });*/
 
+			var u1 = window.location.protocol;
+			var u2 = window.location.host;
+			var u3 = window.location.pathname;
+			var URLactual = window.location.pathname;
+			//alert(URLactual);
+
 		 });
 	</script>
 
@@ -203,7 +209,8 @@
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 										</a>
 										<hr>
-										<?php include( "sections/filters.php" );?>
+										<?php echo $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+										include( "sections/filters.php" );?>
 										</li>
 									</ul>
 								</div>

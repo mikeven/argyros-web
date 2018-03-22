@@ -44,7 +44,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerUsuarioSesion( $dbh ){
 		//Devuelve los datos del usuario con sesión iniciada
-
+		
 		$idu = $_SESSION["user"]["id"];
 		$q = "select * from users where id = $idu";
 		//echo $q;
