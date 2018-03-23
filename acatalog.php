@@ -209,7 +209,7 @@
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 										</a>
 										<hr>
-										<?php echo $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+										<?php
 										include( "sections/filters.php" );?>
 										</li>
 									</ul>
@@ -269,8 +269,7 @@
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left">
 														<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">
-														<!--<img src="../argyros/trunk/admin_/<?php //echo $img[0]["image"] ?>" 
-														class="img-responsive" alt="Nombre del producto">-->
+														
 														<img src="<?php echo $purl.$img[0]["image"] ?>" 
 														class="img-responsive" alt="<?php echo $p["name"] ?>">
 														<span class="sale_banner">

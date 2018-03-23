@@ -36,7 +36,7 @@
 				<div class="col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
 					<div class="tag-group" id="coll-filter-3">
 						<ul>
-							<li><a title="Precio producto" href="#!" class="flt_selector" data-flt-cnt="flt_precio_prod"> Precio producto</a></li>
+							<li><a title="Precio por pieza" href="#!" class="flt_selector" data-flt-cnt="flt_precio_prod"> Precio por pieza</a></li>
 							<li><a title="Precio por gramo" href="#!" class="flt_selector" data-flt-cnt="flt_precio_gramo"> Precio por gramo</a></li>
 							<li><a title="Talla" href="#!" class="flt_selector" data-flt-cnt="flt_talla">Talla</a></li>
 							<li><a title="Baño" href="#!" class="flt_selector" data-flt-cnt="flt_bano">Baño</a></li>
@@ -52,7 +52,7 @@
 					<div id="flt_precio_prod" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title">
-								Precio producto
+								Precio por pieza
 							</p>
 							De
 							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" name="f_pprod_min" value="" style="width:50%">
@@ -112,9 +112,11 @@
 								Trabajo
 							</p>
 							<ul>
-								<?php foreach ( $filtro_trabajos as $t ) { ?>
-									<li><a title="Talla 1" href="#">
-									<span class="fe-checkbox"></span> <?php echo $t["nombre"]?></a>
+								<?php foreach ( $filtro_trabajos as $t ) { 
+									$url_f = urlFiltro( $catalogue_url, "&tra", $t["nombre"] );
+								?>
+									<li><a title="Talla 1" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span> <?php echo $t["nombre"]; ?></a>
 									</li>
 								<?php } ?>
 							</ul>

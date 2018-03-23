@@ -73,9 +73,9 @@
 		//Devuelve los baños incluídos en los productos
 		$filtros_color_productos = array();
 		
-		foreach ( $productos as $producto ) {
+		foreach ( $productos as $producto ){
 			$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
-			foreach ( $detalle as $reg ) {
+			foreach ( $detalle as $reg ){
 				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
 					$color["id_color"] = $reg["id_color"];
 					$color["color"] = $reg["color"];
@@ -86,6 +86,14 @@
 
 		return $filtros_color_productos;
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function urlFiltro( $url_base, $param, $val ){
+		//Devuelve el url parametrizado con el filtro
+		$url_filtro = $url_base . $param . "=" . $val;
+		return $url_filtro;
+	}
 
 	/* ----------------------------------------------------------------------------------- */
 
@@ -93,7 +101,7 @@
 		
 	}
 	
-	if( isset( $_GET["c"] ) ){
+	if( isset( $_GET["c"] ) ) {
 		$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
 		$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
 	}
@@ -103,7 +111,10 @@
 	$filtro_banos = obtenerBanosProductos( $dbh, $productos );
 	$filtro_colores = obtenerColoresProductos( $dbh, $productos );
 
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; // Server
+	$catalogue_url = $_SERVER["REQUEST_URI"];
+	$urlparsed = parse_url( $catalogue_url );
+	parse_str( $urlparsed["query"], $pams );
+	//print_r( $pams );
+
 	/* ----------------------------------------------------------------------------------- */
 ?>
