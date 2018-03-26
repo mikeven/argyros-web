@@ -89,9 +89,53 @@
 	
 	/* ----------------------------------------------------------------------------------- */
 	
-	function urlFiltro( $url_base, $param, $val ){
+	function debug_to_console($data) {
+	    if(is_array($data) || is_object($data))
+		{
+			echo("<script>console.log('PHP: ".json_encode($data)."');</script>");
+		} else {
+			echo("<script>console.log('PHP: ".$data."');</script>");
+		}
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+	function paramEnUrl( $p, $url_params ){
+		//Devuelve si un parámetro está contenido en la URL
+
+		return in_array( $p, array_keys( $url_params ) );
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+
+	function valorEnParamUrl( $valor, $string_valores ){
+		//Devuelve si un valor de un parámetro está contenido en la cadena del valor del parámetro
+		return strpos( $string_valores, $valor );
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+
+	function agregarValorParametroURL( $url_params, $parametro, $valor ){
+		//Devuelve un parámetro con un valor nuevo agregado
+		$vparam = $url_params[$parametro]."_".$valor;
+		return $vparam;
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function urlFiltro( $url_base, $url_params, $param, $val ){
 		//Devuelve el url parametrizado con el filtro
-		$url_filtro = $url_base . $param . "=" . $val;
+		echo $param."=".$val;
+
+		if ( paramEnUrl( $param, $url_params ) ){
+			//Si el parámetro está incluído en la URL se agrega el valor nuevo
+			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
+				echo "VALOR";
+				$vparam = agregarValorParametroURL( $url_params, $param, $val );
+				str_replace( $url_params[$param], $vparam, $url_base );
+			}
+		}
+		$url_filtro = $url_base;
+		
 		return $url_filtro;
 	}
 
@@ -113,7 +157,7 @@
 
 	$catalogue_url = $_SERVER["REQUEST_URI"];
 	$urlparsed = parse_url( $catalogue_url );
-	parse_str( $urlparsed["query"], $pams );
+	parse_str( $urlparsed["query"], $url_params );
 	//print_r( $pams );
 
 	/* ----------------------------------------------------------------------------------- */

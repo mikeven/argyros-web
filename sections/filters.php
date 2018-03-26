@@ -113,10 +113,10 @@
 							</p>
 							<ul>
 								<?php foreach ( $filtro_trabajos as $t ) { 
-									$url_f = urlFiltro( $catalogue_url, "&tra", $t["nombre"] );
+									$url_f = urlFiltro( $catalogue_url, $url_params, "tra", $t["nombre"] );
 								?>
 									<li><a title="Talla 1" href="<?php echo $url_f; ?>">
-									<span class="fe-checkbox"></span> <?php echo $t["nombre"]; ?></a>
+									<span class="fe-checkbox"></span> <?php echo $url_f; ?></a>
 									</li>
 								<?php } ?>
 							</ul>
