@@ -96,10 +96,11 @@
 								Baños
 							</p>
 							<ul>
-								<?php 
-									foreach ( $filtro_banos as $b ) { ?>
-									<li><a title="Talla 1" href="#!">
-									<span class="fe-checkbox"></span> <?php echo $b["bano"]?></a>
+								<?php foreach ( $filtro_banos as $b ) {  
+									$url_f = urlFiltro( $catalogue_url, $url_params, "ba", trim( $b["bano"] ) );
+								?>
+									<li><a title="<?php echo $b["bano"]; ?>" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span> <?php echo $b["bano"]; ?></a>
 									</li>
 								<?php } ?>
 							</ul>
@@ -113,10 +114,10 @@
 							</p>
 							<ul>
 								<?php foreach ( $filtro_trabajos as $t ) { 
-									$url_f = urlFiltro( $catalogue_url, $url_params, "tra", $t["nombre"] );
+									$url_f = urlFiltro( $catalogue_url, $url_params, "tra", trim( $t["nombre"] ) );
 								?>
-									<li><a title="Talla 1" href="<?php echo $url_f; ?>">
-									<span class="fe-checkbox"></span> <?php echo $url_f; ?></a>
+									<li><a title="<?php echo $t["nombre"]; ?>" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span> <?php echo $t["nombre"]; ?></a>
 									</li>
 								<?php } ?>
 							</ul>
@@ -129,8 +130,12 @@
 								Línea
 							</p>
 							<ul>
-								<?php foreach ( $filtro_lineas as $l ) { ?>
-									<li><a title="Talla 1" href="#"><span class="fe-checkbox"></span> <?php echo $l["nombre"]?></a></li>
+								<?php foreach ( $filtro_lineas as $l ) {
+									$url_f = urlFiltro( $catalogue_url, $url_params, "lin", trim( $l["nombre"] ) );
+								?>
+									<li><a title="<?php echo $l["nombre"];?>" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span> <?php echo $l["nombre"]; ?></a>
+									</li>
 								<?php } ?>
 							</ul>
 						</div>
@@ -142,8 +147,12 @@
 								Colores
 							</p>
 							<ul>
-								<?php foreach ( $filtro_colores as $c ) { ?>
-									<li><a title="Talla 1" href="#"><span class="fe-checkbox"></span> <?php echo $c["color"]?></a></li>
+								<?php foreach ( $filtro_colores as $c ) { 
+									$url_f = urlFiltro( $catalogue_url, $url_params, "col", trim( $c["color"] ) );
+								?>
+									<li><a title="<?php echo $c["color"]; ?>" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span> <?php echo $c["color"]; ?></a>
+									</li>
 								<?php } ?>
 							</ul>
 						</div>

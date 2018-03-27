@@ -109,37 +109,66 @@
 
 	function valorEnParamUrl( $valor, $string_valores ){
 		//Devuelve si un valor de un parámetro está contenido en la cadena del valor del parámetro
+		
 		return strpos( $string_valores, $valor );
 	}
 
 	/* ----------------------------------------------------------------------------------- */
 
+	function agregarParametroConValorURL( $url_params, $parametro, $valor ){
+		//Devuelve un parámetro con un valor nuevo agregado
+		$vparam = "&".$parametro."=".SEPFLT.$valor;
+
+		return $vparam;
+	}
+
 	function agregarValorParametroURL( $url_params, $parametro, $valor ){
 		//Devuelve un parámetro con un valor nuevo agregado
-		$vparam = $url_params[$parametro]."_".$valor;
+		$vparam = $url_params[$parametro].SEPFLT.$valor;
+
 		return $vparam;
+	}
+
+	function eliminarValorParametroURL( $url_base, $valor ){
+		//Devuelve la url sin el valor de un parámetro
+		$url_nueva = str_replace( $valor, "", $url_base );
+
+		return $url_nueva;
 	}
 	
 	/* ----------------------------------------------------------------------------------- */
 	
 	function urlFiltro( $url_base, $url_params, $param, $val ){
 		//Devuelve el url parametrizado con el filtro
-		echo $param."=".$val;
-
+		
+		$url_nueva = $url_base;
+		
 		if ( paramEnUrl( $param, $url_params ) ){
 			//Si el parámetro está incluído en la URL se agrega el valor nuevo
+			
 			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
-				echo "VALOR";
-				$vparam = agregarValorParametroURL( $url_params, $param, $val );
-				str_replace( $url_params[$param], $vparam, $url_base );
+				//Valor de parámetro no está en la URL, se agrega
+				$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
+				$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
+			}else{
+				//Valor de parámetro ya está en la URL, se elimina
+				$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
 			}
+
+		}else{
+			//Si el parámetro no está incluído en la URL se agrega el parámetro nuevo con su valor
+			$nuevo_param = agregarParametroConValorURL( $url_params, $param, $val );
+			$url_nueva .= $nuevo_param;
 		}
-		$url_filtro = $url_base;
-		
+
+		$url_filtro = $url_nueva;
+		//echo $url_filtro;
 		return $url_filtro;
 	}
 
 	/* ----------------------------------------------------------------------------------- */
+
+	define( "SEPFLT", ":" );
 
 	if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
 		
