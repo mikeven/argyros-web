@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-02-2018 a las 23:51:31
+-- Tiempo de generación: 03-04-2018 a las 00:07:15
 -- Versión del servidor: 5.7.11
 -- Versión de PHP: 5.6.19
 
@@ -687,7 +687,24 @@ INSERT INTO `images` (`id`, `path`, `image_path_300x300`, `thumb_path_50x50`, `p
 (105, 'catalog/descarga _1_707157defc78f8ed73595a1d7986c62d.jpg', '', '', 65, '2017-10-27 13:55:11', NULL, NULL),
 (106, 'catalog/compromiso_laterales7f848d8ca09bb7bac05e35da2e8477a5.jpg', '', '', 7, '2017-11-23 16:01:26', NULL, NULL),
 (108, 'catalog/S_836516_MLM26255162963_102017_O0f024dd98337d077fdbbe1a524bee24a.jpg', '', '', 7, '2017-11-23 16:10:33', NULL, NULL),
-(109, 'catalog/4ddf3940c8781cb2e91a52edea56f7372ee3b327c2225a2f1a8b7d3d220aaaae.jpg', '', '', 7, '2017-11-23 16:12:47', NULL, NULL);
+(109, 'catalog/4ddf3940c8781cb2e91a52edea56f7372ee3b327c2225a2f1a8b7d3d220aaaae.jpg', '', '', 7, '2017-11-23 16:12:47', NULL, NULL),
+(110, 'catalog/zar1b0343dc1a9c209f0362f6e7e1bfd53f5.jpg', '', '', 68, '2018-02-26 18:27:05', NULL, NULL),
+(111, 'catalog/zar2b0343dc1a9c209f0362f6e7e1bfd53f5.png', '', '', 68, '2018-02-26 18:27:05', NULL, NULL),
+(112, 'catalog/zar3b0343dc1a9c209f0362f6e7e1bfd53f5.jpg', '', '', 68, '2018-02-26 18:27:05', NULL, NULL),
+(113, 'catalog/abr1e319d7802392cef27b5a66a0e5c01f0b.jpg', '', '', 69, '2018-02-26 18:38:55', NULL, NULL),
+(114, 'catalog/r1c6c6fc1cb9a355bcabd69bd284d1018f.jpg', '', '', 70, '2018-03-22 20:22:49', NULL, NULL),
+(115, 'catalog/r24f0bebe43b52ed32dd5353362c1c8159.jpg', '', '', 70, '2018-03-22 20:22:49', NULL, NULL),
+(118, 'catalog/m14a70bf27fda1491402369dd776f94402.jpg', '', '', 72, '2018-03-22 20:25:50', NULL, NULL),
+(119, 'catalog/m2614a82c6899f05cb3b9bf3256540cc28.jpg', '', '', 72, '2018-03-22 20:25:50', NULL, NULL),
+(122, 'catalog/j13ba27804da3f46cc1445d8cf6973c21d.jpg', '', '', 74, '2018-03-22 20:54:30', NULL, NULL),
+(123, 'catalog/j21b91d77c4830e01733da5cc133043d9e.jpg', '', '', 74, '2018-03-22 20:54:30', NULL, NULL),
+(124, 'catalog/j389b67cdc1f58f60975242d7da1519c98.jpg', '', '', 74, '2018-03-22 20:54:30', NULL, NULL),
+(128, 'catalog/a1a064cad3046b1f81990050208dfca45e.jpg', '', '', 76, '2018-03-22 20:57:49', NULL, NULL),
+(129, 'catalog/a2bf24c6ebd6556bb8f025922028082c0e.jpg', '', '', 76, '2018-03-22 20:57:49', NULL, NULL),
+(130, 'catalog/a3a064cad3046b1f81990050208dfca45e.jpg', '', '', 76, '2018-03-22 20:57:49', NULL, NULL),
+(134, 'catalog/b1b61bf8b12786b227f0116a89531233e3.jpg', '', '', 78, '2018-03-22 20:58:53', NULL, NULL),
+(136, 'catalog/b2652116fa45330f297bbb7e2524e3a8c2.jpg', '', '', 78, '2018-03-22 20:58:53', NULL, NULL),
+(137, 'catalog/b3a62cefa74caec27447ffc1ac4e39c354.jpg', '', '', 78, '2018-03-22 20:58:53', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -776,8 +793,6 @@ INSERT INTO `line_product` (`id`, `line_id`, `product_id`) VALUES
 (193, 1, 60),
 (194, 4, 61),
 (195, 4, 62),
-(196, 4, 63),
-(197, 4, 64),
 (198, 1, 65),
 (199, 6, 66),
 (200, 4, 66),
@@ -964,7 +979,15 @@ INSERT INTO `line_product` (`id`, `line_id`, `product_id`) VALUES
 (560, 7, 138),
 (561, 7, 81),
 (562, 6, 1),
-(563, 3, 1);
+(563, 3, 1),
+(564, 4, 64),
+(565, 4, 63),
+(566, 4, 139),
+(567, 6, 140),
+(568, 4, 140),
+(569, 6, 141),
+(570, 4, 141),
+(571, 4, 142);
 
 -- --------------------------------------------------------
 
@@ -992,7 +1015,7 @@ INSERT INTO `makings` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) V
 (5, 'Perlas', '2017-07-13 19:25:53', NULL, NULL),
 (6, 'Piedras', '2017-07-13 19:25:53', NULL, NULL),
 (8, 'Corrugados', '2017-09-18 21:13:15', '2017-09-26 18:08:42', NULL),
-(9, 'Marquesita  ', '2017-09-25 21:39:31', '2017-09-25 21:39:44', NULL);
+(9, 'Marquesita', '2017-09-25 21:39:31', '2017-09-25 21:39:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -1060,8 +1083,6 @@ INSERT INTO `making_product` (`id`, `making_id`, `product_id`) VALUES
 (163, 2, 60),
 (164, 1, 61),
 (165, 2, 62),
-(166, 9, 63),
-(167, 1, 64),
 (168, 5, 65),
 (169, 2, 66),
 (170, 4, 67),
@@ -1140,7 +1161,18 @@ INSERT INTO `making_product` (`id`, `making_id`, `product_id`) VALUES
 (305, 2, 138),
 (306, 2, 81),
 (307, 1, 1),
-(308, 5, 1);
+(308, 5, 1),
+(309, 1, 64),
+(310, 3, 63),
+(311, 6, 63),
+(312, 4, 139),
+(313, 9, 139),
+(314, 4, 140),
+(315, 9, 140),
+(316, 4, 141),
+(317, 9, 141),
+(318, 4, 142),
+(319, 6, 142);
 
 -- --------------------------------------------------------
 
@@ -1253,7 +1285,10 @@ INSERT INTO `orders` (`id`, `user_id`, `total_price`, `total_count`, `order_stat
 (9, 8, '54.81', 3, 'entregado', NULL, NULL, NULL, '2018-01-11 21:18:40', '2018-01-11 21:41:04', NULL),
 (10, 8, '32.59', 3, 'confirmado', NULL, NULL, NULL, '2018-01-12 20:58:01', '2018-01-12 20:58:32', NULL),
 (11, 8, '55.97', 2, 'cancelado', NULL, NULL, NULL, '2018-02-21 13:43:19', '2018-02-23 19:17:20', NULL),
-(12, 8, '53.55', 3, 'entregado', NULL, 'Eliminar el anillo 2 Talla 5.', 'Monto aproximado de la orden: $58', '2018-02-23 19:25:20', '2018-02-23 21:40:52', NULL);
+(12, 8, '53.55', 3, 'entregado', NULL, 'Eliminar el anillo 2 Talla 5.', 'Monto aproximado de la orden: $58', '2018-02-23 19:25:20', '2018-02-23 21:40:52', NULL),
+(13, 8, '86.25', 2, 'revisado', NULL, NULL, NULL, '2018-02-26 18:31:38', '2018-02-27 20:58:52', NULL),
+(14, 8, '124.39', 3, 'confirmado', NULL, '27/02', NULL, '2018-02-27 15:38:21', '2018-02-27 15:39:35', NULL),
+(15, 8, '73.29', 5, 'revisado', NULL, NULL, NULL, '2018-02-28 14:53:47', '2018-02-28 14:55:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -1316,7 +1351,17 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`
 (35, 11, 1, 1, 14, 2, '3.22', NULL, NULL, '', '2018-02-21 13:43:19', NULL),
 (36, 12, 81, 62, 29, 2, '14.49', 2, 'disp', '', '2018-02-23 19:25:20', '2018-02-23 19:27:01'),
 (37, 12, 80, 61, 29, 1, '16.51', 0, 'nodisp', 'retirado', '2018-02-23 19:25:20', '2018-02-23 19:27:01'),
-(38, 12, 80, 60, 13, 2, '4.03', 1, 'modif', '', '2018-02-23 19:25:20', '2018-02-23 19:27:01');
+(38, 12, 80, 60, 13, 2, '4.03', 1, 'modif', '', '2018-02-23 19:25:20', '2018-02-23 19:27:01'),
+(39, 13, 64, 68, 1, 2, '15.00', 2, 'disp', '', '2018-02-26 18:31:38', '2018-02-27 20:58:52'),
+(40, 13, 64, 68, 2, 3, '18.75', 0, 'nodisp', '', '2018-02-26 18:31:38', '2018-02-27 20:58:52'),
+(41, 14, 64, 68, 2, 2, '18.75', 1, 'modif', '', '2018-02-27 15:38:21', '2018-02-27 15:39:35'),
+(42, 14, 81, 62, 29, 1, '14.49', 1, 'disp', '', '2018-02-27 15:38:21', '2018-02-27 15:39:35'),
+(43, 14, 80, 61, 13, 4, '18.10', 0, 'nodisp', 'retirado', '2018-02-27 15:38:21', '2018-02-27 15:39:35'),
+(44, 15, 80, 61, 29, 2, '16.51', 2, 'disp', '', '2018-02-28 14:53:47', '2018-02-28 14:55:33'),
+(45, 15, 80, 60, 1, 1, '2.88', 0, 'nodisp', '', '2018-02-28 14:53:47', '2018-02-28 14:55:33'),
+(46, 15, 80, 60, 29, 2, '3.45', 2, 'disp', '', '2018-02-28 14:53:47', '2018-02-28 14:55:33'),
+(47, 15, 80, 60, 13, 3, '4.03', 1, 'modif', '', '2018-02-28 14:53:47', '2018-02-28 14:55:33'),
+(48, 15, 80, 60, 14, 4, '4.60', 2, 'modif', '', '2018-02-28 14:53:47', '2018-02-28 14:55:33');
 
 -- --------------------------------------------------------
 
@@ -1455,8 +1500,8 @@ INSERT INTO `products` (`id`, `code`, `name`, `description`, `country_code`, `ca
 (60, '900000108472', 'TAIP', 'HTTRRWSS', 'CN', 2, 6, 1, NULL, NULL, 1, NULL, 1),
 (61, '9000000108472', '9000000108472', 'GHFHFGHFGHF', 'CN', 2, 6, 1, NULL, NULL, 1, NULL, 1),
 (62, '99000009166801', 'VEN ', 'FFG', 'CN', 2, 6, 1, NULL, NULL, 1, NULL, 1),
-(63, 'FGFGF', 'VCBFGBF', 'FG', 'AR', 2, 3, 1, NULL, NULL, 1, NULL, 1),
-(64, '90000002667701', ' VCBFGBF', '', 'AR', 2, 6, 6, NULL, NULL, 1, NULL, 1),
+(63, 'VC-002', 'Abridor', 'Zarcillo abridor', 'AR', 2, 3, 2, NULL, '2018-02-26 18:38:00', 1, NULL, 1),
+(64, '90000002667701', 'Zarcillo', '', 'AR', 2, 6, 3, NULL, '2018-02-26 18:24:18', 1, NULL, 1),
 (65, '900000026677', '900000003388', '', 'CN', 2, 6, 1, NULL, NULL, 1, NULL, 1),
 (66, '9900000076535', '00214210R0065A', '1.5x63mm ', 'IT', 2, 4, 1, NULL, NULL, 1, NULL, 1),
 (67, '99000000108175', 'CHIP01.10', '4MM', 'CN', 2, 6, 2, NULL, NULL, 1, NULL, 1),
@@ -1530,7 +1575,11 @@ INSERT INTO `products` (`id`, `code`, `name`, `description`, `country_code`, `ca
 (135, '9000000105440', 'CLK01446', 'Pulsera de signo om ', 'IT', 4, 26, 1, NULL, '2017-10-23 13:16:29', 1, NULL, 1),
 (136, '900000096724', '0331bk6233', 'Pulsera de trébol ', 'IT', 4, 26, 1, NULL, NULL, 1, NULL, 1),
 (137, '90000093709', '002garp02', 'trébol ', 'AR', 8, 24, 1, NULL, '2017-10-23 13:52:50', 1, NULL, 1),
-(138, '90000098452', 'HGC621', '', 'IT', 2, 7, 1, NULL, NULL, 1, NULL, 1);
+(138, '90000098452', 'HGC621', '', 'IT', 2, 7, 1, NULL, NULL, 1, NULL, 1),
+(139, 'A000R1', 'Anillo 4', 'Anillo de rubí', 'SV', 1, 27, 2, NULL, NULL, 1, NULL, 1),
+(140, 'AR002', 'Anillo 5', 'Anillo Rojo 5', 'IT', 1, 27, 3, NULL, NULL, 1, NULL, 1),
+(141, 'AR0003', 'Anillo 6', 'Anillo Rubí 6', 'US', 1, 27, 1, NULL, NULL, 1, NULL, 1),
+(142, 'AM001H', 'Anillo 7', 'Anillo amarillo 7', 'CO', 1, 2, 3, NULL, NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1594,7 +1643,14 @@ INSERT INTO `product_details` (`id`, `product_id`, `color_id`, `treatment_id`, `
 (64, 82, 4, 12, 1, 'g', '0.00', '0.00', '0.00', '20.35', '2017-10-25 19:14:28', NULL, NULL, 1),
 (65, 1, 2, 1, 1, 'g', '0.00', '0.00', '0.00', '1.10', '2017-10-27 13:32:43', NULL, NULL, 1),
 (66, 1, 5, 1, 1, 'g', '0.00', '0.00', '0.00', '1.10', '2017-10-27 13:42:27', NULL, NULL, 1),
-(67, 1, 2, 12, 1, 'g', '0.00', '0.00', '0.00', '1.10', '2017-10-27 13:45:51', NULL, NULL, 1);
+(67, 1, 2, 12, 1, 'g', '0.00', '0.00', '0.00', '1.10', '2017-10-27 13:45:51', NULL, NULL, 1),
+(68, 64, 4, 1, 1, 'g', '0.00', '0.00', '0.00', '1.25', '2018-02-26 18:27:05', NULL, NULL, 1),
+(69, 63, 4, 1, 1, 'g', '0.00', '0.00', '0.00', '0.15', '2018-02-26 18:38:55', NULL, NULL, 1),
+(70, 139, 5, 11, 1, 'p', '0.00', '2.50', '0.00', '0.00', '2018-03-22 20:22:49', NULL, NULL, 1),
+(72, 140, 5, 11, 1, 'g', '0.00', '0.00', '0.00', '0.85', '2018-03-22 20:25:50', NULL, NULL, 1),
+(74, 141, 5, 11, 1, 'g', '0.00', '0.00', '0.00', '0.85', '2018-03-22 20:54:30', NULL, NULL, 1),
+(76, 142, 3, 1, 1, 'g', '0.00', '0.00', '0.00', '1.23', '2018-03-22 20:57:49', NULL, NULL, 1),
+(78, 142, 3, 12, 1, 'g', '0.00', '0.00', '0.00', '0.85', '2018-03-22 20:58:53', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1748,6 +1804,10 @@ CREATE TABLE `size_product_detail` (
 INSERT INTO `size_product_detail` (`weight`, `size_id`, `product_detail_id`, `visible`) VALUES
 ('1.25', 1, 60, 1),
 ('2.35', 1, 61, 1),
+('12.00', 1, 68, 1),
+('5.00', 1, 69, 1),
+('15.00', 2, 68, 1),
+('7.00', 2, 69, 1),
 ('155.95', 12, 24, 1),
 ('150.25', 12, 30, 1),
 ('280.22', 12, 31, 1),
@@ -1757,6 +1817,11 @@ INSERT INTO `size_product_detail` (`weight`, `size_id`, `product_detail_id`, `vi
 ('1.75', 13, 60, 1),
 ('2.85', 13, 61, 1),
 ('2.35', 13, 62, 1),
+('4.10', 13, 70, 1),
+('4.20', 13, 72, 1),
+('1.25', 13, 74, 1),
+('1.20', 13, 76, 1),
+('1.20', 13, 78, 1),
 ('8.90', 14, 1, 1),
 ('18.00', 14, 7, 1),
 ('8.90', 14, 22, 1),
@@ -1765,6 +1830,11 @@ INSERT INTO `size_product_detail` (`weight`, `size_id`, `product_detail_id`, `vi
 ('8.90', 14, 65, 1),
 ('8.90', 14, 66, 1),
 ('8.90', 14, 67, 1),
+('5.12', 14, 70, 1),
+('5.15', 14, 72, 1),
+('1.80', 14, 74, 1),
+('1.30', 14, 76, 1),
+('1.30', 14, 78, 1),
 ('1.00', 15, 32, 1),
 ('2.00', 15, 45, 1),
 ('1.20', 17, 32, 1),
@@ -1777,16 +1847,19 @@ INSERT INTO `size_product_detail` (`weight`, `size_id`, `product_detail_id`, `vi
 ('8.90', 24, 65, 1),
 ('8.90', 24, 66, 1),
 ('8.90', 24, 67, 1),
+('2.20', 24, 74, 1),
 ('8.90', 25, 1, 1),
 ('8.90', 25, 22, 1),
 ('8.90', 25, 65, 1),
 ('8.90', 25, 66, 1),
 ('8.90', 25, 67, 1),
+('3.10', 25, 74, 1),
 ('8.90', 26, 1, 1),
 ('8.90', 26, 22, 1),
 ('8.90', 26, 65, 1),
 ('8.90', 26, 66, 1),
 ('8.90', 26, 67, 1),
+('4.30', 26, 74, 1),
 ('8.90', 27, 1, 1),
 ('8.90', 27, 22, 1),
 ('8.90', 27, 65, 1),
@@ -1802,6 +1875,11 @@ INSERT INTO `size_product_detail` (`weight`, `size_id`, `product_detail_id`, `vi
 ('2.60', 29, 61, 1),
 ('2.30', 29, 62, 1),
 ('85.00', 29, 64, 1),
+('3.50', 29, 70, 1),
+('3.12', 29, 72, 1),
+('1.15', 29, 74, 1),
+('0.75', 29, 76, 1),
+('1.10', 29, 78, 1),
 ('1.80', 30, 40, 1),
 ('1.40', 34, 32, 1),
 ('1.60', 34, 44, 1),
@@ -1954,12 +2032,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `avatar`, `provider_id`, `verified`, `token`, `phone`, `password`, `company`, `company_name`, `company_type`, `city`, `reference`, `user_group_id`, `country_code`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `address`) VALUES
-(1, 'Enrique', 'La Cruz', 'elacruz@mgideas.net', NULL, NULL, 1, '792de3420ca9652eb0cassssd312ecf86a', '(+58)412-5152243', '4697ee', 0, NULL, 'Particular', 'caracas', NULL, 2, 'VE', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
+(1, 'Enrique', 'La Cruz', 'elacruz@mgideas.net', NULL, NULL, 1, '792de3420ca9652eb0cassssd312ecf86a', '(+58)412-5152243', '4697ee', 0, NULL, 'Particular', 'caracas', NULL, 4, 'VE', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
 (2, 'Elio', 'Acosta', 'eacosta@mgideas.net', NULL, NULL, 1, 'wuwFZUY97KHVzsMMm4AMFbZgjbaW8A', '(+58)416-2842873', '$2y$10$ZTjr6VmaCZ2Okdvbab2NIuGQ9gCdVkKjLEVf1T9quyJGHF9Mocjx.', 0, NULL, 'Particular', 'caracas', NULL, 1, 'VE', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
 (3, 'Miguel', 'Rangel', 'erangel@mgideas.net', NULL, NULL, 1, 'rst74SxiH45gffv6t9TsgnZKURj2yP', '(+58)212-4453918', '$2y$10$YdIoK5bSNtKGWBtxvGdR7uXZjeBdwEnTXttIH7Sj2jl7fS4K454.e', 0, NULL, 'Particular', 'caracas', NULL, 1, 'VE', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
-(4, 'Alejandro', 'Orvieto', 'aorvieto@argyros.com.pa', NULL, NULL, 1, '9jAMR4NyidO71a6bYgh5fXklD3wZeG', '(+58)333-4453918', '123456', 0, NULL, 'Particular', 'Panamá', NULL, 2, 'PA', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
+(4, 'Alejandro', 'Orvieto', 'aorvieto@argyros.com.pa', NULL, NULL, 1, '9jAMR4NyidO71a6bYgh5fXklD3wZeG', '(+58)333-4453918', '123456', 0, NULL, 'Particular', 'Panamá', NULL, 3, 'PA', NULL, '2017-07-13 19:25:53', '2017-07-13 19:25:53', NULL, NULL),
 (8, 'Miguel Rangel', '', 'mikeven@gmail.com', NULL, NULL, 1, '9da4c3a9e6fb1c11c2033aea5dac243ed04ea522', NULL, '1515', 0, NULL, 'Particular', NULL, NULL, 2, 'VE', NULL, NULL, NULL, NULL, NULL),
-(9, 'Ángel Rangel', '', 'mrangel@mgideas.net', NULL, NULL, 1, '792de3420ca9652eb0caf41af073d6d312ecf86a', NULL, '4646', 0, NULL, 'Particular', NULL, NULL, 1, 'VE', NULL, NULL, NULL, NULL, NULL);
+(9, 'Ángel Rangel', '', 'mrangel@mgideas.net', NULL, NULL, 1, '792de3420ca9652eb0caf41af073d6d312ecf86a', NULL, '4646', 0, NULL, 'Particular', NULL, NULL, 2, 'VE', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2245,12 +2323,12 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT de la tabla `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 --
 -- AUTO_INCREMENT de la tabla `line_product`
 --
 ALTER TABLE `line_product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=564;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=572;
 --
 -- AUTO_INCREMENT de la tabla `makings`
 --
@@ -2260,7 +2338,7 @@ ALTER TABLE `makings`
 -- AUTO_INCREMENT de la tabla `making_product`
 --
 ALTER TABLE `making_product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
 --
 -- AUTO_INCREMENT de la tabla `materials`
 --
@@ -2275,12 +2353,12 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT de la tabla `permissions`
 --
@@ -2295,12 +2373,12 @@ ALTER TABLE `plines`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 --
 -- AUTO_INCREMENT de la tabla `product_details`
 --
 ALTER TABLE `product_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
