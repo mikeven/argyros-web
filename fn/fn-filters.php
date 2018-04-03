@@ -17,6 +17,27 @@
 	
 	/* ----------------------------------------------------------------------------------- */
 	
+	function obtenerValoresFiltros( $url_params ){
+		//Devuelve los valores contenidos en los parámetros de filtros separados por comas
+		$string = "";
+		$valF = array();
+		foreach ( $url_params as $param=>$valor ) {
+			//echo $param."=".$valor.($param != "s")."<br>";
+			if( ( $param == "c" ) || ( $param == "s" ) ){
+				
+			}else{
+				$valores = explode( SEPFLT, $valor );
+				foreach ( $valores as $texto ) {
+					if( $texto != "" )
+						$valF[] = $texto;
+				}
+			}
+		}
+		return $valF;//substr( $string, 1 );
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+
 	function obtenerTrabajosProductos( $dbh, $productos ){
 		//Devuelve los trabajos incluídos en los productos
 		$filtros_trab_productos = array();
@@ -59,6 +80,7 @@
 				if( yaAgregadoVectores( $reg, $filtros_bano_productos, "id_bano" ) == false ){
 					$bano["id_bano"] = $reg["id_bano"];
 					$bano["bano"] = $reg["bano"];
+					$bano["ubano"] = $reg["ubano"];
 					$filtros_bano_productos[] = $bano;
 				}
 			}
@@ -79,6 +101,7 @@
 				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
 					$color["id_color"] = $reg["id_color"];
 					$color["color"] = $reg["color"];
+					$color["ucolor"] = $reg["ucolor"];
 					$filtros_color_productos[] = $color;
 				}
 			}
@@ -99,6 +122,20 @@
 	}
 
 	/* ----------------------------------------------------------------------------------- */
+	function ajustarParametrosEnUrl( $url_nueva, $url_params, $param ){
+		//Elimina el parámetro de la URL si no posee valores
+		
+		$suburl_param = trim( $url_params[$param] );
+		$nval_param = count( explode( SEPFLT, $suburl_param ) ) - 1;
+		
+		if( $nval_param < 2 )
+			$url_nueva = str_replace( "&".$param."=", "", $url_nueva );
+
+		return $url_nueva;
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+
 	function paramEnUrl( $p, $url_params ){
 		//Devuelve si un parámetro está contenido en la URL
 
@@ -144,6 +181,7 @@
 		$url_nueva = $url_base;
 		
 		if ( paramEnUrl( $param, $url_params ) ){
+			
 			//Si el parámetro está incluído en la URL se agrega el valor nuevo
 			
 			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
@@ -153,6 +191,7 @@
 			}else{
 				//Valor de parámetro ya está en la URL, se elimina
 				$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
+				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
 			}
 
 		}else{
@@ -168,7 +207,7 @@
 
 	/* ----------------------------------------------------------------------------------- */
 
-	define( "SEPFLT", ":" );
+	define( "SEPFLT", "_" );
 
 	if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
 		
@@ -179,6 +218,7 @@
 		$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
 	}
 	
+	//data-products.php:
 	$filtro_trabajos = obtenerTrabajosProductos( $dbh, $productos );
 	$filtro_lineas = obtenerLineasProductos( $dbh, $productos );
 	$filtro_banos = obtenerBanosProductos( $dbh, $productos );
@@ -187,7 +227,9 @@
 	$catalogue_url = $_SERVER["REQUEST_URI"];
 	$urlparsed = parse_url( $catalogue_url );
 	parse_str( $urlparsed["query"], $url_params );
-	//print_r( $pams );
+
+	$filtros_url = obtenerValoresFiltros( $url_params );
+	//echo "FILTROS: ".$filtros_url;
 
 	/* ----------------------------------------------------------------------------------- */
 ?>

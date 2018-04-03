@@ -236,7 +236,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerLineasDeProductoPorId( $dbh, $idp ){
 		//Devuelve los datos de las líneas a las que pertenece un producto
-		$q = "select l.id as idlinea, l.name as nombre, l.description as descripcion 
+		$q = "select l.id as idlinea, l.name as nombre, l.uname as ulinea, l.description as descripcion 
 		from plines l, line_product lp where lp.line_id = l.id and lp.product_id = $idp order by nombre ASC";
 		
 		$data = mysqli_query( $dbh, $q );
@@ -246,7 +246,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTrabajosDeProductoPorId( $dbh, $idp ){
 		//Devuelve los datos de las líneas a las que pertenece un producto
-		$q = "select t.id as idtrabajo, t.name as nombre 
+		$q = "select t.id as idtrabajo, t.name as nombre, t.uname as utrabajo 
 		from makings t, making_product tp where tp.making_id = t.id and tp.product_id = $idp order by t.name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
@@ -256,9 +256,9 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProductoPorId( $dbh, $idp ){
 		//Devuelve los registros detalles asociados a un producto dado su id
-		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, dp.treatment_id as id_bano, t.name as bano, 
-		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
-		dp.weight_price_value as precio_peso 
+		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, dp.treatment_id as id_bano, 
+		t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
+		dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $idp";
 		//echo $q;
 		$data = mysqli_query( $dbh, $q );

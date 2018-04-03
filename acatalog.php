@@ -47,6 +47,7 @@
 	<link href="assets/stylesheets/cs.global.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.style.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
+	<link href="assets/stylesheets/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" media="all">
 	
 	<script src="assets/javascripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.imagesloaded.min.js" type="text/javascript"></script>
@@ -63,6 +64,7 @@
 	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
+	<script src="assets/javascripts/bootstrap-tagsinput.js" type="text/javascript"></script>
 	
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
@@ -76,6 +78,9 @@
 			$("#tfilters").click( function(){ 
                $("#catalog-filters").fadeToggle( 100, "linear" );
             });
+
+			$(".bootstrap-tagsinput input").prop('readonly', true);
+
             /*$("#tfilters").click( function(){ 
                $("#catalog-filters").fadeIn( 100, "linear" );
             });
@@ -84,14 +89,29 @@
             	$("#catalog-filters").fadeOut( 100, "linear" );
             });*/
 
-			var u1 = window.location.protocol;
-			var u2 = window.location.host;
-			var u3 = window.location.pathname;
-			var URLactual = window.location.pathname;
-			//alert(URLactual);
+			/*var filters = new Bloodhound({
+			  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+			  queryTokenizer: Bloodhound.tokenizers.whitespace,
+			  prefetch: 'assets/filters.json'
+			});
+			filters.initialize();*/
+
+			$('#panel_filtro').tagsinput({
+		      	allowDuplicates: false,
+		        itemValue: 'id',  // this will be used to set id of tag
+		        itemText: 'label' // this will be used to set text of tag
+		    });
+
+			/*$('#panel_filtro').tagsinput('add', { "value": "fff" , "text": "Amsterdam"   });
+			$('#panel_filtro').tagsinput('add', { "value": "fffs" , "text": "Washington"  });
+			$('#panel_filtro').tagsinput('add', { "value": "fsf" , "text": "Sydney"  	 });
+			$('#panel_filtro').tagsinput('add', { "value": "sfff", "text": "Beijing"     });
+			$('#panel_filtro').tagsinput('add', { "value": "sffsf", "text": "Cairo"       });*/
 
 		 });
 	</script>
+
+	
 
 	
 </head>
@@ -113,6 +133,23 @@
 	.tab_filtro_contenido{ display: none; }
 	.flt_selected{ color: #a7b239 !important; }
 	.input_flt{ height: 30px !important; }
+
+	.bootstrap-tagsinput{
+		border: 0; background-color: transparent; box-shadow: none; 
+	}
+
+	.tfilt{
+		font-size: 12px; padding: 2px 6px; 
+		margin-right: 2px; color: #000;
+		background-color: #a7b239;
+		width: auto; float: left;
+	}
+
+	.tfilt i{ color: #FFF; }
+
+	.label-info {
+	    background-color: #a7b239;
+	}
 
 	.product-information #quick-shop-container .quantity-wrapper .wrapper span.qty-up, 
 	.product-information #quick-shop-container .quantity-wrapper .wrapper span.qty-down {
@@ -208,7 +245,14 @@
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 										</a>
+										
 										<hr>
+										<div id="panel_tag_filters">
+											<?php  foreach ( $filtros_url as $flt_vo ) { ?>
+												<a href="#!" class="tfilt"><?php echo $flt_vo; ?> <i class="fa fa-times"></i></a> 
+											<?php } ?>
+										</div>
+										<input id="panel_filtro" type="text" value="" readonly/>
 										<?php
 										include( "sections/filters.php" );?>
 										</li>
