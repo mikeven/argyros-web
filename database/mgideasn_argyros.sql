@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2018 a las 00:07:15
+-- Tiempo de generación: 04-04-2018 a las 00:33:10
 -- Versión del servidor: 5.7.11
 -- Versión de PHP: 5.6.19
 
@@ -545,6 +545,7 @@ INSERT INTO `cities` (`id`, `name`, `country_id`, `created_at`, `updated_at`) VA
 CREATE TABLE `colors` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uname` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `color_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -555,16 +556,16 @@ CREATE TABLE `colors` (
 -- Volcado de datos para la tabla `colors`
 --
 
-INSERT INTO `colors` (`id`, `name`, `color_code`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Sin Color', NULL, '2017-07-13 19:25:53', NULL, NULL),
-(2, 'Azul', NULL, '2017-07-13 19:25:53', NULL, NULL),
-(3, 'Amarillo', NULL, '2017-07-13 19:25:53', '2017-09-19 14:25:34', NULL),
-(4, 'Blanco', NULL, '2017-07-13 19:25:53', NULL, NULL),
-(5, 'Rojo', NULL, '2017-07-13 19:25:53', NULL, NULL),
-(6, 'Verde', NULL, '2017-09-19 14:25:41', '2017-09-19 15:54:28', NULL),
-(7, 'turquesa', NULL, '2017-09-25 21:37:27', NULL, NULL),
-(8, 'Negro ', NULL, '2017-10-27 13:27:48', NULL, NULL),
-(9, 'Rojo ', NULL, '2017-10-27 13:27:54', NULL, NULL);
+INSERT INTO `colors` (`id`, `name`, `uname`, `color_code`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Sin Color', 'sin-color', NULL, '2017-07-13 19:25:53', NULL, NULL),
+(2, 'Azul', 'azul', NULL, '2017-07-13 19:25:53', NULL, NULL),
+(3, 'Amarillo', 'amarillo', NULL, '2017-07-13 19:25:53', '2017-09-19 14:25:34', NULL),
+(4, 'Blanco', 'blanco', NULL, '2017-07-13 19:25:53', NULL, NULL),
+(5, 'Rojo', 'rojo', NULL, '2017-07-13 19:25:53', NULL, NULL),
+(6, 'Verde', 'verde', NULL, '2017-09-19 14:25:41', '2017-09-19 15:54:28', NULL),
+(7, 'Turquesa', 'turquesa', NULL, '2017-09-25 21:37:27', NULL, NULL),
+(8, 'Negro ', 'negro', NULL, '2017-10-27 13:27:48', NULL, NULL),
+(9, 'Rojo ', 'rojo', NULL, '2017-10-27 13:27:54', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -998,6 +999,7 @@ INSERT INTO `line_product` (`id`, `line_id`, `product_id`) VALUES
 CREATE TABLE `makings` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uname` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1007,15 +1009,15 @@ CREATE TABLE `makings` (
 -- Volcado de datos para la tabla `makings`
 --
 
-INSERT INTO `makings` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Electroformatura', '2017-07-13 19:25:53', NULL, NULL),
-(2, 'Liso', '2017-07-13 19:25:53', NULL, NULL),
-(3, 'Esmaltados', '2017-07-13 19:25:53', NULL, NULL),
-(4, 'Circones', '2017-07-13 19:25:53', NULL, NULL),
-(5, 'Perlas', '2017-07-13 19:25:53', NULL, NULL),
-(6, 'Piedras', '2017-07-13 19:25:53', NULL, NULL),
-(8, 'Corrugados', '2017-09-18 21:13:15', '2017-09-26 18:08:42', NULL),
-(9, 'Marquesita', '2017-09-25 21:39:31', '2017-09-25 21:39:44', NULL);
+INSERT INTO `makings` (`id`, `name`, `uname`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Electroformatura', 'electroformatura', '2017-07-13 19:25:53', NULL, NULL),
+(2, 'Liso', 'liso', '2017-07-13 19:25:53', NULL, NULL),
+(3, 'Esmaltados', 'esmaltados', '2017-07-13 19:25:53', NULL, NULL),
+(4, 'Circones', 'circones', '2017-07-13 19:25:53', NULL, NULL),
+(5, 'Perlas', 'perlas', '2017-07-13 19:25:53', NULL, NULL),
+(6, 'Piedras', 'piedras', '2017-07-13 19:25:53', NULL, NULL),
+(8, 'Corrugados', 'corrugados', '2017-09-18 21:13:15', '2017-09-26 18:08:42', NULL),
+(9, 'Marquesita', 'marquesita', '2017-09-25 21:39:31', '2017-09-25 21:39:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -1183,6 +1185,7 @@ INSERT INTO `making_product` (`id`, `making_id`, `product_id`) VALUES
 CREATE TABLE `materials` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uname` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1192,13 +1195,13 @@ CREATE TABLE `materials` (
 -- Volcado de datos para la tabla `materials`
 --
 
-INSERT INTO `materials` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Plata', '2017-07-13 19:25:53', NULL, NULL),
-(2, 'Acero', '2017-07-13 19:25:53', '2017-09-19 13:44:26', NULL),
-(3, 'Fantasía', '2017-07-13 19:25:53', NULL, NULL),
-(4, 'Oro', '2017-09-18 15:34:13', NULL, NULL),
-(5, 'Safiro', '2017-09-19 14:10:03', '2017-09-19 14:10:10', NULL),
-(6, 'Rubí', '2017-09-19 14:10:17', '2017-09-25 14:50:38', NULL);
+INSERT INTO `materials` (`id`, `name`, `uname`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Plata', 'plata', '2017-07-13 19:25:53', NULL, NULL),
+(2, 'Acero', 'acero', '2017-07-13 19:25:53', '2017-09-19 13:44:26', NULL),
+(3, 'Fantasía', 'fantasía', '2017-07-13 19:25:53', NULL, NULL),
+(4, 'Oro', 'oro', '2017-09-18 15:34:13', NULL, NULL),
+(5, 'Safiro', 'safiro', '2017-09-19 14:10:03', '2017-09-19 14:10:10', NULL),
+(6, 'Rubí', 'rubi', '2017-09-19 14:10:17', '2017-09-25 14:50:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -1410,6 +1413,7 @@ CREATE TABLE `permission_role` (
 CREATE TABLE `plines` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uname` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1420,13 +1424,13 @@ CREATE TABLE `plines` (
 -- Volcado de datos para la tabla `plines`
 --
 
-INSERT INTO `plines` (`id`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Infantil', 'Línea de productos para niños', '2017-07-13 19:25:53', NULL, NULL),
-(2, 'Religioso', 'Artículos figuras santas', '2017-07-13 19:25:53', '2017-09-12 22:51:48', NULL),
-(3, 'Masculino', 'Línea de productos para caballero', '2017-07-13 19:25:53', NULL, NULL),
-(4, 'Femenino', 'Línea de productos para dama', '2017-07-13 19:25:53', NULL, NULL),
-(6, 'Casual', 'Línea casual unisex', '2017-09-12 20:15:16', NULL, NULL),
-(7, 'Moderno', 'Tendencias de actualidad', '2017-09-18 15:39:24', NULL, NULL);
+INSERT INTO `plines` (`id`, `name`, `uname`, `description`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Infantil', 'infantil', 'Línea de productos para niños', '2017-07-13 19:25:53', NULL, NULL),
+(2, 'Religioso', 'religioso', 'Artículos figuras santas', '2017-07-13 19:25:53', '2017-09-12 22:51:48', NULL),
+(3, 'Masculino', 'masculino', 'Línea de productos para caballero', '2017-07-13 19:25:53', NULL, NULL),
+(4, 'Femenino', 'femenino', 'Línea de productos para dama', '2017-07-13 19:25:53', NULL, NULL),
+(6, 'Casual', 'casual', 'Línea casual unisex', '2017-09-12 20:15:16', NULL, NULL),
+(7, 'Moderno', 'moderno', 'Tendencias de actualidad', '2017-09-18 15:39:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1977,6 +1981,7 @@ CREATE TABLE `suggestion_detail` (
 CREATE TABLE `treatments` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `uname` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `material_id` int(10) UNSIGNED DEFAULT NULL,
@@ -1987,14 +1992,14 @@ CREATE TABLE `treatments` (
 -- Volcado de datos para la tabla `treatments`
 --
 
-INSERT INTO `treatments` (`id`, `name`, `updated_at`, `deleted_at`, `material_id`, `created_at`) VALUES
-(1, 'Baño de oro amarillo', NULL, NULL, 1, '2017-07-13 19:25:53'),
-(2, 'Baño de oro rosado', NULL, NULL, 1, '2017-07-13 19:25:53'),
-(3, 'Baño de rodio', NULL, NULL, 1, '2017-07-13 19:25:53'),
-(9, 'Baño de zafiro', NULL, NULL, 2, '2017-09-18 19:50:52'),
-(10, 'Baño de Esmeralda', '2017-09-18 20:32:03', NULL, 3, '2017-09-18 19:51:03'),
-(11, 'Baño de oro rojizo', '2017-09-19 14:10:57', NULL, 5, '2017-09-19 14:10:43'),
-(12, 'Sin baño  ', NULL, NULL, 1, '2017-09-25 21:33:18');
+INSERT INTO `treatments` (`id`, `name`, `uname`, `updated_at`, `deleted_at`, `material_id`, `created_at`) VALUES
+(1, 'Baño de oro amarillo', 'bano-de-oro-amarillo', NULL, NULL, 1, '2017-07-13 19:25:53'),
+(2, 'Baño de oro rosado', 'bano-de-oro-rosado', NULL, NULL, 1, '2017-07-13 19:25:53'),
+(3, 'Baño de rodio', 'bano-de-rodio', NULL, NULL, 1, '2017-07-13 19:25:53'),
+(9, 'Baño de zafiro', 'bano-de-zafiro', NULL, NULL, 2, '2017-09-18 19:50:52'),
+(10, 'Baño de Esmeralda', 'bano-de-esmeralda', '2017-09-18 20:32:03', NULL, 3, '2017-09-18 19:51:03'),
+(11, 'Baño de oro rojizo', 'bano-de-oro-rojizo', '2017-09-19 14:10:57', NULL, 5, '2017-09-19 14:10:43'),
+(12, 'Sin baño  ', 'sin-bano  ', NULL, NULL, 1, '2017-09-25 21:33:18');
 
 -- --------------------------------------------------------
 
