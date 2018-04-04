@@ -29,7 +29,7 @@
 				$valores = explode( SEPFLT, $valor );
 				foreach ( $valores as $texto ) {
 					if( $texto != "" )
-						$valF[] = $texto;
+						$valF[] = ucfirst( str_replace( "-", " ", $texto ) );
 				}
 			}
 		}
