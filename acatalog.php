@@ -81,6 +81,12 @@
 
 			$(".bootstrap-tagsinput input").prop('readonly', true);
 
+			posicionarMenu();
+
+			$(window).scroll(function() {    
+			    posicionarMenu();
+			});
+
             /*$("#tfilters").click( function(){ 
                $("#catalog-filters").fadeIn( 100, "linear" );
             });
@@ -110,9 +116,6 @@
 
 		 });
 	</script>
-
-	
-
 	
 </head>
 <style>
@@ -143,6 +146,20 @@
 		margin-right: 2px; color: #000;
 		background-color: #a7b239;
 		width: auto; float: left;
+	}
+
+	#contenido_bloque_filtros{
+		width: 100%;
+		max-width: 1200px;
+		background-color: #f7f7f7;
+	}
+	.seccion_filtros_catalogo{
+		
+	}
+	.seccion_filtros_catalogo_fijo{
+		position: fixed;
+    	top: 51px;
+    	z-index: 999;
 	}
 
 	.tfilt i{ color: #FFF; }
@@ -234,29 +251,34 @@
 				<section class="content">
 					<div class="container">
 						<div class="row"> 
-							<div id="collection-content" >
-								<div id="page-header" ></div>
-								<div class="navbar-collapse">
-									<ul class="nav">
-										<li class="dropdown mega-menu">
-										<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
-										<span>Filtros <i class="fa fa-caret-down"></i></span>
-										<!-- <i class="fa fa-caret-down"></i> -->
-										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
-										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
-										</a>
-										
-										<hr>
-										<div id="panel_tag_filters">
-											<?php  foreach ( $filtros_url as $flt_vo ) { ?>
-												<a href="#!" class="tfilt"><?php echo $flt_vo; ?> <i class="fa fa-times"></i></a> 
-											<?php } ?>
-										</div>
-										<input id="panel_filtro" type="text" value="" readonly/>
-										<?php
-										include( "sections/filters.php" );?>
-										</li>
-									</ul>
+							<div id="collection-contents" class="seccion_filtros_catalogo">
+									
+								<div id="contenido_bloque_filtros" class="seccion_filtros_catalogo">
+
+									<div id=""></div>
+									<div class="navbar-collapse">
+										<ul class="nav">
+											<li class="dropdown mega-menu">
+											<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+											<span>Filtros <i class="fa fa-caret-down"></i></span>
+											<!-- <i class="fa fa-caret-down"></i> -->
+											<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+											<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+											</a>
+											<hr>
+											<div id="panel_tag_filters">
+												<?php  foreach ( $filtros_url as $flt_vo ) { ?>
+													<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
+														<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
+													</a> 
+												<?php } ?>
+											</div>
+											<input id="panel_filtro" type="text" value="" readonly/>
+											<?php include( "sections/filters.php" ); ?>
+											</li>
+										</ul>
+									</div>
+
 								</div>
 								<!--<div class="collection-warper col-sm-24 clearfix"> 
 									<div class="collection-panner">

@@ -17,10 +17,23 @@
 	
 	/* ----------------------------------------------------------------------------------- */
 	
-	function obtenerValoresFiltros( $url_params ){
+	function obtenerVectorValoresFiltro( $url_params, $param ){
+		$data_filtro = array();
+		
+		$vector = $url_params[$param];
+		foreach ( $vector as $valor ) {
+			echo $valor."<br>"; 
+		}
+
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function obtenerValoresFiltros( $catalogue_url, $url_params ){
 		//Devuelve los valores contenidos en los parámetros de filtros separados por comas
 		$string = "";
-		$valF = array();
+		$data_filtro = array();
+		
 		foreach ( $url_params as $param=>$valor ) {
 			//echo $param."=".$valor.($param != "s")."<br>";
 			if( ( $param == "c" ) || ( $param == "s" ) ){
@@ -28,12 +41,15 @@
 			}else{
 				$valores = explode( SEPFLT, $valor );
 				foreach ( $valores as $texto ) {
-					if( $texto != "" )
-						$valF[] = ucfirst( str_replace( "-", " ", $texto ) );
+					if( $texto != "" ){
+						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, $param, trim( $texto ) );
+						$item_filtro["texto"] = ucfirst( str_replace( "-", " ", $texto ) );
+						$data_filtro[] = $item_filtro;
+					}
 				}
 			}
 		}
-		return $valF;//substr( $string, 1 );
+		return $data_filtro;//substr( $string, 1 );
 	}
 
 	/* ----------------------------------------------------------------------------------- */
@@ -207,8 +223,6 @@
 
 	/* ----------------------------------------------------------------------------------- */
 
-	define( "SEPFLT", "_" );
-
 	if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
 		
 	}
@@ -224,11 +238,8 @@
 	$filtro_banos = obtenerBanosProductos( $dbh, $productos );
 	$filtro_colores = obtenerColoresProductos( $dbh, $productos );
 
-	$catalogue_url = $_SERVER["REQUEST_URI"];
-	$urlparsed = parse_url( $catalogue_url );
-	parse_str( $urlparsed["query"], $url_params );
-
-	$filtros_url = obtenerValoresFiltros( $url_params );
+	//$catalogue_url, $url_params: fn-catalogue.php
+	$filtros_url = obtenerValoresFiltros( $catalogue_url, $url_params );
 	//echo "FILTROS: ".$filtros_url;
 
 	/* ----------------------------------------------------------------------------------- */

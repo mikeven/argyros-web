@@ -12,6 +12,21 @@
 	$(".sizeselector").prop('checked', false);	//desmarca todas las selecciones de talla
  }
 
+ function posicionarMenu() {
+    
+    var altura_del_header = 100;
+    var altura_del_menu = $('.menu').outerHeight(true);
+
+    if ($(window).scrollTop() >= altura_del_header){
+        $('#contenido_bloque_filtros').addClass('seccion_filtros_catalogo_fijo');
+        //$('.wrapper').css('margin-top', (altura_del_menu) + 'px');
+    } else {
+        $('#contenido_bloque_filtros').removeClass('seccion_filtros_catalogo_fijo');
+        $('#contenido_bloque_filtros').addClass('seccion_filtros_catalogo');
+        //$('.wrapper').css('margin-top', '0');
+    }
+}
+
 $( document ).ready(function() {	
     // ============================================================================ //
 
