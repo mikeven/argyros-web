@@ -18,13 +18,10 @@
 	/* ----------------------------------------------------------------------------------- */
 	
 	function obtenerVectorValoresFiltro( $url_params, $param ){
-		$data_filtro = array();
+		//Devuelve un vector con los valores contenidos en un parámetro de la URL
 		
-		$vector = $url_params[$param];
-		foreach ( $vector as $valor ) {
-			echo $valor."<br>"; 
-		}
-
+		$vector = $url_params[$param];	//tra=_tra1_tra2..._traN
+		return explode( SEPFLT, $vector );
 	}
 	
 	/* ----------------------------------------------------------------------------------- */
@@ -241,6 +238,22 @@
 	//$catalogue_url, $url_params: fn-catalogue.php
 	$filtros_url = obtenerValoresFiltros( $catalogue_url, $url_params );
 	//echo "FILTROS: ".$filtros_url;
+
+	//Captura 
+	if( isset( $_GET[P_FLT_LINEA] ) ){
+		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
+		$productos = filtrarProductosPorAtributoProducto( $productos, P_FLT_LINEA, $valores_filtros );		
+	}
+
+	//Captura
+	if( isset( $_GET[P_FLT_TRABAJO] ) ){
+			
+	}
+
+	//
+	if( isset( $_GET[P_FLT_BANO] ) ){
+			
+	}
 
 	/* ----------------------------------------------------------------------------------- */
 ?>

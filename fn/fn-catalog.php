@@ -15,7 +15,8 @@
 
 	$catalogue_url = $_SERVER["REQUEST_URI"];
 	$urlparsed = parse_url( $catalogue_url );
-	parse_str( $urlparsed["query"], $url_params );
+	if( isset( $urlparsed["query"] ) )
+		parse_str( $urlparsed["query"], $url_params );
 	
 	/*.............................................................*/
 	
@@ -33,9 +34,13 @@
 		return $reemplazo;
 	}
 
-	function filtrarProductosPorAtributoProducto( $productos, $param ){
+	function 
+
+	function filtrarProductosPorAtributoProducto( $productos, $atributo, $valores ){
 		$filtrados = array();	
-		
+		/*foreach ( $productos as $p ) {
+			
+		}*/
 
 		return $filtrados;
 	}
@@ -55,23 +60,6 @@
 
 		$productos = obtenerProductosC_( $dbh, oic( $dbh, $cat, 'c' ) );
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
-	}
-
-	//Captura 
-	if( isset( $_GET[P_FLT_LINEA] ) ){
-
-		$valores_filtros = obtenerVectorValoresParametroFiltro( $url_params, $_GET[P_FLT_LINEA] );
-		//$productos = filtrarProductosPorAtributoProducto( $productos, $_GET[P_FLT_LINEA] );		
-	}
-
-	//Captura
-	if( isset( $_GET[P_FLT_TRABAJO] ) ){
-			
-	}
-
-	//
-	if( isset( $_GET[P_FLT_BANO] ) ){
-			
 	}
 
 	$purl = "../../argyros/trunk/admin_/"; //Localhost
