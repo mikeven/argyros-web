@@ -33,14 +33,104 @@
 		$reemplazo = str_replace( " ", "&nbsp;", $texto );
 		return $reemplazo;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function matchFiltroAtributo( $dbh, $idp, $valores_atributo, $valores_filtro ){
+		//Devuelve verdadero si un producto posee atributos coincidentes a los filtros
+		$nulineas = array();
+		$match = false;
+		$nmatches = count( $valores_filtro );
+		$cmatches = 0;
 
-	function 
+		/*
+			foreach ( $valores_atributo as $atributo ) {
+				foreach ( $valores as $filtro ) {
+					if( $atributo == $filtro )
+						$cmatches++;
+				}
+			}
 
-	function filtrarProductosPorAtributoProducto( $productos, $atributo, $valores ){
+			if( $cmatches == $nmatches ) 
+				$match = true;
+		*/
+		
+		foreach ( $valores_atributo as $atributo ) {
+			if( in_array( $atributo, $valores_filtro ) )
+				$match = true;
+		}
+
+		return $match;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $valores_filtro ){
+		//Devuelve verdadero si un detalle de producto posee atributos coincidentes a los filtros
+		$match = false;
+
+		foreach ( $detalle as $reg ) {
+			if( in_array( $reg[$atributo], $valores_filtro ) )
+				$match = true;
+		}
+		
+		return $match;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerComparadoresConFiltroPorAtributo( $dbh, $idp, $atributo ){
+		//Devuelve la lista de atributos a comparar con los filtros de url
+		$comparadores = array();
+
+		if( $atributo == P_FLT_LINEA ){
+			$data_atributo = obtenerLineasDeProductoPorId( $dbh, $idp );
+			$clave = "ulinea";
+		}
+
+		if( $atributo == P_FLT_TRABAJO ){
+			$data_atributo = obtenerTrabajosDeProductoPorId( $dbh, $idp );
+			$clave = "utrabajo";
+		}
+		
+		foreach ( $data_atributo as $r ) { 
+			$comparadores[] = $r[$clave]; 
+		}
+
+		return $comparadores;
+	}
+
+	function obtenerComparadorConFiltroPorAtributo( $atributo ){
+		//Devuelve la lista de atributos a comparar con los filtros de url
+		$comparadores = array( 
+			P_FLT_BANO => "ubano",
+			P_FLT_COLOR => "ucolor",
+			P_FLT_TALLA => "ucolor" 
+		);
+
+		return $comparadores[$atributo];
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function filtrarProductosPorAtributoProducto( $dbh, $productos, $atributo, $valores ){
+		//Devuelve la lista de productos que coinciden en atributo de producto con los valores del filtro
 		$filtrados = array();	
-		/*foreach ( $productos as $p ) {
-			
-		}*/
+		
+		foreach ( $productos as $p ){
+			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["id"], $atributo );
+			if( matchFiltroAtributo( $dbh, $p["id"], $vatributos, $valores ) ){
+				$filtrados[] = $p;
+			}
+		}
+
+		return $filtrados;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, $parametro, $valores_filtro ){
+		//Devuelve la lista de productos que coinciden en atributo detalle de producto con los valores del filtro
+		$filtrados = array();
+
+		foreach ( $productos as $p ){
+			$detalle = obtenerDetalleProductoPorId( $dbh, $p["id"] );
+			$atributo = obtenerComparadorConFiltroPorAtributo( $parametro );
+
+			if( matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $valores_filtro ) ){
+				$filtrados[] = $p;
+			}
+		}
 
 		return $filtrados;
 	}

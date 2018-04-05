@@ -20,8 +20,10 @@
 	function obtenerVectorValoresFiltro( $url_params, $param ){
 		//Devuelve un vector con los valores contenidos en un parámetro de la URL
 		
-		$vector = $url_params[$param];	//tra=_tra1_tra2..._traN
-		return explode( SEPFLT, $vector );
+		$string_vector = $url_params[$param];	//tra=_tra1_tra2..._traN
+		$vector = explode( SEPFLT, $string_vector );
+		unset( $vector[0] );
+		return $vector;
 	}
 	
 	/* ----------------------------------------------------------------------------------- */
@@ -239,21 +241,34 @@
 	$filtros_url = obtenerValoresFiltros( $catalogue_url, $url_params );
 	//echo "FILTROS: ".$filtros_url;
 
-	//Captura 
+	//Filtro de productos comparando con el atributo 'Línea' de del producto
 	if( isset( $_GET[P_FLT_LINEA] ) ){
 		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
-		$productos = filtrarProductosPorAtributoProducto( $productos, P_FLT_LINEA, $valores_filtros );		
+		$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $valores_filtros );		
 	}
 
-	//Captura
+	//Filtro de productos comparando con el atributo 'Trabajo' de del producto
 	if( isset( $_GET[P_FLT_TRABAJO] ) ){
-			
+		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
+		$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $valores_filtros );		
 	}
 
-	//
+	//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
 	if( isset( $_GET[P_FLT_BANO] ) ){
-			
+		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
+		$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $valores_filtros );		
 	}
 
+	//Filtro de productos comparando con el atributo 'Color' de detalle de producto
+	if( isset( $_GET[P_FLT_COLOR] ) ){
+		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
+		$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $valores_filtros );		
+	}
+
+	//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
+	if( isset( $_GET[P_FLT_TALLA] ) ){
+		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
+		//$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );		
+	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

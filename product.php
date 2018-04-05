@@ -120,7 +120,10 @@
 								<?php if( $is_p ) { ?>
 								<a href="index.php" class="homepage-link" title="Página de inicio">Inicio</a>
 								<span>/</span>
+								<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>" 
+								title="<?php echo $producto["category"]; ?>">
 								<?php echo $producto["category"]; ?>
+								</a>
 								<span>/</span>
 								<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>&s=<?php echo $producto["uname_s"]; ?>" 
 								title="<?php echo $producto["category"]; ?>"><?php echo $producto["subcategory"]; ?></a>

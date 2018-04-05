@@ -81,8 +81,10 @@
 								Talla
 							</p>
 							<ul>
-								<?php foreach ( $filtro_tallas as $t ) { ?>
-									<li><a title="Talla <?php echo $t["name"]?>" href="#">
+								<?php foreach ( $filtro_tallas as $t ) { 
+									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, trim( $t["name"] ) );
+								?>
+									<li><a title="Talla <?php echo $t["name"]?>" href="<?php echo $url_f; ?>">
 										<span class="fe-checkbox"></span> <?php echo $t["name"]?></a>
 									</li>
 								<?php } ?>
