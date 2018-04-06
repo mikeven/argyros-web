@@ -268,7 +268,8 @@
 	//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
 	if( isset( $_GET[P_FLT_TALLA] ) ){
 		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
-		//$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );		
+		$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );
+		//var_dump($productos);		
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

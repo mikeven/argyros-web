@@ -34,7 +34,7 @@
 		return $reemplazo;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function matchFiltroAtributo( $dbh, $idp, $valores_atributo, $valores_filtro ){
+	function matchFiltroAtributo( $dbh, /*$idp, */$valores_atributo, $valores_filtro ){
 		//Devuelve verdadero si un producto posee atributos coincidentes a los filtros
 		$nulineas = array();
 		$match = false;
@@ -73,18 +73,23 @@
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerComparadoresConFiltroPorAtributo( $dbh, $idp, $atributo ){
-		//Devuelve la lista de atributos a comparar con los filtros de url
+	function obtenerComparadoresConFiltroPorAtributo( $dbh, $id, $atributo ){
+		//Devuelve la lista de valores de atributos a comparar con los filtros de url
 		$comparadores = array();
 
 		if( $atributo == P_FLT_LINEA ){
-			$data_atributo = obtenerLineasDeProductoPorId( $dbh, $idp );
+			$data_atributo = obtenerLineasDeProductoPorId( $dbh, $id );
 			$clave = "ulinea";
 		}
 
 		if( $atributo == P_FLT_TRABAJO ){
-			$data_atributo = obtenerTrabajosDeProductoPorId( $dbh, $idp );
+			$data_atributo = obtenerTrabajosDeProductoPorId( $dbh, $id );
 			$clave = "utrabajo";
+		}
+
+		if( $atributo == P_FLT_TALLA ){
+			$data_atributo = obtenerTallasDetalleProducto( $dbh, $id );
+			$clave = "talla";
 		}
 		
 		foreach ( $data_atributo as $r ) { 
@@ -111,7 +116,7 @@
 		
 		foreach ( $productos as $p ){
 			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["id"], $atributo );
-			if( matchFiltroAtributo( $dbh, $p["id"], $vatributos, $valores ) ){
+			if( matchFiltroAtributo( $dbh, /*$p["id"],*/ $vatributos, $valores ) ){
 				$filtrados[] = $p;
 			}
 		}
@@ -134,6 +139,28 @@
 
 		return $filtrados;
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, $atributo, $valores_filtros ){
+		//Devuelve la lista de productos que coinciden en varios valores de un atributo de 
+		//detalle de producto con los valores del filtro ( Tallas )
+		$filtrados = array();
+
+		foreach ( $productos as $p ){
+			$detalle = obtenerDetalleProductoPorId( $dbh, $p["id"] );
+			//print_r($detalle)
+			foreach ( $detalle as $reg ){
+				$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $reg["id"], $atributo );
+				if( matchFiltroAtributo( $dbh, $vatributos, $valores_filtros ) ){
+					$filtrados[] = $p;
+					break;
+				}
+			}
+		}
+		return $filtrados;
+	}
+
 	/* ----------------------------------------------------------------------------------- */
 	
 	if( isset( $_GET["c"], $_GET["s"] ) ){
