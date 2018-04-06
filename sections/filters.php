@@ -43,6 +43,7 @@
 							<li><a title="Trabajo" href="#!" class="flt_selector" data-flt-cnt="flt_trabajo">Trabajo</a></li>
 							<li><a title="Línea" href="#!" class="flt_selector" data-flt-cnt="flt_linea"> Línea</a></li>
 							<li><a title="Color" href="#!" class="flt_selector" data-flt-cnt="flt_color"> Color</a></li>
+							<input type="hidden" id="urlcatalogoactual" value="<?php echo $catalogue_url; ?>">
 						</ul>						
 					</div>
 				</div>
@@ -58,7 +59,7 @@
 							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" name="f_pprod_min" value="" style="width:50%">
 							Hasta
 							<input type="text" id="flt_pre_pro_max" class="form-control input_flt" name="f_pprod_max" value="" style="width:50%">
-							<button id="btn_mpassw" class="btn btn-2" type="button">Aceptar</button>
+							<button id="btn_flt_precio_pieza" class="btn btn-2" type="button">Aceptar</button>
 						</div>
 					</div>
 
@@ -71,7 +72,7 @@
 							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" name="f_ppeso_min" value="" style="width:50%">
 							Hasta
 							<input type="text" id="flt_pre_pes_max" class="form-control input_flt" name="f_ppeso_max" value="" style="width:50%">
-							<button id="btn_mpassw" class="btn btn-2" type="button">Aceptar</button>
+							<button id="btn_flt_precio_peso" class="btn btn-2" type="button">Aceptar</button>
 						</div>
 					</div>
 
@@ -98,7 +99,7 @@
 								Baños
 							</p>
 							<ul>
-								<?php foreach ( $filtro_banos as $b ) {  
+								<?php foreach ( $d_filtros["banos"] as $b ) {  
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_BANO, trim( $b["ubano"] ) );
 								?>
 									<li><a title="<?php echo $b["bano"]; ?>" href="<?php echo $url_f; ?>">
@@ -115,7 +116,7 @@
 								Trabajo
 							</p>
 							<ul>
-								<?php foreach ( $filtro_trabajos as $t ) { 
+								<?php foreach ( $d_filtros["trabajos"] as $t ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TRABAJO, trim( $t["utrabajo"] ) );
 								?>
 									<li><a title="<?php echo $t["nombre"]; ?>" href="<?php echo $url_f; ?>">
@@ -132,7 +133,7 @@
 								Línea
 							</p>
 							<ul>
-								<?php foreach ( $filtro_lineas as $l ) {
+								<?php foreach ( $d_filtros["lineas"] as $l ) {
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_LINEA, trim( $l["ulinea"] ) );
 								?>
 									<li><a title="<?php echo $l["nombre"];?>" href="<?php echo $url_f; ?>">
@@ -149,7 +150,7 @@
 								Colores
 							</p>
 							<ul>
-								<?php foreach ( $filtro_colores as $c ) { 
+								<?php foreach ( $d_filtros["colores"] as $c ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_COLOR, trim( $c["ucolor"] ) );
 								?>
 									<li><a title="<?php echo $c["color"]; ?>" href="<?php echo $url_f; ?>">

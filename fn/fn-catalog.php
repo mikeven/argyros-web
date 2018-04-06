@@ -5,11 +5,14 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	define( "SEPFLT", "_" );
+	define( "SEPVALFLT", "-" );
 	define( "P_FLT_LINEA", "lin" );
 	define( "P_FLT_TRABAJO", "tra" );
 	define( "P_FLT_COLOR", "col" );
 	define( "P_FLT_BANO", "ba" );
 	define( "P_FLT_TALLA", "talla" );
+	define( "P_FLT_PIEZA", "precio_pieza" );
+	define( "P_FLT_PESO", "precio_peso" );
 
 	/*.............................................................*/
 
@@ -149,7 +152,6 @@
 
 		foreach ( $productos as $p ){
 			$detalle = obtenerDetalleProductoPorId( $dbh, $p["id"] );
-			//print_r($detalle)
 			foreach ( $detalle as $reg ){
 				$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $reg["id"], $atributo );
 				if( matchFiltroAtributo( $dbh, $vatributos, $valores_filtros ) ){
@@ -181,5 +183,6 @@
 
 	$purl = "../../argyros/trunk/admin_/"; //Localhost
 	//$purl = "admin/"; //Server
+
 	/* ----------------------------------------------------------------------------------- */
 ?>

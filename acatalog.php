@@ -5,6 +5,7 @@
      */
     session_start();
     ini_set( 'display_errors', 1 );
+    
     include( "database/bd.php" );
 	include( "database/data-user.php" );
     include( "database/data-products.php" );
@@ -267,7 +268,7 @@
 											</a>
 											<hr>
 											<div id="panel_tag_filters">
-												<?php  foreach ( $filtros_url as $flt_vo ) { ?>
+												<?php  foreach ( $d_filtros["url"] as $flt_vo ) { ?>
 													<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
 														<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
 													</a> 

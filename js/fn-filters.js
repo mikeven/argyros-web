@@ -3,6 +3,8 @@
  *
  */
 
+ /* ----------------------------------------------------------------------------------- */
+
  function inicializarValoresSelDetalle(){
 	
 	$("#stalla").val("");						//anula valor de talla seleccionado
@@ -11,6 +13,8 @@
 	$(".rdet_prop").hide();						//oculta propiedades de un mismo detalle de producto
 	$(".sizeselector").prop('checked', false);	//desmarca todas las selecciones de talla
  }
+
+ /* ----------------------------------------------------------------------------------- */
 
  function posicionarMenu() {
     
@@ -27,6 +31,21 @@
     }
 }
 
+/* ----------------------------------------------------------------------------------- */
+
+function generarURLFiltroPrecio( tipo, pmin, pmax ){
+	//Invoca la generación de la url para filtrar productos por precio
+	var ucatalogo = $("#urlcatalogoactual").val();
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-filters.php",
+        data:{ urltipo_precio:tipo, p_min:pmin, p_max:pmax, url_c:ucatalogo },
+        success: function( response ){
+            console.log( response );
+        }
+    });
+}
+
 $( document ).ready(function() {	
     // ============================================================================ //
 
@@ -38,6 +57,13 @@ $( document ).ready(function() {
 		
 		var trg = $(this).attr( "data-flt-cnt" );
 		$( "#" + trg ).show( "slow" );
+	});
+
+	$("#btn_flt_precio_pieza").on( "click", function(){
+		var pmin = $("#flt_pre_pro_min").val();
+		var pmax = $("#flt_pre_pro_max").val();
+		
+		generarURLFiltroPrecio( "pieza", pmin, pmax );
 	});
 
 });

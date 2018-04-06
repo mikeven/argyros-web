@@ -191,8 +191,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	
 	function urlFiltro( $url_base, $url_params, $param, $val ){
-		//Devuelve el url parametrizado con el filtro
-		
+		//Devuelve el url parametrizado con los valores para el filtro, excepto precios
 		$url_nueva = $url_base;
 		
 		if ( paramEnUrl( $param, $url_params ) ){
@@ -222,54 +221,123 @@
 
 	/* ----------------------------------------------------------------------------------- */
 
+	function urlFiltroPrecio( $url_base, $url_params, $param, $pmin, $pmax ){
+		//Devuelve el url parametrizado con los valores de filtro para precios
+		$url_nueva = $url_base;
+		$valor_param = "&".$param."=".$pmin.SEPVALFLT.$pmax;
+		
+		/*if ( paramEnUrl( $param, $url_params ) ){
+			//Si el parámetro está incluído en la URL se actualiza el valor nuevo
+			
+			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
+				//Valor de parámetro no está en la URL, se agrega
+				$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
+				$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
+			}else{
+				//Valor de parámetro ya está en la URL, se elimina
+				$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
+				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
+			}
+
+		}else{
+			//Si el parámetro no está incluído en la URL se agrega el parámetro nuevo con su valor
+			$nuevo_param = agregarParametroConValorURL( $url_params, $param, $val );
+			$url_nueva .= $nuevo_param;
+		}*/
+
+		$url_filtro = $url_nueva.$valor_param;
+		//echo $url_filtro;
+		return $url_filtro;
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	function obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params ){
+		
+		//data-products.php:
+		$data_filtros["trabajos"] 	= obtenerTrabajosProductos( $dbh, $productos );
+		$data_filtros["lineas"] 	= obtenerLineasProductos( $dbh, $productos );
+		$data_filtros["banos"] 		= obtenerBanosProductos( $dbh, $productos );
+		$data_filtros["colores"] 	= obtenerColoresProductos( $dbh, $productos );
+
+		//$catalogue_url, $url_params: fn-catalogue.php
+		$data_filtros["url"]		= obtenerValoresFiltros( $catalogue_url, $url_params );
+
+		return $data_filtros;
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+
+	function obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params ){
+		
+		//Filtro de productos comparando con el atributo 'Línea' de del producto
+			if( isset( $_GET[P_FLT_LINEA] ) ){
+			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
+			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Trabajo' de del producto
+		if( isset( $_GET[P_FLT_TRABAJO] ) ){
+			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
+			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
+		if( isset( $_GET[P_FLT_BANO] ) ){
+			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
+			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Color' de detalle de producto
+		if( isset( $_GET[P_FLT_COLOR] ) ){
+			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
+			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
+		if( isset( $_GET[P_FLT_TALLA] ) ){
+			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
+			/*foreach ( $productos as $p ) {
+				$rp = obtenerProductoPorId( $dbh, $p["id"] );
+				$dp = $rp["detalle"];
+				print_r($dp);
+				echo "<br><br>";
+			}*/
+			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );		
+		}
+
+		return $productos;
+	}
+
+	/* ----------------------------------------------------------------------------------- */
+	/* ----------------------------------------------------------------------------------- */
+
 	if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
 		
 	}
 	
-	if( isset( $_GET["c"] ) ) {
+	if( isset( $_GET["c"] ) ){
 		$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
 		$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
 	}
-	
-	//data-products.php:
-	$filtro_trabajos = obtenerTrabajosProductos( $dbh, $productos );
-	$filtro_lineas = obtenerLineasProductos( $dbh, $productos );
-	$filtro_banos = obtenerBanosProductos( $dbh, $productos );
-	$filtro_colores = obtenerColoresProductos( $dbh, $productos );
 
-	//$catalogue_url, $url_params: fn-catalogue.php
-	$filtros_url = obtenerValoresFiltros( $catalogue_url, $url_params );
-	//echo "FILTROS: ".$filtros_url;
+	if( isset( $_POST["urltipo_precio"] ) ){
+		//Llamada asíncrona para generar URL para filtrar por precio
+		include( "fn-catalog.php" );
+		$catalogue_url = $_POST["url_c"];
+		$urlparsed = parse_url( $catalogue_url );
+		parse_str( $urlparsed["query"], $url_params );
 
-	//Filtro de productos comparando con el atributo 'Línea' de del producto
-	if( isset( $_GET[P_FLT_LINEA] ) ){
-		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
-		$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $valores_filtros );		
+		if( $_POST["urltipo_precio"] == "pieza" ){
+			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, $_POST["p_min"], $_POST["p_max"] );
+			echo $url;
+		}
+	}
+	else{
+		//Flujo natural, sin la llamada asíncrona
+		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
+		$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );	
 	}
 
-	//Filtro de productos comparando con el atributo 'Trabajo' de del producto
-	if( isset( $_GET[P_FLT_TRABAJO] ) ){
-		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
-		$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $valores_filtros );		
-	}
-
-	//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
-	if( isset( $_GET[P_FLT_BANO] ) ){
-		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
-		$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $valores_filtros );		
-	}
-
-	//Filtro de productos comparando con el atributo 'Color' de detalle de producto
-	if( isset( $_GET[P_FLT_COLOR] ) ){
-		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
-		$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $valores_filtros );		
-	}
-
-	//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
-	if( isset( $_GET[P_FLT_TALLA] ) ){
-		$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
-		$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );
-		//var_dump($productos);		
-	}
 	/* ----------------------------------------------------------------------------------- */
 ?>
