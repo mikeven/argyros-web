@@ -56,9 +56,11 @@
 								Precio por pieza
 							</p>
 							De
-							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" name="f_pprod_min" value="" style="width:50%">
+							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" 
+							name="f_pprod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							Hasta
-							<input type="text" id="flt_pre_pro_max" class="form-control input_flt" name="f_pprod_max" value="" style="width:50%">
+							<input type="text" id="flt_pre_pro_max" class="form-control input_flt" 
+							name="f_pprod_max" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							<button id="btn_flt_precio_pieza" class="btn btn-2" type="button">Aceptar</button>
 						</div>
 					</div>
@@ -69,9 +71,11 @@
 								Precio por gramo
 							</p>
 							De
-							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" name="f_ppeso_min" value="" style="width:50%">
+							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" 
+							name="f_ppeso_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							Hasta
-							<input type="text" id="flt_pre_pes_max" class="form-control input_flt" name="f_ppeso_max" value="" style="width:50%">
+							<input type="text" id="flt_pre_pes_max" class="form-control input_flt" 
+							name="f_ppeso_max" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							<button id="btn_flt_precio_peso" class="btn btn-2" type="button">Aceptar</button>
 						</div>
 					</div>
@@ -99,7 +103,7 @@
 								Baños
 							</p>
 							<ul>
-								<?php foreach ( $d_filtros["banos"] as $b ) {  
+								<?php foreach ( $d_filtros["banos"] as $b ){  
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_BANO, trim( $b["ubano"] ) );
 								?>
 									<li><a title="<?php echo $b["bano"]; ?>" href="<?php echo $url_f; ?>">

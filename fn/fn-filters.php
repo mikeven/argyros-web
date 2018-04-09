@@ -138,7 +138,7 @@
 
 	/* ----------------------------------------------------------------------------------- */
 	function ajustarParametrosEnUrl( $url_nueva, $url_params, $param ){
-		//Elimina el parámetro de la URL si no posee valores
+		//Elimina el parámetro de la URL si no posee valores (tra=)
 		
 		$suburl_param = trim( $url_params[$param] );
 		$nval_param = count( explode( SEPFLT, $suburl_param ) ) - 1;
@@ -187,6 +187,13 @@
 
 		return $url_nueva;
 	}
+
+	function actualizarValorParametroURL( $url_base, $valor_anterior, $valor_nuevo ){
+		//Devuelve la url sin el valor de un parámetro
+		$url_nueva = str_replace( $valor_anterior, $valor_nuevo, $url_base );
+
+		return $url_nueva;
+	}
 	
 	/* ----------------------------------------------------------------------------------- */
 	
@@ -196,16 +203,23 @@
 		
 		if ( paramEnUrl( $param, $url_params ) ){
 			
-			//Si el parámetro está incluído en la URL se agrega el valor nuevo
-			
-			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
-				//Valor de parámetro no está en la URL, se agrega
-				$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
-				$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
-			}else{
-				//Valor de parámetro ya está en la URL, se elimina
-				$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
+			//Si el parámetro está incluído en la URL se agrega el valor nuevo 
+			//(siempre que no sea parámetro de precio)
+			if( $param == P_FLT_PIEZA || $param == P_FLT_PESO ){
+				//Eliminación de parámetro relacionados a precios( pieza, peso )
+				$url_nueva = eliminarValorParametroURL( $url_base, $val );
 				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
+			}else{
+
+				if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
+					//Valor de parámetro no está en la URL, se agrega
+					$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
+					$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
+				}else{
+					//Valor de parámetro ya está en la URL, se elimina
+					$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
+					$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
+				}
 			}
 
 		}else{
@@ -215,7 +229,6 @@
 		}
 
 		$url_filtro = $url_nueva;
-		//echo $url_filtro;
 		return $url_filtro;
 	}
 
@@ -226,27 +239,14 @@
 		$url_nueva = $url_base;
 		$valor_param = "&".$param."=".$pmin.SEPVALFLT.$pmax;
 		
-		/*if ( paramEnUrl( $param, $url_params ) ){
-			//Si el parámetro está incluído en la URL se actualiza el valor nuevo
-			
-			if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
-				//Valor de parámetro no está en la URL, se agrega
-				$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
-				$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
-			}else{
-				//Valor de parámetro ya está en la URL, se elimina
-				$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
-				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
-			}
-
+		if ( paramEnUrl( $param, $url_params ) ){
+			//Si el parámetro está incluído en la URL se actualiza con el valor nuevo
+			$url_filtro = actualizarValorParametroURL( $url_nueva,  $url_params[$param], $pmin.SEPVALFLT.$pmax );
 		}else{
 			//Si el parámetro no está incluído en la URL se agrega el parámetro nuevo con su valor
-			$nuevo_param = agregarParametroConValorURL( $url_params, $param, $val );
-			$url_nueva .= $nuevo_param;
-		}*/
+			$url_filtro = $url_nueva.$valor_param;
+		}
 
-		$url_filtro = $url_nueva.$valor_param;
-		//echo $url_filtro;
 		return $url_filtro;
 	}
 	
@@ -330,6 +330,10 @@
 
 		if( $_POST["urltipo_precio"] == "pieza" ){
 			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, $_POST["p_min"], $_POST["p_max"] );
+			echo $url;
+		}
+		if( $_POST["urltipo_precio"] == "peso" ){
+			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, $_POST["p_min"], $_POST["p_max"] );
 			echo $url;
 		}
 	}

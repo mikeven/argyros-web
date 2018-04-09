@@ -5,14 +5,14 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	define( "SEPFLT", "_" );
-	define( "SEPVALFLT", "-" );
+	define( "SEPVALFLT", "--" );
 	define( "P_FLT_LINEA", "lin" );
 	define( "P_FLT_TRABAJO", "tra" );
 	define( "P_FLT_COLOR", "col" );
 	define( "P_FLT_BANO", "ba" );
 	define( "P_FLT_TALLA", "talla" );
-	define( "P_FLT_PIEZA", "precio_pieza" );
-	define( "P_FLT_PESO", "precio_peso" );
+	define( "P_FLT_PIEZA", "precio-pieza" );
+	define( "P_FLT_PESO", "precio-peso" );
 
 	/*.............................................................*/
 

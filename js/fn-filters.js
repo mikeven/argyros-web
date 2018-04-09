@@ -42,6 +42,7 @@ function generarURLFiltroPrecio( tipo, pmin, pmax ){
         data:{ urltipo_precio:tipo, p_min:pmin, p_max:pmax, url_c:ucatalogo },
         success: function( response ){
             console.log( response );
+            window.location.href = response;
         }
     });
 }
@@ -62,8 +63,14 @@ $( document ).ready(function() {
 	$("#btn_flt_precio_pieza").on( "click", function(){
 		var pmin = $("#flt_pre_pro_min").val();
 		var pmax = $("#flt_pre_pro_max").val();
-		
 		generarURLFiltroPrecio( "pieza", pmin, pmax );
+	});
+
+	$("#btn_flt_precio_peso").on( "click", function(){
+		var pmin = $("#flt_pre_pes_min").val();
+		var pmax = $("#flt_pre_pes_max").val();
+		
+		generarURLFiltroPrecio( "peso", pmin, pmax );
 	});
 
 });

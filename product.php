@@ -235,7 +235,7 @@
 															  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
 															  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> |
 															  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
-															  <?php if( $pdet["tipo_precio"] == "g" ) { ?>
+															  <?php if( $pdet["tipo_precio"] == "g" || $pdet["tipo_precio"] == "mo" ) { ?>
 															  | <span class="gs_circ">Precio por g: <span id="rpreciop_g">$ <?php echo $pdet["precio_peso"]; ?> </span> </span>
 														  	  <?php } ?>
 														  </div>

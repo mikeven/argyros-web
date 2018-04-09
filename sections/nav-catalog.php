@@ -6,7 +6,8 @@
 				<?php foreach ( $lh_cat_ppal as $h_reg_categ ) { //header.php ?>	
 					<?php if( $h_reg_categ["id"] != 0 ) { ?>
 					<li class="list-title licatppal">
-						<a href="#!" class="hnc_selcp hnc_selector" data-trg="hnc_sc<?php echo $h_reg_categ["id"] ?>">
+						<a href="acatalog.php?c=<?php echo $h_reg_categ["uname"];?>" 
+						class="hnc_selcp hnc_selector" data-trg="hnc_sc<?php echo $h_reg_categ["id"] ?>">
 							<?php 
 								echo reempEspacio( $h_reg_categ["name"] ); 
 							?>
