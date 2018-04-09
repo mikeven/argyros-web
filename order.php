@@ -233,7 +233,8 @@
 
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
-										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) || ( $orden["estado"] == "cancelado" ) ) { ?>
+										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) 
+										|| ( $orden["estado"] == "cancelado" ) || ( $orden["estado"] == "entregado" ) ) { ?>
 										<div id="pedido_inicial">
 											<form id="frm_mpedido" name="form_pedido_modificado">
 												<input type="hidden" id="idorden" name="id_orden" 
