@@ -5,7 +5,7 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	define( "SEPFLT", "_" );
-	define( "SEPVALFLT", "--" );
+	define( "SEPVALFLT", "-" );
 	define( "P_FLT_LINEA", "lin" );
 	define( "P_FLT_TRABAJO", "tra" );
 	define( "P_FLT_COLOR", "col" );
@@ -76,6 +76,22 @@
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function matchFiltroPrecio( $dbh, $reg, $atributo, $valores_filtros ){
+		//Devuelve verdadero si un detalle de producto está en el rango de valores del filtro
+		$match = false;
+		//echo "attr: ".$atributo." > ".$reg[$atributo]."<br>";
+		if( ( $reg[$atributo] >= $valores_filtros[0] ) && ( $reg[$atributo] <= $valores_filtros[1] ) )
+			$match = true;
+		if( $atributo == "precio_pieza" ){
+			$total_precio = $reg["precio_peso"] * $reg["peso"];
+			//echo $total_precio."::"."(".$valores_filtros[0]." - ".$valores_filtros[1].")";
+			//echo "PRECIO P: ".$reg["precio_peso"]." PESO: ".$reg["peso"]."<br>";
+			if( ( $total_precio >= $valores_filtros[0] ) && ( $total_precio <= $valores_filtros[1] ) )
+				$match = true;	
+		}
+		return $match;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerComparadoresConFiltroPorAtributo( $dbh, $id, $atributo ){
 		//Devuelve la lista de valores de atributos a comparar con los filtros de url
 		$comparadores = array();
@@ -101,13 +117,15 @@
 
 		return $comparadores;
 	}
-
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerComparadorConFiltroPorAtributo( $atributo ){
 		//Devuelve la lista de atributos a comparar con los filtros de url
 		$comparadores = array( 
 			P_FLT_BANO => "ubano",
 			P_FLT_COLOR => "ucolor",
-			P_FLT_TALLA => "ucolor" 
+			P_FLT_TALLA => "ucolor",
+			P_FLT_PIEZA => "precio_pieza",
+			P_FLT_PESO => "precio_peso" 
 		);
 
 		return $comparadores[$atributo];
@@ -142,9 +160,7 @@
 
 		return $filtrados;
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-	
 	function filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, $atributo, $valores_filtros ){
 		//Devuelve la lista de productos que coinciden en varios valores de un atributo de 
 		//detalle de producto con los valores del filtro ( Tallas )
@@ -162,7 +178,25 @@
 		}
 		return $filtrados;
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	function filtrarProductosPorPrecio( $dbh, $productos, $atributo, $valores_filtros ){
+		//Devuelve la lista de productos si alguno de sus registros en detalle está en rango de precio filtrado 
+		$filtrados = array();
+		foreach ( $productos as $p ){
+			//echo "PP"."<br>";
+			$detalle = obtenerDetalleProductoPorId( $dbh, $p["id"] );
+			foreach ( $detalle as $reg ){
+				$cmp = obtenerComparadorConFiltroPorAtributo( $atributo );
+				if( matchFiltroPrecio( $dbh, $reg, $cmp, $valores_filtros ) ){
+					$filtrados[] = $p;
+					break;
+				}
+			}
+		}
 
+		return $filtrados;
+	}
 	/* ----------------------------------------------------------------------------------- */
 	
 	if( isset( $_GET["c"], $_GET["s"] ) ){

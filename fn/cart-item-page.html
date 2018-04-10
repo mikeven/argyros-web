@@ -33,6 +33,12 @@
 		$<span class="subtotal_amount_cart">{stotal}</span>
 	</td>
 	<td class="action">
-		<a href="#!" data-idi="{idi}" class="e_itemcart" data-row="itemc{n_i}"> <i class="fa fa-times"></i>&nbsp; Quitar </a>
+		<a id="lnk{idi}" href="#!" data-idi="{idi}" class="e_itemcart">
+			<i class="fa fa-times"></i>&nbsp; Quitar 
+		</a>
+		<div id="oq{idi}" class="toggle_elim_item_cart">
+			<a class="confirm_itemcart" href='#!' data-idi="{idi}" data-row="itemc{n_i}">Confirmar</a> | 
+			<a class="lnkcancel_ei" data-trg="lnk{idi}" data-cnt="oq{idi}" href='#!'>Cancelar</a>
+		</div>
 	</td>
 </tr>

@@ -79,8 +79,9 @@
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<style>
 		.cart-qty-group{ border: 0; }
-		#label-msgs{ display: none; }
+		#label-msgs, .toggle_elim_item_cart{ display: none; }
 		.icon-msg{ float: left; margin-right: 10px; }
+		.confirm_itemcart{ color: red; }
 	</style>
 </head>
 

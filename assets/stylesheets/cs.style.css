@@ -26,7 +26,7 @@ header#top .line{border-top:1px solid rgba(0,0,0,0.1);width:100%;height:1px;}
 .top-navigation ul li.top-search,
 .top-navigation ul li.umbrella{display:table-cell;vertical-align:middle;float:none;}
 .top-navigation ul li.top-logo{width:20%;padding:0;}
-.top-navigation ul li.navigation{width:69%;padding:0;}
+.top-navigation ul li.navigation{width:65%;padding:0;}
 .top-navigation ul li.navigation .navbar .navbar-collapse.collapse{padding-right:20px;}
 .top-navigation ul li.top-search{width:4%;}
 .top-navigation ul li.top-search .header-search{display:table;table-layout:fixed;margin-left:10px;}
@@ -1376,6 +1376,11 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 		font-weight: bold;
 	    font-family: 'Lato', sans-serif;
 	    color: #202020;
+	}
+
+	.num-items-in-cart span.icon_ span {
+	    font-size: 14px;
+	    font-weight: 700;
 	}
 
 /*added*/

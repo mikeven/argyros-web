@@ -5,8 +5,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function ultimaActualizacion( $dbh, $idu ){
 		//Retorna la fecha donde se realizó la última actualización de documentos de usuario
-		$q = "select date_format(ultima_act_doc,'%Y-%m-%d') as fecha from usuario 
-			where idUsuario = $idu";
+		$q = "select date_format(ultima_act_doc,'%Y-%m-%d') as fecha from usuario where idUsuario = $idu";
 		$data = mysql_fetch_array( mysql_query ( $q, $dbh ) );
 		
 		return $data["fecha"];
@@ -173,12 +172,13 @@
 	function modificarDatosUsuario( $usuario, $dbh ){
 		//Actualiza los datos de cuenta de usuario
 		$actualizado = 1;
-		$q = "update usuario set usuario = '$usuario[usuario]', nombre = '$usuario[nombre]' 
-		where idUsuario = $usuario[id]";
+		$q = "update users set first_name = '$usuario[name]', last_name = '$usuario[lastname]', 
+		phone = '$usuario[phone]', company_name = '$usuario[nempresa]', country_code = '$usuario[pais]', 
+		city = '$usuario[ciudad]' where id = $usuario[idusuario]";
 		//echo $q;
 		
-		mysql_query( $q, $dbh );
-		if( mysql_affected_rows() == -1 ) $actualizado = 0;
+		mysqli_query ( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
 		
 		return $actualizado;
 	}
@@ -305,11 +305,10 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Modificar datos de usuario. Bloque: datos personales
-	if( isset( $_POST["mod_usuario"] ) ){
+	if( isset( $_POST["form_act_dp"] ) ){
 		include( "bd.php" );
-		$usuario["id"] 			= $_POST["idUsuario"];
-		$usuario["usuario"] 	= $_POST["usuario"];
-		$usuario["nombre"] 		= $_POST["nombre"];
+		
+		parse_str( $_POST["form_act_dp"], $usuario );
 		
 		$res["exito"] = modificarDatosUsuario( $usuario, $dbh );
 		

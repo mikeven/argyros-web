@@ -28,6 +28,28 @@
 	
 	/* ----------------------------------------------------------------------------------- */
 	
+	function obtenerVectorValoresFiltroPrecio( $url_params, $param ){
+		//Devuelve un vector con los valores mínimo y máximo de un valor de precio en filtro
+
+		$string_vector = $url_params[$param];	//precio=pmin-pmax
+		$vector = explode( SEPVALFLT, $string_vector );
+		return $vector;
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerTextoEtiquetaFiltro( $param, $texto ){
+		//Devuelve el texto contenido en la etiqueta de panel de filtros seleccionados
+		if( $param == P_FLT_PIEZA || $param == P_FLT_PESO ){
+			$vector = explode( SEPVALFLT, $texto );
+			$tprecio = ucfirst( str_replace( "-", " ", $param ) );
+			$texto = $tprecio.": $".$vector[0]." - "."$".$vector[1];
+		}
+		else
+			$texto = ucfirst( str_replace( "-", " ", $texto ) ); 
+
+		return $texto;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerValoresFiltros( $catalogue_url, $url_params ){
 		//Devuelve los valores contenidos en los parámetros de filtros separados por comas
 		$string = "";
@@ -42,7 +64,7 @@
 				foreach ( $valores as $texto ) {
 					if( $texto != "" ){
 						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, $param, trim( $texto ) );
-						$item_filtro["texto"] = ucfirst( str_replace( "-", " ", $texto ) );
+						$item_filtro["texto"] = obtenerTextoEtiquetaFiltro( $param, $texto );
 						$data_filtro[] = $item_filtro;
 					}
 				}
@@ -304,6 +326,18 @@
 				echo "<br><br>";
 			}*/
 			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Precio pieza' de detalle de producto
+		if( isset( $_GET[P_FLT_PIEZA] ) ){
+			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PIEZA );
+			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Precio pieza' de detalle de producto
+		if( isset( $_GET[P_FLT_PESO] ) ){
+			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO );
+			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, $valores_filtros );		
 		}
 
 		return $productos;

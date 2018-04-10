@@ -12,6 +12,7 @@
 		<?php 
 	      foreach ( $odetalle as $r ) {
 	        $total_item = $r["cant_rev"] * $r["price"];
+	        if( $r["cant_rev"] != 0 ){
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
@@ -25,6 +26,6 @@
 	      <td>$<?php echo $r["price"]; ?></td>
 	      <td>$<?php echo $total_item; ?></td>
 	    </tr>
-	    <?php } ?>
+	    <?php }} ?>
 	</tbody>
 </table>

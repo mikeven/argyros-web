@@ -4,7 +4,7 @@
  */
 /* ----------------------------------------------------------------------------------- */
 function registrarUsuario(){
-	//Envía al servidor la petición de inicio de sesión
+	//Envía al servidor la invocación a registrar nuevo usuario
 	var form = $("#frm_registro");
 	var form_usr = form.serialize();
 	
@@ -19,6 +19,29 @@ function registrarUsuario(){
             mensajeAlerta( "#alert-msgs", res.mje );
             if( res.exito != 1 ){
                 activarBoton( "#btn_register", true );  
+            }
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+function actualizarDatosPersonales( form ){
+    //Envía al servidor la petición para actualizar datos personales de cuenta de usuario
+    var form = $(form);
+    var form_usr = form.serialize();
+    
+    $.ajax({
+        type:"POST",
+        url:"database/data-user.php",
+        data:{ form_act_dp: form_usr },
+        success: function( response ){
+            console.log(response);
+            res = jQuery.parseJSON( response );
+            //scroll_To();
+            mensajeAlerta( "#alert-msgs", res.mje );
+            if( res.exito != 1 ){
+                activarBoton( "#btn_musuario", true );  
             }
         }
     });
@@ -72,13 +95,6 @@ $( document ).ready(function() {
                             message: 'Debe indicar ciudad'
                         }
                     }
-                },
-                phone: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Debe indicar teléfono'
-                        }
-                    }
                 }
             }
     });
@@ -87,7 +103,7 @@ $( document ).ready(function() {
       if ( e.isDefaultPrevented() ) {
        
       } else {
-        alert("ERROR");
+        actualizarDatosPersonales( $("#frm_musuario") );
         return false;
       }
     });

@@ -111,7 +111,8 @@
 	function obtenerOrdenesUsuario( $dbh, $idu ){
 		//Devuelve el registro de las órdenes asociadas a un usuario
 		$q = "select id, user_id as idu, total_price as total, order_status as estado, 
-		date_format( created_at,'%d-%m-%Y') as fecha from orders where user_id = $idu";
+		date_format( created_at,'%d-%m-%Y') as fecha from orders where user_id = $idu 
+		order by id DESC";
 		//echo $q;
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

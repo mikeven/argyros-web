@@ -15,6 +15,7 @@
     include( "fn/fn-order.php");
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
+    include( "fn/common-functions.php" );
     
     checkSession( '' );
     $dusuario = obtenerUsuarioSesion( $dbh );
@@ -68,12 +69,17 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-account.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
+	<script src="js/fn-ui.js" type="text/javascript"></script>
+	
 	<style>
+
 		#panel_edicion_cuenta .list-styled a:hover { color: #a7b239; }
 		#panel_edicion_cuenta .list-styled a:focus { color: #a7b239; }
 		.data_panel_tab, #frm_nombre_empresa{ display: none; }
 		.frm_container{ margin-left: 5%; width: 80%; padding:0 0 50px 0; }
 		#cta_es_empresa:hover{ cursor: pointer; }
+		#alert-msgs{ display: none; }
+
 	</style>
 </head>
 
@@ -131,13 +137,17 @@
 							</div>
 							
 							<div id="col-main" class="account-page col-sm-18 col-md-18 clearfix">
+								
+								<?php include( "sections/alert-msg.html" ); ?>
+
 								<?php if( isset( $_SESSION["login"] ) ) { ?>
 								<div id="customer_personal_data" class="data_panel_tab">
 									<h2 class="sb-title">Datos personales</h2>
 									<span class="mini-line"></span>
 									<div class="row frm_container">
 										<form id="frm_musuario" method="post" action="" accept-charset="UTF-8">
-										  <input id="id_usuario" name="idusuario" type="hidden" value="">
+										  <input id="id_usuario" name="idusuario" type="hidden" 
+										  value="<?php echo $_SESSION["user"]["id"]; ?>">
 										  <ul class="row list-unstyled customer_address_table">
 											<li class="col-md-24">
 											  <label class="control-label" for="address_first_name_new">Nombre</label>
@@ -172,7 +182,9 @@
 											  <select name="pais" class="form-control selectpicker">
 			                                    <option disabled>Seleccione</option>
 			                                    <?php foreach ( $paises as $p ) { ?>
-			                                      <option value="<?php echo $p["code"] ?>"><?php echo $p["name"] ?></option>
+			                                      <option value="<?php echo $p["code"] ?>" <?php echo sop( $p["code"], $dusuario["country_code"] ); ?>>
+			                                      	<?php echo $p["name"] ?>
+			                                      </option>
 			                                    <?php } ?>
 			                                  </select>
 											</li>

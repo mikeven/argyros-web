@@ -67,6 +67,10 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
+
+	<style>
+		.hlighted{ background-color: #d4cd7a; }
+	</style>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
@@ -157,24 +161,28 @@
 											</th>
 										</tr>
 										</thead>
-										<tbody>
-										<?php foreach ( $ordenes as $orden ) { ?>
-										<tr class="odd">
-											<td>
-												<a href="order.php?orderid=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
-											</td>
-											<td>
-												<span class="note"><?php echo $orden["fecha"] ?></span>
-											</td>
-											<td>
-												<span class="note"><?php echo $orden["estado"] ?></span>
-											</td>
-											<td>
-												<span class="note">$<?php echo $orden["total"] ?></span>
-											</td>
-										</tr>
-										<?php } ?>
-										</tbody>
+											<tbody>
+											<?php 
+												$no = 0;
+												foreach ( $ordenes as $orden ) {
+													if( $orden["estado"] == "revisado" ) $ctable = "hlighted"; else $ctable = "";
+											?>
+												<tr class="<?php echo $ctable; ?>">
+													<td>
+														<a href="order.php?orderid=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
+													</td>
+													<td>
+														<span class="note"><?php echo $orden["fecha"] ?></span>
+													</td>
+													<td>
+														<span class="note"><?php echo $orden["estado"] ?></span>
+													</td>
+													<td>
+														<span class="note">$<?php echo $orden["total"] ?></span>
+													</td>
+												</tr>
+											<?php $no++; } ?>
+											</tbody>
 										</table>
 									</div>
 								</div>

@@ -179,7 +179,7 @@
 														Total: $<span class="monto_total_orden"><?php echo $orden["total"]?></span>
 													</div>
 													<?php } ?>
-													<?php if( $orden["estado"] == "revisado" ) { ?>
+													<?php if( $orden["estado"] == "revisado" || $orden["estado"] == "confirmado" ) { ?>
 													<div>
 														Total: $<span class="monto_total_orden"><?php echo $orden["total_ajuste"]; ?></span>
 													</div>
@@ -234,7 +234,7 @@
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
 										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) 
-										|| ( $orden["estado"] == "cancelado" ) || ( $orden["estado"] == "entregado" ) ) { ?>
+										|| ( $orden["estado"] == "cancelado" ) ) { ?>
 										<div id="pedido_inicial">
 											<form id="frm_mpedido" name="form_pedido_modificado">
 												<input type="hidden" id="idorden" name="id_orden" 
@@ -249,7 +249,7 @@
 										</div>
 										<?php } ?>
 
-										<?php if( $orden["estado"] == "confirmado" ) { ?>
+										<?php if( $orden["estado"] == "confirmado" || $orden["estado"] == "entregado" ) { ?>
 											<div id="pedido_confirmado">
 												<?php include( "sections/tablas/tabla-pedido-confirmado.php" ); ?>
 											</div>

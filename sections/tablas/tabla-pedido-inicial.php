@@ -3,9 +3,9 @@
 	<tr>
 		<th> </th>
 		<th>Producto</th>
-		<th>Cantidad</th>
+		<th>Cantidad Solicitada</th>
 		<?php if( $orden["estado"] == "revisado" ) { ?>
-			<th class="colrev">Cant Disp</th>
+			<th class="colrev">Cantidad Disponible</th>
 		<?php } ?>
 		<th>Precio unit</th>
 		<th>Total</th>

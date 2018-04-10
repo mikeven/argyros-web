@@ -143,16 +143,30 @@ $( document ).ready(function() {
         var cant    = $(this).val();
         
         actualizarItemCarrito( iditem, cant );
-        
-    });
+    });     
 
     //Click: Invoca la eliminación de un ítem del carrito de compra ( página carrito )
-    $("#list_content_cart").on('click', '.e_itemcart', function(){
+    $("#list_content_cart").on('click', '.confirm_itemcart', function(){
         var html_e = $(this).attr("data-row");
         var iditem = $(this).attr("data-idi");
-        
-        eliminarItemCarrito( html_e, iditem );
 
+        eliminarItemCarrito( html_e, iditem );
+    });   
+    
+    //Click: Vuelve a mostrar el enlace con la opción para eliminar ítem de carrito  
+    $("#list_content_cart").on('click', '.lnkcancel_ei', function(){
+        var lnkorig = $(this).attr("data-trg");
+        var contendor = $(this).attr("data-cnt");
+        $( "#" + contendor ).hide();
+        $( "#" + lnkorig ).show();
+    });
+
+    //Click: Muestra panel de confirmación previa a eliminar ítem de carrito ( página carrito )
+    $("#list_content_cart").on('click', '.e_itemcart', function(){
+        var iditem = $(this).attr("data-idi");
+
+        $( "#lnk" + iditem ).hide();
+        $( "#oq" + iditem ).show();
     });
 
     //Click: Suma en 1 el número mostrado en el campo cantidad del carrito de compra ( página carrito )
