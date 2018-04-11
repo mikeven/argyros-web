@@ -746,7 +746,7 @@ function blackout( elem, a ){
     if( a == "hide" ){
       $("#blackout-dropdown").fadeOut(300);
       $("#listcatalog").css("min-width", "260px");
-      $("#listcatalog").css("right", "90px");
+      $("#listcatalog").css("right", "135px");
       $(".subcategs_navcatalog").hide();
     }
   }
@@ -771,7 +771,7 @@ function handleDropdown(){
 
   $('.licatppal').on('mouseover', function() {
     $("#listcatalog").css("min-width", "380px");
-    $("#listcatalog").css("right", "-30px");
+    $("#listcatalog").css("right", "15px");
   });
   
   $('nav .dropdown-menu').each(function(){

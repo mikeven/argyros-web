@@ -34,7 +34,7 @@
 										<button id="btn_login_dd" class="btn" type="button">Ingresar</button>
 									</li>
 									<hr>
-									<a href="#!">Recuperar contraseña</a>
+									<a href="password_recovery.php">Recuperar contraseña</a>
 								</ul>
 							</div>
 						</form>

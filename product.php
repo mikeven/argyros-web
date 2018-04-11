@@ -91,7 +91,7 @@
 		li i.fa{
 			font-size: 4px;
 		    vertical-align: 4px;
-		    padding-right: 10px;
+		    padding-right: 5px;
 		    color: #808080;
 		}
 		#not-found{

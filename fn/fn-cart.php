@@ -103,7 +103,7 @@
 		}
 		$res["cart"] = $cart;
 		$res["lpag"] = $lpag;
-		$res["total_price"] = $total_cart;
+		$res["total_price"] = number_format( $total_cart, 2, ',', '.');
 		$res["total_cant"] = $total_cant;
 		$res["nitems"] = count( $carrito );
 

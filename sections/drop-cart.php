@@ -8,7 +8,7 @@
 				  <i class="fa fa-2 fa-shopping-cart"></i>
 				  <span id="nitems_cart_drop" class="number">0</span>
 				  &nbsp;&nbsp;&nbsp;<span>$</span>
-				  <span id="total_price_cart" class="total_price_cart">0.00</span>
+				  <span id="total_price_cart" class="total_price_cart" style="font-size:12px;">0.00</span>
 				</span>
 			</div>
 			

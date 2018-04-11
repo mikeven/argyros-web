@@ -55,6 +55,10 @@ jQuery.fn.exists = function(){ return ($(this).length > 0); }
 
 $( document ).ready(function() {	
     
+    $("#recpassword").on( "click", function(){
+        $("#recover-password").toggle();
+    });
+
     $(".lnk_tabaccount").on( "click", function(){
         $(".data_panel_tab").hide();
         var trg = $(this).attr("data-target");

@@ -166,8 +166,6 @@ $( document ).ready(function() {
     }
     /* ......................................................................*/
     
-    
-
     /*
     $('#frm_login_bar').bootstrapValidator({
         

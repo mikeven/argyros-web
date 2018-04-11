@@ -64,6 +64,7 @@
 	<script src="assets/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js" type="text/javascript"></script>
 
 	<script src="js/fn-product.js" type="text/javascript"></script>
+	<script src="js/fn-account.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
@@ -128,7 +129,7 @@
 															<button id="btn_login" class="btn" type="submit">Ingresar</button>
 														</li>
 														<li>
-															<a href="javascript:;" onclick="">¿ Recuperar contraseña ?</a>
+															<a id="recpassword" href="#!">¿ Recuperar contraseña ?</a>
 														</li>
 														<li>
 															<a href="register.php">Registrarse</a>
@@ -140,30 +141,30 @@
 											</form>
 										</div>
 										<!-- Password Recovery -->
-										<div id="recover-password" style="display: none;">
+										<div id="recover-password" style="display:none;" class="col-md-24 row-left">
 											<div class="checkout-title">
-												<span class="general-title">Reset Password</span>
+												<span class="general-title">Recuperar contraseña</span>
 												<span class="line"></span>
 											</div>
 											<p class="note">
-												We will send you an email to reset your password.
+												Ingresa el email asociado a tu cuenta. <br>
+												Recibirás las instrucciones para recuperar tu contraseña en tu buzón de correo
 											</p>
 											<form method="post" action="http://demo.designshopify.com/account/recover" accept-charset="UTF-8">
 												<input type="hidden" value="recover_customer_password" name="form_type"><input type="hidden" name="utf8" value="✓">
 												<ul id="recover-form" class="list-unstyled clearfix">
 													<li class="clearfix"></li>
 													<li id="recover_email" class="col-md-21">
-													<label class="control-label">Email Address <span class="req">*</span></label>
+													<label class="control-label">Email<span class="req">*</span></label>
 													<input type="email" value="" name="email" id="recover-email" class="form-control">
 													</li>
 													<li class="col-md-21 unpadding-top">
 													<ul class="login-wrapper list-unstyled">
 														<li>
-														<a class="action" href="javascript:;" onclick="hideRecoverPasswordForm()">Return to login?</a>
-														or <a class="return" href="index-2.html">Return to store</a>
+															<button class="btn btn-1" type="submit">Enviar</button>
 														</li>
 														<li>
-														<button class="btn btn-1" type="submit">Submit</button>
+															<a class="return" href="index.php">Regresar a la tienda</a>
 														</li>
 													</ul>
 													</li>
