@@ -18,7 +18,7 @@ function registrarUsuario(){
             scroll_To();
             mensajeAlerta( "#alert-msgs", res.mje );
             if( res.exito != 1 ){
-                activarBoton( "#btn_register", true );  
+                activarBoton( "#btn_register", false );  
             }
         }
     });
@@ -42,6 +42,71 @@ function actualizarDatosPersonales( form ){
             mensajeAlerta( "#alert-msgs", res.mje );
             if( res.exito != 1 ){
                 activarBoton( "#btn_musuario", true );  
+            }
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+function actualizarDatosCuenta( form, dato ){
+    //Envía al servidor la petición para actualizar datos personales de cuenta de usuario
+    var form = $(form);
+    var form_usr = form.serialize();
+    
+    $.ajax({
+        type:"POST",
+        url:"database/data-user.php",
+        data:{ form_act_cta: form_usr, data:dato },
+        success: function( response ){
+            console.log(response);
+            res = jQuery.parseJSON( response );
+            mensajeAlerta( "#alert-msgs", res.mje );
+            if( res.exito != 1 ){
+                activarBoton( ".btn-actdu", true );  
+            }
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+function recuperarPasswordUsuario( form ){
+    //Envía al servidor la petición para recuperar contraseña de usuario
+    var form_usr = $(form).serialize();
+    
+    $.ajax({
+        type:"POST",
+        url:"database/data-user.php",
+        data:{ passw_recovery: form_usr },
+        success: function( response ){
+            console.log(response);
+            res = jQuery.parseJSON( response );
+            mensajeAlerta( "#alert-msgs", res.mje );
+            if( res.exito != 1 ){
+                activarBoton( "#btn_envrecov", false );  
+            }
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+function restablecerPasswordUsuario( form ){
+    //Envía al servidor la petición para reasignar contraseña de usuario
+    var form_usr = $(form).serialize();
+    
+    $.ajax({
+        type:"POST",
+        url:"database/data-user.php",
+        data:{ new_passw: form_usr },
+        success: function( response ){
+            console.log(response);
+            res = jQuery.parseJSON( response );
+            mensajeAlerta( "#alert-msgs", res.mje );
+             $(form).reset();
+            if( res.exito != 1 ){
+                activarBoton( "#btn_envnpass", false );  
             }
         }
     });
@@ -103,7 +168,7 @@ $( document ).ready(function() {
             }
     });
 
-    $('#frm_musuario').bootstrapValidator().on('submit', function (e) {
+    $('#frm_musuario').bootstrapValidator().on('submit', function (e){
       if ( e.isDefaultPrevented() ) {
        
       } else {
@@ -154,7 +219,7 @@ $( document ).ready(function() {
       if ( e.isDefaultPrevented() ) {
        
       } else {
-        alert("ERROR");
+        actualizarDatosCuenta( $("#frm_mcontrasena"), "password" );
         return false;
       }
     });
@@ -186,8 +251,83 @@ $( document ).ready(function() {
       if ( e.isDefaultPrevented() ) {
        
       } else {
-        alert("ERROR");
+        actualizarDatosCuenta( $("#frm_email_cuenta"), "email" );
         return false;
       }
     });
+
+    /* ......................................................................*/
+
+    if ( $('#frm_passwrecovery').exists() ) {
+        $('#frm_passwrecovery').bootstrapValidator({
+            
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar un email'
+                        },
+                        emailAddress: {
+                            message: 'Debe indicar un email válido'
+                        }
+                    }
+                }
+            }
+        });
+
+        $('#frm_passwrecovery').bootstrapValidator().on('submit', function (e) {
+          if (e.isDefaultPrevented()) {
+            
+          } else {
+            recuperarPasswordUsuario( $("#frm_passwrecovery") );
+            return false;
+          }
+        });
+    }
+
+    /* ......................................................................*/
+
+    $('#frm_newpassword').bootstrapValidator({
+            
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            password1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe indicar contraseña'
+                    }
+                }
+            },
+            password2: {
+                validators: {
+                    notEmpty: {
+                        message: 'Debe indicar contraseña'
+                    },
+                    identical: {
+                        field: 'password1',
+                        message: 'Las contraseñas deben coincidir'
+                    },
+                }
+            }
+        }
+    });
+
+    $('#frm_newpassword').bootstrapValidator().on('submit', function (e) {
+      if (e.isDefaultPrevented()){
+        
+      } else {
+        restablecerPasswordUsuario( $("#frm_newpassword") );
+        return false;
+      }
+    });
+
 });

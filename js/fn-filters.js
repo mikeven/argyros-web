@@ -47,6 +47,24 @@ function generarURLFiltroPrecio( tipo, pmin, pmax ){
     });
 }
 
+/* ----------------------------------------------------------------------------------- */
+
+function generarURLFiltroPeso( pmin, pmax ){
+	//Invoca la generación de la url para filtrar productos por peso
+	var ucatalogo = $("#urlcatalogoactual").val();
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-filters.php",
+        data:{ urltipo_precio:"peso_producto", peso_min:pmin, peso_max:pmax, url_c:ucatalogo },
+        success: function( response ){
+            console.log( response );
+            window.location.href = response;
+        }
+    });
+}
+
+/* ----------------------------------------------------------------------------------- */
+
 $( document ).ready(function() {	
     // ============================================================================ //
 
@@ -72,7 +90,13 @@ $( document ).ready(function() {
 		
 		generarURLFiltroPrecio( "peso", pmin, pmax );
 	});
-
+	
+	$("#btn_flt_peso").on( "click", function(){
+		var pmin = $("#flt_peso_min").val();
+		var pmax = $("#flt_peso_max").val();
+		
+		generarURLFiltroPeso( pmin, pmax );
+	});
 });
 
 /*

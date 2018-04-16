@@ -38,6 +38,7 @@
 						<ul>
 							<li><a title="Precio por pieza" href="#!" class="flt_selector" data-flt-cnt="flt_precio_prod"> Precio por pieza</a></li>
 							<li><a title="Precio por gramo" href="#!" class="flt_selector" data-flt-cnt="flt_precio_gramo"> Precio por gramo</a></li>
+							<li><a title="Precio producto" href="#!" class="flt_selector" data-flt-cnt="flt_peso"> Peso producto</a></li>
 							<li><a title="Talla" href="#!" class="flt_selector" data-flt-cnt="flt_talla">Talla</a></li>
 							<li><a title="Baño" href="#!" class="flt_selector" data-flt-cnt="flt_bano">Baño</a></li>
 							<li><a title="Trabajo" href="#!" class="flt_selector" data-flt-cnt="flt_trabajo">Trabajo</a></li>
@@ -55,7 +56,7 @@
 							<p class="title">
 								Precio por pieza 
 							</p>
-							De (ej. 25; 12.75)
+							De (ej. 12.75; 25 )
 							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" placeholder="$"
 							name="f_pprod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							Hasta
@@ -70,7 +71,7 @@
 							<p class="title">
 								Precio por gramo 
 							</p>
-							De (ej. 3; 0.75)
+							De (ej. 0.75; 3 )
 							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" placeholder="$"
 							name="f_ppeso_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 
@@ -78,6 +79,22 @@
 							<input type="text" id="flt_pre_pes_max" class="form-control input_flt" placeholder="$"
 							name="f_ppeso_max" value="" style="width:50%" onkeypress="return isNumberKey(event)">
 							<button id="btn_flt_precio_peso" class="btn btn-2" type="button">Aceptar</button>
+						</div>
+					</div>
+
+					<div id="flt_peso" class="tab_filtro_contenido">
+						<div class="tag-group" id="coll-filter-3">
+							<p class="title">
+								Peso de producto (g)
+							</p>
+							De (Gramos: ej.: 0.5; 2 )
+							<input type="text" id="flt_peso_min" class="form-control input_flt" placeholder="gr"
+							name="f_peso_prod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
+
+							Hasta
+							<input type="text" id="flt_peso_max" class="form-control input_flt" placeholder="gr"
+							name="f_peso_prod_max" value="" style="width:50%" onkeypress="return isNumberKey(event)">
+							<button id="btn_flt_peso" class="btn btn-2" type="button">Aceptar</button>
 						</div>
 					</div>
 

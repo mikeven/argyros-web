@@ -176,7 +176,7 @@
 	function obtenerProductoPorId( $dbh, $pid ){
 		//Devuelve los datos de producto, registros de detalle e imágenes registradas 
 		$producto["data"] = obtenerDatosProductoPorId( $dbh, $pid );
-		$producto["detalle"] = obtenerDetalleProducto( $dbh, $pid );
+		$producto["detalle"] = obtenerDetalleProductoPorId( $dbh, $pid );
 
 		$producto["detalle"] = cargarPreciosDetalle( $dbh, $producto["detalle"] );
 		$producto["detalle"] = cargarImagenesDetalle( $dbh, $producto["detalle"] );
@@ -184,6 +184,8 @@
 
 		return $producto;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosC_S( $dbh, $idc, $idsc ){
 		//Devuelve la lista de productos pertenecientes a una categoría y subcategoría
@@ -260,7 +262,7 @@
 		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, dp.weight as peso, 
 		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $idp";
-		//echo $q;
+		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;		

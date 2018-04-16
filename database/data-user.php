@@ -105,8 +105,16 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerUsuarioPorId( $idu, $dbh ){
-		$sql = "select * from usuario where idUsuario = $idu";
-		$data_user = mysql_fetch_array( mysql_query ( $sql, $dbh ) );
+		//Devuelve los datos de un usuario dado su id
+		$sql = "select * from users where id = $idu";
+		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $sql ) );
+		return $data_user;					
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerUsuarioPorEmail( $email, $dbh ){
+		//Devuelve los datos de un usuario dado su email
+		$sql = "select * from users where email = '$email'";
+		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $sql ) );
 		return $data_user;					
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -183,16 +191,25 @@
 		return $actualizado;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function modificarPassword( $usuario, $dbh ){
+	function modificarPasswordCuenta( $usuario, $dbh ){
 		//Actualiza el valor de contraseña de usuario
 		$actualizado = 1;
-		$q = "update usuario set password = '$usuario[password]' where idUsuario = $usuario[id]";
+		$q = "update users set password = '$usuario[password1]' where id = $usuario[idusuario]";
 		//echo $q;
 		
-		$data = mysql_query( $q, $dbh );
+		mysqli_query ( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
 		
-		if( mysql_affected_rows() != 1 )
-			$actualizado = 0;
+		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function modificarEmailCuenta( $usuario, $dbh ){
+		//Actualiza el valor del email de usuario
+		$actualizado = 1;
+		$q = "update users set email = '$usuario[email]' where id = $usuario[idusuario]";
+		
+		mysqli_query ( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
 		
 		return $actualizado;
 	}
@@ -204,10 +221,34 @@
 		return sha1( md5( $date.$usuario["passw1"] ) );
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function generarTokenRecuperarPassword( $usuario ){
+		//Genera un código provisional enviado por email para solicitar restablecimiento de contraseña
+		$fecha = date_create();
+		$date = date_timestamp_get( $fecha );
+		return sha1( md5( $date.$usuario["email"] ) );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerUsuarioTokenNuevoPassword( $dbh, $token ){
+		//Devuelve los datos de un usuario asociado a un token de restablecimiento de contraseña
+		$sql = "select * from users where token_password_recovery = '$token'";
+		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $sql ) );
+		return $data_user;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function verificarCuenta( $dbh, $id_usuario ){
 		//Verifica cuenta de usuario después de su registro validado
 		$actualizado = 1;
 		$q = "update users set verified = 1 where id = $id_usuario";
+		$r = mysqli_query( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
+		
+		return $actualizado;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function asignarTokenRecuperacionPassword( $dbh, $idu, $token ){
+		//Guarda el token de solicitud para restablecer contraseña
+		$actualizado = 1;
+		$q = "update users set token_password_recovery = '$token' where id = $idu";
 		$r = mysqli_query( $dbh, $q );
 		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
 		
@@ -228,9 +269,27 @@
 		}
 		return $verificada;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerTokenRecuperacionPassword( $dbh, $usuario ){
+		//Genera, asigna y devuelve el token de solicitud para restablecimiento de contraseña
+		$token_password = generarTokenRecuperarPassword( $usuario );
+		asignarTokenRecuperacionPassword( $dbh, $usuario["id"], $token_password );
 
+		return $token_password;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function actualizarPasswordUsuario( $dbh, $password, $idu ){
+		//Asigna la nueva contraseña de usuario
+		$actualizado = 1;
+		$q = "update users set password = '$password' where id = $idu";
+		$r = mysqli_query( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
+		
+		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function cuentaActivada( $id ){
-
+		//
 	}
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
@@ -320,21 +379,72 @@
 		echo json_encode( $res );
 	}
 	/* ----------------------------------------------------------------------------------- */
-	//Modificar datos de usuario. Bloque: contraseña (asinc)
-	if( isset( $_POST["mod_passw"] ) ){
+	//Modificar datos de usuario. Bloque: Email de la cuenta
+	if( isset( $_POST["form_act_cta"] ) ){
+		include( "bd.php" );
 		
-		include("bd.php");
-		$usuario["id"] 		= $_POST["idUsuario"];
-		$usuario["password"] 	= $_POST["password1"];
-		
-		$res["exito"] = modificarPassword( $usuario, $dbh );
+		$dato = $_POST["data"];
+		parse_str( $_POST["form_act_cta"], $usuario );
+
+		if( $dato == "email" )
+			$res["exito"] = modificarEmailCuenta( $usuario, $dbh );
+		if( $dato == "password" )
+			$res["exito"] = modificarPasswordCuenta( $usuario, $dbh );
 		
 		if( $res["exito"] == 1 )
-			$res["mje"] = "Contraseña actualizada con éxito";
+			$res["mje"] = "Datos de usuario modificados con éxito";
 		else
-			$res["mje"] = "Error al actualizar contraseña";
+			$res["mje"] = "Error al modificar datos de usuario";
+		
+		echo json_encode( $res );
+	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	//Recuperación de contraseña
+	if( isset( $_POST["passw_recovery"] ) ){
+		include("bd.php");
+		include( "../fn/fn-mailing.php" );
+
+		parse_str( $_POST["passw_recovery"], $data );
+
+		if( usuarioYaRegistrado( $dbh, $data["email"] ) ){
+			$usuario = obtenerUsuarioPorEmail( $data["email"], $dbh );
+			$data = obtenerTokenRecuperacionPassword( $dbh, $usuario );
+			$remail = enviarMensajeEmail( "recuperar_password", $data, $usuario["email"] );
+			$res["exito"] = 1;	
+		}
+		else{
+			$res["exito"] = -1;	
+		}
+		
+		if( $res["exito"] == 1 )
+			$res["mje"] = "Se ha enviado un mensaje a su buzón de correo para restablecer su contraseña";
+		if( $res["exito"] == -1 )
+			$res["mje"] = "Esta dirección de correo no se encuentra registrada";
 		
 		echo json_encode( $res );	
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	//Restablecimiento de contraseña
+	if( isset( $_POST["new_passw"] ) ){
+		include("bd.php");
+
+		parse_str( $_POST["new_passw"], $data );
+
+		$res["exito"] = actualizarPasswordUsuario( $dbh, $data["password1"], $data["idusuario"] );
+		
+		if( $res["exito"] == 1 ){
+			asignarTokenRecuperacionPassword( $dbh, $data["idusuario"], "" );
+			$res["mje"] = "Contraseña restablecida con éxito <a href='login.php'>Iniciar sesión</a>";
+		}
+		else
+			$res["mje"] = "Error al restablecer contraseña";
+		
+		echo json_encode( $res );	
+	}
+
 	/* ----------------------------------------------------------------------------------- */
 ?>

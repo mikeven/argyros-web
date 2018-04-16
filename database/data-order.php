@@ -122,7 +122,6 @@
 	function cambiarEstadoOrden( $dbh, $ido, $estado ){
 		//Cambia el estado de un pedido a cancelado
 		$q = "update orders set order_status = '$estado' where id = $ido";
-		echo $q;
 		return mysqli_query( $dbh, $q );
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -150,6 +149,20 @@
 		}
 		return $noper;
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function notificarActualizacionPedido( $dbh, $estado, $orden, $total ){
+		//
+		include( "data-user.php" );
+		include( "../fn/fn-mailing.php" );
+
+		$data["usuario"] = obtenerUsuarioPorId( $orden["id_user"], $dbh );
+		$data["orden"] = $orden;
+		$data["total"] = number_format( $total, 2, '.', ',' );
+		if( $estado == "nuevo_pedido" ){
+			enviarMensajeEmail( "nuevo_pedido_usuario", $data, $data["usuario"]["email"] );
+			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $data["usuario"]["email"] );
+		}
+	}
 	
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de órdenes */
@@ -161,12 +174,14 @@
 		$carrito = $_SESSION["cart"];
 		include( "../database/bd.php" );
 		include( "../fn/fn-cart.php" );
+	
 		if ( count( $carrito ) > 0 ) {
 			$orden = obtenerDatosCreacionOrden( $carrito );
 			$orden["id"] = registrarOrden( $dbh, $orden );
 			$n = registrarDetalleOrden( $dbh, $orden, $carrito );
 			if( $n > 0 ){
-				vaciarCarrito();
+				notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, obtenerMontoTotalCarritoCompra() );
+				//vaciarCarrito();
 				echo mensajeRespuestaOrden();
 			}
 		}

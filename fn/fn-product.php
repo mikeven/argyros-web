@@ -7,7 +7,7 @@
 		$img = $detalle[0]["images"][0];
 		return $img["path"];
 	}
-
+	/* ----------------------------------------------------------------------------------- */
 	function precioProductoPpal( $detalle ){
 		$d = $detalle[0];
 		$pre = "";

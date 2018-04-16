@@ -39,10 +39,13 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTextoEtiquetaFiltro( $param, $texto ){
 		//Devuelve el texto contenido en la etiqueta de panel de filtros seleccionados
-		if( $param == P_FLT_PIEZA || $param == P_FLT_PESO ){
+		if( $param == P_FLT_PIEZA || $param == P_FLT_PESO || $param == P_FLT_PESO_PROD ){
 			$vector = explode( SEPVALFLT, $texto );
 			$tprecio = ucfirst( str_replace( "-", " ", $param ) );
 			$texto = $tprecio.": $".$vector[0]." - "."$".$vector[1];
+			if ( $param == P_FLT_PESO_PROD ){
+				$texto = $tprecio.": ".$vector[0]."gr - ".$vector[1]." gr";	
+			}
 		}
 		else
 			$texto = ucfirst( str_replace( "-", " ", $texto ) ); 
@@ -80,6 +83,7 @@
 		$filtros_trab_productos = array();
 		
 		foreach ( $productos as $p ) {
+			$p = $p["data"];
 			$trabajos_p = obtenerTrabajosDeProductoPorId( $dbh, $p["id"] );
 			foreach ( $trabajos_p as $trabajo ) {
 				if( yaAgregadoVectores( $trabajo, $filtros_trab_productos, "idtrabajo" ) == false )
@@ -96,6 +100,7 @@
 		$filtros_linea_productos = array();
 		
 		foreach ( $productos as $p ) {
+			$p = $p["data"];
 			$lineas_p = obtenerLineasDeProductoPorId( $dbh, $p["id"] );
 			foreach ( $lineas_p as $linea ) {
 				if( yaAgregadoVectores( $linea, $filtros_linea_productos, "idlinea" ) == false )
@@ -112,7 +117,9 @@
 		$filtros_bano_productos = array();
 		
 		foreach ( $productos as $producto ) {
-			$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
+			//$detalle = obtenerDetalleProductoPorId( $dbh, $producto["data"]["id"] );
+			$detalle = $producto["detalle"];
+			//print_r($detalle);
 			foreach ( $detalle as $reg ) {
 				if( yaAgregadoVectores( $reg, $filtros_bano_productos, "id_bano" ) == false ){
 					$bano["id_bano"] = $reg["id_bano"];
@@ -133,7 +140,8 @@
 		$filtros_color_productos = array();
 		
 		foreach ( $productos as $producto ){
-			$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
+			//$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
+			$detalle = $producto["detalle"];
 			foreach ( $detalle as $reg ){
 				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
 					$color["id_color"] = $reg["id_color"];
@@ -227,7 +235,7 @@
 			
 			//Si el parámetro está incluído en la URL se agrega el valor nuevo 
 			//(siempre que no sea parámetro de precio)
-			if( $param == P_FLT_PIEZA || $param == P_FLT_PESO ){
+			if( $param == P_FLT_PIEZA || $param == P_FLT_PESO || $param == P_FLT_PESO_PROD ){
 				//Eliminación de parámetro relacionados a precios( pieza, peso )
 				$url_nueva = eliminarValorParametroURL( $url_base, $val );
 				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
@@ -293,7 +301,7 @@
 	function obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params ){
 		
 		//Filtro de productos comparando con el atributo 'Línea' de del producto
-			if( isset( $_GET[P_FLT_LINEA] ) ){
+		if( isset( $_GET[P_FLT_LINEA] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
 			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $valores_filtros );		
 		}
@@ -319,12 +327,6 @@
 		//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
 		if( isset( $_GET[P_FLT_TALLA] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
-			/*foreach ( $productos as $p ) {
-				$rp = obtenerProductoPorId( $dbh, $p["id"] );
-				$dp = $rp["detalle"];
-				print_r($dp);
-				echo "<br><br>";
-			}*/
 			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );		
 		}
 
@@ -334,10 +336,16 @@
 			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, $valores_filtros );		
 		}
 
-		//Filtro de productos comparando con el atributo 'Precio pieza' de detalle de producto
+		//Filtro de productos comparando con el atributo 'Precio peso' de detalle de producto
 		if( isset( $_GET[P_FLT_PESO] ) ){
 			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO );
 			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, $valores_filtros );		
+		}
+
+		//Filtro de productos comparando con el atributo 'Peso' de detalle de producto
+		if( isset( $_GET[P_FLT_PESO_PROD] ) ){
+			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO_PROD );
+			$productos = filtrarProductosPorPeso( $dbh, $productos, P_FLT_PESO_PROD, $valores_filtros );		
 		}
 
 		return $productos;
@@ -368,6 +376,10 @@
 		}
 		if( $_POST["urltipo_precio"] == "peso" ){
 			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, $_POST["p_min"], $_POST["p_max"] );
+			echo $url;
+		}
+		if( $_POST["urltipo_precio"] == "peso_producto" ){
+			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO_PROD, $_POST["peso_min"], $_POST["peso_max"] );
 			echo $url;
 		}
 	}

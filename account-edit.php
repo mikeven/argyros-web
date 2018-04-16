@@ -209,16 +209,18 @@
 									<span class="mini-line"></span>
 									<div class="row frm_container">
 										<form id="frm_email_cuenta" method="post" action="" accept-charset="UTF-8">
-										  <input id="id_usuario" name="idusuario" type="hidden" value="">
+										  <input id="id_usuario_email" name="idusuario" type="hidden" 
+										  value="<?php echo $_SESSION["user"]["id"]; ?>">
 										  <ul class="row list-unstyled customer_address_table">
 											<li class="col-md-24">
 											  <label class="control-label" for="cuenta_email">Email</label>
-											  <input type="text" id="cta_email" class="form-control" name="email" value="">
+											  <input type="text" id="cta_email" class="form-control" 
+											  name="email" value="<?php echo $dusuario["email"]; ?>">
 											</li>
 											<li class="clearfix"></li>
 										  </ul>
 										  <div class="last clearfix">
-											<button id="btn_memail" class="btn btn-2 mright-7" type="submit">Guardar</button>
+											<button id="btn_memail" class="btn btn-2 btn-actdu" type="submit">Guardar</button>
 										  </div>
 										</form>	
 									</div>
@@ -226,9 +228,10 @@
 									<h2 class="sb-title">Cambiar contraseña</h2>
 									<div class="row frm_container">
 										<form id="frm_mcontrasena" method="post" action="" accept-charset="UTF-8">
-										  <input id="id_usuario" name="idusuario" type="hidden" value="">
+										  <input id="id_usuario_pass" name="idusuario" type="hidden" 
+										  value="<?php echo $_SESSION["user"]["id"]; ?>">
 										  <ul class="row list-unstyled customer_address_table">
-											<li class="col-md-24">
+											<li class="col-md-24 hidden">
 											  <label class="control-label" for="cuenta_contrasena_actual">Contraseña actual</label>
 											  <input type="password" id="cta_passact" class="form-control" name="apassword" value="">
 											</li>

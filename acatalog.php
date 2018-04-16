@@ -109,11 +109,7 @@
 		        itemText: 'label' // this will be used to set text of tag
 		    });
 
-			/*$('#panel_filtro').tagsinput('add', { "value": "fff" , "text": "Amsterdam"   });
-			$('#panel_filtro').tagsinput('add', { "value": "fffs" , "text": "Washington"  });
-			$('#panel_filtro').tagsinput('add', { "value": "fsf" , "text": "Sydney"  	 });
-			$('#panel_filtro').tagsinput('add', { "value": "sfff", "text": "Beijing"     });
-			$('#panel_filtro').tagsinput('add', { "value": "sffsf", "text": "Cairo"       });*/
+		    $(".bootstrap-tagsinput input").attr('readonly', true);
 
 		 });
 	</script>
@@ -274,7 +270,7 @@
 													</a> 
 												<?php } ?>
 											</div>
-											<input id="panel_filtro" type="text" value="" readonly/>
+											<input id="panel_filtro" type="text" value="" readonly="true"/>
 											<?php include( "sections/filters.php" ); ?>
 											</li>
 										</ul>
@@ -329,7 +325,8 @@
 										<div id="sandBox-wrapper" class="group-product-item row collection-full">
 											<ul id="sandBox" class="list-unstyled">
 												<?php 
-													foreach ( $productos as $p ) {	//$productos: fn-catalog.php
+													foreach ( $productos as $data_rprod ) {	//$productos: fn-catalog.php
+														$p = $data_rprod["data"];
 														$img = obtenerImagenProducto( $dbh, $p["id"]);														
 												?>
 												<li class="element first no_full_width" data-alpha="Nombre del producto" data-price="25900">
