@@ -13,7 +13,7 @@
 		//Devuelve el registro de una orden dado su id
 		$q = "select o.id, o.user_id as idu, o.total_price as total, o.total_count as nitems, 
 		o.client_note, o.admin_note, o.order_status as estado, date_format( o.created_at,'%d/%m/%Y') as fecha, 
-		u.id as cid, u.first_name nombre, u.last_name as apellido, g.name as grupo_cliente 
+		u.id as cid, u.first_name nombre, u.last_name as apellido, u.email as email, g.name as grupo_cliente 
 		from orders o, users u, user_group g where o.user_id = u.id and u.user_group_id = g.id 
 		and o.id = $ido and o.user_id = $idu";
 
@@ -72,7 +72,6 @@
 		size_id, quantity, price, created_at ) values ( $orden[id], $reg[idproducto], $reg[iddetalle], 
 		'', $reg[idseltalla], $reg[quantity], $reg[unit_price], NOW() )";
 		
-		//echo $q;
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );
 	}
@@ -151,16 +150,21 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function notificarActualizacionPedido( $dbh, $estado, $orden, $total ){
-		//
+		//Prepara los datos necesarios para enviar notificación por email acerca de cambios en estados de pedido 
 		include( "data-user.php" );
 		include( "../fn/fn-mailing.php" );
 
-		$data["usuario"] = obtenerUsuarioPorId( $orden["id_user"], $dbh );
-		$data["orden"] = $orden;
-		$data["total"] = number_format( $total, 2, '.', ',' );
 		if( $estado == "nuevo_pedido" ){
+			//Notificación de nuevo pedido registrado: Cliente y administrador
+			$data["usuario"] = obtenerUsuarioPorId( $orden["id_user"], $dbh );
+			$data["orden"] = $orden;
+			$data["total"] = number_format( $total, 2, '.', ',' );
 			enviarMensajeEmail( "nuevo_pedido_usuario", $data, $data["usuario"]["email"] );
 			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $data["usuario"]["email"] );
+		}
+		if( $estado == "pedido_confirmado" ){
+			//Notificación de confirmación de pedido: Administrador
+			enviarMensajeEmail( "pedido_confirmado_administrador", $orden, $orden["email"] );
 		}
 	}
 	
@@ -200,10 +204,14 @@
 	if( isset( $_POST["modif_pedido"] ) ){
 		include( "../database/bd.php" );
 		parse_str( $_POST["modif_pedido"], $pedido );
-
+		
+		$rorden = obtenerRegistroOrdenPorId( $dbh, $pedido["id_orden"], $_POST["idusuario"] );
 		$res = retirarItemsPedido( $dbh, $pedido );
+		$rorden["total_monto"] = $_POST["mconf"];
+		
 		ingresarObservacionesCliente( $dbh, $pedido );
 		cambiarEstadoOrden( $dbh, $pedido["id_orden"], "confirmado" );
+		notificarActualizacionPedido( $dbh, "pedido_confirmado", $rorden, $_POST["mconf"] );
 	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

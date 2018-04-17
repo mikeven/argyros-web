@@ -37,6 +37,7 @@
  function mostrarMontoPrevio( monto ){
     //Muestra el monto previo después de marcar/desmarcar ítems en la revisión de pedido
     $(".monto_total_orden").html( monto.toFixed(2) );
+    $("#monto_orden_cnf").val( monto.toFixed(2) );
  }
  /* ----------------------------------------------------------------------------------- */
  function calcularTotalOrdenPrevio(){
@@ -135,10 +136,13 @@ function obtenerMarcadoItem( item ){
 function registrarCambiosPedido(){
     //Invoca el registro de los cambios realizados a un pedido
     form = $("#frm_mpedido").serialize();
+    var monto_confirmado = $("#monto_orden_cnf").val();
+    var idu = $("#idusuario").val();
+
     $.ajax({
         type:"POST",
         url:"database/data-order.php",
-        data:{ modif_pedido: form },
+        data:{ modif_pedido: form, mconf:monto_confirmado, idusuario:idu },
         beforeSend: function (){
             $( "#btn_cancelar").click();
             $( "#i_rmped" ).html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
@@ -201,7 +205,7 @@ $( document ).ready(function() {
     
     //Clic: Invoca el registro de cambios realizados a un pedido
     $("#btn_modificar_pedido").on( "click", function(){
-        registrarCambiosPedido()
+        registrarCambiosPedido();
     });
     /* ----------------------------------------------------------------------------------- */
 });

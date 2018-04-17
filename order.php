@@ -170,6 +170,7 @@
 												<div class="info">
 													<?php echo $orden["icono_e"]; ?>
 													<input type="hidden" id="accion_orden" value="">
+													<input type="hidden" id="idusuario" value="<?php echo $_SESSION["user"]["id"]; ?>">
 													<span class="address-group">
 													<span class="date">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>
@@ -182,6 +183,7 @@
 													<?php if( $orden["estado"] == "revisado" || $orden["estado"] == "confirmado" ) { ?>
 													<div>
 														Total: $<span class="monto_total_orden"><?php echo $orden["total_ajuste"]; ?></span>
+														<input type="hidden" id="monto_orden_cnf" value="<?php echo $orden["total_ajuste"]; ?>">
 													</div>
 													<?php } ?>
 
@@ -237,8 +239,7 @@
 										|| ( $orden["estado"] == "cancelado" ) ) { ?>
 										<div id="pedido_inicial">
 											<form id="frm_mpedido" name="form_pedido_modificado">
-												<input type="hidden" id="idorden" name="id_orden" 
-												value="<?php echo $orden["id"]?>">
+												<input type="hidden" id="idorden" name="id_orden" value="<?php echo $orden["id"]?>">
 												<?php 
 													if( isset( $orden ) ) { 
 														include( "sections/tablas/tabla-pedido-inicial.php" );
