@@ -164,7 +164,7 @@
 		}
 		if( $estado == "pedido_confirmado" ){
 			//Notificación de confirmación de pedido: Administrador
-			enviarMensajeEmail( "pedido_confirmado_administrador", $orden, $orden["email"] );
+			echo "EMAIL: ".enviarMensajeEmail( "pedido_confirmado_administrador", $orden, $orden["email"] );
 		}
 	}
 	
@@ -185,7 +185,7 @@
 			$n = registrarDetalleOrden( $dbh, $orden, $carrito );
 			if( $n > 0 ){
 				notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, obtenerMontoTotalCarritoCompra() );
-				//vaciarCarrito();
+				vaciarCarrito();
 				echo mensajeRespuestaOrden();
 			}
 		}
