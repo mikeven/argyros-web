@@ -1,8 +1,8 @@
 <?php
     /*
-     * Argyros - Catálogo
-     * 
-     */
+    * Argyros - Página de inicio
+    * 
+    */
     session_start();
     ini_set( 'display_errors', 1 );
     include( "database/bd.php" );
@@ -12,8 +12,10 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
-    
+   
     checkSession( 'index' );
+    $pdestacados = obtenerProductosDestacados( $dbh );
+
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -184,15 +186,16 @@
 							<div class="container">
 								<div class="group_home_products row">
 									<div class="col-md-24">
-										<div class="home_products">
+										<div class="home_products_argyros">
 											<h6 class="general-title">PRODUCTOS NUEVOS</h6>
 											<div class="home_products_wrapper">
 												<div id="home_products">
-													<div class="element no_full_width col-md-8 col-sm-8 not-animated" data-animate="fadeInUp" data-delay="0">
+													<?php $img = obtenerImagenProducto( $dbh, $pdestacados[0]["id"] ); ?>
+													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="0">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
 															<a href="product.php" class="container_item">
-																<img src="assets/images/1_grande.jpg" class="img-responsive" alt="Curabitur cursus dignis">
+																<img src="<?php echo $purl.$img[0]["image"] ?>" class="img-responsive" alt="Curabitur cursus dignis">
 																<span class="sale_banner">
 																
 																</span>
@@ -222,7 +225,7 @@
 															</li>
 														</ul>
 													</div>                
-													<div class="element no_full_width col-md-8 col-sm-8 not-animated" data-animate="fadeInUp" data-delay="1">
+													<div class="element no_full_width col-md-6 col-sm-8 not-animated" data-animate="fadeInUp" data-delay="1">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
 															<a href="product.html" class="container_item">
@@ -252,7 +255,7 @@
 															</li>
 														</ul>
 													</div>
-													<div class="element no_full_width col-md-8 col-sm-8 not-animated" data-animate="fadeInUp" data-delay="2">
+													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="2">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
 															<a href="product.html" class="container_item">
@@ -285,7 +288,39 @@
 															</li>
 														</ul>
 													</div>
-													                
+													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="2">
+														<ul class="row-container list-unstyled clearfix">
+															<li class="row-left">
+															<a href="product.html" class="container_item">
+															<img src="assets/images/6_03a522d6-f36a-4f59-a815-bbade4d87a6e_grande.jpg" class="img-responsive" alt="Donec aliquam ante non">
+															<span class="sale_banner">
+															
+															</span>
+															</a>
+															<!-- hbw -->
+															</li>
+															<li class="row-right parent-fly animMix">
+															<div class="product-content-left">
+																<a class="title-5" href="product.html">ZARCILLOS</a>
+																<span class="spr-badge" id="spr_badge_12932369312" data-rating="4.0">
+																<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
+																<span class="spr-badge-caption">
+																1 review </span>
+																</span>
+															</div>
+															<div class="product-content-right">
+																<div class="product-price">
+																	<span class="price_sale">$25.00</span>
+																	<del class="price_compare"> $30.00</del>
+																</div>
+															</div>
+															<div class="list-mode-description">
+																 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis amet voluptas assumenda est, omnis dolor repellendus quis nostrum. Temporibus autem quibusdam et aut officiis debitis aut rerum dolorem necessitatibus saepe eveniet ut et neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed...
+															</div>
+															<!-- hover-appear -->
+															</li>
+														</ul>
+													</div>          
 												</div>
 											</div>
 										</div>

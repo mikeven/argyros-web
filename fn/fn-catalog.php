@@ -38,24 +38,21 @@
 		return $reemplazo;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerProductosDestacados( $dbh ){
+		//Devuelve los productos mostrados en la página de inicio
+
+		$pdetacados[0] = obtenerUltimoProductoCategoria( $dbh, 1 );
+		$pdetacados[1] = obtenerUltimoProductoCategoria( $dbh, 2 );
+		$pdetacados[2] = obtenerUltimoProductoCategoria( $dbh, 3 );
+		$pdetacados[3] = obtenerUltimoProductoCategoria( $dbh, 4 );
+
+		return $pdetacados;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function matchFiltroAtributo( $dbh, /*$idp, */$valores_atributo, $valores_filtro ){
 		//Devuelve verdadero si un producto posee atributos coincidentes a los filtros
 		$nulineas = array();
 		$match = false;
-		$nmatches = count( $valores_filtro );
-		$cmatches = 0;
-
-		/*
-			foreach ( $valores_atributo as $atributo ) {
-				foreach ( $valores as $filtro ) {
-					if( $atributo == $filtro )
-						$cmatches++;
-				}
-			}
-
-			if( $cmatches == $nmatches ) 
-				$match = true;
-		*/
 		
 		foreach ( $valores_atributo as $atributo ) {
 			if( in_array( $atributo, $valores_filtro ) )
@@ -259,8 +256,8 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; //Server
+	//$purl = "../../argyros/trunk/admin_/"; //Localhost
+	$purl = "admin/"; //Server
 
 	/* ----------------------------------------------------------------------------------- */
 ?>

@@ -19,6 +19,20 @@
 			return mysqli_fetch_array( $data );	
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerUltimoProductoCategoria( $dbh, $idc ){
+		//Obtiene los datos de un producto dado su id
+		$q = "select p.id, p.code, p.name, p.description, p.is_visible as visible, co.name as pais, 
+		ca.id as idc, ca.name as category, sc.id as idsc, sc.name as subcategory, 
+		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
+		FROM products p, categories ca, subcategories sc, countries co, materials m 
+		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
+		and p.country_code = co.code and ca.id = $idc ORDER BY p.id DESC LIMIT 1";
+
+		$data = mysqli_query( $dbh, $q );
+		if( $data )
+			return mysqli_fetch_array( $data );
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerPreciosDetalleProducto( $dbh, $reg_det, $variables ){
 		//Devuelve los precios de cada detalle de producto según el tipo de precio y el valor 
 		//correspondiente de la variable asociada

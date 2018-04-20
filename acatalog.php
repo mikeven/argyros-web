@@ -329,7 +329,7 @@
 														$p = $data_rprod["data"];
 														$img = obtenerImagenProducto( $dbh, $p["id"]);														
 												?>
-												<li class="element first no_full_width" data-alpha="Nombre del producto" data-price="25900">
+												<li class="element first no_full_width" data-alpha="Nombre del producto">
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left">
 														<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">

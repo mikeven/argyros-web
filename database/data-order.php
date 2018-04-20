@@ -153,18 +153,19 @@
 		//Prepara los datos necesarios para enviar notificación por email acerca de cambios en estados de pedido 
 		include( "data-user.php" );
 		include( "../fn/fn-mailing.php" );
+		$email_admin = obtenerEmailNotificacionPedidos( $dbh );
 
 		if( $estado == "nuevo_pedido" ){
-			//Notificación de nuevo pedido registrado: Cliente y administrador
+			//Notificación de nuevo pedido registrado: Cliente y Administrador
 			$data["usuario"] = obtenerUsuarioPorId( $orden["id_user"], $dbh );
 			$data["orden"] = $orden;
 			$data["total"] = number_format( $total, 2, '.', ',' );
 			enviarMensajeEmail( "nuevo_pedido_usuario", $data, $data["usuario"]["email"] );
-			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $data["usuario"]["email"] );
+			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $email_admin );
 		}
 		if( $estado == "pedido_confirmado" ){
 			//Notificación de confirmación de pedido: Administrador
-			echo "EMAIL: ".enviarMensajeEmail( "pedido_confirmado_administrador", $orden, $orden["email"] );
+			enviarMensajeEmail( "pedido_confirmado_administrador", $email_admin );
 		}
 	}
 	

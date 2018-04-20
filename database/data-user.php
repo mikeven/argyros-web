@@ -118,6 +118,14 @@
 		return $data_user;					
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerEmailNotificacionPedidos( $dbh ){
+		//Devuelve el email configurado para recibir notificaciones sobre pedidos
+		$sql = "select orders_email from admin_configs";
+		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $sql ) );
+		return $data_user["orders_email"];
+
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function registrarInicioSesion( $usuario, $dbh ){
 		$adj_time = 96; // Tiempo para ajustar diferencia con hora de servidor ( minutos )
 		$adjsql = "NOW() + INTERVAL $adj_time MINUTE";

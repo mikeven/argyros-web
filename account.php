@@ -17,7 +17,8 @@
     include( "fn/fn-catalog.php" );
     
     checkSession( '' );
-	$carrito = $_SESSION["cart"];    
+    if( isset( $_SESSION["cart"] ) )
+		$carrito = $_SESSION["cart"];    
     
 ?>
 <!doctype html>
