@@ -124,7 +124,7 @@
 															<button id="btn_envrecov" class="btn" type="submit">Enviar</button>
 														</li>
 														<li>
-															<a href="javascript:;" onclick="">Iniciar sesión</a>
+															<a href="login.php" onclick="">Iniciar sesión</a>
 														</li>
 														<li>
 															<a href="register.php">Registrarse</a>

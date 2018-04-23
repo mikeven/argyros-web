@@ -211,7 +211,11 @@
 
 	#quick-shop-description label{
 		font-size: 8px;
-	}	
+	}
+
+	.bcargable, .cargable{ display: none; }
+	.eca0, #bc1{ display: inline; }
+	.division_bloque{ width: 100%; }
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -325,11 +329,22 @@
 										<div id="sandBox-wrapper" class="group-product-item row collection-full">
 											<ul id="sandBox" class="list-unstyled">
 												<?php 
+													$enum = 0; $bloque = 0;
 													foreach ( $productos as $data_rprod ) {	//$productos: fn-catalog.php
 														$p = $data_rprod["data"];
-														$img = obtenerImagenProducto( $dbh, $p["id"]);														
+														$img = obtenerImagenProducto( $dbh, $p["id"] );
 												?>
-												<li class="element first no_full_width" data-alpha="Nombre del producto">
+												<?php if( $enum == NPAGINACION ){ 
+														$enum = 0; $bloque++; 
+														if( $bloque == 1 ) $visible = "visible"; else $visible = "";
+												?>
+													<div class="division_bloque" align="center">
+														<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
+														type="button" data-trg="eca<?php echo $bloque; ?>" 
+														data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
+													</div>
+												<?php } ?>
+												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" data-alpha="Nombre del producto">
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left">
 														<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">
@@ -388,7 +403,7 @@
 													</ul>
 												</li>
 												
-												<?php }	?>
+												<?php $enum++; }  ?>
 												
 											</ul>
 										</div>

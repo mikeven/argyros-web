@@ -190,76 +190,135 @@
 											<h6 class="general-title">PRODUCTOS NUEVOS</h6>
 											<div class="home_products_wrapper">
 												<div id="home_products">
-													<?php $img = obtenerImagenProducto( $dbh, $pdestacados[0]["id"] ); ?>
-													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="0">
+													<?php $img1 = obtenerImagenProducto( $dbh, $pdestacados[0]["id"] ); ?>
+													<div class="element no_full_width col-md-6 col-sm-6 not-animated" 
+														data-animate="fadeInUp" data-delay="0">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
-															<a href="product.php" class="container_item">
-																<img src="<?php echo $purl.$img[0]["image"] ?>" class="img-responsive" alt="Curabitur cursus dignis">
+															<a href="product.php?id=<?php echo $pdestacados[0]["id"]?>" class="container_item">
+																<img src="<?php echo $purl.$img1[0]["image"] ?>" class="img-responsive" alt="<?php echo $pdestacados[0]["name"]?>">
 																<span class="sale_banner">
-																
+																	
 																</span>
 															</a>
 															<!-- hbw -->
 															</li>
 															<li class="row-right parent-fly animMix">
 															<div class="product-content-left">
-																<a class="title-5" href="product.php">ANILLO 1</a>
+																<a class="title-5" href="product.php?id=<?php echo $pdestacados[0]["id"]?>">
+																	<?php echo $pdestacados[0]["name"]?>
+																</a>
 																<span class="spr-badge" id="spr_badge_12932382113" data-rating="0.0">
-																<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
+																<span class="spr-starrating spr-badge-starrating">
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																</span>
 																<span class="spr-badge-caption">
 																No reviews </span>
 																</span>
 															</div>
 															<div class="product-content-right">
-																<div class="product-price">
+																<div class="product-price hidden">
 																	<span class="price_sale">$25.00</span>
 																	<del class="price_compare"> $30.00</del>
 																</div>
 															</div>
 															<div class="list-mode-description">
-																 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis amet voluptas assumenda est, omnis dolor repellendus quis nostrum. Temporibus autem quibusdam et aut officiis debitis aut rerum dolorem necessitatibus saepe eveniet ut et neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed...
+																 <?php echo $pdestacados[0]["description"]?>
 															</div>
 															<!-- hover-appear -->
 															
 															</li>
 														</ul>
-													</div>                
+													</div>
+													<?php $img2 = obtenerImagenProducto( $dbh, $pdestacados[1]["id"] ); ?>                
 													<div class="element no_full_width col-md-6 col-sm-8 not-animated" data-animate="fadeInUp" data-delay="1">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
-															<a href="product.html" class="container_item">
-															<img src="assets/images/2_119a31f2-2054-4483-93a3-841310e6bdfb_grande.jpg" class="img-responsive" alt="Curabitur cursus dignis">
+															<a href="product.php?id=<?php echo $pdestacados[1]["id"]; ?>" class="container_item">
+																<img src="<?php echo $purl.$img2[0]["image"] ?>" class="img-responsive" 
+																alt="<?php echo $pdestacados[1]["name"]; ?>">
 															</a>
 															<!-- hbw -->
 															</li>
 															<li class="row-right parent-fly animMix">
 															<div class="product-content-left">
-																<a class="title-5" href="product.html">ANILLO 2</a>
+																<a class="title-5" href="product.php?id=<?php echo $pdestacados[1]["id"]?>">
+																	<?php echo $pdestacados[1]["name"]?>
+																</a>
 																<span class="spr-badge" id="spr_badge_12932396193" data-rating="0.0">
-																<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
+																	<span class="spr-starrating spr-badge-starrating">
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	</span>
 																<span class="spr-badge-caption">
 																No reviews </span>
 																</span>
 															</div>
 															<div class="product-content-right">
-																<div class="product-price">
+																<div class="product-price hidden">
 																	<span class="price">
 																	$20.00 </span>
 																</div>
 															</div>
 															<div class="list-mode-description">
-																 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis amet voluptas assumenda est, omnis dolor repellendus quis nostrum. Temporibus autem quibusdam et aut officiis debitis aut rerum dolorem necessitatibus saepe eveniet ut et neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed...
+																<?php echo $pdestacados[1]["description"]?>
 															</div>
 															<!-- hover-appear -->
 															</li>
 														</ul>
 													</div>
+													<?php $img3 = obtenerImagenProducto( $dbh, $pdestacados[2]["id"] ); ?>
 													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="2">
 														<ul class="row-container list-unstyled clearfix">
 															<li class="row-left">
-															<a href="product.html" class="container_item">
-															<img src="assets/images/6_03a522d6-f36a-4f59-a815-bbade4d87a6e_grande.jpg" class="img-responsive" alt="Donec aliquam ante non">
+															<a href="product.php?id=<?php echo $pdestacados[2]["id"]?>" class="container_item">
+																<img src="<?php echo $purl.$img3[0]["image"] ?>" class="img-responsive" alt="<?php $pdestacados[2]["name"]?>">
+																<span class="sale_banner"> </span>
+															</a>
+															<!-- hbw -->
+															</li>
+															<li class="row-right parent-fly animMix">
+															<div class="product-content-left">
+																<a class="title-5" href="product.php?id=<?php echo $pdestacados[2]["id"]?>">
+																	<?php echo $pdestacados[2]["name"]?>
+																</a>
+																<span class="spr-badge" id="spr_badge_12932369312" data-rating="4.0">
+																	<span class="spr-starrating spr-badge-starrating">
+																		<i class="spr-icon spr-icon-star" style=""></i>
+																		<i class="spr-icon spr-icon-star" style=""></i>
+																		<i class="spr-icon spr-icon-star" style=""></i>
+																		<i class="spr-icon spr-icon-star" style=""></i>
+																		<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	</span>
+																	<span class="spr-badge-caption"> 1 review </span>
+																</span>
+															</div>
+															<div class="product-content-right">
+																<div class="product-price hidden">
+																	<span class="price_sale">$25.00</span>
+																	<del class="price_compare"> $30.00</del>
+																</div>
+															</div>
+															<div class="list-mode-description">
+																<?php echo $pdestacados[2]["description"]?>
+															</div>
+															<!-- hover-appear -->
+															</li>
+														</ul>
+													</div>
+													<?php $img4 = obtenerImagenProducto( $dbh, $pdestacados[3]["id"] ); ?>
+													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="2">
+														<ul class="row-container list-unstyled clearfix">
+															<li class="row-left">
+															<a href="product.php?id=<?php echo $pdestacados[3]["id"]?>" class="container_item">
+															<img src="<?php echo $purl.$img4[0]["image"] ?>" class="img-responsive" alt="Donec aliquam ante non">
 															<span class="sale_banner">
 															
 															</span>
@@ -268,54 +327,29 @@
 															</li>
 															<li class="row-right parent-fly animMix">
 															<div class="product-content-left">
-																<a class="title-5" href="product.html">ZARCILLOS</a>
+																<a class="title-5" href="product.php?id=<?php echo $pdestacados[3]["id"]?>">
+																	<?php echo $pdestacados[3]["name"]; ?>
+																</a>
 																<span class="spr-badge" id="spr_badge_12932369312" data-rating="4.0">
-																<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
+																<span class="spr-starrating spr-badge-starrating">
+																	<i class="spr-icon spr-icon-star" style=""></i>
+																	<i class="spr-icon spr-icon-star" style=""></i>
+																	<i class="spr-icon spr-icon-star" style=""></i>
+																	<i class="spr-icon spr-icon-star" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																</span>
 																<span class="spr-badge-caption">
 																1 review </span>
 																</span>
 															</div>
 															<div class="product-content-right">
-																<div class="product-price">
+																<div class="product-price hidden">
 																	<span class="price_sale">$25.00</span>
 																	<del class="price_compare"> $30.00</del>
 																</div>
 															</div>
 															<div class="list-mode-description">
-																 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis amet voluptas assumenda est, omnis dolor repellendus quis nostrum. Temporibus autem quibusdam et aut officiis debitis aut rerum dolorem necessitatibus saepe eveniet ut et neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed...
-															</div>
-															<!-- hover-appear -->
-															</li>
-														</ul>
-													</div>
-													<div class="element no_full_width col-md-6 col-sm-6 not-animated" data-animate="fadeInUp" data-delay="2">
-														<ul class="row-container list-unstyled clearfix">
-															<li class="row-left">
-															<a href="product.html" class="container_item">
-															<img src="assets/images/6_03a522d6-f36a-4f59-a815-bbade4d87a6e_grande.jpg" class="img-responsive" alt="Donec aliquam ante non">
-															<span class="sale_banner">
-															
-															</span>
-															</a>
-															<!-- hbw -->
-															</li>
-															<li class="row-right parent-fly animMix">
-															<div class="product-content-left">
-																<a class="title-5" href="product.html">ZARCILLOS</a>
-																<span class="spr-badge" id="spr_badge_12932369312" data-rating="4.0">
-																<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
-																<span class="spr-badge-caption">
-																1 review </span>
-																</span>
-															</div>
-															<div class="product-content-right">
-																<div class="product-price">
-																	<span class="price_sale">$25.00</span>
-																	<del class="price_compare"> $30.00</del>
-																</div>
-															</div>
-															<div class="list-mode-description">
-																 Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis amet voluptas assumenda est, omnis dolor repellendus quis nostrum. Temporibus autem quibusdam et aut officiis debitis aut rerum dolorem necessitatibus saepe eveniet ut et neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed...
+																<?php echo $pdestacados[3]["description"]; ?>
 															</div>
 															<!-- hover-appear -->
 															</li>

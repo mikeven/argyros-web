@@ -25,6 +25,18 @@
 		return $imgs;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function productosRelacionados( $dbh, $idc ){
+		//Obtiene los productos pertenecientes a las subcategorías del producto visto
+		$relacionados = array();
+
+		$lprods = obtenerProductosC_( $dbh, $idc );
+		foreach ( $lprods as $prod ){
+			$relacionados[] = $prod;
+		}
+
+		return $relacionados;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_GET["id"] ) ){
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true;
@@ -32,8 +44,9 @@
 		if( $data_producto["data"] ){
 			$is_p = true;
 			$producto = $data_producto["data"];
-			$detalle = $data_producto["detalle"];
 			$ls_subc_prod = obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
+			
+			$detalle = $data_producto["detalle"];
 			if( $detalle ){
 				//Primera imagen del primer registro de detalle
 				$img_pp = imgProductoPpal( $detalle ); 
@@ -42,14 +55,16 @@
 			}
 			else
 				$is_pd = false;
+
+			$productos_relacionados = productosRelacionados( $dbh, $producto["idc"] );
 		}
 		
 	} else {
 
 	}
 
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; // Server
+	//$purl = "../../argyros/trunk/admin_/"; //Localhost
+	$purl = "admin/"; // Server
 	
 	/* ----------------------------------------------------------------------------------- */
 ?>

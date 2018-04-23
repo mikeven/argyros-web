@@ -1,7 +1,7 @@
 <div class="footer-content footer-content-bottom clearfix">
 	<div class="container">
 		<div class="copyright col-md-12">
-			© 2018 <a href="about-us.html">Argyros</a>. Todos los Derechos Reservados.
+			© 2018, &nbsp; <a href="about-us.html">Argyros</a>. Todos los Derechos Reservados.
 		</div>
 		<div id="widget-payment" class="col-md-12">
 			<ul id="payments" class="list-inline animated">

@@ -74,6 +74,16 @@ $( document ).ready(function() {
 	
     $( ".select_pdetail" ).first().click();
 
+    $(".bcargable").on( "click", function(){
+    	//Muestra el próximo bloque de productos del catálogo
+    	var bloque = $(this).attr("data-trg");
+    	var pboton = $(this).attr("data-pb");
+    	
+    	$("." + bloque).fadeIn("slow");
+		$("#" + pboton).fadeIn("slow");
+		$(this).hide();
+    });
+
 });
 
 /*
