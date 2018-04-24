@@ -110,9 +110,9 @@
 	function obtenerOrdenesUsuario( $dbh, $idu ){
 		//Devuelve el registro de las órdenes asociadas a un usuario
 		$q = "select id, user_id as idu, total_price as total, order_status as estado, 
-		date_format( created_at,'%d-%m-%Y') as fecha from orders where user_id = $idu 
-		order by id DESC";
-		//echo $q;
+		order_read as leido, date_format( created_at,'%d-%m-%Y') as fecha 
+		from orders where user_id = $idu order by id DESC";
+		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;
@@ -167,6 +167,14 @@
 			//Notificación de confirmación de pedido: Administrador
 			enviarMensajeEmail( "pedido_confirmado_administrador", $email_admin );
 		}
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function leerOrden( $dbh, $id, $leido ){
+		//Marca como leído un pedido
+		$q = "update orders set order_read = '$leido' where id = $id";
+
+		$data = mysqli_query( $dbh, $q );
+		return $data;
 	}
 	
 	/* ----------------------------------------------------------------------------------- */

@@ -17,7 +17,7 @@
 	define( "P_FLT_PESO_PROD", "peso" );
 
 	/**/
-	define( "NPAGINACION", 4 );
+	define( "NPAGINACION", 32 );
 
 	/*.............................................................*/
 
@@ -260,8 +260,8 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 
-	//$purl = "../../argyros/trunk/admin_/"; //Localhost
-	$purl = "admin/"; //Server
+	$purl = "../../argyros/trunk/admin_/"; //Localhost
+	//$purl = "admin/"; //Server
 
 	/* ----------------------------------------------------------------------------------- */
 ?>

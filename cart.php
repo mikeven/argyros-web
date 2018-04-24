@@ -118,6 +118,11 @@
 							</div>
 							<div id="col-main" class="col-md-24 cart-page content">
 								<form action="" method="post" id="cartform" class="clearfix">
+									<div class="clearfix">
+										<div class="last1 text-right" style="padding:12px 0;">
+											<a href="order-review.php" class="btn" type="button" name="checkout">Proceder</a>
+										</div>
+									</div>
 									<div class="row table-cart">
 										<div class="wrap-table">
 											<table class="cart-items haft-border">

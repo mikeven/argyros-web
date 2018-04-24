@@ -122,8 +122,8 @@
 		//Devuelve el email configurado para recibir notificaciones sobre pedidos
 		$sql = "select orders_email from admin_configs";
 		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $sql ) );
-		return $data_user["orders_email"];
 
+		return $data_user["orders_email"];
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function registrarInicioSesion( $usuario, $dbh ){
@@ -131,6 +131,7 @@
 		$adjsql = "NOW() + INTERVAL $adj_time MINUTE";
 		$query = "insert into ingreso values ('', $usuario[idUsuario], $adjsql )";
 		$Rs = mysql_query ( $query, $dbh );
+
 		return mysql_insert_id();	
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -139,7 +140,7 @@
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
 		$q = "insert into users ( first_name, last_name, email, password, country_code, company_type, token, user_group_id ) 
 		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[passw1]', '$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
-		//echo $q;
+
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	
 	}
@@ -296,8 +297,13 @@
 		return $actualizado;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function cuentaActivada( $id ){
-		//
+	function obtenerOrdenesNoLeidas( $dbh, $usuario ){
+		//Devuelve el número de pedidos no leídos por el usuario
+		$q = "select count(id) as noleidos from orders 
+		where order_read = 'no-leido' and user_id = $usuario[id]";
+		$data_user = mysqli_fetch_array( mysqli_query ( $dbh, $q ) );
+
+		return $data_user["noleidos"];
 	}
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */

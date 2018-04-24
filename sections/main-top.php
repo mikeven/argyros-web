@@ -1,3 +1,10 @@
+<?php
+	/*
+	*/
+	if( isset( $_SESSION["login"] ) )
+		$notif_ordenes = obtenerOrdenesNoLeidas( $dbh, $_SESSION["user"] );
+
+?>
 <div class="container">
   <div class="top row">
 	<div class="col-md-6 phone-shopping">
@@ -48,6 +55,11 @@
 				<?php } else { ?>
 					<li class="my-account">
 						<a href="account.php">Mi Cuenta</a>
+						<?php if( $notif_ordenes != 0 ) {?>
+							<span class="badge icon_notif_leidos">
+								<?php echo $notif_ordenes; ?>
+							</span>
+						<?php } ?>
 					</li>
 					<li class="my-account">
 						<a href="index.php?logout">Salir</a>

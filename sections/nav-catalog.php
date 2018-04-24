@@ -1,6 +1,5 @@
-
 <div class="megamenu-container megamenu-container-1 dropdown-menu banner-bottom mega-col-4" id="listcatalog">
-	<ul class="sub-mega-menu">
+	<ul id="catalogo-navegacion-menu" class="sub-mega-menu">
 		<li>
 			<ul>
 				<?php foreach ( $lh_cat_ppal as $h_reg_categ ) { //header.php ?>	

@@ -71,6 +71,7 @@
 
 	<style>
 		.hlighted{ background-color: #d4cd7a; }
+		.hltext {color: #abb769; }
 	</style>
 </head>
 
@@ -157,6 +158,7 @@
 											<th class="payment_status">
 												Status
 											</th>
+											
 											<th class="total">
 												Total
 											</th>
@@ -166,7 +168,7 @@
 											<?php 
 												$no = 0;
 												foreach ( $ordenes as $orden ) {
-													if( $orden["estado"] == "revisado" ) $ctable = "hlighted"; else $ctable = "";
+													if( $orden["leido"] == "no-leido" ) $ctable = "hlighted"; else $ctable = "";
 											?>
 												<tr class="<?php echo $ctable; ?>">
 													<td>
@@ -176,8 +178,17 @@
 														<span class="note"><?php echo $orden["fecha"] ?></span>
 													</td>
 													<td>
-														<span class="note"><?php echo $orden["estado"] ?></span>
+														<?php if ( $orden["estado"] == "revisado" ){ ?>
+														<span class="hltext">
+															<?php echo "<b>".$orden["estado"]."<b>"; ?>
+														</span>
+														<?php } else {?>
+															<span class="note">
+																<?php echo $orden["estado"]; ?>
+															</span>
+														<?php } ?>
 													</td>
+													
 													<td>
 														<span class="note">$<?php echo $orden["total"] ?></span>
 													</td>

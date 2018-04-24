@@ -216,6 +216,21 @@
 	.bcargable, .cargable{ display: none; }
 	.eca0, #bc1{ display: inline; }
 	.division_bloque{ width: 100%; }
+
+	.scrollTop {
+	  position: fixed;
+	  right: 6%;
+	  bottom: 30px;
+	  background-color: #a7b239;
+	  padding: 6px 12px;
+	  opacity: 0;
+	  transition: all 0.4s ease-in-out 0s;
+	}
+
+	.scrollTop a {
+	  font-size: 12px;
+	  color: #fff;
+	}
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -413,11 +428,15 @@
 						</div>
 					</div>
 				</section>        
-      </div>
+      	</div>
     </div>
   </div>
 
-    <?php include("sections/footer.php");?> 	
+    <?php include("sections/footer.php");?>
+
+    <div id="stop" class="scrollTop">
+	    <span><a href=""><i class="fa fa-arrow-up"></i></a></span>
+	</div>	
 	
 	<div id="quick-shop-modal" class="modal in" role="dialog" aria-hidden="false" tabindex="-1" data-width="800">
 		<div class="modal-backdrop in" style="height: 742px;">
