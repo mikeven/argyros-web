@@ -73,6 +73,7 @@ $( document ).ready(function() {
     });
 	
     $( ".select_pdetail" ).first().click();
+    $( ".seltdp" ).first().click();
 
     $(".bcargable").on( "click", function(){
     	//Muestra el próximo bloque de productos del catálogo

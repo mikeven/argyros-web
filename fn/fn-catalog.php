@@ -17,7 +17,7 @@
 	define( "P_FLT_PESO_PROD", "peso" );
 
 	/**/
-	define( "NPAGINACION", 32 );
+	define( "NPAGINACION", 4 );
 
 	/*.............................................................*/
 

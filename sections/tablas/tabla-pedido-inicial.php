@@ -17,7 +17,11 @@
 		  $total_n_items = 0;
 	      foreach ( $odetalle as $r ) {
 	        $total_item = obtenerTotalItemOrden( $r, $orden["estado"] );
-	        $total_n_items += $r["cant_rev"]; 
+	        if( $orden["estado"] == "revisado" )
+	        	$total_n_items += $r["cant_rev"];
+	        if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" ){
+	        	$total_n_items += $r["quantity"];
+	        }
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
@@ -35,7 +39,7 @@
 		      </td>
 	      <?php } ?>
 	      <td>$<?php echo $r["price"]; ?></td>
-	      <td>
+	      <td style="text-align: right;">
 	      	$<?php echo number_format( $total_item, 2, ".", " " ); ?>
 	      	<input type="hidden" id="monto<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
 	      	<input class="sumatmp" type="hidden" id="montotmp<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
@@ -49,10 +53,10 @@
 	    </tr>
 	    <?php } ?>
 	    <tr id="monto_orden_tabla">
-	    	<td colspan="2"></td>
-	    	<td> <span class="total_order_table">Total </span></td>
-	    	<td> <span class="total_order_table"><?php echo $total_n_items; ?></span> </td>
-	    	<td colspan="2" style="text-align:right;">
+	    	<td colspan="2">Total </td>
+	    	<td> <span class="total_order_table"> <?php echo $total_n_items; ?> </span></td>
+	    	<td> <span class="total_order_table"></span> </td>
+	    	<td style="text-align:right;" class="coltotales">
 	    		$ <span class="monto_total_orden total_order_table"> 
 	    		<?php 
 	    			if( $orden["estado"] == "pendiente" ) 	echo $orden["total"]; 

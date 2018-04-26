@@ -307,7 +307,7 @@
 																	<div class="header"> Tallas </div>
 																	<?php 
 																		$cn = 0; 
-																		foreach ( $detalle as $pdet ) { //./f.each*0 
+																		foreach ( $detalle as $pdet ) { 
 																		$tallas = $pdet["sizes"]; $ct = 0;
 																	?>
 																	<div id="rdt-t<?php echo $pdet["id"]; ?>" class="rdet_view_t rdet<?php echo $pdet["id"] ?>">

@@ -231,6 +231,15 @@
 	  font-size: 12px;
 	  color: #fff;
 	}
+
+	.imgcatal{
+		max-width: 250px;
+  		height: auto;
+	}
+
+	.img-catal-contenedor{
+		height:270px !important; 
+	}
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -361,11 +370,11 @@
 												<?php } ?>
 												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" data-alpha="Nombre del producto">
 													<ul class="row-container list-unstyled clearfix">
-														<li class="row-left">
+														<li class="row-left img-catal-contenedor">
 														<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">
 														
 														<img src="<?php echo $purl.$img[0]["image"] ?>" 
-														class="img-responsive" alt="<?php echo $p["name"] ?>">
+														class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
 														<span class="sale_banner">
 														<!--<span class="sale_text">Sale</span>-->
 														</span>

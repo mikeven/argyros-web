@@ -18,7 +18,9 @@
     
     checkSession( '' );
     if( isset( $_SESSION["cart"] ) )
-		$carrito = $_SESSION["cart"];    
+		$carrito = $_SESSION["cart"]; 
+
+	$usuario = obtenerUsuarioSesion( $dbh );   
     
 ?>
 <!doctype html>
@@ -123,7 +125,9 @@
 											</div>
 											<div class="address">
 												<span class="address-group">
-												<span class="address1">Ung Van Khiem, Ho Chi Minh city, Vietnam<span class="phone-number"></span></span>
+												<span class="address1">
+													<?php echo $usuario["company_name"];?> <span class="phone-number"><?php echo $usuario["city"];?></span>
+												</span>
 												</span>
 											</div>
 											</address>

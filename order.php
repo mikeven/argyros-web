@@ -121,6 +121,10 @@
 		#b_confirmacion_pedido{
 			padding: 10px 0; 
 		}
+
+		.coltotales{
+			padding: 5px 8px !important;
+		}
 	</style>
 </head>
 
@@ -235,19 +239,24 @@
 
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
-										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "revisado" ) 
-										|| ( $orden["estado"] == "cancelado" ) ) { ?>
+										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "cancelado" ) ) { ?>
 										<div id="pedido_inicial">
+											<?php 
+												if( isset( $orden ) ) { 
+													include( "sections/tablas/tabla-pedido-inicial.php" );
+												}
+											?>
+										</div>
+										<?php } ?>
+
+										<?php if( $orden["estado"] == "revisado" ) { ?>
 											<form id="frm_mpedido" name="form_pedido_modificado">
-												<input type="hidden" id="idorden" name="id_orden" value="<?php echo $orden["id"]?>">
-												<?php 
-													if( isset( $orden ) ) { 
-														include( "sections/tablas/tabla-pedido-inicial.php" );
-													}
-												?>
+												<div id="pedido_revisado">
+													<input type="hidden" id="idorden" name="id_orden" value="<?php echo $orden["id"]?>">
+													<?php include( "sections/tablas/tabla-pedido-revision.php" ); ?>
+												</div>
 											</form>
 											<?php include( "sections/modal-confirmation.html" ); ?>
-										</div>
 										<?php } ?>
 
 										<?php if( $orden["estado"] == "confirmado" || $orden["estado"] == "entregado" ) { ?>
@@ -266,7 +275,7 @@
 								  <button id="new-address" class="btn" onclick="HTML.CustomerAddress.toggleNewForm();return false">Add New Address</button>
 								</div>-->
 								<script type="text/javascript">
-								  var HTML = new Object();
+								  /*var HTML = new Object();
 								  HTML.CustomerAddress = {
 									toggleForm: function(id) {
 									  var editEl = document.getElementById('edit_address_'+id);
@@ -286,7 +295,7 @@
 									  if (confirm(confirm_msg || "Are you sure you wish to delete this address?")) {
 									  }      
 									}
-								  }
+								  }*/
 								</script>
 							  </div>						
 						</div>

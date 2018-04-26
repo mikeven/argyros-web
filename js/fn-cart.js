@@ -6,12 +6,12 @@
  function imprimirCarritoTienda( cart ){
     //Imprime el contenido y elementos del carrito de compra
     
-    $("#item_content_cart").html(cart.cart);        //Impresión en la lista desplegable
-    $("#list_content_cart").html(cart.lpag);        //Impresión en la página del carrito
+    $("#item_content_cart").html(cart.cart);            //Impresión en la lista desplegable
+    $("#list_content_cart").html(cart.lpag);            //Impresión en la página del carrito
     
-    $("#nitems_cart_drop").html(cart.nitems);       //Cantidad de ítems en el carrito
-    $(".total_price_cart").html( cart.total_price );  //Monto total en carrito
-    $(".total_cant_cart").html(cart.total_cant);  //Cantidad de unidades total en carrito
+    $("#nitems_cart_drop").html(cart.nitems);           //Cantidad de ítems en el carrito
+    $(".total_price_cart").html( cart.total_price );    //Monto total en carrito
+    $(".total_cant_cart").html(cart.total_cant);        //Cantidad de unidades total en carrito
  }
 /* ----------------------------------------------------------------------------------- */
 function obtenerCarritoCompra(){
@@ -40,23 +40,23 @@ function notificarCarritoActualizado(){
     }, 10000 );
 }
 /* ----------------------------------------------------------------------------------- */
- function asignarIdItem(){
+function asignarIdItem(){
     //Asignar id item carrito compra
     var idd = $("#iddetalle").val();
     var vta = $("#stalla").val();
     $("#idi_cart").val( idd + "-" + vta );
- }
+}
 /* ----------------------------------------------------------------------------------- */
- function validarSeleccionCarrito(){
+function validarSeleccionCarrito(){
  	//Chequeo de valores y condiciones para permitir agregar un ítem al carrito de compra
  	var valido = true;
  	if( $("#stalla").val() == "" ){
  		valido = false;	
  	}
  	return valido;
- }
+}
 /* ----------------------------------------------------------------------------------- */
- function eliminarItemCarrito( elem, nitem ){
+function eliminarItemCarrito( elem, nitem ){
     //Elimina un elemento del carrito de compra
     
     $.ajax({
@@ -70,9 +70,9 @@ function notificarCarritoActualizado(){
             });
         }
     });
- }
- /* ----------------------------------------------------------------------------------- */
- function actualizarItemCarrito( iditem, cant ){
+}
+/* ----------------------------------------------------------------------------------- */
+function actualizarItemCarrito( iditem, cant ){
     //Modifica valor de cantidad en un ítem de carrito de compra dado el id
     $.ajax({
         type:"POST",
@@ -84,9 +84,9 @@ function notificarCarritoActualizado(){
             notificarCarritoActualizado();
         }
     });
- }
- /* ----------------------------------------------------------------------------------- */
- function agregarItemCarrito(){
+}
+/* ----------------------------------------------------------------------------------- */
+function agregarItemCarrito(){
  	//Agrega un ítem de compra al carrito
  	asignarIdItem();
     var cart = $('#frm_scart').serialize();
@@ -100,7 +100,7 @@ function notificarCarritoActualizado(){
             obtenerCarritoCompra();			
         }
     });
- }
+}
 
 /* ----------------------------------------------------------------------------------- */
 function delcartitem( item ){

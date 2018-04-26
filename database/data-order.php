@@ -88,8 +88,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function registrarOrden( $dbh, $orden ){
 		//Guarda el registro de una orden
-		$q = "insert into orders ( user_id, total_price, total_count, created_at, order_status ) 
-		values ( $orden[id_user], $orden[total_pedido], $orden[total_items], NOW(), 'pendiente' )";
+		$q = "insert into orders ( user_id, total_price, total_count, created_at, order_read, order_status ) 
+		values ( $orden[id_user], $orden[total_pedido], $orden[total_items], NOW(), '', 'pendiente' )";
 		
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );
