@@ -17,7 +17,7 @@
 	define( "P_FLT_PESO_PROD", "peso" );
 
 	/**/
-	define( "NPAGINACION", 4 );
+	define( "NPAGINACION", 32 );
 
 	/*.............................................................*/
 
@@ -148,9 +148,9 @@
 	function filtrarProductosPorAtributoProducto( $dbh, $productos, $atributo, $valores ){
 		//Devuelve la lista de productos que coinciden en atributo de producto con los valores del filtro
 		$filtrados = array();	
-		
 		foreach ( $productos as $p ){
-			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["id"], $atributo );
+			$p = $producto["data"];
+			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["data"]["id"], $atributo );
 			if( matchFiltroAtributo( $dbh, /*$p["id"],*/ $vatributos, $valores ) ){
 				$filtrados[] = $p;
 			}
@@ -164,7 +164,7 @@
 		$filtrados = array();
 
 		foreach ( $productos as $p ){
-			$detalle = obtenerDetalleProductoPorId( $dbh, $p["id"] );
+			$detalle = obtenerDetalleProductoPorId( $dbh, $p["data"]["id"] );
 			$atributo = obtenerComparadorConFiltroPorAtributo( $parametro );
 
 			if( matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $valores_filtro ) ){
@@ -260,8 +260,8 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 
-	$purl = "../../argyros/trunk/admin_/"; //Localhost
-	//$purl = "admin/"; //Server
+	//$purl = "../../argyros/trunk/admin_/"; //Localhost
+	$purl = "admin/"; //Server
 
 	/* ----------------------------------------------------------------------------------- */
 ?>

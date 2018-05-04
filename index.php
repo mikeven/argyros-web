@@ -107,14 +107,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="collection.html" title="Browse our Earrings">
+																<a href="#!" title="Browse our Earrings">
 																<img src="assets/images/2_large.png" alt="Earrings">
 																</a>
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="collection.html">ZARCILLOS</a></span>
 																<div class="collection-action">
-																	<a href="collection.html">VER CATÁLOGO</a>
+																	<a href="#!">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -122,14 +122,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="collection.html" title="Browse our Necklaces">
+																<a href="#!" title="Browse our Necklaces">
 																<img src="assets/images/1_79ec3305-7c83-4daa-804c-fac19b2d1b7b_large.png" alt="Necklaces">
 																</a>
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="collection.html">COLLARES</a></span>
 																<div class="collection-action">
-																	<a href="collection.html">VER CATÁLOGO</a>
+																	<a href="#!">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -137,14 +137,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="collection.html" title="Browse our Rings">
+																<a href="#!" title="Browse our Rings">
 																<img src="assets/images/4_large.png" alt="Rings">
 																</a>
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="collection.html">ANILLOS</a></span>
 																<div class="collection-action">
-																	<a href="collection.html">VER CATÁLOGO</a>
+																	<a href="#!">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -152,14 +152,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="collection.html" title="Browse our Bracelets">
+																<a href="#!" title="Browse our Bracelets">
 																	<img src="assets/images/3_large.png" alt="Bracelets">
 																</a>
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="collection.html">BRAZALETES</a></span>
 																<div class="collection-action">
-																	<a href="collection.html">VER CATÁLOGO</a>
+																	<a href="#!">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>

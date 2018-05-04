@@ -27,7 +27,7 @@
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
 	      <td>
 	      	<input type="hidden" id="iditem<?php echo $r["id"]; ?>" name="ielims[]" value="0">
-	      	<a href="#!">
+	      	<a href="product.php?id=<?php echo $r["product_id"]; ?>" target="_blank">
 	      		<?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?>
 	      	</a>
 	      </td>

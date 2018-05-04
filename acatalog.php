@@ -254,17 +254,7 @@
 					<div itemprop="breadcrumb" class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<a href="index.php" class="homepage-link" title="Back to the frontpage">Inicio</a>
-								<span>/</span>
-								<a href="acatalog.php?c=<?php echo $cat; ?>">
-									<span class="page-title"><?php echo $h_ncat["name"]; ?></span>
-								</a>
-								<?php if( isset( $_GET["s"] ) ) {?>
-									<span>/</span>
-									<a href="acatalog.php?c=<?php echo $cat; ?>&s=<?php echo $sub; ?>">
-										<span class="page-title"><?php echo $h_nscat["name"]; ?></span>
-									</a>
-								<?php } ?>
+								<?php include( "sections/breadcrumb.php" ); ?>
 							</div>
 							<div id="title-categories">
 								<h1 id="page-title" class="text-right"><?php //echo $etiq_categs; ?></h1>

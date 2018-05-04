@@ -302,6 +302,10 @@
 																	</div>
 																</div>
 
+																<div>
+																	Seleccione una talla y cantidad
+																</div>
+
 																<!-- Bloque selección tallas -->
 																<div class="swatch clearfix" data-option-index="1">
 																	<div class="header"> Tallas </div>

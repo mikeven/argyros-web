@@ -89,7 +89,7 @@
 					<div itemprop="breadcrumb" class="container">
 						<div class="row">
 							<div class="col-md-24">
-								<a href="index-2.html" class="homepage-link" title="Back to the frontpage">Home</a>
+								<a href="index.php" class="homepage-link" title="Regresar a la página de inicio">Inicio</a>
 								<span>/</span>
 								<span class="page-title">Crear cuenta</span>
 							</div>
@@ -125,6 +125,14 @@
 											</li>
 										</div>
 										<li class="clearfix"></li>
+
+										<div class="form-group">
+											<li id="Teléfono" class="">
+											<label class="control-label" for="telefono">Teléfono </label>
+											<input name="telefono" id="telefono" class="form-control " type="text">
+											</li>
+										</div>
+										<li class="clearfix"></li>
 										
 										<div class="form-group">
 											<li id="Password1" class="">
@@ -146,7 +154,7 @@
 											<li id="Country" class="">
 											<label class="control-label" for="password">País </label>
 												<select name="pais" class="form-control selectpicker" data-live-search="true">
-				                                    <option disabled>Seleccione</option>
+				                                    <option disabled selected>Seleccione</option>
 				                                    <?php foreach ( $paises as $p ) { ?>
 				                                      <option value="<?php echo $p["code"] ?>"><?php echo $p["name"] ?></option>
 				                                    <?php } ?>
@@ -159,7 +167,7 @@
 											<li id="Country" class="">
 											<label class="control-label" for="tcliente">Tipo cliente </label>
 												<select name="tcliente" class="form-control selectpicker">
-				                                    <option disabled>Seleccione</option>
+				                                    <option disabled selected>Seleccione</option>
 				                                    <option value="Particular">Particular</option>
 				                                    <option value="Tienda">Tienda</option>
 				                                    <option value="Tienda">Joyería</option>

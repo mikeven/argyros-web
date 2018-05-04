@@ -143,9 +143,9 @@
 											<h6>Síguenos</h6>
 											</li>
 											<li class="facebook"><a href="#"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Facebook"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-inverse fa-stack-1x"></i></span></a></li>
-											<li class="twitter"><a href="#"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Twitter"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-inverse fa-stack-1x"></i></span></a></li>
-											<li class="google-plus"><a href="#"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Google plus"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-google-plus fa-inverse fa-stack-1x"></i></span></a></li>
-											<li class="pinterest"><a href="#"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Pinterest"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-pinterest fa-inverse fa-stack-1x"></i></span></a></li>
+											<li class="twitter"><a href="https://twitter.com/argyrosinc"><span class="fa-stack fa-lg btooltip" title="Twitter" data-original-title="Twitter"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-inverse fa-stack-1x"></i></span></a></li>
+											<li class="pinterest"><a href="https://www.instagram.com/argyrosinc/"><span class="fa-stack fa-lg btooltip" title="Instagram" data-original-title="Instagram"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-inverse fa-stack-1x"></i></span></a></li>
+											<li class="google-plus"><a href="#"><span class="fa-stack fa-lg btooltip" title="You Tube" data-original-title="You Tube"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-youtube fa-inverse fa-stack-1x"></i></span></a></li>
 										</ul>
 									</div>
 								</div>
