@@ -150,9 +150,17 @@
 		max-width: 1200px;
 		background-color: #f7f7f7;
 	}
+
 	.seccion_filtros_catalogo{
 		
 	}
+
+	@media( max-width: 1024px ){
+		.seccion_filtros_catalogo_fijo{
+	    	top: 0px !important;
+		}
+	}
+
 	.seccion_filtros_catalogo_fijo{
 		position: fixed;
     	top: 51px;
@@ -282,7 +290,8 @@
 											</a>
 											<hr>
 											<div id="panel_tag_filters">
-												<?php  foreach ( $d_filtros["url"] as $flt_vo ) { ?>
+												<?php  
+													foreach ( $d_filtros["url"] as $flt_vo ) { ?>
 													<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
 														<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
 													</a> 

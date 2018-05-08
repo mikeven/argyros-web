@@ -89,7 +89,7 @@
 		.rdet_prop{ display: none; }
 		.product-view-img{ max-width: 50px !important; }
 		li i.fa{
-			font-size: 4px;
+			font-size: 15px;
 		    vertical-align: 4px;
 		    padding-right: 5px;
 		    color: #808080;

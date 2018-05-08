@@ -58,9 +58,9 @@
 		$string = "";
 		$data_filtro = array();
 		
-		foreach ( $url_params as $param=>$valor ) {
+		foreach ( $url_params as $param=>$valor ){
 			//echo $param."=".$valor.($param != "s")."<br>";
-			if( ( $param == "c" ) || ( $param == "s" ) ){
+			if( ( $param == "c" ) || ( $param == "s" ) || ( $param == P_TEXTO_BUSQUEDA ) ){
 				
 			}else{
 				$valores = explode( SEPFLT, $valor );
@@ -372,10 +372,11 @@
 	}
 
 	if( isset( $_POST["urltipo_precio"] ) ){
-		//Llamada asíncrona para generar URL para filtrar por precio
+		//Llamada asíncrona para generar URL para filtrar por precio (pieza, gramo, peso producto )
 		include( "fn-catalog.php" );
 		$catalogue_url = $_POST["url_c"];
 		$urlparsed = parse_url( $catalogue_url );
+		
 		parse_str( $urlparsed["query"], $url_params );
 
 		if( $_POST["urltipo_precio"] == "pieza" ){

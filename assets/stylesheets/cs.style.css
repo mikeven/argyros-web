@@ -449,7 +449,7 @@ button:focus{outline:none !important;}
 .contact-page ul.right-content li.pinterest i.fa-circle{color:#e01738;}
 .group-faq{padding-left:15px;padding-right:15px;}
 .form-control{font-size:13px !important;}
-#register-form{margin-left:0;margin-right:0;margin-bottom:110px;}
+#register-form{margin-left:5px;margin-right:5px;margin-bottom:110px;}
 #register-form .form-control{ height:40px;width:85%; }  /* modified: width:45% */
 #register-form li,
 #customer-login ul li,

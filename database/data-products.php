@@ -346,7 +346,46 @@
 		
 		return $existe;
 	}
-	
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerProductosParametroDirectoProducto( $dbh, $busqueda ){
+		//Devuelve los registros de producto que coinciden con la búsqueda en algunos de sus parámetros:
+		//
+		$q = "select p.id from products p, categories ca, subcategories sc, countries co, materials m 
+		where (p.is_visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
+		and p.country_code = co.code ) and ( lower(p.name) like lower('%$busqueda%') 
+		or lower(p.description) like lower('%$busqueda%') or lower(p.code) like lower('%$busqueda%') 
+		or lower(m.name) like lower('%$busqueda%') or lower(ca.name) like lower('%$busqueda%') 
+		or lower(sc.name) like lower('%$busqueda%') )";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerProductosParametroDetalleProducto( $dbh, $busqueda, $param ){
+		//Devuelve los registros de producto que coinciden con la búsqueda en 
+		//algunos de sus parámetros en su detalle
+
+		if( $param == "bano" ){
+			$q = "select id from products where id in ( select dp.product_id from product_details dp, treatments t 
+			where dp.treatment_id = t.id and lower(t.name) like lower('%$busqueda%') )";
+		}
+		if( $param == "color" ){
+			$q = "select id from products where id in ( select dp.product_id from product_details dp, colors c 
+			where dp.color_id = c.id and lower(c.name) like lower('%$busqueda%') )";
+		}
+		if( $param == "trabajo" ){
+			$q = "select p.id from products p, making_product mp, makings m  
+			where p.id = mp.product_id and mp.making_id = m.id and lower(m.name) like lower('%$busqueda%')";
+		}
+		//echo $q;
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;
+	} 
+	/* ----------------------------------------------------------------------------------- */
+
+
 
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Productos */

@@ -156,9 +156,9 @@ table tbody td,
 table tfoot td{padding:0;border:0;}
 #cartform td:nth-of-type(1):before{content:"Item";}
 #cartform td:nth-of-type(2):before{content:"Precio";}
-#cartform td:nth-of-type(3):before{content:"Cantidad";}
+#cartform td:nth-of-type(3):before{content:"Cant";}
 #cartform td:nth-of-type(4):before{content:"Total";}
-#cartform td:nth-of-type(5):before{content:"Quitar";}
+#cartform td:nth-of-type(5):before{content:"";}
 .bottom-summary td:nth-of-type(4):before{content:"Total pedido" !important;}
 td{border:none;position:relative;padding-left:30% !important;font-size:14px !important;text-align:left !important;margin-top:0 !important;margin-bottom:0 !important;padding-top:10px !important;padding-bottom:10px !important;}
 td:before{position:absolute;top:50%;left:2%;width:25%;margin-top:-10px;padding-right:10px;white-space:nowrap;text-transform:none;font-weight:bold;}
@@ -169,15 +169,15 @@ td:before{position:absolute;top:50%;left:2%;width:25%;margin-top:-10px;padding-r
 .bottom-summary td:nth-of-type(5){display:none;}
 .cart-items tr td ul{padding-bottom:0;}
 #customer_orders td{padding-left:40% !important;}
-#customer_orders td:nth-of-type(1):before{content:"Order";}
-#customer_orders td:nth-of-type(2):before{content:"Date";}
-#customer_orders td:nth-of-type(3):before{content:"Payment status";}
-#customer_orders td:nth-of-type(4):before{content:"Fullfillment status";}
-#customer_orders td:nth-of-type(5):before{content:"Toal";}
+#customer_orders td:nth-of-type(1):before{content:"Item";}
+#customer_orders td:nth-of-type(2):before{content:"Cant";}
+#customer_orders td:nth-of-type(3):before{content:"P.Unit";}
+#customer_orders td:nth-of-type(4):before{content:"P.Total";}
+#customer_orders td:nth-of-type(5):before{content:"Total";}
 .page-wishlist td:nth-of-type(1):before{content:"Item";}
-.page-wishlist td:nth-of-type(2):before{content:"Price";}
-.page-wishlist td:nth-of-type(3):before{content:"Remove";}
-.page-wishlist td:nth-of-type(4):before{content:"Add to cart";}
+.page-wishlist td:nth-of-type(2):before{content:"Precio";}
+.page-wishlist td:nth-of-type(3):before{content:"";}
+.page-wishlist td:nth-of-type(4):before{content:"Agregar";}
 .element ul li.row-right .product-content-right .price_compare{padding-top:0;}
 .collection-full #sandBox .element.full_width ul:hover li.row-right .hover-appear,
 .collection-full #sandBox .element.full_width ul li.row-right .hover-appear{margin-top:0;}

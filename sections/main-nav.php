@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="top-navigation">
 		<ul class="list-inline">
-			<li class="top-logo">
-				<a id="site-title" href="index.php" title="Jewelry - HTML Template theme">          
-				<img class="img-responsive" src="assets/images/alogo.png" alt="Jewelry - HTML Template theme">        
+			<li class="top-logo seccion_filtros_catalogo_movil">
+				<a id="site-title" href="index.php" title="Argyros, Inc.">          
+				<img class="img-responsive" src="assets/images/alogo.png" alt="Argyros, Inc.">        
 				</a>
 			</li>
 			<li class="navigation">			
@@ -12,7 +12,7 @@
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" 
 							data-target=".navbar-collapse">
-							<span class="sr-only">Toggle main navigation</span>
+							<span class="sr-only">Cambiar navegación</span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
@@ -39,16 +39,16 @@
 										<a href="login.php">Login</a>
 										</li>
 										<li class="account last">
-										<a href="register.php">Register</a>
+										<a href="register.php">Crear cuenta</a>
 										</li>
 									</ul>
 								</div>
 								</li>
-								<li class="is-mobile-wl">
+								<!--<li class="is-mobile-wl">
 								<a href="#"><i class="fa fa-heart"></i></a>
-								</li>
+								</li>-->
 								<li class="is-mobile-cart">
-								<a href="#"><i class="fa fa-shopping-cart"></i></a>
+								<a href="cart.php"><i class="fa fa-shopping-cart"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -98,9 +98,9 @@
 						<i class="sub-dropdown"></i>
 						</span>
 					</a>
-					<form id="header-search" class="search-form dropdown-menu" action="http://demo.designshopify.com/html_jewelry/search.html" method="get">
-						<input type="hidden" name="type" value="product">
-						<input type="text" name="q" value="" accesskey="4" autocomplete="off" placeholder="Search something...">
+					<form id="header-search" class="search-form dropdown-menu" action="acatalog.php" method="get">
+						<!-- <input type="hidden" name="type" value="product"> -->
+						<input type="text" name="busqueda" value="" accesskey="4" autocomplete="off" placeholder="Buscar...">
 						<button type="submit" class="btn">Buscar</button>
 					</form>
 				</div>
@@ -112,7 +112,7 @@
 			<li class="mobile-search visible-xs">
 				<form id="mobile-search" class="search-form" action="http://demo.designshopify.com/html_jewelry/search.html" method="get">
 					<input type="hidden" name="type" value="product">
-					<input type="text" class="" name="q" value="" accesskey="4" autocomplete="off" placeholder="Search something...">
+					<input type="text" class="" name="q" value="" accesskey="4" autocomplete="off" placeholder="Buscar...">
 					<button type="submit" class="search-submit" title="search"><i class="fa fa-search"></i></button>
 				</form>
 			</li>		  

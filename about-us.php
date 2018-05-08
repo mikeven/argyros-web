@@ -101,7 +101,7 @@ en el continente americano, con un servicio novedoso y un equipo de personas ami
 									
 									<p>
 										Con un respaldo de más de 30 años de experiencia en este rubro en Venezuela,
-los socios buscan establecer una distribuidora a mayor escala para toda centro-sur América, destacando la calidad de los productos ofrecidos y la calidad de el servicio tanto en la compra como en la post-venta, buscando convertirse en aliados comerciales de nuestros clientes.
+los socios buscan establecer una distribuidora a mayor escala para toda centro-sur América, destacando la calidad de los productos ofrecidos y la calidad del servicio tanto en la compra como en la post-venta, buscando convertirse en aliados comerciales de nuestros clientes.
 									</p>
 									
 								</div>

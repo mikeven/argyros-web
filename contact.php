@@ -59,6 +59,12 @@
 	<script src="assets/javascripts/jquery.gmap.min.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<style>
+		#contact-form{
+			margin: 0 5px;
+		}
+	</style>
 	
 </head>
 

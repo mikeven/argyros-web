@@ -24,8 +24,14 @@
 					<li class="row-right parent-fly animMix">
 					<div class="product-content-left">
 						<a class="title-5" href="<?php echo $lnkp; ?>"><?php echo $prod["name"]; ?></a>
-						<span class="spr-badge" id="spr_badge_1293238211" data-rating="0.0">
-						<span class="spr-starrating spr-badge-starrating"><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i><i class="spr-icon spr-icon-star-empty" style=""></i></span>
+						<span class="spr-badge" id="" data-rating="0.0">
+						<span class="spr-starrating spr-badge-starrating hidden">
+							<i class="spr-icon spr-icon-star-empty" style=""></i>
+							<i class="spr-icon spr-icon-star-empty" style=""></i>
+							<i class="spr-icon spr-icon-star-empty" style=""></i>
+							<i class="spr-icon spr-icon-star-empty" style=""></i>
+							<i class="spr-icon spr-icon-star-empty" style=""></i>
+						</span>
 						<span class="spr-badge-caption">
 						No reviews </span>
 						</span>
@@ -39,7 +45,7 @@
 					<div class="list-mode-description">
 						<?php echo $prod["description"]; ?>
 					</div>
-					<div class="hover-appear">
+					<div class="hover-appear hidden">
 						<form action="#" method="post">
 							<div class="effect-ajax-cart">
 								<input name="quantity" value="1" type="hidden">

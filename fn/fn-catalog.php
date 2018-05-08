@@ -15,6 +15,7 @@
 	define( "P_FLT_PIEZA", "precio-pieza" );
 	define( "P_FLT_PESO", "precio-peso" );
 	define( "P_FLT_PESO_PROD", "peso" );
+	define( "P_TEXTO_BUSQUEDA", "busqueda" );
 
 	/**/
 	define( "NPAGINACION", 32 );
@@ -45,10 +46,10 @@
 	function obtenerProductosDestacados( $dbh ){
 		//Devuelve los productos mostrados en la página de inicio
 
-		$pdetacados[0] = obtenerUltimoProductoCategoria( $dbh, 1 );
-		$pdetacados[1] = obtenerUltimoProductoCategoria( $dbh, 2 );
-		$pdetacados[2] = obtenerUltimoProductoCategoria( $dbh, 3 );
-		$pdetacados[3] = obtenerUltimoProductoCategoria( $dbh, 4 );
+		$pdetacados[0] = obtenerUltimoProductoCategoria( $dbh, 2 ); //Zarcillos
+		$pdetacados[1] = obtenerUltimoProductoCategoria( $dbh, 6 );	//Gargantillas
+		$pdetacados[2] = obtenerUltimoProductoCategoria( $dbh, 1 );	//Anillos
+		$pdetacados[3] = obtenerUltimoProductoCategoria( $dbh, 4 );	//Pulseras
 
 		return $pdetacados;
 	}
@@ -217,7 +218,6 @@
 
 		foreach ( $productos as $prod ){
 			foreach ( $prod["detalle"] as $reg ){
-
 				$cmp = obtenerComparadorConFiltroPorAtributo( $atributo );
 				if( matchFiltroPeso( $dbh, $reg, $cmp, $valores_filtros ) ){
 					$filtrados[] = $prod;
@@ -239,6 +239,17 @@
 		return $vproductos;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerProductosPorBusqueda( $dbh, $busqueda ){
+		//Devuelve una lista de productos que incluyan el texto de búsqueda en algunos de sus parámetros
+		$vproductos = array();
+		//$vproductos = obtenerProductosParametroDirectoProducto( $dbh, $busqueda );
+		//$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" );
+		//$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" );
+		$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" );
+
+		return $vproductos;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	
 	if( isset( $_GET["c"], $_GET["s"] ) ){
 		$cat = $_GET["c"];
@@ -250,7 +261,7 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 		$h_nscat = obtenerSubCategoriaPorUname( $dbh, $sub );
 	}
-
+	/*..........................................................................*/
 	if( isset( $_GET["c"] ) && !isset( $_GET["s"] ) ){
 		$cat = $_GET["c"];
 
@@ -259,9 +270,17 @@
 		
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
+	/*..........................................................................*/
+	if( isset( $_GET["busqueda"] ) ){
+		$busqueda = $_GET["busqueda"];
+		$productos_busqueda = obtenerProductosPorBusqueda( $dbh, $busqueda );
+		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda );
 
+		$h_ncat = $busqueda;
+	}
+	/*..........................................................................*/
 	//$purl = "../../argyros/trunk/admin_/"; //Localhost
 	$purl = "admin/"; //Server
-
+	/*..........................................................................*/
 	/* ----------------------------------------------------------------------------------- */
 ?>

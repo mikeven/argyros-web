@@ -23,10 +23,13 @@
 
     if ($(window).scrollTop() >= altura_del_header){
         $('#contenido_bloque_filtros').addClass('seccion_filtros_catalogo_fijo');
+        $('.top-logo').addClass('seccion_logo_movil_fijo');
         //$('.wrapper').css('margin-top', (altura_del_menu) + 'px');
     } else {
         $('#contenido_bloque_filtros').removeClass('seccion_filtros_catalogo_fijo');
         $('#contenido_bloque_filtros').addClass('seccion_filtros_catalogo');
+        $('.top-logo').removeClass('seccion_logo_movil_fijo');
+        $('.top-logo').removeClass('seccion_logo_movil');
         //$('.wrapper').css('margin-top', '0');
     }
 }
