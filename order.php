@@ -125,6 +125,22 @@
 		.coltotales{
 			padding: 5px 8px !important;
 		}
+
+		@media (max-width: 1024px){
+			thead tr {
+			    position: relative !important;
+			}
+
+			td {
+			    padding-left: 5% !important;
+			}
+
+			.bloque_pedido{
+				max-width: 600px;
+				overflow-x: scroll; 	
+			}
+		}
+
 	</style>
 </head>
 
@@ -240,7 +256,7 @@
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
 										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "cancelado" ) ) { ?>
-										<div id="pedido_inicial">
+										<div id="pedido_inicial" class="bloque_pedido">
 											<?php 
 												if( isset( $orden ) ) { 
 													include( "sections/tablas/tabla-pedido-inicial.php" );
@@ -251,7 +267,7 @@
 
 										<?php if( $orden["estado"] == "revisado" ) { ?>
 											<form id="frm_mpedido" name="form_pedido_modificado">
-												<div id="pedido_revisado">
+												<div id="pedido_revisado" class="bloque_pedido">
 													<input type="hidden" id="idorden" name="id_orden" value="<?php echo $orden["id"]?>">
 													<?php include( "sections/tablas/tabla-pedido-revision.php" ); ?>
 												</div>
@@ -260,7 +276,7 @@
 										<?php } ?>
 
 										<?php if( $orden["estado"] == "confirmado" || $orden["estado"] == "entregado" ) { ?>
-											<div id="pedido_confirmado">
+											<div id="pedido_confirmado" class="bloque_pedido">
 												<?php include( "sections/tablas/tabla-pedido-confirmado.php" ); ?>
 											</div>
 										<?php } ?>

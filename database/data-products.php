@@ -378,7 +378,17 @@
 			$q = "select p.id from products p, making_product mp, makings m  
 			where p.id = mp.product_id and mp.making_id = m.id and lower(m.name) like lower('%$busqueda%')";
 		}
+		if( $param == "linea" ){
+			$q = "select p.id from products p, line_product lp, plines l  
+			where p.id = lp.product_id and lp.line_id = l.id and lower(l.name) like lower('%$busqueda%')";
+		}
+
+		if( $param == "codigo" ){
+			$q = "select id from products where id in ( select dp.product_id from product_details dp 
+			where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' )";
+		}
 		//echo $q;
+
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;

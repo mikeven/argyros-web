@@ -65,6 +65,12 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<style>
+      .collection-details img{
+        max-width: 100% !important;
+      }
+    </style>
 </head>
 
 <body class="templateIndex notouch">

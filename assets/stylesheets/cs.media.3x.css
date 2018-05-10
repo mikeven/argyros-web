@@ -141,20 +141,22 @@ a:focus, select:focus, input:focus, button:focus{outline:none !important;}
 #prod-related-wrapper .row-left .hoverBorder a.wish-list{top:160%;}
 .owl-theme .owl-controls{right:8.5%;}
 #prod-related-wrapper .row-left .hoverBorder:hover .overlay_mask{border:0;}
-table,
+
+/*table,
 thead,
 tbody,
 tfoot,
 th,
 td,
-tr{display:block;}
+tr{display:block;}*/
+
 thead tr{position:absolute;top:-9999px;left:-9999px;}
 table.haft-border tr{border:0;border-bottom:1px solid rgb(204, 204, 204);width:100%;margin-bottom:0;}
 table.haft-border tr.bottom-summary{padding-left:20px;padding-right:20px;border-bottom:0;}
 .cart-items .action button{padding-left:0;}
 table tbody td,
 table tfoot td{padding:0;border:0;}
-#cartform td:nth-of-type(1):before{content:"Item";}
+#cartform td:nth-of-type(1):before{content:"";} 		/* Item */
 #cartform td:nth-of-type(2):before{content:"Precio";}
 #cartform td:nth-of-type(3):before{content:"Cant";}
 #cartform td:nth-of-type(4):before{content:"Total";}
@@ -169,13 +171,13 @@ td:before{position:absolute;top:50%;left:2%;width:25%;margin-top:-10px;padding-r
 .bottom-summary td:nth-of-type(5){display:none;}
 .cart-items tr td ul{padding-bottom:0;}
 #customer_orders td{padding-left:40% !important;}
-#customer_orders td:nth-of-type(1):before{content:"Item";}
-#customer_orders td:nth-of-type(2):before{content:"Cant";}
-#customer_orders td:nth-of-type(3):before{content:"P.Unit";}
-#customer_orders td:nth-of-type(4):before{content:"P.Total";}
-#customer_orders td:nth-of-type(5):before{content:"Total";}
-.page-wishlist td:nth-of-type(1):before{content:"Item";}
-.page-wishlist td:nth-of-type(2):before{content:"Precio";}
+#customer_orders td:nth-of-type(1):before{content:"";} 		/*item*/
+#customer_orders td:nth-of-type(2):before{content:"";}		/*cant*/
+#customer_orders td:nth-of-type(3):before{content:"";}	/*punit*/
+#customer_orders td:nth-of-type(4):before{content:"";}	/*ptotal*/
+#customer_orders td:nth-of-type(5):before{content:"";}		/*total*/
+.page-wishlist td:nth-of-type(1):before{content:"";}		/*item*/
+.page-wishlist td:nth-of-type(2):before{content:"";}		/*precio*/
 .page-wishlist td:nth-of-type(3):before{content:"";}
 .page-wishlist td:nth-of-type(4):before{content:"Agregar";}
 .element ul li.row-right .product-content-right .price_compare{padding-top:0;}

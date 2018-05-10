@@ -139,9 +139,16 @@
 												Final calle 15, Edificio Silver Crown, local 2, Zona Libre de Colón. República de Panamá.
 											</p>
 											</li>
+
 											<div>
 												<li class="phone"><i class="fa fa-phone"></i> (+507) 447 3175 / (+507) 447 2774 </li>
 											</div>
+											<div>
+												<li class="phone">
+													<img src="assets/images/whatsapp.png" width="15" style="margin-right: 10px;">(+507) 6678-9111 / (+507) 6278-5100
+												</li>
+											</div>
+
 											<li class="email"><i class="fa fa-envelope"></i> info@argyros.com.pa</li>
 										</ul>
 										<ul class="right-content">

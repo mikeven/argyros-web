@@ -66,6 +66,11 @@ function generarURLFiltroPeso( pmin, pmax ){
     });
 }
 
+function setFilterBreadCrumb(){
+	//Copia el contenido del breadcrum principal en la sección de selección de filtros
+	$("#flt-breadcrumb").html( $("#argy-breadcrumb").html() );
+}
+
 /* ----------------------------------------------------------------------------------- */
 
 $( document ).ready(function() {	
@@ -100,6 +105,8 @@ $( document ).ready(function() {
 		
 		generarURLFiltroPeso( pmin, pmax );
 	});
+
+
 });
 
 /*

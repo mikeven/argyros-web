@@ -6,7 +6,7 @@
 			<div class="num-items-in-cart">
 				<span class="icon_">
 				  <i class="fa fa-2 fa-shopping-cart"></i>
-				  <span id="nitems_cart_drop" class="number">0</span>
+				  <span class="nitems_cart_drop" class="number">0</span>
 				  &nbsp;&nbsp;&nbsp;<span>$</span>
 				  <span id="total_price_cart" class="total_price_cart" style="font-size:12px;">0.00</span>
 				</span>

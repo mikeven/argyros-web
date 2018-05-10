@@ -9,7 +9,7 @@
     $("#item_content_cart").html(cart.cart);            //Impresión en la lista desplegable
     $("#list_content_cart").html(cart.lpag);            //Impresión en la página del carrito
     
-    $("#nitems_cart_drop").html(cart.nitems);           //Cantidad de ítems en el carrito
+    $(".nitems_cart_drop").html(cart.nitems);           //Cantidad de ítems en el carrito
     $(".total_price_cart").html( cart.total_price );    //Monto total en carrito
     $(".total_cant_cart").html(cart.total_cant);        //Cantidad de unidades total en carrito
  }

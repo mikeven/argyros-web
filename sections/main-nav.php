@@ -35,20 +35,39 @@
 										<i class="fa fa-user"></i>
 									</div>
 									<ul class="customer dropdown-menu">
-										<li class="logout">
-										<a href="login.php">Login</a>
-										</li>
-										<li class="account last">
-										<a href="register.php">Crear cuenta</a>
-										</li>
+										<?php if( !isset( $_SESSION["login"] ) ) { ?>
+											<li class="logout">
+											<a href="login.php">Ingresar</a>
+											</li>
+											<li class="account last">
+											<a href="register.php">Crear cuenta</a>
+											</li>
+										<?php } else { ?>
+											<li class="logout">
+											<a href="account.php">Mi cuenta</a>
+											</li>
+											<li class="account last">
+											<a href="index.php?logout">Salir</a>
+											</li>
+										<?php } ?>
 									</ul>
 								</div>
 								</li>
 								<!--<li class="is-mobile-wl">
 								<a href="#"><i class="fa fa-heart"></i></a>
 								</li>-->
-								<li class="is-mobile-cart">
-								<a href="cart.php"><i class="fa fa-shopping-cart"></i></a>
+								<li class="is-mobile-cart" style="position:relative; top:10px;">
+									<div style="float:left;">
+										<a href="cart.php">
+											<i class="fa fa-shopping-cart"></i>
+										</a>
+									</div>
+									<div class="num-items-in-cart" style="float:left;">
+										<span class="icon_">
+										  <span class="nitems_cart_drop" class="number">0</span>
+										</span>
+									</div>
+									<div style="clear:both"></div>
 								</li>
 							</ul>
 						</div>

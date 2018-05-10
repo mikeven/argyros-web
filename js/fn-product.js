@@ -60,6 +60,7 @@ $( document ).ready(function() {
 		asignarPrecioFichaProducto( "detalle", $(this) );
 		$("#iddetalle").val( $(this).attr("data-select-iddet") );
 		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
+		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
     });
 
 	//Clic: selección de tallas de un detalle de producto

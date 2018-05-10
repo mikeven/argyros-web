@@ -74,6 +74,19 @@
 	<style>
 		.hlighted{ background-color: #d4cd7a; }
 		.hltext {color: #abb769; }
+
+		@media (max-width: 1024px){
+			#customer_orders td {
+			    padding-left: 5% !important;
+			}
+
+			thead tr {
+			    position: relative;
+			}
+			.wrap-table {
+			    margin-bottom: 30px !important;
+			    margin-top: 30px;
+			}
 	</style>
 </head>
 
@@ -176,7 +189,7 @@
 											?>
 												<tr class="<?php echo $ctable; ?>">
 													<td>
-														<a href="order.php?orderid=<?php echo $orden["id"] ?>">#Pedido <?php echo $orden["id"] ?></a>
+														<a href="order.php?orderid=<?php echo $orden["id"] ?>">#<?php echo $orden["id"] ?></a>
 													</td>
 													<td>
 														<span class="note"><?php echo $orden["fecha"] ?></span>

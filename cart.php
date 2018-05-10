@@ -82,6 +82,16 @@
 		#label-msgs, .toggle_elim_item_cart{ display: none; }
 		.icon-msg{ float: left; margin-right: 10px; }
 		.confirm_itemcart{ color: red; }
+		
+		@media (max-width: 1024px){
+			#tabla_carrito_compra tr, #tabla_carrito_compra td{
+				display:block;
+			}
+		}
+
+		.cart-qty-group tr {
+		    border-bottom: 0 !important;
+		}
 	</style>
 </head>
 
@@ -125,7 +135,7 @@
 									</div>
 									<div class="row table-cart">
 										<div class="wrap-table">
-											<table class="cart-items haft-border">
+											<table id="tabla_carrito_compra" class="cart-items haft-border">
 											<colgroup>
 												<col class="checkout-image">
 												<col class="checkout-info">

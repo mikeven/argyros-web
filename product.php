@@ -98,6 +98,14 @@
 			margin-top: 25px;
 		}
 
+		#gallery_main .owl-wrapper-outer .opt-pdetalle img {
+		    height: 100px !important;
+		}
+
+		#referencia-producto{
+			font-size: 11px; font-weight: bold; color: #696f24; 
+		}
+
 	</style>
 
 </head>
@@ -169,7 +177,7 @@
 
 											<!-- Galería de imágenes de un detalle de producto -->
 											<div id="gallery_main" class="product-image-thumb thumbs mobile_full_width product_detail_views">
-												<?php foreach ( $detalle as $pdet ) {  
+												<?php foreach ( $detalle as $pdet ){  
 													$imgs_rdet = $pdet["images"]; ?>
 													<div id="rdet<?php echo $pdet["id"];?>" class="rdet_view">
 														<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
@@ -177,7 +185,7 @@
 															<li class="image">
 																<a href="<?php echo $purl.$idet["path"];?>" class="cloud-zoom-gallery active">
 																	<img src="<?php echo $purl.$idet["path"];?>" 
-																	alt="Donec condime fermentum" class="product-view-img">
+																	alt="<?php echo $producto["name"]; ?>" class="product-view-img">
 																</a>
 															</li>
 															<?php } ?>
@@ -210,7 +218,9 @@
 											<div id="product-header" class="clearfix">
 												<div id="product-info-right" class="group_sidebar">
 													<div><span><?php echo $producto["description"]; ?></span></div>
-
+													<div id="referencia-producto">
+														<span>#:<?php echo $producto["id"]; ?>-<span id="idref-detalle"></span></span>														
+													</div>
 													<div class="row description sb-wrapper left-sample-block">
 														<div class="col-sm-12">
 															<ul class="list-unstyled sb-content list-styled">
@@ -397,7 +407,7 @@
 																	<?php foreach ( $detalle as $pdet ) { 
 																		if( isset( $pdet["images"][0] ) ){
 																			$i = $pdet["images"][0]; ?>
-																			<li class="image">
+																			<li class="image opt-pdetalle">
 																				<a href="<?php echo $purl.$i["path"] ?>" 
 																				class="cloud-zoom-gallery active select_pdetail" 
 																				data-regdet="rdet<?php echo $pdet["id"] ?>" data-select-iddet="<?php echo $pdet["id"] ?>" 

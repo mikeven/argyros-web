@@ -242,10 +242,12 @@
 	function obtenerProductosPorBusqueda( $dbh, $busqueda ){
 		//Devuelve una lista de productos que incluyan el texto de búsqueda en algunos de sus parámetros
 		$vproductos = array();
-		//$vproductos = obtenerProductosParametroDirectoProducto( $dbh, $busqueda );
-		//$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" );
-		//$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" );
-		$vproductos = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDirectoProducto( $dbh, $busqueda ) );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" ) );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" ) );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" ) );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "linea" ) );
+		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" ) );
 
 		return $vproductos;
 	}
@@ -271,16 +273,16 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 	/*..........................................................................*/
-	if( isset( $_GET["busqueda"] ) ){
-		$busqueda = $_GET["busqueda"];
+	if( isset( $_GET[P_TEXTO_BUSQUEDA] ) ){
+		$busqueda = $_GET[P_TEXTO_BUSQUEDA];
 		$productos_busqueda = obtenerProductosPorBusqueda( $dbh, $busqueda );
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda );
 
-		$h_ncat = $busqueda;
+		$h_ncat = "Búsqueda: ".$busqueda;
 	}
 	/*..........................................................................*/
-	//$purl = "../../argyros/trunk/admin_/"; //Localhost
-	$purl = "admin/"; //Server
+	$purl = "../../argyros/trunk/admin_/"; //Localhost
+	//$purl = "admin/"; //Server
 	/*..........................................................................*/
 	/* ----------------------------------------------------------------------------------- */
 ?>

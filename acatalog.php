@@ -164,7 +164,7 @@
 	.seccion_filtros_catalogo_fijo{
 		position: fixed;
     	top: 51px;
-    	z-index: 999;
+    	z-index: 900;
 	}
 
 	.tfilt i{ color: #FFF; }
@@ -248,6 +248,9 @@
 	.img-catal-contenedor{
 		height:270px !important; 
 	}
+
+	#flt-breadcrumb{ margin-left: 50px; }
+	#flt-breadcrumb a{ font-weight: 500; color: #818285; }
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -258,10 +261,11 @@
 		<div id="content-wrapper">  
 			<!-- Content -->
 			<div id="content" class="clearfix">                
+				
 				<div id="breadcrumb" class="breadcrumb">
 					<div itemprop="breadcrumb" class="container">
 						<div class="row">
-							<div class="col-md-12">
+							<div id="argy-breadcrumb" class="col-md-12">
 								<?php include( "sections/breadcrumb.php" ); ?>
 							</div>
 							<div id="title-categories">
@@ -282,12 +286,16 @@
 									<div class="navbar-collapse">
 										<ul class="nav">
 											<li class="dropdown mega-menu">
-											<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
-											<span>Filtros <i class="fa fa-caret-down"></i></span>
-											<!-- <i class="fa fa-caret-down"></i> -->
-											<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
-											<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
-											</a>
+											<div style="float:left;">
+												<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+												<span>Filtros <i class="fa fa-caret-down"></i></span>
+												<!-- <i class="fa fa-caret-down"></i> -->
+												<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+												<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+												</a>
+											</div>
+											<div id="flt-breadcrumb" style="float:left;"></div>
+											<div style="clear:both;"></div>
 											<hr>
 											<div id="panel_tag_filters">
 												<?php  
@@ -315,8 +323,7 @@
 											<div id="options" class="container-nav clearfix">
 												<ul class="list-inline text-right">
 													<li class="grid_list">
-													<ul class="list-inline option-set hidden-xs" 
-													data-option-key="layoutMode">
+													<ul class="list-inline option-set hidden-xs" data-option-key="layoutMode">
 														<li data-original-title="Grid" data-option-value="fitRows" id="goGrid" class="goAction btooltip active" data-toggle="tooltip" data-placement="top" title="">
 														<span></span>
 														</li>
@@ -326,7 +333,7 @@
 													</ul>
 													</li>
 													<li class="sortBy">
-													<div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
+													<div id="sortButtonWarper" class="dropdown-toggle hidden" data-toggle="dropdown">
 														<strong class="title-6">Ordenar por</strong>
 														<button id="sortButton">
 														<span class="name">Seleccione</span>
@@ -582,3 +589,4 @@
 		</div>
 	</div>
 </body>
+<script> setFilterBreadCrumb(); </script>
