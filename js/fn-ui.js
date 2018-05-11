@@ -51,6 +51,11 @@ function mensajeAlerta( ventana, mensaje ){
     $(ventana).show("slow");
 }
 /* ----------------------------------------------------------------------------------- */
+function mensajeAlertaCarrito( ventana, mensaje ){
+    $("#body_msg_cart").html( mensaje );
+    $(ventana).show("slow");
+}
+/* ----------------------------------------------------------------------------------- */
 function activarBoton( boton, val ){
 	$(boton).prop( "disabled", val );
 }

@@ -74,6 +74,19 @@
 		#cart-drop-icon{ visibility: hidden; }
 		.oreview:hover{ color: #969d58 !important; }
 		#regresar_carrito{ padding: 10px 0; }
+
+		@media (max-width: 1024px){
+			#col-main {
+			    margin-right: 0px;
+			}
+			thead tr {
+    			position: relative !important;
+			}
+			#customer_orders td {
+			    padding-left: 8% !important;
+			}
+		}
+
 	</style>
 </head>
 

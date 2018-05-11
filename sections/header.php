@@ -22,6 +22,15 @@
 	}
 	.hnc_selcp:hover{ border-bottom: 1px solid #a7b239; }
 	.tnavcategppal{ color: #a7b239; }
+
+	/*@media (max-width: 1024px){ 
+		#navegacion-catalogo-dsk{ visibility: hidden; }
+		#navegacion-catalogo-mob{ visibility:visible; }
+	}
+	@media (min-width: 1025px){ 
+		#navegacion-catalogo-dsk{ visibility: visible; }
+		#navegacion-catalogo-dsk{ visibility: visible; }
+	}*/
 </style>
 <header id="top" class="clearfix">
 	

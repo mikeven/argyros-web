@@ -59,6 +59,13 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<style>
+		#videoargyros{
+			background: #e7e7e7;
+			padding:15px 5px;
+		}
+	</style>
 	
 </head>
 
@@ -90,9 +97,9 @@
 							</div>
 							<div id="col-main" class="col-md-24 normal-page clearfix">
 								<div class="page about-us ">
-									<p>
-										<img src="assets/images/banner.png" alt=""/>
-									</p>
+									<div id="videoargyros" align="center">
+										<iframe width="560" height="315" src="https://www.youtube.com/embed/TForV-OMPGU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+									</div>
 									<br>
 									<p>
 										ARGYROS INC nace en un ambiente enérgico con la finalidad de innovar las expectativas del mercado de prendas y material semielaborado de plata ley 925,

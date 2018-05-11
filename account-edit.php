@@ -120,6 +120,10 @@
 											<ul class="list-unstyled sb-content list-styled">
 												<li>
 													<i class="fa fa-circle"></i>
+													<a href="account.php">Volver a pedidos</a>
+												</li>
+												<li>
+													<i class="fa fa-circle"></i>
 													<a class="lnk_tabaccount" href="#!" data-target="customer_personal_data">Datos personales</a>
 												</li>
 												<li>

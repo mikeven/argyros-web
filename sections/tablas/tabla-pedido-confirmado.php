@@ -10,8 +10,10 @@
 	</thead>
 	<tbody>
 		<?php 
+		  $total_n_items = 0;
 	      foreach ( $odetalle as $r ) {
 	        $total_item = $r["cant_rev"] * $r["price"];
+	        $total_n_items += $r["cant_rev"];
 	        if( $r["cant_rev"] != 0 ){
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
@@ -27,5 +29,18 @@
 	      <td>$<?php echo $total_item; ?></td>
 	    </tr>
 	    <?php }} ?>
+	    <tr id="monto_orden_tabla">
+	    	<td colspan="2">Total </td>
+	    	
+	    	<td> <span class="total_order_table"> <?php echo $total_n_items; ?> </span></td>
+	    	<td> <span class="total_order_table"></span> </td>
+	    	<td style="text-align:right;" class="coltotales">
+	    		$ <span class="monto_total_orden total_order_table"> 
+	    		<?php 
+					echo $orden["total_ajuste"]; 
+	    		?>
+	    		</span>
+	    	</td>
+	    </tr>
 	</tbody>
 </table>

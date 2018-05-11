@@ -58,10 +58,7 @@
 	    	<td> <span class="total_order_table"></span> </td>
 	    	<td style="text-align:right;" class="coltotales">
 	    		$ <span class="monto_total_orden total_order_table"> 
-	    		<?php 
-	    			if( $orden["estado"] == "pendiente" ) 	echo $orden["total"]; 
-					if( $orden["estado"] == "revisado" ) 	echo $orden["total_ajuste"]; 
-	    		?>
+	    		<?php echo $orden["total"]; ?>
 	    		</span>
 	    	</td>
 	    	<td></td>

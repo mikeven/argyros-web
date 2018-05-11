@@ -83,7 +83,7 @@
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 
 	<style type="text/css">
-		#alert-msgs{ display: none; }
+		#alert-msgs, #alert-msgs-notif{ display: none; }
 		.rdet_view{ display: none; }
 		.rdet_view_t{ display: none; }
 		.rdet_prop{ display: none; }
@@ -104,6 +104,14 @@
 
 		#referencia-producto{
 			font-size: 11px; font-weight: bold; color: #696f24; 
+		}
+
+		@media (max-width: 500px){
+			#add-to-cart {
+			    margin: 0px;
+			    padding:0px 5px; 
+			    font-size: 12px !important;
+			}
 		}
 
 	</style>
@@ -199,7 +207,7 @@
 												<span itemprop="name">Más opciones</span>
 											</h4>-->
                                             
-											<div id="detail-right-column" class="right-coloum col-sm-6 fadeInLeft not-animated" data-animate="fadeInLeft">
+											<div id="detail-right-column" class="right-coloum col-sm-6 fadeInLeft not-animated hidden" data-animate="fadeInLeft">
 												<div class="addthis_sharing_toolbox" data-url="#" data-title="Donec aliquam ante non | Jewelry - HTML Template">
 													<div id="atstbx" class="at-share-tbx-element addthis_32x32_style addthis-smartlayers addthis-animated at4-show">
 														<a class="at-share-btn at-svc-facebook"><span class="at4-icon aticon-facebook" title="Facebook"></span></a><a class="at-share-btn at-svc-twitter"><span class="at4-icon aticon-twitter" title="Twitter"></span></a><a class="at-share-btn at-svc-email"><span class="at4-icon aticon-email" title="Email"></span></a><a class="at-share-btn at-svc-print"><span class="at4-icon aticon-print" title="Print"></span></a><a class="at-share-btn at-svc-compact"><span class="at4-icon aticon-compact" title="More"></span></a>
@@ -397,6 +405,18 @@
 																		<?php } ?>
 																		<!-- /.Botón agregar al carrito -->
 																    </th> 
+																  </tr>
+																  <tr>
+																  	<div id="alert-msgs-notif" class="col-md-24 cart-alert">
+																		<div class="alert alert-danger">
+																			<button type="button" class="close btooltip close_alert" data-toggle="tooltip" 
+																			data-placement="top" title="Cerrar" data-trgclose="alert-msgs-notif" 
+																			data-original-title="Cerrar">×</button>
+																			<div class="errors">
+																				<ul> <div id="body_msg_cart"></div> </ul>
+																			</div>
+																		</div>
+																	</div>
 																  </tr>
 																</table>
 																

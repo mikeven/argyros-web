@@ -56,7 +56,7 @@
 								<!--<li class="is-mobile-wl">
 								<a href="#"><i class="fa fa-heart"></i></a>
 								</li>-->
-								<li class="is-mobile-cart" style="position:relative; top:10px;">
+								<li class="is-mobile-cart" style="position:relative; top:12px;">
 									<div style="float:left;">
 										<a href="cart.php">
 											<i class="fa fa-shopping-cart"></i>
@@ -86,8 +86,8 @@
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
-								
 								</li>
+
 								<li id="drop-catalog" class="dropdown mega-menu">
 									<a href="catalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Catálogo</span>
@@ -95,7 +95,9 @@
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
-									<?php include("nav-catalog.php");?>
+									<div id="navegacion-catalogo-mob">
+										<?php include( "nav-catalog-mobile.php" ); ?>
+									</div>
 								</li>
 								
 								<li class="nav-item">

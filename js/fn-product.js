@@ -51,9 +51,15 @@ $( document ).ready(function() {
 		$( "#" + trg ).show();
 	});
 
+	//]Click: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
+	$(".hnc_selector-mob").on( "click", function(){
+		$( ".subcategs_navcatalog" ).hide();
+		var trg = $(this).attr("data-trg");
+		$( "#" + trg ).fadeIn(900);
+	});
+
 	//Clic: selección de detalle de producto
 	$(".select_pdetail").on( "click", function(){
-		
 		inicializarValoresSelDetalle();
 		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
@@ -74,7 +80,7 @@ $( document ).ready(function() {
     });
 	
     $( ".select_pdetail" ).first().click();
-    $( ".seltdp" ).first().click();
+    //$( ".seltdp" ).first().click();
 
     $(".bcargable").on( "click", function(){
     	//Muestra el próximo bloque de productos del catálogo

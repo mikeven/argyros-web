@@ -129,7 +129,9 @@ $( document ).ready(function() {
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#add-to-cart").on( "click", function(){
     	if ( validarSeleccionCarrito() == true ){
-            agregarItemCarrito();	
+            agregarItemCarrito();
+            mensajeAlertaCarrito( "#alert-msgs-notif", "Ítem agregado a compra" );	
+            clickElemento( ".close_alert", 4000 );
     	}
     	else{
     		mensajeAlerta( "#alert-msgs", "Debe seleccionar un valor de talla primero" );
