@@ -14,7 +14,8 @@
     include( "fn/fn-cart.php" );
    
     checkSession( 'index' );
-    $pdestacados = obtenerProductosDestacados( $dbh );
+    $cdestacadas = obtenerCategoriasDestacadas( $dbh );
+    $pdestacados = obtenerProductosDestacados( $dbh, $cdestacadas );
 
 ?>
 <!doctype html>
@@ -113,14 +114,16 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=zarcillos" title="Zarcillos">
-																<img src="assets/images/2_large.png" alt="Zarcillos">
+																<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>" title="<?php echo $cdestacadas[0]["name"]?>">
+																<img src="assets/images/2_large.png" alt="<?php echo $cdestacadas[0]["name"]?>">
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=zarcillos">ZARCILLOS</a></span>
+																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">
+																	<?php echo $cdestacadas[0]["name"]?></a>
+																</span>
 																<div class="collection-action">
-																	<a href="acatalog.php?c=zarcillos">VER CATÁLOGO</a>
+																	<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -128,14 +131,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=gargantillas" title="Gargantillas">
-																<img src="assets/images/1_79ec3305-7c83-4daa-804c-fac19b2d1b7b_large.png" alt="Gargantillas">
+																<a href="acatalog.php?c=<?php echo $cdestacadas[1]["name"]?>" title="<?php echo $cdestacadas[1]["name"]?>">
+																<img src="assets/images/1_79ec3305-7c83-4daa-804c-fac19b2d1b7b_large.png" alt="<?php echo $cdestacadas[1]["name"]?>">
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=gargantillas">GARGANTILLAS</a></span>
+																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>"><?php echo $cdestacadas[1]["name"]?></a></span>
 																<div class="collection-action">
-																	<a href="acatalog.php?c=gargantillas">VER CATÁLOGO</a>
+																	<a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -143,14 +146,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=anillos" title="Anillos">
-																<img src="assets/images/4_large.png" alt="Anillos">
+																<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>" title="<?php echo $cdestacadas[2]["name"]?>">
+																<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[2]["name"]?>">
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=anillos">ANILLOS</a></span>
+																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>"><?php echo $cdestacadas[2]["name"]?></a></span>
 																<div class="collection-action">
-																	<a href="acatalog.php?c=anillos">VER CATÁLOGO</a>
+																	<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -158,14 +161,14 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=pulseras" title="Pulseras">
-																	<img src="assets/images/3_large.png" alt="Pulseras">
+																<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>" title="<?php echo $cdestacadas[3]["name"]?>">
+																	<img src="assets/images/3_large.png" alt="<?php echo $cdestacadas[3]["name"]?>">
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=pulseras">PULSERAS</a></span>
+																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>"><?php echo $cdestacadas[3]["name"]?></a></span>
 																<div class="collection-action">
-																	<a href="acatalog.php?c=pulseras">VER CATÁLOGO</a>
+																	<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>

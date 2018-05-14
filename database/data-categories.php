@@ -28,6 +28,14 @@
 		return mysqli_fetch_array( $data );	
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerCategoriasDestacadaPorOrden( $dbh, $orden ){
+		//Devuelve el registro de categoría por su orden destacado
+		$q = "select id, name, uname from categories where home_order = $orden";
+
+		$data = mysqli_query( $dbh, $q );
+		return mysqli_fetch_array( $data );
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerCategoriaPorUname( $dbh, $uname ){
 		//Devuelve el registro de categoría por su uname
 		$q = "Select id, name from categories where uname = '$uname'";

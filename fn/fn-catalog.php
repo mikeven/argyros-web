@@ -43,15 +43,25 @@
 		return $reemplazo;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerProductosDestacados( $dbh ){
+	function obtenerProductosDestacados( $dbh, $cdestacadas ){
 		//Devuelve los productos mostrados en la página de inicio
 
-		$pdetacados[0] = obtenerUltimoProductoCategoria( $dbh, 2 ); //Zarcillos
-		$pdetacados[1] = obtenerUltimoProductoCategoria( $dbh, 6 );	//Gargantillas
-		$pdetacados[2] = obtenerUltimoProductoCategoria( $dbh, 1 );	//Anillos
-		$pdetacados[3] = obtenerUltimoProductoCategoria( $dbh, 4 );	//Pulseras
+		$pdetacados[0] = obtenerUltimoProductoCategoria( $dbh, $cdestacadas[0]["id"] ); //Zarcillos
+		$pdetacados[1] = obtenerUltimoProductoCategoria( $dbh, $cdestacadas[1]["id"] );	//Gargantillas
+		$pdetacados[2] = obtenerUltimoProductoCategoria( $dbh, $cdestacadas[2]["id"] );	//Anillos
+		$pdetacados[3] = obtenerUltimoProductoCategoria( $dbh, $cdestacadas[3]["id"] );	//Pulseras
 
 		return $pdetacados;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerCategoriasDestacadas( $dbh ){
+		//Devuelve las categorías destacadas
+		$cdestacadas[0] = obtenerCategoriasDestacadaPorOrden( $dbh, 1 );
+    	$cdestacadas[1] = obtenerCategoriasDestacadaPorOrden( $dbh, 2 );
+    	$cdestacadas[2] = obtenerCategoriasDestacadaPorOrden( $dbh, 3 );
+    	$cdestacadas[3] = obtenerCategoriasDestacadaPorOrden( $dbh, 4 );
+
+    	return $cdestacadas;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function matchFiltroAtributo( $dbh, /*$idp, */$valores_atributo, $valores_filtro ){
