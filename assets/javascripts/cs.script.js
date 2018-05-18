@@ -770,8 +770,8 @@ function handleDropdown(){
   }
 
   $('.licatppal').on('mouseover', function() {
-    $("#listcatalog").css("min-width", "380px");
-    $("#listcatalog").css("right", "15px");
+    //$("#listcatalog").css("min-width", "380px");
+    //$("#listcatalog").css("right", "15px");
   });
   
   $('nav .dropdown-menu').each(function(){

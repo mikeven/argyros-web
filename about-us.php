@@ -98,7 +98,7 @@
 							<div id="col-main" class="col-md-24 normal-page clearfix">
 								<div class="page about-us ">
 									<div id="videoargyros" align="center">
-										<iframe width="560" height="315" src="https://www.youtube.com/embed/TForV-OMPGU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+										<iframe width="940" height="530" src="https://www.youtube.com/embed/TForV-OMPGU?autoplay=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
 									</div>
 									<br>
 									<p>

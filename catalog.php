@@ -147,7 +147,11 @@
 
 	#quick-shop-description label{
 		font-size: 8px;
-	}	
+	}
+
+	.categ_catalog{
+		max-width: 100% !important;
+	}
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -259,7 +263,7 @@
 																<div class="home_collections_item_inner">
 																	<div class="collection-details">
 																		<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
-																		<img src="assets/images/4_large.png" alt="Rings">
+																		<img src="assets/images/4_large.png" alt="Rings" class="categ_catalog">
 																		</a>
 																	</div>
 																	<div class="hover-overlay" align="center">

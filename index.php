@@ -371,6 +371,12 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="container" align="center">
+							<iframe width="940" height="530" src="https://www.youtube.com/embed/o9mhc-Sr2uk" frameborder="0" 
+							allow="autoplay; encrypted-media" allowfullscreen></iframe>
+						</div>
+
 						<div class="home-banner-wrapper">
 							<div class="container">
 								<div id="home-banner" class="text-center clearfix">
