@@ -85,7 +85,7 @@ a:focus, select:focus, input:focus, button:focus{outline:none !important;}
 #umbrella .cart-link:after{margin-top:5px;}
 #umbrella .cart-link a{padding-left:10px;}
 .navbar-nav > li.mega-menu{position:relative;}
-#top nav.navbar li .dropdown-menu.megamenu-container-1{left:0px;right:auto;}
+#top nav.navbar li .dropdown-menu.megamenu-container-1{left:auto; right:auto;}
 #header-search.dropdown-menu:before{right:7%;}
 #umbrella .dropdown-menu{left:auto;right:0;}
 #cart-info:before{right:10%;}

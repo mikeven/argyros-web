@@ -2,7 +2,7 @@
  * Argyros - Función de productos
  *
  */
-
+ /* ----------------------------------------------------------------------------------- */
  function inicializarValoresSelDetalle(){
 	
 	$("#stalla").val("");						//anula valor de talla seleccionado
@@ -11,7 +11,7 @@
 	$(".rdet_prop").hide();						//oculta propiedades de un mismo detalle de producto
 	$(".sizeselector").prop('checked', false);	//desmarca todas las selecciones de talla
  }
-
+ /* ----------------------------------------------------------------------------------- */
  function asignarPrecioFichaProducto( orig, sel ){
  	
  	if( orig == "detalle" ){
@@ -26,10 +26,17 @@
  	}
  	$("#vprice_cart").val( sel.attr("data-precio") );
  }
-
+ /* ----------------------------------------------------------------------------------- */
  function mostrarDetalleSeleccionado( trg ){
 	$("#" + trg).show();			//mostrar detalle seleccionado
 	$("." + trg).show();			//mostrar elementos pertenecientes al detalle seleccionado
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function colapsarMenu( idclic ){
+ 	$(".subcategs_navcatalog").each(function() {
+	    if( $(this).attr("id") != idclic )
+	    	$(this).fadeOut(150);
+	});
  }
 
 $( document ).ready(function() {	
@@ -53,8 +60,8 @@ $( document ).ready(function() {
 
 	//]Click: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
 	$(".hnc_selector-mob").on( "click", function(){
-		$( ".subcategs_navcatalog" ).slideUp();
 		var trg = $(this).attr("data-trg");
+		colapsarMenu( trg );		
 		$( "#" + trg ).fadeToggle();
 	});
 

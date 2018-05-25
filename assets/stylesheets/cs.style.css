@@ -1426,3 +1426,7 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 	}
 	#add-to-cart{ margin: 10px 0px; }
 }
+
+#social-footer .fa{
+	font-size: 18px !important;
+}

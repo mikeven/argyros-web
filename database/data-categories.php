@@ -14,7 +14,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaCategorias( $dbh ){
 		//Devuelve la lista de categorías principales de productos
-		$q = "Select id, name, uname from categories order by name ASC";
+		$q = "Select id, name, uname, image from categories order by name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista_c = obtenerListaRegistros( $data );
@@ -30,7 +30,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerCategoriasDestacadaPorOrden( $dbh, $orden ){
 		//Devuelve el registro de categoría por su orden destacado
-		$q = "select id, name, uname from categories where home_order = $orden";
+		$q = "select id, name, uname, image from categories where home_order = $orden";
 
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_fetch_array( $data );

@@ -832,18 +832,47 @@ $(window).load(function() {
 });
 
 jQuery(document).ready(function($) {
+
+  $.fancybox(
+      $('.newsletter-popup'),
+      {
+        'autoDimensions'    : false,
+        'maxWidth'          : 500,
+        'maxHeight'         : 500,
+        'autoSize'          : false,
+        'transitionIn'      : 'none',
+        'transitionOut'     : 'none',
+        afterLoad: function(){
+          setTimeout( function() {$.fancybox.close(); },500000);
+        }
+      }
+    );
 	 
   /* Cokkies Popup */
   if ($.cookie('mycookie')) {
     // it hasn't been one days yet
   } else {
-    $.fancybox(
+    /*$.fancybox(
       $('.newsletter-popup'),
       {
         'autoDimensions'    : false,
         'width'             : 870,
         'height'            : 410,
-        'autoSize' : false,
+        'autoSize'          : false,
+        'transitionIn'      : 'none',
+        'transitionOut'     : 'none',
+        afterLoad: function(){
+          setTimeout( function() {$.fancybox.close(); },500000);
+        }
+      }
+    );*/
+    $.fancybox(
+      $('.newsletter-popup'),
+      {
+        'autoDimensions'    : false,
+        'maxWidth'          : 500,
+        'maxHeight'         : 500,
+        'autoSize'          : false,
         'transitionIn'      : 'none',
         'transitionOut'     : 'none',
         afterLoad: function(){
@@ -852,11 +881,12 @@ jQuery(document).ready(function($) {
       }
     );
   }
+
   $.cookie('mycookie', 'true', { expires: 1});
        
   if ($.cookie('topother')) {}
   else{  $('.top-other').show(); }
-    
+
   /*Popup tabs panel on detail page*/
   $('#tabs_detail .fancybox').fancybox({
     'autoDimensions'    : false,

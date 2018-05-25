@@ -5,16 +5,16 @@
 			<h5 class="general-title">Nosotros</h5>						
 			<ul class="list-unstyled list-styled">						  
 			  <li class="list-unstyled">
-				<a href="#!">Acerca de Argyros</a>
+				<a href="about-us.php">Acerca de Argyros</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Clientes</a>
+				<a href="about-us.php">Nuestros Clientes</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Mapa del sitio</a>
+				<a href="about-us.php">Nuestros productos</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Contacto</a>
+				<a href="contact.php">Contáctanos</a>
 			  </li>						  
 			</ul>
 		  </div>
@@ -24,13 +24,13 @@
 			<h5 class="general-title">Información</h5>						
 			<ul class="list-unstyled list-styled">						  
 			  <li class="list-unstyled">
-				<a href="#!">Ayuda &amp; FAQs</a>
+				<a href="#!">Preguntas frecuentes</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Búsqueda avanzada</a>
+				<a href="#!">Como comprar</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Clientes</a>
+				<a href="#!">Términos y Condiciones</a>
 			  </li>						  
 			</ul>
 		  </div>
@@ -40,24 +40,42 @@
 			<h5 class="general-title">Cuenta</h5>						
 			<ul class="list-unstyled list-styled">						  
 			  <li class="list-unstyled">
-				<a href="#!">Ingresa</a>
+				<a href="login.php">Ingresar</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Crear cuenta</a>
+				<a href="register.php">Crear cuenta</a>
+			  </li>
+			  <li class="list-unstyled">
+				<a href="account.php">Mis pedidos</a>
+			  </li>
+			  <li class="list-unstyled">
+				<a href="catalog.php">Catálogo</a>
 			  </li>						  
 			</ul>
 		  </div>
 		</div>
 		<div class="footer-link-list col-md-6">
-		  <div class="group">
-			<h5 class="general-title">Cliente</h5>						
+		  <div class="group_">
+			<h5 class="general-title">Contacto</h5>						
 			<ul class="list-unstyled list-styled">						  						  
 				<li class="list-unstyled">
-					<a href="#">Términos y condiciones</a>
+					Final calle 15, Edif. Silver Crown, local 2, Zona Libre de Colón. Panamá.
 				</li>						  
-				<li class="list-unstyled">
-					<a href="#">Ayuda &amp; Contacto</a>
-				</li>						  
+				<li class="list-unstyled"><i class="fa fa-phone" style="margin-right: 8px;"></i> (+507) 447 3175 / 447 2774 </li>
+				<li class="list-unstyled"><img src="assets/images/whatsapp.png" width="15" style="margin-right: 8px;">(+507) 6678-9111 / 6278-5100</li>						  
+				<li class="email"><i class="fa fa-envelope" style="margin-right: 8px;"></i>info@argyros.com.pa</li>
+				<li class="email">
+					<ul id="social-footer" class="list-inline animated">
+						<li class="btooltip tada" data-toggle="tooltip" data-placement="top" title="Facebook" 
+						data-original-title="Facebook"><a href="https://www.facebook.com/ArgyrosInc" class="fa fa-facebook" style="color:#000;" target="_blank"></a></li>
+						<li class="btooltip tada" data-toggle="tooltip" data-placement="top" title="Twitter" 
+						data-original-title="Twitter"><a href="https://twitter.com/argyrosinc" class="fa fa-twitter" style="color:#000;" target="_blank"></a></li>
+						<li class="btooltip tada" data-toggle="tooltip" data-placement="top" title="Instagram" 
+						data-original-title="Instagram"><a href="https://www.instagram.com/argyrosinc/" class="fa fa-instagram" style="color:#000;" target="_blank"></a></li>
+						<li class="btooltip tada" data-toggle="tooltip" data-placement="top" title="YouTube" 
+						data-original-title="YouTube"><a href="https://www.youtube.com/channel/UCBEG8W6oNxHoxJAIWl43DFg" class="fa fa-youtube" style="color:#000;" target="_blank"></a></li>
+					</ul>
+				</li>
 			</ul>
 		  </div>
 		</div>   

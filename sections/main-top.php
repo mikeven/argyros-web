@@ -7,8 +7,8 @@
 ?>
 <div class="container">
   <div class="top row">
-	<div class="col-md-6 phone-shopping">
-	  <span>TELF (+507) 447 3175</span>
+	<div class="col-md-6 phone-shopping" align="center">
+	  <span>Distribuidor de platería</span>
 	</div>
 	<div class="col-md-18">
 	  <ul class="text-right">

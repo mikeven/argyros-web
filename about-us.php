@@ -97,8 +97,11 @@
 							</div>
 							<div id="col-main" class="col-md-24 normal-page clearfix">
 								<div class="page about-us ">
-									<div id="videoargyros" align="center">
-										<iframe width="940" height="530" src="https://www.youtube.com/embed/TForV-OMPGU?autoplay=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+									<div id="videoargyros_" align="center">
+										<video width="100%" autoplay controls>
+										  <source src="assets/videos/com-Argyros-hz-1920X672-90s.mp4" type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
 									</div>
 									<br>
 									<p>

@@ -131,9 +131,7 @@
 									<div class="right-block contact-content col-md-12">
 										<h6 class="sb-title"><i class="fa fa-home"></i>Información de contacto</h6>
 										<ul class="right-content">
-											<li class="title">
-											<h6>Dirección</h6>
-											</li>
+											<!-- <li class="title"> <h6>Dirección</h6> </li> -->
 											<li class="address">
 											<p>
 												Final calle 15, Edificio Silver Crown, local 2, Zona Libre de Colón. República de Panamá.
@@ -155,10 +153,10 @@
 											<li class="title">
 											<h6>Síguenos</h6>
 											</li>
-											<li class="facebook"><a href="#"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Facebook"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-inverse fa-stack-1x"></i></span></a></li>
+											<li class="facebook"><a href="https://www.facebook.com/ArgyrosInc"><span class="fa-stack fa-lg btooltip" title="" data-original-title="Facebook"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-inverse fa-stack-1x"></i></span></a></li>
 											<li class="twitter"><a href="https://twitter.com/argyrosinc"><span class="fa-stack fa-lg btooltip" title="Twitter" data-original-title="Twitter"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-inverse fa-stack-1x"></i></span></a></li>
 											<li class="pinterest"><a href="https://www.instagram.com/argyrosinc/"><span class="fa-stack fa-lg btooltip" title="Instagram" data-original-title="Instagram"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-instagram fa-inverse fa-stack-1x"></i></span></a></li>
-											<li class="google-plus"><a href="#"><span class="fa-stack fa-lg btooltip" title="You Tube" data-original-title="You Tube"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-youtube fa-inverse fa-stack-1x"></i></span></a></li>
+											<li class="google-plus"><a href="https://www.youtube.com/channel/UCBEG8W6oNxHoxJAIWl43DFg"><span class="fa-stack fa-lg btooltip" title="You Tube" data-original-title="You Tube"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-youtube fa-inverse fa-stack-1x"></i></span></a></li>
 										</ul>
 									</div>
 								</div>

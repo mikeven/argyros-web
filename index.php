@@ -71,6 +71,9 @@
       .collection-details img{
         max-width: 100% !important;
       }
+      .newsletter-popup{
+      	padding: 30px;
+      }
     </style>
 </head>
 
@@ -115,7 +118,11 @@
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
 																<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>" title="<?php echo $cdestacadas[0]["name"]?>">
-																<img src="assets/images/2_large.png" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php if ( $cdestacadas[0]["image"] != "" ) { ?>
+																	<img src="assets/images/<?php echo $cdestacadas[0]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php } else { ?>
+																	<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php } ?>
 																</a>
 															</div>
 															<div class="hover-overlay">
@@ -132,7 +139,11 @@
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
 																<a href="acatalog.php?c=<?php echo $cdestacadas[1]["name"]?>" title="<?php echo $cdestacadas[1]["name"]?>">
-																<img src="assets/images/1_79ec3305-7c83-4daa-804c-fac19b2d1b7b_large.png" alt="<?php echo $cdestacadas[1]["name"]?>">
+																<?php if ( $cdestacadas[1]["image"] != "" ) { ?>
+																	<img src="assets/images/<?php echo $cdestacadas[1]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php } else { ?>
+																	<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[1]["name"]?>">
+																<?php } ?>
 																</a>
 															</div>
 															<div class="hover-overlay">
@@ -147,7 +158,11 @@
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
 																<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>" title="<?php echo $cdestacadas[2]["name"]?>">
-																<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[2]["name"]?>">
+																<?php if ( $cdestacadas[2]["image"] != "" ) { ?>
+																	<img src="assets/images/<?php echo $cdestacadas[2]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php } else { ?>
+																	<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[2]["name"]?>">
+																<?php } ?>
 																</a>
 															</div>
 															<div class="hover-overlay">
@@ -162,13 +177,17 @@
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
 																<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>" title="<?php echo $cdestacadas[3]["name"]?>">
-																	<img src="assets/images/3_large.png" alt="<?php echo $cdestacadas[3]["name"]?>">
+																<?php if ( $cdestacadas[3]["image"] != "" ) { ?>
+																	<img src="assets/images/<?php echo $cdestacadas[3]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
+																<?php } else { ?>
+																	<img src="assets/images/4_large.png" alt="<?php echo $cdestacadas[3]["name"]?>">
+																<?php } ?>
 																</a>
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>"><?php echo $cdestacadas[3]["name"]?></a></span>
 																<div class="collection-action">
-																	<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
+																	<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -372,10 +391,7 @@
 							</div>
 						</div>
 
-						<div class="container" align="center">
-							<iframe width="940" height="530" src="https://www.youtube.com/embed/o9mhc-Sr2uk" frameborder="0" 
-							allow="autoplay; encrypted-media" allowfullscreen></iframe>
-						</div>
+						
 
 						<div class="home-banner-wrapper">
 							<div class="container">
@@ -407,8 +423,8 @@
 	
 	<?php include("sections/footer.php");?>
 	
-	<div class="newsletter-popup" style="display: none;">
-		<form action="http://codespot.us5.list-manage.com/subscribe/post?u=ed73bc2d2f8ae97778246702e&amp;id=c63b4d644d" method="post" name="mc-embedded-subscribe-form" target="_blank">
+	<div class="newsletter-popup" style="display: none;" align="center">
+		<!--<form action="http://codespot.us5.list-manage.com/subscribe/post?u=ed73bc2d2f8ae97778246702e&amp;id=c63b4d644d" method="post" name="mc-embedded-subscribe-form" target="_blank">
 			<h4>-50% Deal</h4>
 			<p class="tagline">
 				subscribe for newsletter and get the item for 50% off
@@ -420,7 +436,11 @@
 		</form>
 		<div id="popup-hide">
 			<input type="checkbox" id="mc-popup-hide" value="1" checked="checked"><label for="mc-popup-hide">Never show this message again</label>
-		</div>
+		</div>-->
+		<video width="99%" height="auto" autoplay controls>
+		  <source src="assets/videos/argyros.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
 	</div>
 	
 	<script src="assets/javascripts/cs.global.js" type="text/javascript"></script>

@@ -125,14 +125,6 @@
 											</li>
 										</div>
 										<li class="clearfix"></li>
-
-										<div class="form-group">
-											<li id="Teléfono" class="">
-											<label class="control-label" for="telefono">Teléfono </label>
-											<input name="telefono" id="telefono" class="form-control " type="text">
-											</li>
-										</div>
-										<li class="clearfix"></li>
 										
 										<div class="form-group">
 											<li id="Password1" class="">
@@ -159,6 +151,14 @@
 				                                      <option value="<?php echo $p["code"] ?>"><?php echo $p["name"] ?></option>
 				                                    <?php } ?>
 				                                </select>
+											</li>
+										</div>
+										<li class="clearfix"></li>
+
+										<div class="form-group">
+											<li id="Teléfono" class="">
+											<label class="control-label" for="telefono">Teléfono </label>
+											<input name="telefono" id="telefono" class="form-control " type="text">
 											</li>
 										</div>
 										<li class="clearfix"></li>

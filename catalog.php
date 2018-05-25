@@ -255,7 +255,7 @@
 											<div class="group_home_collections row">
 												<div class="col-md-24">
 													<div class="home_collections">
-														<h6 class="general-title">CATEGORÍAS DESTACADAS</h6>
+														<h6 class="general-title">CATEGORÍAS</h6>
 														<?php foreach ( $lh_cat_ppal as $rcp ) { 
 															if( $rcp["id"] != 0 ){
 														?>
@@ -263,7 +263,11 @@
 																<div class="home_collections_item_inner">
 																	<div class="collection-details">
 																		<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
-																		<img src="assets/images/4_large.png" alt="Rings" class="categ_catalog">
+																		<?php if($rcp["image"] != "" ) { ?>
+																		<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																		<?php } else { ?>
+																		<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																		<?php } ?>
 																		</a>
 																	</div>
 																	<div class="hover-overlay" align="center">
