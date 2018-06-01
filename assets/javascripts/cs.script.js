@@ -832,21 +832,6 @@ $(window).load(function() {
 });
 
 jQuery(document).ready(function($) {
-
-  $.fancybox(
-      $('.newsletter-popup'),
-      {
-        'autoDimensions'    : false,
-        'maxWidth'          : 500,
-        'maxHeight'         : 500,
-        'autoSize'          : false,
-        'transitionIn'      : 'none',
-        'transitionOut'     : 'none',
-        afterLoad: function(){
-          setTimeout( function() {$.fancybox.close(); },500000);
-        }
-      }
-    );
 	 
   /* Cokkies Popup */
   if ($.cookie('mycookie')) {

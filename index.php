@@ -437,10 +437,12 @@
 		<div id="popup-hide">
 			<input type="checkbox" id="mc-popup-hide" value="1" checked="checked"><label for="mc-popup-hide">Never show this message again</label>
 		</div>-->
+		<!--
 		<video width="99%" height="auto" autoplay controls>
 		  <source src="assets/videos/argyros.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
+		-->
 	</div>
 	
 	<script src="assets/javascripts/cs.global.js" type="text/javascript"></script>
