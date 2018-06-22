@@ -273,9 +273,11 @@
 	function obtenerDetalleProductoPorId( $dbh, $idp ){
 		//Devuelve los registros detalles asociados a un producto dado su id
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
-		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, dp.weight as peso, 
-		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
-		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $idp";
+		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
+		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
+		nufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and 
+		dp.treatment_id = t.id and dp.product_id = $idp";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

@@ -186,19 +186,19 @@
 											<!-- Galería de imágenes de un detalle de producto -->
 											<div id="gallery_main" class="product-image-thumb thumbs mobile_full_width product_detail_views">
 												<?php foreach ( $detalle as $pdet ){  
-													$imgs_rdet = $pdet["images"]; ?>
-													<div id="rdet<?php echo $pdet["id"];?>" class="rdet_view">
-														<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
-															<?php foreach ( $imgs_rdet as $idet ) { ?>
-															<li class="image">
-																<a href="<?php echo $purl.$idet["path"];?>" class="cloud-zoom-gallery active">
-																	<img src="<?php echo $purl.$idet["path"];?>" 
-																	alt="<?php echo $producto["name"]; ?>" class="product-view-img">
-																</a>
-															</li>
-															<?php } ?>
-														</ul>
-													</div>
+												$imgs_rdet = $pdet["images"]; ?>
+												<div id="rdet<?php echo $pdet["id"];?>" class="rdet_view">
+													<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
+														<?php foreach ( $imgs_rdet as $idet ) { ?>
+														<li class="image">
+															<a href="<?php echo $purl.$idet["path"];?>" class="cloud-zoom-gallery active">
+																<img src="<?php echo $purl.$idet["path"];?>" 
+																alt="<?php echo $producto["name"]; ?>" class="product-view-img">
+															</a>
+														</li>
+														<?php } ?>
+													</ul>
+												</div>
 												<?php } ?>
 											</div>
                                             <!-- /.Galería de imágenes de un detalle de producto -->
@@ -248,20 +248,30 @@
 													</div>
 
 													<div id="description-2" class="col-sm-24 group-variants">
-														<?php foreach ( $detalle as $pdet ) { ?>
-														  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
-															  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
-															  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> |
-															  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
-															  <?php if( $pdet["tipo_precio"] == "g" || $pdet["tipo_precio"] == "mo" ) { ?>
-															  | <span class="gs_circ">Precio por g: <span id="rpreciop_g">$ <?php echo $pdet["precio_peso"]; ?> </span> </span>
-														  	  <?php } ?>
-														  </div>
-													  	<?php } ?>	
+													<?php foreach ( $detalle as $pdet ) { ?>
+													  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
+														  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
+														  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> |
+														  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
+
+														  <?php if( $pdet["tipo_precio"] == "g" || $pdet["tipo_precio"] == "mo" ) { 
+														  		$precio_x_peso = $pdet["precio_peso"];
+														  	if( $pdet["tipo_precio"] == "mo" ) 
+														  		$precio_x_peso = $pdet["precio_mo"];
+														  ?>
+														  | <span class="gs_circ">Precio por g: 
+															  	<span id="rpreciop_g">$ 
+															  		<?php echo $precio_x_peso; ?> 
+															  	</span> 
+															</span>
+															<?php } ?>
+													  </div>
+												  	<?php } ?>	
 													</div>     
 													
-													<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
-														<meta itemprop="priceCurrency" content="USD">              
+													<div itemprop="offers" itemscope="" itemtype="" 
+													class="col-sm-24 group-variants">
+														<meta itemprop="priceCurrency" content="USD">
 														<link itemprop="availability" href="http://schema.org/InStock">
 														<form id="frm_scart" method="post" class="variants">
 															<div id="product-actions-1293235843" class="options clearfix">
