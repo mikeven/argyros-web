@@ -47,6 +47,7 @@
 			$ls_subc_prod = obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
 			
 			$detalle = $data_producto["detalle"];
+			
 			if( $detalle ){
 				//Primera imagen del primer registro de detalle
 				$img_pp = imgProductoPpal( $detalle ); 

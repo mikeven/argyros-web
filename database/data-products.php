@@ -206,8 +206,9 @@
 		$q = "select p.id, p.code, p.name, p.description, p.is_visible as visible, co.name as pais, 
 		ca.name as category, sc.name as subcategory, m.name as material 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
-		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
-		and p.country_code = co.code and p.category_id = $idc and p.subcategory_id = $idsc order by p.name ASC";
+		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
+		p.material_id = m.id and p.country_code = co.code and p.category_id = $idc 
+		and p.subcategory_id = $idsc order by p.name ASC";
 	
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -217,8 +218,9 @@
 	function obtenerProductosC_( $dbh, $idc ){
 		//Devuelve la lista de productos pertenecientes a una categoría
 		$q = "select p.id, p.code, p.name, p.description, p.is_visible as visible, co.name as pais, 
-		ca.name as category, m.name as material FROM products p, categories ca, countries co, materials m 
-		where p.category_id = ca.id and p.material_id = m.id 
+		ca.name as category, m.name as material 
+		FROM products p, categories ca, countries co, materials m 
+		where p.visible = 1 and p.category_id = ca.id and p.material_id = m.id 
 		and p.country_code = co.code and p.category_id = $idc order by p.name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
@@ -275,7 +277,7 @@
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
 		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
 		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
-		nufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and 
 		dp.treatment_id = t.id and dp.product_id = $idp";
 		
