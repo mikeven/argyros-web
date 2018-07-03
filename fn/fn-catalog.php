@@ -252,12 +252,23 @@
 	function obtenerProductosPorBusqueda( $dbh, $busqueda ){
 		//Devuelve una lista de productos que incluyan el texto de búsqueda en algunos de sus parámetros
 		$vproductos = array();
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDirectoProducto( $dbh, $busqueda ) );
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" ) );
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" ) );
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" ) );
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "linea" ) );
-		$vproductos = array_merge( $vproductos, obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" ) );
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDirectoProducto( $dbh, $busqueda ) );
+
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" ) );
+
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" ) );
+
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" ) );
+
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "linea" ) );
+		
+		$vproductos = array_merge( $vproductos, 
+			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" ) );
 
 		return $vproductos;
 	}
