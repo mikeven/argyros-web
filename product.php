@@ -225,49 +225,8 @@
 											
 											<div id="product-header" class="clearfix">
 												<div id="product-info-right" class="group_sidebar">
-													<div><span><?php echo $producto["description"]; ?></span></div>
-													<div id="referencia-producto">
-														<span>#:<?php echo $producto["id"]; ?>-<span id="idref-detalle"></span></span>														
-													</div>
-													<div class="row description sb-wrapper left-sample-block">
-														<div class="col-sm-12">
-															<ul class="list-unstyled sb-content list-styled">
-															  <li> </li>
-															  <li> <i class="fa fa-circle"></i><?php echo $producto["material"]; ?></li>
-															  <li> <i class="fa fa-circle"></i>País: <?php echo $producto["pais"]; ?></li>
-															  <li> </li>
-															</ul>
-														</div>
-														<div id="" class="col-sm-12">
-															<ul class="list-unstyled sb-content list-styled">
-															  <li> </li>
-															  <li> <i class="fa fa-circle"></i>Trabajos:<?php //echo $producto["material"]; ?></li>
-															  <li> <i class="fa fa-circle"></i>Línea: <?php //echo $producto["pais"]; ?></li>
-															</ul>	
-														</div>
-													</div>
-
-													<div id="description-2" class="col-sm-24 group-variants">
-														<?php foreach ( $detalle as $pdet ) { ?>
-														  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
-															  <span class="gs_circ"><?php //echo $pdet["color"]; ?></span> <!-- | --> 
-															  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> |
-															  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
-
-															  <?php if( $pdet["tipo_precio"] == "g" || $pdet["tipo_precio"] == "mo" ) { 
-															  		$precio_x_peso = $pdet["precio_peso"];
-															  	if( $pdet["tipo_precio"] == "mo" ) 
-															  		$precio_x_peso = $pdet["precio_mo"];
-															  ?>
-															  | <span class="gs_circ">Precio por g: 
-																  	<span id="rpreciop_g">$ 
-																  		<?php echo $precio_x_peso; ?> 
-																  	</span> 
-																</span>
-																<?php } ?>
-														  </div>
-													  	<?php } ?>	
-													</div>     
+													
+													<?php include( "sections/product/product_info.php" );?>     
 													
 													<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
 														<meta itemprop="priceCurrency" content="USD">              
@@ -329,42 +288,8 @@
 																	</div>
 																</div>
 
-																<div>
-																	Seleccione una talla y cantidad
-																</div>
-
-																<!-- Bloque selección tallas -->
-																<div class="swatch clearfix" data-option-index="1">
-																	<div class="header"> Tallas </div>
-																	<?php 
-																		$cn = 0; 
-																		foreach ( $detalle as $pdet ) { 
-																		$tallas = $pdet["sizes"]; $ct = 0;
-																	?>
-																	<div id="rdt-t<?php echo $pdet["id"]; ?>" class="rdet_view_t rdet<?php echo $pdet["id"] ?>">
-																		<?php  
-																			foreach ( $tallas as $ptalla ) {
-																				if( !isset( $ptalla["precio"] ) ) $ptalla["precio"] = "";
-																		?>
-																			<div data-value="<?php echo $ptalla["talla"]; ?>" 
-																			class="swatch-element medium available seltdp" 
-																			data-trg="rtallp<?php echo $pdet["id"]; ?>" data-peso="<?php echo $ptalla["peso"]; ?> gr" 
-																			data-tprecio="<?php echo $pdet["tipo_precio"]; ?>"
-																			data-precio="<?php echo $ptalla["precio"]; ?>"
-																			data-idt="<?php echo $ptalla["idtalla"]; ?>">
-																				<input id="<?php echo $cn."-".$ptalla["idtalla"]; ?>" name="opt<?php echo $pdet["id"] ?>" 
-																				value="<?php echo $ptalla["talla"]; ?>" type="radio" class="sizeselector">
-																				
-																				<label for="<?php echo $cn."-".$ptalla["idtalla"]; ?>">
-																					<?php echo $ptalla["talla"]; ?> 
-																					<img class="crossed-out" src="assets/images/soldout.png" alt="">
-																				</label>
-																			</div>
-																		<?php $ct++; $cn++; } ?>
-																	</div>
-																	<?php } //./f.each*0 ?>
-																</div>
-																<!-- /.Bloque selección tallas -->
+																<?php include(
+																	"sections/product/size_selection.php")?>
 
 																<table style="border:0">
 																  <tr>
@@ -429,28 +354,7 @@
 																  </tr>
 																</table>
 																
-																<!-- Bloque detalles de producto -->
-																<div id="gallery_main" class="product-image-thumb thumbs mobile_full_width product_detail">
-																	<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
-																	
-																	<?php foreach ( $detalle as $pdet ) { 
-																		if( isset( $pdet["images"][0] ) ){
-																			$i = $pdet["images"][0]; ?>
-																			<li class="image opt-pdetalle">
-																				<a href="<?php echo $purl.$i["path"] ?>" 
-																				class="cloud-zoom-gallery active select_pdetail" 
-																				data-regdet="rdet<?php echo $pdet["id"] ?>" data-select-iddet="<?php echo $pdet["id"] ?>" 
-																				data-tprecio="<?php echo $pdet["tipo_precio"] ?>" 
-																				data-precio="<?php echo $pdet["precio"] ?>">
-																					<img src="<?php echo $purl.$i["path"] ?>" alt="<?php echo $producto["name"]; ?>">
-																				</a>
-																			</li>
-																		<?php } ?>
-																	<?php } ?>
-																	
-																	</ul>
-																</div>
-																<!-- /.Bloque detalles de producto -->
+																<?php include("sections/product/product_details_list.php")?>
 
 															</div>
 														</form>

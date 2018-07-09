@@ -191,6 +191,8 @@
 													<?php echo $orden["icono_e"]; ?>
 													<input type="hidden" id="accion_orden" value="">
 													<input type="hidden" id="idusuario" value="<?php echo $_SESSION["user"]["id"]; ?>">
+													<input type="hidden" id="idorden" name="id_orden" 
+											value="<?php echo $orden["id"]?>">
 													<span class="address-group">
 													<span class="date">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>
@@ -255,6 +257,7 @@
 
 									  <div class="col-md-16 first">
 										<div class="pop" style="display: none;">1</div>
+										
 										<?php if( ( $orden["estado"] == "pendiente" ) || ( $orden["estado"] == "cancelado" ) ) { ?>
 										<div id="pedido_inicial" class="bloque_pedido">
 											<?php 
@@ -268,7 +271,6 @@
 										<?php if( $orden["estado"] == "revisado" ) { ?>
 											<form id="frm_mpedido" name="form_pedido_modificado">
 												<div id="pedido_revisado" class="bloque_pedido">
-													<input type="hidden" id="idorden" name="id_orden" value="<?php echo $orden["id"]?>">
 													<?php include( "sections/tablas/tabla-pedido-revision.php" ); ?>
 												</div>
 											</form>
