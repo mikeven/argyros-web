@@ -12,7 +12,7 @@
 		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
-		and p.country_id = co.id and p.id = $pid";
+		and p.visible = 1 and p.country_id = co.id and p.id = $pid";
 
 		$data = mysqli_query( $dbh, $q );
 		if( $data )
@@ -190,11 +190,14 @@
 	function obtenerProductoPorId( $dbh, $pid ){
 		//Devuelve los datos de producto, registros de detalle e imágenes registradas 
 		$producto["data"] = obtenerDatosProductoPorId( $dbh, $pid );
-		$producto["detalle"] = obtenerDetalleProductoPorId( $dbh, $pid );
 
-		$producto["detalle"] = cargarPreciosDetalle( $dbh, $producto["detalle"] );
-		$producto["detalle"] = cargarImagenesDetalle( $dbh, $producto["detalle"] );
-		$producto["detalle"] = cargarTallasDetalle( $dbh, $producto["detalle"] );
+		if( $producto["data"] ){
+			$producto["detalle"] = obtenerDetalleProductoPorId( $dbh, $pid );
+
+			$producto["detalle"] = cargarPreciosDetalle( $dbh, $producto["detalle"] );
+			$producto["detalle"] = cargarImagenesDetalle( $dbh, $producto["detalle"] );
+			$producto["detalle"] = cargarTallasDetalle( $dbh, $producto["detalle"] );
+		}
 
 		return $producto;
 	}
@@ -391,7 +394,7 @@
 		}
 
 		if( $param == "codigo" ){
-			$q = "select id from products where p.visible = 1 and id in ( select dp.product_id 
+			$q = "select id from products where visible = 1 and id in ( select dp.product_id 
 			from product_details dp where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' )";
 		}
 		//echo $q;

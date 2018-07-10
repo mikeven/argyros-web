@@ -14,6 +14,9 @@
     include( "fn/fn-cart.php" );
    
     checkSession( '' );
+    if( !isset( $_GET["id"] ) ){
+    	echo "<script> window.location = 'catalog.php'</script>";
+    }
 ?>
 
 <!doctype html>

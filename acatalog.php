@@ -549,7 +549,6 @@
 									</div>
 
 									
-									
 									<div id="quick-shop-variants-container" class="variants-wrapper">
 										<!--<div class="selector-wrapper">
 											<label for="#quick-shop-variants-1293238211-option-0">Color</label>

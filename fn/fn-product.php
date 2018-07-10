@@ -38,9 +38,11 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_GET["id"] ) ){
+
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true;
 		$data_producto = obtenerProductoPorId( $dbh, $pid );
+		
 		if( $data_producto["data"] ){
 			$is_p = true;
 			$producto = $data_producto["data"];
@@ -60,8 +62,6 @@
 			$productos_relacionados = productosRelacionados( $dbh, $producto["idc"] );
 		}
 		
-	} else {
-
 	}
 
 	//$purl = "../../argyros/trunk/admin_/"; //Localhost
