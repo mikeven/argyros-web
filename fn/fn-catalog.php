@@ -275,6 +275,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	
 	if( isset( $_GET["c"], $_GET["s"] ) ){
+		//Búsqueda de productos por categoría y subcategoría
 		$cat = $_GET["c"];
 		$sub = $_GET["s"];
 
@@ -286,6 +287,7 @@
 	}
 	/*..........................................................................*/
 	if( isset( $_GET["c"] ) && !isset( $_GET["s"] ) ){
+		//Búsqueda de productos solo por categoría
 		$cat = $_GET["c"];
 
 		$productos_catalogo = obtenerProductosC_( $dbh, oic( $dbh, $cat, 'c' ) );
@@ -295,6 +297,7 @@
 	}
 	/*..........................................................................*/
 	if( isset( $_GET[P_TEXTO_BUSQUEDA] ) ){
+		//Búsqueda de productos por texto ingresado por el buscador
 		$busqueda = $_GET[P_TEXTO_BUSQUEDA];
 		$productos_busqueda = obtenerProductosPorBusqueda( $dbh, $busqueda );
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda );

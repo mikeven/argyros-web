@@ -46,7 +46,7 @@
 		
 		$idu = $_SESSION["user"]["id"];
 		$q = "select * from clients where id = $idu";
-		//echo $q;
+
 		$data_user = mysqli_fetch_array( mysqli_query( $dbh, $q ) );
 		return $data_user;					
 	}
@@ -71,7 +71,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function variablesGrupoUsuario( $dbh ){
 		//Devuelve los valores de las variables según el perfil de la cuenta en sesión o sin sesión
-		if( isset( $_SESSION["user"]["user_group_id"] ) ){
+		
+		if( isset( $_SESSION["user"]["client_group_id"] ) ){
 			$usuario = obtenerUsuarioSesion( $dbh );
 			$grupo_u = $usuario["client_group_id"];
 			$var_gr_usuario = obtenerValoresGrupoUsuario( $dbh, $grupo_u );
@@ -116,8 +117,10 @@
 	function registrarUsuario( $dbh, $usuario ){
 		//Registro de nuevo usuario (cliente)
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
-		$q = "insert into clients ( first_name, last_name, email, phone, password, country_code, company_type, token, user_group_id ) 
-		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[telefono]', '$usuario[passw1]', '$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
+		$q = "insert into clients ( first_name, last_name, email, phone, password, country_code, 
+		company_type, token, user_group_id ) 
+		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[telefono]', '$usuario[passw1]', 
+		'$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
 
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	
@@ -137,7 +140,7 @@
 		
 		$data = mysqli_query ( $lnk, $sql );		
 		$data_user = mysqli_fetch_array( $data );
-		//print_r($data);
+
 		return $data_user;
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -154,7 +157,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function login( $data_user ){
 		session_start();
-	
+		
 		$_SESSION["login"] = 1;
 		$_SESSION["user"] = $data_user;
 		$_SESSION["cart"] = array();
@@ -170,7 +173,6 @@
 		$q = "update clients set first_name = '$usuario[name]', last_name = '$usuario[lastname]', 
 		phone = '$usuario[phone]', company_name = '$usuario[nempresa]', country_code = '$usuario[pais]', 
 		city = '$usuario[ciudad]' where id = $usuario[idusuario]";
-		//echo $q;
 		
 		mysqli_query ( $dbh, $q );
 		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
@@ -182,7 +184,6 @@
 		//Actualiza el valor de contraseña de usuario
 		$actualizado = 1;
 		$q = "update clients set password = '$usuario[password1]' where id = $usuario[idusuario]";
-		//echo $q;
 		
 		mysqli_query ( $dbh, $q );
 		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;

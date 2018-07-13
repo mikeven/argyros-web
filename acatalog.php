@@ -362,19 +362,24 @@
 													$enum = 0; $bloque = 0;
 													foreach ( $productos as $data_rprod ) {	//$productos: fn-catalog.php
 														$p = $data_rprod["data"];
+														
+														if( 1 ){
+														
 														$img = obtenerImagenProducto( $dbh, $p["id"] );
+
 												?>
-												<?php if( $enum == NPAGINACION ){ 
-														$enum = 0; $bloque++; 
-														if( $bloque == 1 ) $visible = "visible"; else $visible = "";
-												?>
-													<div class="division_bloque" align="center">
-														<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
-														type="button" data-trg="eca<?php echo $bloque; ?>" 
-														data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
-													</div>
-												<?php } ?>
-												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" data-alpha="Nombre del producto">
+														<?php if( $enum == NPAGINACION ){ 
+																$enum = 0; $bloque++; 
+																if( $bloque == 1 ) $visible = "visible"; else $visible = "";
+														?>
+															<div class="division_bloque" align="center">
+																<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
+																type="button" data-trg="eca<?php echo $bloque; ?>" 
+																data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
+															</div>
+														<?php } ?>
+												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" 
+													data-alpha="Nombre del producto">
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left img-catal-contenedor">
 														<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">
@@ -433,7 +438,11 @@
 													</ul>
 												</li>
 												
-												<?php $enum++; }  ?>
+												<?php 
+													$enum++; 
+													} // if ($p[detalle])
+												} // foreach
+												?>
 												
 											</ul>
 										</div>

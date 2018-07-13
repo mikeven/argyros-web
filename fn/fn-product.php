@@ -37,11 +37,23 @@
 		return $relacionados;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function mostrarDataProducto( $datos ){
+		//
+		$bloque = "";
+		foreach ( $datos as $d ) {
+			$bloque .= "<div class='item-info-p'>".$d["nombre"]."</div>";
+		}
+
+		return $bloque;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_GET["id"] ) ){
 
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true;
 		$data_producto = obtenerProductoPorId( $dbh, $pid );
+
+
 		
 		if( $data_producto["data"] ){
 			$is_p = true;
@@ -49,6 +61,8 @@
 			$ls_subc_prod = obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
 			
 			$detalle = $data_producto["detalle"];
+			$producto["lineas"] = obtenerLineasDeProductoPorId( $dbh, $pid );
+			$producto["trabajos"] = obtenerTrabajosDeProductoPorId( $dbh, $pid );
 			
 			if( $detalle ){
 				//Primera imagen del primer registro de detalle

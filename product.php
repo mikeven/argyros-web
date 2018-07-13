@@ -91,6 +91,11 @@
 		.rdet_view_t{ display: none; }
 		.rdet_prop{ display: none; }
 		.product-view-img{ max-width: 50px !important; }
+		.infoproducto-lista{ font-size: 12px; margin-left: 20px; }
+		.item-info-p{ float: left; margin-right: 5px; }
+		.categ-rel-prod{ color: #808080 !important; }
+		.categ-rel-prod:hover{ color: #a7b239 !important; }
+
 		li i.fa{
 			font-size: 15px;
 		    vertical-align: 4px;
@@ -162,7 +167,7 @@
 							
 							<div class="left-slidebar col-xs-24 col-sm-6 hidden-xs">
 								<div class="group_sidebar">											
-									<?php include("sections/product-categories.php");?>  
+									<?php include("sections/product/product-categories.php");?>  
 									
 									<!-- SPECIALS -->
 									
