@@ -52,8 +52,6 @@
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true;
 		$data_producto = obtenerProductoPorId( $dbh, $pid );
-
-
 		
 		if( $data_producto["data"] ){
 			$is_p = true;

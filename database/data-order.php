@@ -35,8 +35,10 @@
 	function obtenerDetalleOrden( $dbh, $ido ){
 		//Devuelve los registros correspondientes a un detalle de pedido dado su id
 		$q = "select od.id, od.order_id, od.product_id, od.product_detail_id, 
-		od.quantity, od.price, od.available as cant_rev, p.name as producto, p.description, 
-		s.name as talla, s.unit from orders o, order_details od, products p, sizes s, 
+		od.size_id as idtalla, od.quantity, od.price, od.available as cant_rev, 
+		od.check_revision as estado_rev, od.item_status, p.name as producto, 
+		p.description, s.name as talla, s.unit 
+		from orders o, order_details od, products p, sizes s, 
 		size_product_detail sd, product_details pd 
 		where od.order_id = o.id and od.product_id = p.id and od.product_detail_id = pd.id and 
 		od.size_id = s.id and sd.product_detail_id = pd.id and sd.size_id = s.id and o.id = $ido";
@@ -48,6 +50,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenesProductoOrden( $dbh, $detalle ){
 		//Devuelve las imágenes de los productos de una orden
+		include( "data-products.php" );
+
 		$ndetalle = array();
 		foreach ( $detalle as $reg ) {
 			$data = obtenerImagenesDetalleProducto( $dbh, $reg["product_detail_id"], 1 );
@@ -143,11 +147,39 @@
 		//Recorre los ítems del pedido y envía a actualización de estado los marcados para eliminar
 		$items = $pedido["ielims"];
 		$noper = 0;
-		foreach ( $items as $i ) {
+		foreach ( $items as $i ){
 			if( $i != 0 )
 				$noper += cambiarEstadoItemPedidoRevisado( $dbh, $pedido["id_orden"], $i, "retirado" );	
 		}
 		return $noper;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function actualizarDisponibilidadItemProducto( $dbh, $orden ){
+		//Oculta los registros de detalle de producto que se hayan confirmado en un pedido y que
+		//hayan sido revisados desde el administrador indicando menor disponibilidad a la solicitada
+		include( "data-products.php" );
+
+		$orden_actual = obtenerOrdenPorId( $dbh, $orden["id"] );
+		$r_orden_actual = $orden_actual["orden"];
+		$detalle_orden_actual = $orden_actual["detalle"]; 
+		
+		if( $r_orden_actual["estado"] == "confirmado" ){
+			foreach ( $detalle_orden_actual as $det ) {
+				if( ( $det["estado_rev"] == "modif" ) 
+						&& ( $det["cant_rev"] <= $det["quantity"] ) 
+						&& ( $det["item_status"] != "retirado" ) 
+				){
+					//Si ítem posee estado revisado (revisión administrador)
+					//Si cantidad revisada (disponible) es menor o igual a la cantidad solicitada
+					//Si ítem no fue descartado (retirado) del pedido por el cliente 
+					$id_det_prod = $det["product_detail_id"];
+					$idtalla = $det["idtalla"];
+					actualizarDisponibilidadTallaProducto( $dbh, 
+						$det["product_detail_id"], $det["idtalla"], 0 );
+				}
+			}
+		}
+
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function notificarActualizacionPedido( $dbh, $estado, $orden, $total ){
@@ -166,7 +198,7 @@
 		}
 		if( $estado == "pedido_confirmado" ){
 			//Notificación de confirmación de pedido: Administrador
-			enviarMensajeEmail( "pedido_confirmado_administrador", $email_admin );
+			enviarMensajeEmail( "pedido_confirmado_administrador", $orden, $email_admin );
 		}
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -212,15 +244,24 @@
 	/* ----------------------------------------------------------------------------------- */
 	//Petición para modificar ítems de una orden ( pedido )
 	if( isset( $_POST["modif_pedido"] ) ){
+		session_start();
+		ini_set( 'display_errors', 1 );
 		include( "../database/bd.php" );
+
 		parse_str( $_POST["modif_pedido"], $pedido );
+		$ido = $_POST["idorden"];
+		$pedido["id_orden"] = $ido;
 		
-		$rorden = obtenerRegistroOrdenPorId( $dbh, $pedido["id_orden"], $_POST["idusuario"] );
-		$res = retirarItemsPedido( $dbh, $pedido );
+		$data_orden = obtenerOrdenPorId( $dbh, $ido );
+		$rorden = $data_orden["orden"];
 		$rorden["total_monto"] = $_POST["mconf"];
 		
+		$res = retirarItemsPedido( $dbh, $pedido );
+		
 		ingresarObservacionesCliente( $dbh, $pedido );
-		cambiarEstadoOrden( $dbh, $pedido["id_orden"], "confirmado" );
+		cambiarEstadoOrden( $dbh, $ido, "confirmado" );
+		actualizarDisponibilidadItemProducto( $dbh, $data_orden["orden"], $data_orden["detalle"] );
+
 		notificarActualizacionPedido( $dbh, "pedido_confirmado", $rorden, $_POST["mconf"] );
 	}
 	/* ----------------------------------------------------------------------------------- */

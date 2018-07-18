@@ -110,7 +110,7 @@
 		    height: 100px !important;
 		}
 
-		#referencia-producto{
+		#referencia-producto, .detlist-id-det{
 			font-size: 11px; font-weight: bold; color: #696f24; 
 		}
 

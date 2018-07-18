@@ -63,8 +63,13 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function tieneDetalle( $dbh, $idp ){
-		//
+	function productoTieneDetalle( $dbh, $idp ){
+		//Devuelve verdadero si un producto posee registros de detalle
+		$tiene_detalle = false; 
+		$detalle = obtenerDetalleProducto( $dbh, $idp );
+		if( count( $detalle ) > 0 ) $tiene_detalle = true;
+
+		return $tiene_detalle;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorGramo( $var, $precio_gramo ){
@@ -209,8 +214,6 @@
 		return $producto;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	
-	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosC_S( $dbh, $idc, $idsc ){
 		//Devuelve la lista de productos pertenecientes a una categoría y subcategoría
 		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
@@ -335,9 +338,7 @@
 		return $detalle;
 		
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-	
 	function obtenerTallasPorCategoria( $dbh, $idc ){
 		//Devuelve las tallas asociadas a una categoría de producto
 		$q = "select id, name, unit from sizes where category_id = $idc order by name ASC";
@@ -346,7 +347,6 @@
 		$lista = obtenerListaRegistros( $data );
 		return $lista;	
 	}
-		
 	/* ----------------------------------------------------------------------------------- */
 	function existeRegistroTallaDetalle( $dbh, $iddet, $id_talla ){
 		//Chequea si existe un registro con valores de talla-detalle
@@ -359,6 +359,15 @@
 			$existe = true;
 		
 		return $existe;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function actualizarDisponibilidadTallaProducto( $dbh, $iddetprod, $idtalla, $estado ){
+		//Actualiza el valor talla-peso de un detalle de producto
+		$q = "update size_product_detail set visible = $estado where size_id = $idtalla and 
+		product_detail_id = $iddetprod";
+		
+		$data = mysqli_query( $dbh, $q );
+		return $data;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosParametroDirectoProducto( $dbh, $busqueda ){

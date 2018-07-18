@@ -173,7 +173,9 @@
 							<div id="page-header" class="col-md-24">
 								<?php if( isset( $orden ) ) { ?>
 								<h1 id="page-title">Orden <?php echo "#".$orden["id"]?></h1>
-								<?php } ?>
+								<?php } else { ?>
+									<h1>Registro no encontrado</h1>
+								<?php } ?>	
 							</div>
 							<div id="col-main" class="address-page manage-address clearfix">								
 								<div class="clearfix">
@@ -192,7 +194,7 @@
 													<input type="hidden" id="accion_orden" value="">
 													<input type="hidden" id="idusuario" value="<?php echo $_SESSION["user"]["id"]; ?>">
 													<input type="hidden" id="idorden" name="id_orden" 
-											value="<?php echo $orden["id"]?>">
+													value="<?php echo $orden["id"]?>">
 													<span class="address-group">
 													<span class="date">Fecha: <?php echo $orden["fecha"]?></span>
 													</span>

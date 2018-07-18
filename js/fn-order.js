@@ -136,13 +136,15 @@ function obtenerMarcadoItem( item ){
 function registrarCambiosPedido(){
     //Invoca el registro de los cambios realizados a un pedido
     form = $("#frm_mpedido").serialize();
+
+    var ido = $("#idorden").val();
     var monto_confirmado = $("#monto_orden_cnf").val();
     var idu = $("#idusuario").val();
 
     $.ajax({
         type:"POST",
         url:"database/data-order.php",
-        data:{ modif_pedido: form, mconf:monto_confirmado, idusuario:idu },
+        data:{ modif_pedido: form, mconf:monto_confirmado, idorden:ido, idusuario:idu },
         beforeSend: function (){
             $( "#btn_cancelar").click();
             $( "#i_rmped" ).html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");

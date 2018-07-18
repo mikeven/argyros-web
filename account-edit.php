@@ -186,7 +186,8 @@
 											  <select name="pais" class="form-control selectpicker">
 			                                    <option disabled>Seleccione</option>
 			                                    <?php foreach ( $paises as $p ) { ?>
-			                                      <option value="<?php echo $p["code"] ?>" <?php echo sop( $p["code"], $dusuario["country_code"] ); ?>>
+			                                      <option value="<?php echo $p["id"] ?>" 
+			                                      	<?php echo sop( $p["id"], $dusuario["country_id"] ); ?>>
 			                                      	<?php echo $p["name"] ?>
 			                                      </option>
 			                                    <?php } ?>

@@ -171,7 +171,7 @@
 		//Actualiza los datos de cuenta de usuario
 		$actualizado = 1;
 		$q = "update clients set first_name = '$usuario[name]', last_name = '$usuario[lastname]', 
-		phone = '$usuario[phone]', company_name = '$usuario[nempresa]', country_code = '$usuario[pais]', 
+		phone = '$usuario[phone]', company_name = '$usuario[nempresa]', country_id = '$usuario[pais]', 
 		city = '$usuario[ciudad]' where id = $usuario[idusuario]";
 		
 		mysqli_query ( $dbh, $q );

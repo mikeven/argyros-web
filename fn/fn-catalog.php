@@ -21,14 +21,11 @@
 	define( "NPAGINACION", 32 );
 
 	/*.............................................................*/
-
 	$catalogue_url = $_SERVER["REQUEST_URI"];
 	$urlparsed = parse_url( $catalogue_url );
 	if( isset( $urlparsed["query"] ) )
 		parse_str( $urlparsed["query"], $url_params );
-	
 	/*.............................................................*/
-	
 	function oic( $dbh, $uname, $t ){
 		//Obtiene el id de las categorías dado su uname
 		if( $t == 'c' ) $tabla = "categories";
@@ -41,6 +38,14 @@
 	function reempEspacio( $texto ){
 		$reemplazo = str_replace( " ", "&nbsp;", $texto );
 		return $reemplazo;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function productoTieneImagen( $img ){
+		//Devuelve verdadero si un producto posee imagen en su detalle
+		$tiene_imagen = false;
+		if( isset( $img[0] ) ) $tiene_imagen = true;
+
+		return $tiene_imagen;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosDestacados( $dbh, $cdestacadas ){

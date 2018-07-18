@@ -29,18 +29,21 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_GET["orderid"] ) && isset( $_SESSION["user"] ) ){
+		
 		$data_orden = obtenerOrdenPorId( $dbh, $_GET["orderid"] );
 		$orden = $data_orden["orden"];
-		$odetalle = $data_orden["detalle"];
-		$orden["icono_e"] = obtenerIconoEstado( $orden["estado"] );
-		$orden["total_ajuste"] = calcularTotalOrdenRevisada( $odetalle );
-		leerOrden( $dbh, $_GET["orderid"], "leido" );
+		if( $orden ){
+			$odetalle = $data_orden["detalle"];
+			$orden["icono_e"] = obtenerIconoEstado( $orden["estado"] );
+			$orden["total_ajuste"] = calcularTotalOrdenRevisada( $odetalle );
+			leerOrden( $dbh, $_GET["orderid"], "leido" );
+		}
 	}
-	
+	/* ----------------------------------------------------------------------------------- */
 	if( isset( $_SESSION["user"] ) ){
 		$ordenes = obtenerOrdenesUsuario( $dbh, $_SESSION["user"]["id"] );
 	}
-	
+	/* ----------------------------------------------------------------------------------- */
 	//$purl = "../../argyros/trunk/admin_/"; //Localhost
 	$purl = "admin/"; // Server
 	/* ----------------------------------------------------------------------------------- */
