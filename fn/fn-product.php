@@ -31,7 +31,18 @@
 
 		$lprods = obtenerProductosC_( $dbh, $idc );
 		foreach ( $lprods as $prod ){
-			$relacionados[] = $prod;
+			//Recorrido por los productos obtenidos
+			$detalle = obtenerDetalleProductoPorId( $dbh, $prod["id"] );
+			if( count( $detalle ) > 0 )	//Posee al menos un registro de detalle
+				foreach ( $detalle as $reg_d ) {
+					//Recorrido por cada registro de detalle de producto
+					$imagenes = obtenerImagenesDetalleProducto( $dbh, $reg_d["id"], "" );
+					if( count( $imagenes ) > 0 ){
+						//Posee al menos una imagen, producto válido
+						$relacionados[] = $prod;
+						break; //Interrupción del recorrido de los detalles
+					}
+				}
 		}
 
 		return $relacionados;

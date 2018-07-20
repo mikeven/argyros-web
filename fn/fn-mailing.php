@@ -13,6 +13,25 @@
         return $cabeceras;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerSobreEnvio( $mail, $asunto, $mensaje, $to ){
+		//Devuelve el objeto PHPMAiler con los datos configurados para su envío
+		$mail->IsSMTP();
+		$mail->Host = "argyros.com.pa";
+		$mail->SMTPDebug = 0;
+		$mail->SMTPAuth = true;
+		$mail->SMTPSecure = "tls";
+		$mail->Host = "smtp.gmail.com";
+		$mail->Port = 587;
+		$mail->Username = "envios@argyros.com.pa";
+		$mail->Password = "sendargyros";
+		$mail->SetFrom('envios@argyros.com.pa', 'Argyros');
+		$mail->Subject = $asunto;
+		$mail->MsgHTML( $mensaje );
+		$mail->AddAddress( $to );
+
+		return $mail;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerPlantillaMensaje( $accion ){
 		//Devuelve la plantilla html de acuerdo al mensaje a ser enviado
 		$archivos = array(
@@ -30,8 +49,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function mensajeNuevoUsuario( $plantilla, $datos ){
 		//Llenado de mensaje para plantilla de nuevo usuario
-		$server = "http://mgideas.net";
-		$url_activacion = $server."/argyros/verified_account.php?token_account=".$datos["token"];
+		$server = "http://argyros.com.pa/nuevo";
+		$url_activacion = $server."/verified_account.php?token_account=".$datos["token"];
 		$plantilla = str_replace( "{url_activation}", $url_activacion, $plantilla );
 		$plantilla = str_replace( "{user}", $datos["name"], $plantilla );
 		
@@ -40,8 +59,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function mensajeRecuperarPassword( $plantilla, $datos ){
 		//Llenado de mensaje para plantilla de recuperación de contraseña
-		$server = "http://mgideas.net";
-		$url_reset = $server."/argyros/password_reset.php?token_reset=".$datos;
+		$server = "http://argyros.com.pa/nuevo";
+		$url_reset = $server."/password_reset.php?token_reset=".$datos;
 		$plantilla = str_replace( "{url_pass_reset}", $url_reset, $plantilla );
 		
 		return $plantilla;
@@ -116,11 +135,21 @@
 	/* ----------------------------------------------------------------------------------- */
 	function enviarMensajeEmail( $tipo_mensaje, $datos, $email ){
 		//Construcción del mensaje para enviar por email
-		$plantilla = obtenerPlantillaMensaje( $tipo_mensaje );
-		$sobre = escribirMensaje( $tipo_mensaje, $plantilla, $datos );
-		$sobre["cabeceras"] = obtenerCabecerasMensaje();
+		require_once( "PHPMailer/PHPMailerAutoload.php" );
 
-		return mail( $email, $sobre["asunto"], $sobre["mensaje"], $sobre["cabeceras"] );
+		$mail = new PHPMailer();
+		
+		$plantilla = obtenerPlantillaMensaje( $tipo_mensaje );
+		$envio = escribirMensaje( $tipo_mensaje, $plantilla, $datos );
+		$sobre = obtenerSobreEnvio( $mail, $envio["asunto"], $envio["mensaje"], $email );
+
+		if( !$sobre->send() ) {
+			$res["exito"] = -1; 
+			$res["msg"] = $mail->ErrorInfo;
+		}else
+		  	$res["exito"] = 1;
+
+		return $res;
 	}
 	/* ----------------------------------------------------------------------------------- */
 

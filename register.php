@@ -148,7 +148,9 @@
 												<select name="pais" class="form-control selectpicker" data-live-search="true">
 				                                    <option disabled selected>Seleccione</option>
 				                                    <?php foreach ( $paises as $p ) { ?>
-				                                      <option value="<?php echo $p["code"] ?>"><?php echo $p["name"] ?></option>
+				                                      <option value="<?php echo $p["id"] ?>">
+				                                      	<?php echo $p["name"] ?>
+				                                      </option>
 				                                    <?php } ?>
 				                                </select>
 											</li>
@@ -187,10 +189,9 @@
 							</div>
 							<div id="col-main" class="col-md-10 register-page clearfix">
 								<h4>Ya poseo cuenta</h4>
-								
 								<a href="login.php" class="btn">Iniciar sesión</a>
 								<hr>
-								<img src="assets/images/hands.jpg">
+								<img src="assets/images/hands.jpg" width="100%">
 							</div>   
 						</div>
 					</div>

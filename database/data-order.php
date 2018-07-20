@@ -183,7 +183,9 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function notificarActualizacionPedido( $dbh, $estado, $orden, $total ){
-		//Prepara los datos necesarios para enviar notificación por email acerca de cambios en estados de pedido 
+		//Prepara los datos necesarios para enviar notificación por email acerca de 
+		//cambios en estados de pedido 
+		ini_set( 'display_errors', 1 );
 		include( "data-user.php" );
 		include( "../fn/fn-mailing.php" );
 		$email_admin = obtenerEmailNotificacionPedidos( $dbh );
@@ -217,6 +219,7 @@
 	//Petición para crear un nuevo registro de orden ( pedido )
 	if( isset( $_POST["neworder"] ) ){
 		session_start();
+		ini_set( 'display_errors', 1 );
 		$carrito = $_SESSION["cart"];
 		include( "../database/bd.php" );
 		include( "../fn/fn-cart.php" );
@@ -226,7 +229,8 @@
 			$orden["id"] = registrarOrden( $dbh, $orden );
 			$n = registrarDetalleOrden( $dbh, $orden, $carrito );
 			if( $n > 0 ){
-				notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, obtenerMontoTotalCarritoCompra() );
+				$monto_tcart = obtenerMontoTotalCarritoCompra();
+				notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
 				vaciarCarrito();
 				echo mensajeRespuestaOrden();
 			}

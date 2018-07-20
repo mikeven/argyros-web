@@ -40,7 +40,8 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenesDetalleProducto( $dbh, $idd, $limite ){
-		//Devuelve los registros de imágenes de detalle de producto
+		//Devuelve los registros de imágenes de detalle de producto, cantidad de registros limitado
+		//por parámetro.
 		$l = "";
 		if( $limite != NULL ) $l = "LIMIT $limite";
 		
@@ -277,7 +278,8 @@
 	function obtenerTrabajosDeProductoPorId( $dbh, $idp ){
 		//Devuelve los datos de las líneas a las que pertenece un producto
 		$q = "select t.id as idtrabajo, t.name as nombre, t.uname as utrabajo 
-		from makings t, making_product tp where tp.making_id = t.id and tp.product_id = $idp order by t.name ASC";
+		from makings t, making_product tp where tp.making_id = t.id and tp.product_id = $idp 
+		order by t.name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -291,7 +293,7 @@
 		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
 		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and 
-		dp.treatment_id = t.id and dp.product_id = $idp";
+		dp.treatment_id = t.id and dp.product_id = $idp order by dp.id ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

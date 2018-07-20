@@ -197,6 +197,7 @@
 											<li>
 											<?php if ( count( $_SESSION["cart"] ) > 0 ) { ?>
 												<a href="#!" id="btn_order" class="btn btn-1">Hacer pedido</a>
+												<div id="loading-icon"></div>
 												<div id="regresar_carrito">
 													<a href="cart.php" id="btn_order" class="oreview" 
 													id="btn_cart">Regresar al carrito</a>

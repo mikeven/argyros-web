@@ -400,7 +400,7 @@
 									</div>
 								</div>         
 								<!-- Related Products -->
-								<?php include( "sections/related-products.php" );?>
+								<?php include( "sections/product/related-products.php" );?>
 							</div>
 						</div>
 						<?php } else { ?>

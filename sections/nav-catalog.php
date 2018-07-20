@@ -36,6 +36,24 @@
 				</ul>
 			<?php } ?>
 		</li>
+
+		<li class="hidden">
+			<?php foreach ( $lh_cat_ppal as $h_reg_categ ) { // 
+				$l_sc_p = obtenerListaSubCategoriasCategoria( $dbh, $h_reg_categ["id"] );	
+			?>
+				<ul class="subcategs_navcatalog" id="hnc_sc<?php echo $h_reg_categ["id"] ?>">
+					<span class="hnc_selcp tnavcategppal"><?php echo reempEspacio( $h_reg_categ["name"] ) ?></span>
+					<?php foreach ( $l_sc_p as $h_reg_scateg ) { // ?>
+					<li class="list-unstyled li-sub-mega">
+						<a href="acatalog.php?c=<?php echo $h_reg_categ["uname"];?>
+								&s=<?php echo $h_reg_scateg["uname"];?>" >
+							<?php echo $h_reg_scateg["name"] ?>
+						</a>
+					</li>
+					<?php } ?>
+				</ul>
+			<?php } ?>
+		</li>
 		
 	</ul>
 </div>

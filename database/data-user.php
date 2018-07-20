@@ -117,11 +117,11 @@
 	function registrarUsuario( $dbh, $usuario ){
 		//Registro de nuevo usuario (cliente)
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
-		$q = "insert into clients ( first_name, last_name, email, phone, password, country_code, 
-		company_type, token, user_group_id ) 
+		$q = "insert into clients ( first_name, last_name, email, phone, password, country_id, 
+		company_type, token, client_group_id ) 
 		values ( '$usuario[name]', '', '$usuario[email]', '$usuario[telefono]', '$usuario[passw1]', 
 		'$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
-
+		
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	
 	}
@@ -343,13 +343,19 @@
 		}else{
 			$usuario["token"] = obtenerTokenUsuarioNuevo( $usuario );
 			$idu = registrarUsuario( $dbh, $usuario );
-			$idr = registrarRolUsuario( $dbh, $idu, 4, "cliente" );
+			//$idr = registrarRolUsuario( $dbh, $idu, 4, "cliente" );
 			$remail = enviarMensajeEmail( "usuario_nuevo", $usuario, $usuario["email"] );
 
-			$res["exito"] = 1;
-			$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
+			if( $remail["exito"] == 1 ){
+				$res["exito"] = 1;
+				$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
 				"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
 				"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";;
+			}
+			else{
+				$res["exito"] = -1;
+				$res["mje"] = "Error al enviar mensaje: $res[msg]";
+			}			
 		}
 
 		echo json_encode( $res );
@@ -396,24 +402,27 @@
 	
 	//Recuperación de contraseña
 	if( isset( $_POST["passw_recovery"] ) ){
+		ini_set( 'display_errors', 1 );
 		include("bd.php");
 		include( "../fn/fn-mailing.php" );
+		$email_noregistrado = false;
 
 		parse_str( $_POST["passw_recovery"], $data );
 
 		if( usuarioYaRegistrado( $dbh, $data["email"] ) ){
 			$usuario = obtenerUsuarioPorEmail( $data["email"], $dbh );
 			$data = obtenerTokenRecuperacionPassword( $dbh, $usuario );
-			$remail = enviarMensajeEmail( "recuperar_password", $data, $usuario["email"] );
-			$res["exito"] = 1;	
-		}
-		else{
-			$res["exito"] = -1;	
-		}
+			$res = enviarMensajeEmail( "recuperar_password", $data, $usuario["email"] );
+
+			if( $res["exito"] == 1 )
+				$res["mje"] = "Se ha enviado un mensaje a su buzón de correo para restablecer su contraseña";
+			else
+				$res["mje"] = "Error al enviar mensaje: $res[msg]";
+			}
+		else
+			$email_noregistrado = true;	
 		
-		if( $res["exito"] == 1 )
-			$res["mje"] = "Se ha enviado un mensaje a su buzón de correo para restablecer su contraseña";
-		if( $res["exito"] == -1 )
+		if( $email_noregistrado )
 			$res["mje"] = "Esta dirección de correo no se encuentra registrada";
 		
 		echo json_encode( $res );	

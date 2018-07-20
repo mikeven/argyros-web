@@ -104,12 +104,17 @@ function obtenerMarcadoItem( item ){
  /* ----------------------------------------------------------------------------------- */
  function registrarOrden(){
     //Invoca el registro de un pedido nuevo
+    var loader_gif = "<img src='assets/images/ajax-loader.gif'>";
     $.ajax({
         type:"POST",
         url:"database/data-order.php",
         data:{ neworder: 1 },
+        beforeSend: function(){
+            $("#loading-icon").html(loader_gif);
+        },
         success: function( response ){
             console.log( response );
+            $("#loading-icon").fadeOut(200);
             mensajeRespuestaOrden( response );
         }
     });
@@ -145,7 +150,7 @@ function registrarCambiosPedido(){
         type:"POST",
         url:"database/data-order.php",
         data:{ modif_pedido: form, mconf:monto_confirmado, idorden:ido, idusuario:idu },
-        beforeSend: function (){
+        beforeSend: function(){
             $( "#btn_cancelar").click();
             $( "#i_rmped" ).html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
         },

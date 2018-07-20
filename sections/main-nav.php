@@ -35,14 +35,15 @@
 										<i class="fa fa-user"></i>
 									</div>
 									<ul class="customer dropdown-menu">
-										<?php if( !isset( $_SESSION["login"] ) ) { ?>
+										<?php if( !isset( $_SESSION["login"] ) ) { 
+											$idcatalogo = "drop-catalog"; ?>
 											<li class="logout">
 											<a href="login.php">Ingresar</a>
 											</li>
 											<li class="account last">
 											<a href="register.php">Crear cuenta</a>
 											</li>
-										<?php } else { ?>
+										<?php } else { $idcatalogo = "catalog-no-session";?>
 											<li class="logout">
 											<a href="account.php">Mi cuenta</a>
 											</li>
@@ -87,17 +88,19 @@
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
 								</li>
-
-								<li id="drop-catalog" class="dropdown mega-menu">
+								
+								<li id="<?php echo $idcatalogo; ?>" class="dropdown mega-menu">
 									<a href="catalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Catálogo</span>
 										<!-- <i class="fa fa-caret-down"></i> -->
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
-									<div id="navegacion-catalogo-mob">
-										<?php include( "nav-catalog-mobile.php" ); ?>
-									</div>
+									<?php if( isset( $_SESSION["user"] ) ) { ?>
+										<div id="navegacion-catalogo-mob">
+											<?php include( "nav-catalog-mobile.php" ); ?>
+										</div>
+									<?php } ?>
 								</li>
 								
 								<li class="nav-item">

@@ -1,6 +1,7 @@
 <div class="footer-content footer-content-top clearfix">
 	<div class="container">
-		<div class="footer-link-list col-md-6">
+		
+		<div class="footer-link-list col-lg-6 col-md-6 col-xs-24">
 		  <div class="group">
 			<h5 class="general-title">Nosotros</h5>						
 			<ul class="list-unstyled list-styled">						  
@@ -19,7 +20,8 @@
 			</ul>
 		  </div>
 		</div>   
-		<div class="footer-link-list col-md-6">
+		
+		<div class="footer-link-list col-lg-6 col-md-6 col-xs-24">
 		  <div class="group">
 			<h5 class="general-title">Información</h5>						
 			<ul class="list-unstyled list-styled">						  
@@ -35,7 +37,8 @@
 			</ul>
 		  </div>
 		</div>
-		<div class="footer-link-list col-md-6">
+		
+		<div class="footer-link-list col-lg-6 col-md-6 col-xs-24">
 		  <div class="group">
 			<h5 class="general-title">Cuenta</h5>						
 			<ul class="list-unstyled list-styled">						  
@@ -54,7 +57,8 @@
 			</ul>
 		  </div>
 		</div>
-		<div class="footer-link-list col-md-6">
+		
+		<div class="footer-link-list col-lg-6 col-md-6 col-xs-24">
 		  <div class="group_">
 			<h5 class="general-title">Contacto</h5>						
 			<ul class="list-unstyled list-styled">						  						  
@@ -78,6 +82,7 @@
 				</li>
 			</ul>
 		  </div>
-		</div>   
+		</div>
+
 	</div>
 </div>

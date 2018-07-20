@@ -104,7 +104,7 @@ function restablecerPasswordUsuario( form ){
             console.log(response);
             res = jQuery.parseJSON( response );
             mensajeAlerta( "#alert-msgs", res.mje );
-             $(form).reset();
+            $(form).reset();
             if( res.exito != 1 ){
                 activarBoton( "#btn_envnpass", false );  
             }

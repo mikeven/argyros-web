@@ -141,7 +141,8 @@
 											</form>
 										</div>
 										<!-- Password Recovery -->
-										<div id="recover-password" style="display:none;" class="col-md-24 row-left">
+										<div id="recover-password" style="display:none;" 
+										class="col-md-24 row-left">
 											<div class="checkout-title">
 												<span class="general-title">Recuperar contraseña</span>
 												<span class="line"></span>
@@ -150,23 +151,26 @@
 												Ingresa el email asociado a tu cuenta. <br>
 												Recibirás las instrucciones para recuperar tu contraseña en tu buzón de correo
 											</p>
-											<form method="post" action="http://demo.designshopify.com/account/recover" accept-charset="UTF-8">
+											<form method="post" id="frm_passwrecovery" accept-charset="UTF-8" data-toggle="validator">
 												<input type="hidden" value="recover_customer_password" name="form_type"><input type="hidden" name="utf8" value="✓">
 												<ul id="recover-form" class="list-unstyled clearfix">
 													<li class="clearfix"></li>
 													<li id="recover_email" class="col-md-21">
 													<label class="control-label">Email<span class="req">*</span></label>
-													<input type="email" value="" name="email" id="recover-email" class="form-control">
+													<input type="email" value="" name="email" id="email_login" class="form-control">
 													</li>
 													<li class="col-md-21 unpadding-top">
-													<ul class="login-wrapper list-unstyled">
-														<li>
-															<button class="btn btn-1" type="submit">Enviar</button>
-														</li>
-														<li>
-															<a class="return" href="index.php">Regresar a la tienda</a>
-														</li>
-													</ul>
+														<ul class="login-wrapper list-unstyled">
+															<li>
+																<button id="btn_envrecov" class="btn btn-1" 
+																type="submit">Enviar</button>
+															</li>
+															<li>
+																<a class="return" href="index.php">
+																	Regresar a la tienda
+																</a>
+															</li>
+														</ul>
 													</li>
 												</ul>
 											</form>
@@ -189,6 +193,4 @@
 			mensajeAlerta( "#alert-msgs", "USUARIO O CONTRASEÑA INCORRECTA, CHEQUEE SUS CREDENCIALES" );
 		</script>
 	<?php } ?>
-	
-	<?php include("sections/footer.php"); ?>
 </body>

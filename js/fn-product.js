@@ -13,7 +13,7 @@
  }
  /* ----------------------------------------------------------------------------------- */
  function asignarPrecioFichaProducto( orig, sel ){
- 	
+ 	//
  	if( orig == "detalle" ){
 	 	if( sel.attr("data-tprecio") == "p" )
 	 		$("#vprice_visible").html("$ " + sel.attr("data-precio") );
@@ -27,12 +27,22 @@
  	$("#vprice_cart").val( sel.attr("data-precio") );
  }
  /* ----------------------------------------------------------------------------------- */
+ function tallaInicial( selector ){
+ 	//Selecciona la primera talla de un detalle de un producto
+ 	var tinicial = $(selector).attr("data-talla-i");
+ 	$( "." + tinicial ).click();
+ 	$( "#" + tinicial ).click();
+ }
+ /* ----------------------------------------------------------------------------------- */
  function mostrarDetalleSeleccionado( trg ){
-	$("#" + trg).show();			//mostrar detalle seleccionado
-	$("." + trg).show();			//mostrar elementos pertenecientes al detalle seleccionado
+ 	//Muestra los bloques correspondientes a la información de un detalle de producto seleccionado
+
+	$("#" + trg).show();			//mostrar detalle
+	$("." + trg).show();			//mostrar elementos pertenecientes al detalle
  }
  /* ----------------------------------------------------------------------------------- */
  function colapsarMenu( idclic ){
+ 	//Oculta las opciones internas del menú de navegacíón de catálogo
  	$(".subcategs_navcatalog").each(function() {
 	    if( $(this).attr("id") != idclic )
 	    	$(this).fadeOut(150);
@@ -74,6 +84,7 @@ $( document ).ready(function() {
 		$("#iddetalle").val( $(this).attr("data-select-iddet") );
 		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
 		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
+		tallaInicial( $(this) ); //selecciona la primera talla de detalle de producto
     });
 
 	//Clic: selección de tallas de un detalle de producto
@@ -86,8 +97,8 @@ $( document ).ready(function() {
 		asignarPrecioFichaProducto( "talla", $(this) );
     });
 	
-    $( ".select_pdetail" ).first().click();
-    //$( ".seltdp" ).first().click();
+    $( ".select_pdetail" ).first().click();	//Selección de primer bloque de detalle
+    $( ".sizeselector" ).first().click();	//Selección de primer bloque tallas de detalle
 
     $(".bcargable").on( "click", function(){
     	//Muestra el próximo bloque de productos del catálogo
@@ -105,7 +116,7 @@ $( document ).ready(function() {
     var scrollTop = $(".scrollTop");
 
 	$(window).scroll(function() {
-	    // declare variable
+	 
 	    var topPos = $(this).scrollTop();
 
 	    // if user scrolls down - show scroll to top button

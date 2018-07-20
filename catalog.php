@@ -166,12 +166,13 @@
 					<div itemprop="breadcrumb" class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<a href="index.php" class="homepage-link" title="Back to the frontpage">Inicio</a>
+								<a href="index.php" class="homepage-link" title="Regresar al inicio">
+									Inicio
+								</a>
 								<span>/</span>
 								<a href="catalog.php">
 									<span class="page-title"><?php echo "Catálogo"; ?></span>
 								</a>
-								
 							</div>
 							<div id="title-categories">
 								<h1 id="page-title" class="text-right"><?php //echo $etiq_categs; ?></h1>
@@ -185,112 +186,46 @@
 						<div class="row"> 
 							<div id="collection-content">
 								<div id="page-header"></div>
-								<!--
-								<div class="navbar-collapse">
-									<ul class="nav">
-										<li class="dropdown mega-menu">
-										<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
-										<span>Filtros <i class="fa fa-caret-down"></i></span>
-										<i class="fa fa-caret-down"></i>
-										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
-										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
-										</a>
-										<hr>
-										<?php //include( "sections/filters.php" );?>
-										</li>
-									</ul>
-								</div>
-								-->
-								<!--<div class="collection-warper col-sm-24 clearfix"> 
-									<div class="collection-panner">
-										<img src="assets/images/collection_banner.jpg" class="img-responsive" alt="">
-									</div>
-								</div>-->
+								
 								<div class="collection-main-content">									
 									<div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
-										<div class="container-nav clearfix">
-											<!--<div id="options" class="container-nav clearfix">
+										
+										<?php if( isset( $_SESSION["login"] ) ) { ?>
+											<div id="sandBox-wrapper" class="group-product-item row collection-full">
 												
-												<ul class="list-inline text-right">
-													<li class="grid_list">
-													<ul class="list-inline option-set hidden-xs" 
-													data-option-key="layoutMode">
-														<li data-original-title="Grid" data-option-value="fitRows" id="goGrid" class="goAction btooltip active" data-toggle="tooltip" data-placement="top" title="">
-														<span></span>
-														</li>
-														<li data-original-title="List" data-option-value="straightDown" id="goList" class="goAction btooltip" data-toggle="tooltip" data-placement="top" title="">
-														<span></span>
-														</li>
-													</ul>
-													</li>
-													<li class="sortBy">
-													
-													<div id="sortButtonWarper" class="dropdown-toggle" data-toggle="dropdown">
-														<strong class="title-6">Ordenar por</strong>
-														<button id="sortButton">
-														<span class="name">Seleccione</span>
-														<i class="fa fa-caret-down"></i>
-														</button>
-														<i class="sub-dropdown1"></i>
-														<i class="sub-dropdown"></i>
-													</div>
-													<div id="sortBox" class="control-container dropdown-menu">
-														<ul id="sortForm" class="list-unstyled option-set text-left list-styled" data-option-key="sortBy">
-															
-															<li class="sort" data-option-value="title-ascending" data-order="asc">A-Z</li>
-															<li class="sort" data-option-value="title-descending" data-order="desc">Z-A</li>
-															<li class="sort" data-option-value="price-ascending" data-order="asc">Precio: Menor a mayor</li>
-															<li class="sort" data-option-value="price-descending" data-order="desc">Precio: Mayor a menor</li>
-															
-														</ul>
-													</div>
-													</li>
-												</ul>
-												
-											</div>-->
-										</div>
-
-										<div id="sandBox-wrapper" class="group-product-item row collection-full">
-											
-											<div class="group_home_collections row">
-												<div class="col-md-24">
-													<div class="home_collections">
-														<h6 class="general-title">CATEGORÍAS</h6>
-														<?php foreach ( $lh_cat_ppal as $rcp ) { 
-															if( $rcp["id"] != 0 ){
-														?>
-															<div class="home_collections_item col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
-																<div class="home_collections_item_inner">
-																	<div class="collection-details">
-																		<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
-																		<?php if($rcp["image"] != "" ) { ?>
-																		<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
-																		<?php } else { ?>
-																		<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
-																		<?php } ?>
-																		</a>
-																	</div>
-																	<div class="hover-overlay" align="center">
-																		<span class="col-name">
-																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"><h6> 
-																			<?php echo $rcp["name"]; ?></h6></a> 
-																		</span>
-																		<div class="collection-action hidden">
-																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
+												<div class="group_home_collections row">
+													<div class="col-md-24">
+														<div class="home_collections">
+															<h6 class="general-title">CATEGORÍAS</h6>
+															<?php foreach ( $lh_cat_ppal as $rcp ) { 
+																if( $rcp["id"] != 0 ){
+															?>
+																<div class="home_collections_item col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
+																	<div class="home_collections_item_inner">
+																		<div class="collection-details">
+																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
+																			<?php if($rcp["image"] != "" ) { ?>
+																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																			<?php } else { ?>
+																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																			<?php } ?>
+																			</a>
+																		</div>
+																		<div class="hover-overlay" align="center">
+																			<span class="col-name">
+																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"><h6> 
+																				<?php echo $rcp["name"]; ?></h6></a> 
+																			</span>
+																			<div class="collection-action hidden">
+																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
+																			</div>
 																		</div>
 																	</div>
 																</div>
-															</div>
-														<?php }} ?>
-														<!--<div class="home_collections_wrapper">												
-															<div id="home_collections">
+															<?php }} ?>
 															
-																
-																
-															</div>													
-														</div>-->
+														</div>
 													</div>
-												</div>
 													<script>
 													  $(document).ready(function() {
 														$('.collection-details').hover(
@@ -302,12 +237,17 @@
 														  });
 													  });
 													</script>
+												</div>
 											</div>
+										<?php } else { ?>
 
-
-										</div>
-
-
+											<h6 class="sb-title"><i class="fa fa-home"></i>
+											INICIA SESIÓN PARA VER EL CATÁLOGO
+											</h6>
+											<a href="login.php">
+												<button type="submit" class="btn">Iniciar sesión</button>
+											</a>
+										<?php } ?>
 									</div>  									
 								</div>
 							</div>
