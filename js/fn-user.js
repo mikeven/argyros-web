@@ -4,7 +4,7 @@
  */
 /* ----------------------------------------------------------------------------------- */
 function registrarUsuario(){
-	//Envía al servidor la petición de inicio de sesión
+	//Envía al servidor la petición de registro de un nuevo usuario
 	var form = $("#frm_registro");
 	var form_usr = form.serialize();
 	
@@ -56,6 +56,28 @@ function iniciarSesion( form, mode ){
     });
 }
 
+/* ----------------------------------------------------------------------------------- */
+
+function enviarDatosContacto( datos ){
+    //Envía al servidor los datos del formulario de contacto
+    var form_co = $(datos).serialize();
+    
+    $.ajax({
+        type:"POST",
+        url:"database/data-user.php",
+        data:{ form_ctc: form_co },
+        success: function( response ){
+            console.log(response);
+            res = jQuery.parseJSON( response );
+            scroll_To();
+            mensajeAlerta( "#alert-msgs", res.mje );
+            if( res.exito != 1 ){
+                activarBoton( "#btn_contacto", true );  
+            }
+        }
+    });
+}
+
 // ================================================================================== //
 jQuery.fn.exists = function(){ return ($(this).length > 0); }
 // ================================================================================== //
@@ -67,6 +89,7 @@ $( document ).ready(function() {
     $("#btn_login_dd").on( "click", function(){
         iniciarSesion( $("#frm_login_bar"), "min" );
     });
+
     /* ......................................................................*/
     if ( $('#frm_registro').exists() ) {
         
@@ -165,7 +188,53 @@ $( document ).ready(function() {
         });
     }
     /* ......................................................................*/
-    
+    if ( $('#frm_contacto').exists() ) {
+        
+        $('#frm_contacto').bootstrapValidator({
+            
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                nombre: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar su nombre'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar un email'
+                        },
+                        emailAddress: {
+                            message: 'Debe indicar un email válido'
+                        }
+                    }
+                },
+                mensaje: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe escribir mensaje'
+                        }
+                    }
+                }
+            }
+        });
+
+        $('#frm_contacto').bootstrapValidator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+            
+            } else {
+                enviarDatosContacto( $(this) );
+                return false;
+            }
+        });
+    }
+    /* ......................................................................*/
     /*
     $('#frm_login_bar').bootstrapValidator({
         

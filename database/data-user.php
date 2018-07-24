@@ -447,6 +447,27 @@
 		
 		echo json_encode( $res );	
 	}
+	
+	/* ----------------------------------------------------------------------------------- */
+	
+	//Enviar datos de formulario de contacto
+	if( isset( $_POST["form_ctc"] ) ){
 
+		include( "bd.php" );
+		include( "data-system.php" );
+		include( "../fn/fn-mailing.php" );
+		
+		parse_str( $_POST["form_ctc"], $data );
+		$demail = obtenerEmailNotificacionContacto( $dbh );
+		$res = enviarMensajeEmail( "datos_contacto", $data, $demail["contact_email"] );
+
+		if( $res["exito"] == 1 ){
+			$res["mje"] = "Mensaje enviado con éxito";
+		}
+		else
+			$res["mje"] = "Error al enviar mensaje";
+		
+		echo json_encode( $res );	
+	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

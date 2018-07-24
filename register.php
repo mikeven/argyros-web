@@ -76,7 +76,7 @@
 <?php
 	$paises = obtenerListaPaises( $dbh );
 ?>
-<body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">
+<body itemscope="" itemtype="" class="templateCustomersRegister notouch">
   
 	<!-- Header -->
 	<?php include( "sections/header.php" ); ?>

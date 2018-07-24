@@ -152,6 +152,9 @@
 	.categ_catalog{
 		max-width: 100% !important;
 	}
+	#blocked-sesion-catalog{
+		font-size: 32px;
+	}
 </style>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCollection notouch">
@@ -241,7 +244,8 @@
 											</div>
 										<?php } else { ?>
 
-											<h6 class="sb-title"><i class="fa fa-home"></i>
+											<h6 id="blocked-sesion-catalog" 
+											class="sb-title"><i class="fa fa-home"></i>
 											INICIA SESIÓN PARA VER EL CATÁLOGO
 											</h6>
 											<a href="login.php">

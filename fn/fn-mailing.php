@@ -26,6 +26,7 @@
 		$mail->Password = "sendargyros";
 		$mail->SetFrom('envios@argyros.com.pa', 'Argyros');
 		$mail->Subject = $asunto;
+		$mail->CharSet = 'UTF-8';
 		$mail->MsgHTML( $mensaje );
 		$mail->AddAddress( $to );
 
@@ -36,6 +37,7 @@
 		//Devuelve la plantilla html de acuerdo al mensaje a ser enviado
 		$archivos = array(
 			"usuario_nuevo" 					=> "register.html",
+			"datos_contacto" 					=> "contact_msg.html",
 			"recuperar_password" 				=> "password_recovery.html",
 			"nuevo_pedido_usuario"				=> "new_order_user.html",
 			"nuevo_pedido_administrador" 		=> "new_order_admin.html",
@@ -53,6 +55,16 @@
 		$url_activacion = $server."/verified_account.php?token_account=".$datos["token"];
 		$plantilla = str_replace( "{url_activation}", $url_activacion, $plantilla );
 		$plantilla = str_replace( "{user}", $datos["name"], $plantilla );
+		
+		return $plantilla;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function mensajeFormularioContacto( $plantilla, $datos ){
+		//Llenado de mensaje para plantilla de nuevo usuario
+		
+		$plantilla = str_replace( "{nombre}", $datos["nombre"], $plantilla );
+		$plantilla = str_replace( "{email}", $datos["email"], $plantilla );
+		$plantilla = str_replace( "{mensaje}", $datos["mensaje"], $plantilla );
 		
 		return $plantilla;
 	}
@@ -109,6 +121,12 @@
 			$sobre["asunto"] = "Activación cuenta";
 			$sobre["mensaje"] = mensajeNuevoUsuario( $plantilla, $datos );
 		}
+
+		if( $tmensaje == "datos_contacto" ){
+			$sobre["asunto"] = "Mensaje desde página web";
+			$sobre["mensaje"] = mensajeFormularioContacto( $plantilla, $datos );
+		}
+
 		if( $tmensaje == "recuperar_password" ){
 			$sobre["asunto"] = "Restablecimiento de contraseña";
 			$sobre["mensaje"] = mensajeRecuperarPassword( $plantilla, $datos );

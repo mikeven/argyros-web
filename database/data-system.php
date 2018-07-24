@@ -23,4 +23,11 @@
 		return $nlista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerEmailNotificacionContacto( $dbh ){
+		//Devuelve el correo electrónico de notificaciones de recepción de datos del formulario de contacto
+		$q = "select contact_email from admin_configs where id = 1";
+		$data = mysqli_query( $dbh, $q );
+		return mysqli_fetch_array( $data );
+	}
+	/* ----------------------------------------------------------------------------------- */
 ?>
