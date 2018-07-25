@@ -155,9 +155,10 @@ function registrarCambiosPedido(){
             $( "#i_rmped" ).html("<img src='assets/images/ajax-loader.gif' width='16' height='16'>");
         },
         success: function( response ){
-            $("#i_rmped").html("");
             console.log( response );
-            location.reload();
+            $("#i_rmped").html("");
+            
+            //location.reload();
         }
     });
 }

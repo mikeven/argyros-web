@@ -176,6 +176,7 @@
 					$idtalla = $det["idtalla"];
 					actualizarDisponibilidadTallaProducto( $dbh, 
 						$det["product_detail_id"], $det["idtalla"], 0 );
+					actualizarDisponibilidadProductoPorAjuste( $dbh, $det["product_id"] );
 				}
 			}
 		}

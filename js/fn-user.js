@@ -101,10 +101,17 @@ $( document ).ready(function() {
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                name: {
+                nombre: {
                     validators: {
                         notEmpty: {
                             message: 'Debe indicar su nombre'
+                        }
+                    }
+                },
+                apellido: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe indicar su apellido'
                         }
                     }
                 },

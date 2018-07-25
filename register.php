@@ -111,9 +111,17 @@
 									<input name="utf8" value="✓" type="hidden">
 									<ul id="register-form" class="row list-unstyled">
 										<div class="form-group">
-											<li id="Name">
+											<li id="Nombre">
 											<label class="control-label" for="first_name">Nombre <span class="req">*</span></label>
-											<input name="name" id="first_name" class="form-control" type="text" required>
+											<input name="nombre" id="first_name" class="form-control" type="text" required>
+											</li>	
+										</div>								
+										<li class="clearfix"></li>
+
+										<div class="form-group">
+											<li id="Apellido">
+											<label class="control-label" for="first_name">Apellido <span class="req">*</span></label>
+											<input name="apellido" id="last_name" class="form-control" type="text" required>
 											</li>	
 										</div>								
 										<li class="clearfix"></li>
