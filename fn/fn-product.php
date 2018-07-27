@@ -58,7 +58,7 @@
 		return $bloque;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	if( isset( $_GET["id"] ) ){
+	if( isset( $_GET["id"] ) && isset( $_SESSION["login"] ) ){
 
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true;

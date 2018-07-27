@@ -362,40 +362,48 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 
-	if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
+	if( isset( $_SESSION["login"] ) ) {
+
 		
-	}
+
+		if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
+			
+		}
+		
+		if( isset( $_GET["c"] ) ){
+			$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
+			$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
+		}
+
+		if( isset( $_POST["urltipo_precio"] ) ){
+			//Llamada asíncrona para generar URL para filtrar por precio (pieza, gramo, peso producto )
+			include( "fn-catalog.php" );
+			$catalogue_url = $_POST["url_c"];
+			$urlparsed = parse_url( $catalogue_url );
+			
+			parse_str( $urlparsed["query"], $url_params );
+
+			if( $_POST["urltipo_precio"] == "pieza" ){
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, $_POST["p_min"], $_POST["p_max"] );
+				echo $url;
+			}
+			if( $_POST["urltipo_precio"] == "peso" ){
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, $_POST["p_min"], $_POST["p_max"] );
+				echo $url;
+			}
+			if( $_POST["urltipo_precio"] == "peso_producto" ){
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO_PROD, $_POST["peso_min"], $_POST["peso_max"] );
+				echo $url;
+			}
+		}
+		else{
+			//Flujo natural, sin la llamada asíncrona
+			$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
+			$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );	
+		}
+
 	
-	if( isset( $_GET["c"] ) ){
-		$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
-		$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
-	}
 
-	if( isset( $_POST["urltipo_precio"] ) ){
-		//Llamada asíncrona para generar URL para filtrar por precio (pieza, gramo, peso producto )
-		include( "fn-catalog.php" );
-		$catalogue_url = $_POST["url_c"];
-		$urlparsed = parse_url( $catalogue_url );
-		
-		parse_str( $urlparsed["query"], $url_params );
-
-		if( $_POST["urltipo_precio"] == "pieza" ){
-			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, $_POST["p_min"], $_POST["p_max"] );
-			echo $url;
-		}
-		if( $_POST["urltipo_precio"] == "peso" ){
-			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, $_POST["p_min"], $_POST["p_max"] );
-			echo $url;
-		}
-		if( $_POST["urltipo_precio"] == "peso_producto" ){
-			$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO_PROD, $_POST["peso_min"], $_POST["peso_max"] );
-			echo $url;
-		}
-	}
-	else{
-		//Flujo natural, sin la llamada asíncrona
-		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
-		$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );	
 	}
 
 	/* ----------------------------------------------------------------------------------- */

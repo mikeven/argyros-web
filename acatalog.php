@@ -266,7 +266,10 @@
 					<div itemprop="breadcrumb" class="container">
 						<div class="row">
 							<div id="argy-breadcrumb" class="col-md-12">
-								<?php include( "sections/breadcrumb.php" ); ?>
+								<?php 
+									if( isset( $_SESSION["login"] ) ) 
+										include( "sections/breadcrumb.php" ); 
+								?>
 							</div>
 							<div id="title-categories">
 								<h1 id="page-title" class="text-right"><?php //echo $etiq_categs; ?></h1>
@@ -277,6 +280,7 @@
                 
 				<section class="content">
 					<div class="container">
+						<?php if( isset( $_SESSION["login"] ) ) { ?>
 						<div class="row"> 
 							<div id="collection-contents" class="seccion_filtros_catalogo">
 									
@@ -453,6 +457,18 @@
 								</div>
 							</div>
 						</div>
+						<?php } else { ?>
+				    		<div style="margin:20px 0 100px 0;">
+								<h6 id="blocked-sesion-catalog" 
+								class="sb-title"><i class="fa fa-home"></i>
+								INICIA SESIÓN PARA VER EL CATÁLOGO
+								</h6>
+							
+								<a href="login.php">
+									<button type="submit" class="btn">Iniciar sesión</button>
+								</a>
+							</div>
+						<?php } ?>
 					</div>
 				</section>        
       	</div>
