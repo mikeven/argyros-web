@@ -94,6 +94,8 @@ $( document ).ready(function() {
 		$("#" + trg).html( $(this).attr("data-peso") );
 		$("#stalla").val( $(this).attr("data-value") );
 		$("#vidseltalla").val( $(this).attr("data-idt") );
+		if( $(this).attr("data-und") != "" )
+			$("#undtalla").html( "(" + $(this).attr("data-und") + ")" );	//Mostrar unidad de medición
 		asignarPrecioFichaProducto( "talla", $(this) );
     });
 	

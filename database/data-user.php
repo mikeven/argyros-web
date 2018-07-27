@@ -313,6 +313,11 @@
 				"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
 				"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";			
 			}
+			if( $data_user["blocked"] == 1 ){
+				$res["exito"] = -2;
+				$res["mje"] = "<p>Cuenta deshabilitada para iniciar sesión.".
+				"<br>Póngase en contacto con el administrador de la página</p>";
+			}
 		}else{
 			$res["exito"] = 0;
 			$res["mje"] = "Usuario o contraseña incorrecta, chequee sus credenciales";
