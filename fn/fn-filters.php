@@ -303,35 +303,40 @@
 		//Filtro de productos comparando con el atributo 'Línea' de del producto
 		if( isset( $_GET[P_FLT_LINEA] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
-			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $valores_filtros );
+			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, 
+			$valores_filtros );
 			//fn-catalog.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Trabajo' de del producto
 		if( isset( $_GET[P_FLT_TRABAJO] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
-			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $valores_filtros );
+			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, 
+			$valores_filtros );
 			//fn-catalog.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
 		if( isset( $_GET[P_FLT_BANO] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
-			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $valores_filtros );
+			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, 
+			$valores_filtros );
 			//fn-catalog.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Color' de detalle de producto
 		if( isset( $_GET[P_FLT_COLOR] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
-			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $valores_filtros );
+			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, 
+			$valores_filtros );
 			//fn-catalog.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
 		if( isset( $_GET[P_FLT_TALLA] ) ){
 			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
-			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, P_FLT_TALLA, $valores_filtros );
+			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, 
+			P_FLT_TALLA, $valores_filtros );
 			//fn-catalog.php
 		}
 
@@ -364,8 +369,6 @@
 
 	if( isset( $_SESSION["login"] ) ) {
 
-		
-
 		if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
 			
 		}
@@ -384,15 +387,18 @@
 			parse_str( $urlparsed["query"], $url_params );
 
 			if( $_POST["urltipo_precio"] == "pieza" ){
-				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, $_POST["p_min"], $_POST["p_max"] );
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PIEZA, 
+										$_POST["p_min"], $_POST["p_max"] );
 				echo $url;
 			}
 			if( $_POST["urltipo_precio"] == "peso" ){
-				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, $_POST["p_min"], $_POST["p_max"] );
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO, 
+										$_POST["p_min"], $_POST["p_max"] );
 				echo $url;
 			}
 			if( $_POST["urltipo_precio"] == "peso_producto" ){
-				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO_PROD, $_POST["peso_min"], $_POST["peso_max"] );
+				$url = urlFiltroPrecio( $catalogue_url, $url_params, P_FLT_PESO_PROD, 
+										$_POST["peso_min"], $_POST["peso_max"] );
 				echo $url;
 			}
 		}
@@ -401,8 +407,6 @@
 			$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
 			$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );	
 		}
-
-	
 
 	}
 

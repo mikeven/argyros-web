@@ -243,12 +243,31 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenProducto( $dbh, $id ){
+		//Devuelve las imágenes de un producto dado su id
 		$q = "select i.path as image FROM images i, product_details d 
 		where i.product_detail_id = d.id and d.product_id = $id";
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenProductoCatalogoDetalle( $dbh, $idp, $iddp ){
+		//Devuelve las imágenes de un producto dado su id e id de detalle 
+		$q = "select i.path as image FROM images i, product_details d 
+		where i.product_detail_id = d.id and d.product_id = $idp and d.id = $iddp";
+
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenProductoCatalogo( $dbh, $idp, $iddp ){
+		//Devuelve la primera imagen de un producto
+		if( $iddp != "" ) 
+			return obtenerImagenProductoCatalogoDetalle( $dbh, $idp, $iddp );
+		else
+			return obtenerImagenProducto( $dbh, $idp );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function codigoDisponible( $dbh, $codigo ){
@@ -389,6 +408,17 @@
 		return $disponible;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function tieneTallasDisponiblesDetalleProducto( $dbh, $iddp ){
+		//Devuelve verdadero si hay registros de tallas disponibles en un detalles de un producto
+		$disponible = false;
+
+		$tallas_det = obtenerTodasTallasDetalleProducto( $dbh, $iddp );
+		foreach ( $tallas_det as $t ) {
+			if( $t["visible"] == 1 ) $disponible = true;
+		}
+		return $disponible;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function actualizarDisponibilidadProductoPorAjuste( $dbh, $idp ){
 		//Chequea si todas las tallas de un producto están disponibles, marca como no diponible
 		//si no hay alguna talla disponible.
@@ -419,16 +449,17 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosParametroDirectoProducto( $dbh, $busqueda ){
 		//Devuelve los registros de producto que coinciden con la búsqueda en algunos de sus parámetros:
-		//
+
 		$q = "select p.id from products p, categories ca, subcategories sc, countries co, materials m 
 		where (p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
 		p.material_id = m.id and p.country_id = co.id ) 
 		and ( lower(p.name) like lower('%$busqueda%') or lower(p.description) like lower('%$busqueda%') 
 		or lower(p.code) like lower('%$busqueda%') or lower(m.name) like lower('%$busqueda%') 
 		or lower(ca.name) like lower('%$busqueda%') or lower(sc.name) like lower('%$busqueda%') )";
-		
+
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
+
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -462,6 +493,7 @@
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
+	
 		return $lista;
 	} 
 	/* ----------------------------------------------------------------------------------- */

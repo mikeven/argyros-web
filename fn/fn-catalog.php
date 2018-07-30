@@ -147,6 +147,16 @@
 		return $comparadores;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerUrlProductoCatalogo( $idp, $iddp ){
+		//Devuelve el enlace de los productos del catálogo
+		$p_idet = "";
+		
+		if( $iddp != "" ) $p_idet = "&iddet=$iddp";
+		$enlace = "product.php?id=$idp".$p_idet;
+
+		return $enlace;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerComparadorConFiltroPorAtributo( $atributo ){
 		//Devuelve la lista de atributos a comparar con los filtros de url
 		$comparadores = array( 
@@ -208,7 +218,6 @@
 		}
 		return $filtrados;
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
 	function filtrarProductosPorPrecio( $dbh, $productos, $atributo, $valores_filtros ){
 		//Devuelve la lista de productos si alguno de sus registros en detalle está en rango de precio filtrado 
@@ -257,25 +266,39 @@
 	function obtenerProductosPorBusqueda( $dbh, $busqueda ){
 		//Devuelve una lista de productos que incluyan el texto de búsqueda en algunos de sus parámetros
 		$vproductos = array();
+		$busqueda_detalle = "";
+
+		//Búsqueda en los atributos: nombre, descripción, código, categoría, subcategoría, material
 		$vproductos = array_merge( $vproductos, 
 			obtenerProductosParametroDirectoProducto( $dbh, $busqueda ) );
 
+		//Búsqueda en los atributos: baño
 		$vproductos = array_merge( $vproductos, 
 			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "bano" ) );
 
+		//Búsqueda en los atributos: color
 		$vproductos = array_merge( $vproductos, 
 			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "color" ) );
 
+		//Búsqueda en los atributos: trabajo
 		$vproductos = array_merge( $vproductos, 
 			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "trabajo" ) );
 
+		//Búsqueda en los atributos: línea
 		$vproductos = array_merge( $vproductos, 
 			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "linea" ) );
 		
-		$vproductos = array_merge( $vproductos, 
-			obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" ) );
+		//Búsqueda en la unión: idproducto - id_detalle_producto
+		$prods_por_ids = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" );
+		if( count( $prods_por_ids ) > 0 ){
+			$vproductos = array_merge( $vproductos, $prods_por_ids );
+			$busqueda_detalle = $busqueda;
+		}
 
-		return $vproductos;
+		$productos_por_busqueda["busqueda_detalle"] = $busqueda_detalle;
+		$productos_por_busqueda["productos"] = $vproductos; 
+
+		return $productos_por_busqueda;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	
@@ -303,11 +326,26 @@
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 	/*..........................................................................*/
+	function obtenerIdDetalleCodigoBusqueda( $busqueda ){
+		//Devuelve el id del detalle de producto dado el par idproducto-iddetalleproducto
+		$iddet = "";
+		$ids = explode( "-", $busqueda );
+		if( isset( $ids[1] ) )
+			$iddet = $ids[1];
+		
+		return $iddet;
+	}
+	/*..........................................................................*/
 	if( isset( $_GET[P_TEXTO_BUSQUEDA] ) ){
 		//Búsqueda de productos por texto ingresado por el buscador
 		$busqueda = $_GET[P_TEXTO_BUSQUEDA];
 		$productos_busqueda = obtenerProductosPorBusqueda( $dbh, $busqueda );
-		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda );
+		
+		$param_busqueda = $productos_busqueda["busqueda_detalle"];
+		if( $param_busqueda )
+			$iddetbusqueda = obtenerIdDetalleCodigoBusqueda( $param_busqueda );
+
+		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda["productos"] );
 
 		$h_ncat = "Búsqueda: ".$busqueda;
 	}

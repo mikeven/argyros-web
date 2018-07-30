@@ -78,12 +78,7 @@
 	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
 	<!-- Tooltips -->
-	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
-	
-	<script src="js/fn-ui.js" type="text/javascript"></script>
-	<script src="js/fn-user.js" type="text/javascript"></script>
-	<script src="js/fn-product.js" type="text/javascript"></script>
-	<script src="js/fn-cart.js" type="text/javascript"></script>
+	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>	
 
 	<style type="text/css">
 		#alert-msgs, #alert-msgs-notif{ display: none; }
@@ -393,3 +388,8 @@
 	
 	<?php include("sections/footer.php");?>
 </body>
+
+<script src="js/fn-ui.js" type="text/javascript"></script>
+<script src="js/fn-user.js" type="text/javascript"></script>
+<script src="js/fn-product.js" type="text/javascript"></script>
+<script src="js/fn-cart.js" type="text/javascript"></script>

@@ -16,6 +16,8 @@
     include( "fn/fn-filters.php" );
     
     checkSession( '' );
+    if( !isset( $iddetbusqueda ) ) 
+    	$iddetbusqueda = "";
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -365,14 +367,19 @@
 												<?php 
 													$enum = 0; $bloque = 0;
 													
-													foreach ( $productos as $data_rprod ) {	//$productos: fn-catalog.php
+													foreach ( $productos as $data_rprod ){	
+													//$productos: fn-catalog.php
 														$p = $data_rprod["data"];
 														$img = obtenerImagenProducto( $dbh, $p["id"] );
 														
 														if( productoTieneDetalle( $dbh, $p["id"] ) && 
 															productoTieneImagen( $img ) ){
-														
-															$img = obtenerImagenProducto( $dbh, $p["id"] );
+
+															$img = obtenerImagenProductoCatalogo( 
+																	$dbh, $p["id"], $iddetbusqueda );
+
+															$urlp = obtenerUrlProductoCatalogo( 
+																	$p["id"], $iddetbusqueda );
 
 												?>
 															<?php if( $enum == NPAGINACION ){ 
@@ -389,12 +396,14 @@
 																data-alpha="Nombre del producto">
 																<ul class="row-container list-unstyled clearfix">
 																	<li class="row-left img-catal-contenedor">
-																	<a href="product.php?id=<?php echo $p["id"] ?>" class="container_item">
+																	<a href="<?php echo $urlp; ?>" class="container_item">
 																	
 																	<img src="<?php echo $purl.$img[0]["image"] ?>" 
 																	class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
 																	<span class="sale_banner">
-																	<!--<span class="sale_text">Sale</span>-->
+																		<!--<span class="sale_text">
+																			Sale
+																		</span>-->
 																	</span>
 																	</a>
 																	<div class="hbw">
@@ -403,7 +412,9 @@
 																	</li>
 																	<li class="row-right parent-fly animMix">
 																	<div class="product-content-left">
-																		<a class="title-5" href="product.php?id=<?php echo $p["id"] ?>"><?php echo $p["name"] ?></a>
+																		<a class="title-5" 
+																		href="<?php echo $urlp; ?>">
+																		<?php echo $p["name"] ?></a>
 																		<span class="spr-badge" id="spr_badge_129323821155" data-rating="0.0">
 																			<span class="spr-starrating spr-badge-starrating">
 																				<i class="spr-icon spr-icon-star-empty" style=""></i>
@@ -428,7 +439,7 @@
 																		<form action="#" method="post">
 																			<div class="effect-ajax-cart">
 																				<input name="quantity" value="1" type="hidden">
-																				<button class="select-option" type="button" onclick="window.location.href='product.php?id=<?php echo $p["id"] ?>'">
+																				<button class="select-option" type="button" onclick="window.location.href='<?php echo $urlp; ?>'">
 																				<i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span>
 																				</button>
 																			</div>

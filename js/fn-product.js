@@ -60,6 +60,8 @@ $( document ).ready(function() {
 	    delay: 100,
 	    side: 'right'
 	});*/
+
+	var getidet = getUrlParameter('iddet');
 	
 	//Mouseover: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
 	$(".hnc_selector").on( "mouseover", function(){
@@ -68,7 +70,7 @@ $( document ).ready(function() {
 		$( "#" + trg ).show();
 	});
 
-	//]Click: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
+	//Click: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
 	$(".hnc_selector-mob").on( "click", function(){
 		var trg = $(this).attr("data-trg");
 		colapsarMenu( trg );		
@@ -77,14 +79,21 @@ $( document ).ready(function() {
 
 	//Clic: selección de detalle de producto
 	$(".select_pdetail").on( "click", function(){
+
+		var id_prod_url = $("#idprod").val();
+		var id_dp_url = $(this).attr("data-select-iddet");
+		var new_url = "product.php?id=" + id_prod_url + "&iddet=" + id_dp_url;
+		changeurl( new_url );
+
 		inicializarValoresSelDetalle();
 		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
 		asignarPrecioFichaProducto( "detalle", $(this) );
-		$("#iddetalle").val( $(this).attr("data-select-iddet") );
+		$("#iddetalle").val( id_dp_url );
 		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
 		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
-		tallaInicial( $(this) ); //selecciona la primera talla de detalle de producto
+		tallaInicial( $(this) ); 	//selecciona la primera talla de detalle de producto
+
     });
 
 	//Clic: selección de tallas de un detalle de producto
@@ -99,7 +108,11 @@ $( document ).ready(function() {
 		asignarPrecioFichaProducto( "talla", $(this) );
     });
 	
-    $( ".select_pdetail" ).first().click();	//Selección de primer bloque de detalle
+	if( getidet != null )
+		$( "#DP-" + getidet ).first().click();
+	else
+		$( ".select_pdetail" ).first().click();	//Selección de primer bloque de detalle
+
     $( ".sizeselector" ).first().click();	//Selección de primer bloque tallas de detalle
 
     $(".bcargable").on( "click", function(){
