@@ -157,8 +157,7 @@ function registrarCambiosPedido(){
         success: function( response ){
             console.log( response );
             $("#i_rmped").html("");
-            
-            //location.reload();
+            location.reload();
         }
     });
 }

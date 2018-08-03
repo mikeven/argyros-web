@@ -20,7 +20,10 @@
     if( isset( $_SESSION["cart"] ) )
 		$carrito = $_SESSION["cart"]; 
 
-	$usuario = obtenerUsuarioSesion( $dbh );   
+	if( isset( $_SESSION["user"] ) )
+		$usuario = obtenerUsuarioSesion( $dbh );
+	else
+		header( "Location: catalog.php" );
     
 ?>
 <!doctype html>
