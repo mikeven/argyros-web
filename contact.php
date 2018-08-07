@@ -68,15 +68,16 @@
 	<script src="assets/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js" 
 	type="text/javascript"></script>
 
+	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
-	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 
 	<style>
 		#contact-form{
 			margin: 0 5px;
 		}
+		#alert-msgs{ display: none; }
 	</style>
 	
 </head>
@@ -113,6 +114,7 @@
 						<div class="group-contact clearfix">
 							<div class="container">
 								<div class="row">
+									<?php include( "sections/alert-msg.html" ); ?>
 									<div class="left-block col-md-12">
 										<form id="frm_contacto" accept-charset="UTF-8" method="post" data-toggle="validator">
 											<input type="hidden" value="contact" name="form_type">

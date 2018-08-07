@@ -22,14 +22,17 @@
 	        if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" ){
 	        	$total_n_items += $r["quantity"];
 	        }
+	        $lnk_p = "product.php?id=$r[product_id]&iddet=$r[product_detail_id]";
+	        $cod_dp = "#" . $r["product_id"] . " - " . $r["product_detail_id"];
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
 	      <td>
 	      	<input type="hidden" id="iditem<?php echo $r["id"]; ?>" name="ielims[]" value="0">
-	      	<a href="product.php?id=<?php echo $r["product_id"]; ?>" target="_blank">
+	      	<a href="<?php echo $lnk_p; ?>" target="_blank">
 	      		<?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?>
 	      	</a>
+	      	<div align="left"><span class="detlist-id-det"><?php echo $cod_dp; ?></span></div>
 	      </td>
 	      <td align="center"><?php echo $r["quantity"]; ?></td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>

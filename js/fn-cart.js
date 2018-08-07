@@ -10,7 +10,7 @@
     $("#list_content_cart").html(cart.lpag);            //Impresión en la página del carrito
     
     $(".nitems_cart_drop").html(cart.nitems);           //Cantidad de ítems en el carrito
-    $(".total_price_cart").html( cart.total_price );    //Monto total en carrito
+    $(".total_price_cart").html(cart.total_price);      //Monto total en carrito
     $(".total_cant_cart").html(cart.total_cant);        //Cantidad de unidades total en carrito
  }
 /* ----------------------------------------------------------------------------------- */
@@ -35,7 +35,7 @@ function notificarCarritoActualizado(){
         clearTimeout( timer );
     }
     mensajeAlerta( "#label-msgs", "Carrito de compras actualizado" );
-    timer = setTimeout(function() {
+    timer = setTimeout(function(){
         ocultarElemento( "#label-msgs", 100 );
     }, 10000 );
 }
@@ -96,7 +96,7 @@ function agregarItemCarrito(){
         url:"fn/fn-cart.php",
         data:{ item_cart: cart },
         success: function( response ){
-        	console.log(response);
+        	//console.log(response);
             obtenerCarritoCompra();			
         }
     });

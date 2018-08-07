@@ -302,22 +302,24 @@
 		$data_user = obtenerUsuarioLogin( $dbh, $usuario["email"], $usuario["password"] );
 		
 		if( $data_user ){
-			if( $data_user["verified"] == 1 ){
-				login( $data_user, $dbh );
-				$res["exito"] = 1;
-				$res["mje"] = "Inicio de sesión exitoso";
-			}
-			else{
+			
+			if( $data_user["verified"] != 1 ){
 				$res["exito"] = -1;
 				$res["mje"] = "<p>Su cuenta no ha sido activada aún. Chequee su buzón de correo y siga las instrucciones para activar su cuenta.".
 				"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
-				"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";			
+				"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";
 			}
 			if( $data_user["blocked"] == 1 ){
 				$res["exito"] = -2;
 				$res["mje"] = "<p>Cuenta deshabilitada para iniciar sesión.".
 				"<br>Póngase en contacto con el administrador de la página</p>";
 			}
+			if( ( $data_user["verified"] == 1 ) && ( $data_user["blocked"] != 1 ) ){
+				login( $data_user, $dbh );
+				$res["exito"] = 1;
+				$res["mje"] = "Inicio de sesión exitoso";
+			}
+
 		}else{
 			$res["exito"] = 0;
 			$res["mje"] = "Usuario o contraseña incorrecta, chequee sus credenciales";

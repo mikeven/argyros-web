@@ -71,7 +71,9 @@ function enviarDatosContacto( datos ){
             res = jQuery.parseJSON( response );
             scroll_To();
             mensajeAlerta( "#alert-msgs", res.mje );
+            $("#frm_contacto")[0].reset();
             if( res.exito != 1 ){
+                $("#frm_contacto")[0].reset();
                 activarBoton( "#btn_contacto", true );  
             }
         }
@@ -89,7 +91,13 @@ $( document ).ready(function() {
     $("#btn_login_dd").on( "click", function(){
         iniciarSesion( $("#frm_login_bar"), "min" );
     });
-
+    /* ......................................................................*/
+    //Formulario Registro de usuarios: Autocompletar código de área según país seleccionado
+    $("#usuario-pais").on( "change", function(){
+        var cod_pais = $(this).find(':selected').attr('data-cp');
+        var prefijo = "(+" + cod_pais + ") ";
+        $("#telefono").val( prefijo );
+    });
     /* ......................................................................*/
     if ( $('#frm_registro').exists() ) {
         
@@ -157,6 +165,7 @@ $( document ).ready(function() {
     }
     /* ......................................................................*/
     if ( $('#frm_login').exists() ) {
+        
         $('#frm_login').bootstrapValidator({
             
             feedbackIcons: {

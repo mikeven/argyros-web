@@ -126,6 +126,10 @@
 			padding: 5px 8px !important;
 		}
 
+		.detlist-id-det{
+			font-size: 11px; font-weight: bold; color: #696f24; 
+		}
+
 		@media (max-width: 1024px){
 			thead tr {
 			    position: relative !important;

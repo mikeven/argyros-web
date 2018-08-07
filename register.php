@@ -153,10 +153,11 @@
 										<div class="form-group">
 											<li id="Country" class="">
 											<label class="control-label" for="password">País </label>
-												<select name="pais" class="form-control selectpicker" data-live-search="true">
+												<select id="usuario-pais" name="pais" class="form-control selectpicker" data-live-search="true">
 				                                    <option disabled selected>Seleccione</option>
 				                                    <?php foreach ( $paises as $p ) { ?>
-				                                      <option value="<?php echo $p["id"] ?>">
+				                                      <option value="<?php echo $p["id"] ?>" 
+				                                      	data-cp="<?php echo $p["phone_code"] ?>">
 				                                      	<?php echo $p["name"] ?>
 				                                      </option>
 				                                    <?php } ?>

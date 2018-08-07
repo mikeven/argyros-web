@@ -22,20 +22,25 @@
 	        if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" ){
 	        	$total_n_items += $r["quantity"];
 	        }
+	        $lnk_p = "product.php?id=$r[product_id]&iddet=$r[product_detail_id]";
+	        $cod_dp = "#" . $r["product_id"] . " - " . $r["product_detail_id"];
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
 	      <td>
 	      	<input type="hidden" id="iditem<?php echo $r["id"]; ?>" name="ielims[]" value="0">
-	      	<a href="product.php?id=<?php echo $r["product_id"]; ?>" target="_blank">
+	      	<a href="<?php echo $lnk_p; ?>" target="_blank">
 	      		<?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?>
 	      	</a>
+	      	<div align="left"><span class="detlist-id-det"><?php echo $cod_dp; ?></span></div>
 	      </td>
 	      <td align="center"><?php echo $r["quantity"]; ?></td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
 		      <td align="center">
 		      	<span class="qdisponibles" id="qd<?php echo $r["id"]; ?>" 
 		      	data-xt="x<?php echo $r["id"]; ?>"><?php echo $r["cant_rev"]; ?></span>
+		      	<input class="canttmp" type="hidden" id="canttmp<?php echo $r["id"]; ?>" 
+		      	value="<?php echo $r["cant_rev"]; ?>">
 		      </td>
 	      <?php } ?>
 	      <td>$<?php echo $r["price"]; ?></td>
@@ -55,7 +60,9 @@
 	    <tr id="monto_orden_tabla">
 	    	<td colspan="2">Total </td>
 	    	<td> <span class="total_order_table"></span> </td>
-	    	<td> <span class="total_order_table"> <?php echo $total_n_items; ?> </span></td>
+	    	<td> <span id="total_order_cant" class="total_order_table"> 
+	    		<?php echo $total_n_items; ?> </span>
+	    	</td>
 	    	<td></td>
 	    	<td style="text-align:right;" class="coltotales">
 	    		$ <span class="monto_total_orden total_order_table"> 

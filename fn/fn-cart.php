@@ -65,6 +65,7 @@
 		$base_i = str_replace( "{n_i}", $n, $base_i );							//id elemento contenedor
 		$base_i = str_replace( "{idi}", $item["idicart"], $base_i );			//id item carrito
 		$base_i = str_replace( "{idproducto}", $item["idproducto"], $base_i );
+		$base_i = str_replace( "{iddetalle}", $item["iddetalle"], $base_i );
 		$base_i = str_replace( "{nombre}", $item["nombre_producto"], $base_i );
 		$base_i = str_replace( "{descripcion}", $item["descripcion_producto"], $base_i );
 		$base_i = str_replace( "{img}", $item["img_producto"], $base_i );

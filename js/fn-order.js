@@ -3,15 +3,15 @@
  *
  */
  /* ----------------------------------------------------------------------------------- */
- function actualizarBotonOrden(){
+function actualizarBotonOrden(){
     //Actualiza la apariencia del botón "Hacer pedido" después de haber sido clicado
     $("#btn_order").html("Ver mis órdenes");
     $("#btn_order").attr( "href", "account.php");
     $("#btn_order").attr( "id", "btn_account");
     $("#regresar_carrito").hide();
- }
+}
 /* ----------------------------------------------------------------------------------- */
- function inicializarBotonConfirmacion(){
+function inicializarBotonConfirmacion(){
     //Asigna los valores de la ventana de confirmación para actualizar un pedido
     iniciarVentanaModal( 
         "btn_modificar_pedido",
@@ -20,9 +20,9 @@
         "Confirme los cambios sobre el pedido",
         "Confirmar" 
     );
- }
+}
  /* ----------------------------------------------------------------------------------- */
- function marcadoAutomaticoCantidadesCero(){
+function marcadoAutomaticoCantidadesCero(){
     //Chequea todas los ítems de un pedido revisado y marca en rojo los no disponibles
     $(".qdisponibles").each( function() {
         var cantidad = $(this).text();
@@ -32,22 +32,36 @@
             $(trg).hide();
         }
     });
- }
- /* ----------------------------------------------------------------------------------- */
- function mostrarMontoPrevio( monto ){
+}
+/* ----------------------------------------------------------------------------------- */
+function mostrarMontoPrevio( monto ){
     //Muestra el monto previo después de marcar/desmarcar ítems en la revisión de pedido
     $(".monto_total_orden").html( monto.toFixed(2) );
     $("#monto_orden_cnf").val( monto.toFixed(2) );
- }
- /* ----------------------------------------------------------------------------------- */
- function calcularTotalOrdenPrevio(){
-    //Suma los montos de los ítems no marcados para eliminar
+}
+/* ----------------------------------------------------------------------------------- */
+function mostrarCantidadPrevia( cant ){
+    //Muestra cantidad previa después de marcar/desmarcar ítems en la revisión de pedido
+    $("#total_order_cant").html( cant );
+}
+/* ----------------------------------------------------------------------------------- */
+function calcularTotalOrdenPrevio(){
+    //Suma los montos de los ítems marcados para confirmar
     monto = 0.00;
     $(".sumatmp").each( function() {
         monto = parseFloat( $( this ).val() ) + parseFloat( monto );
     });
     mostrarMontoPrevio( monto );
- }
+}
+/* ----------------------------------------------------------------------------------- */
+function actualizarTotalCantidad(){
+    //Suma las cantidades de los ítems marcados para confirmar
+    cant = 0;
+    $(".canttmp").each( function() {
+        cant = parseInt( $( this ).val() ) + cant;
+    });
+    mostrarCantidadPrevia( cant );
+}
 /* ----------------------------------------------------------------------------------- */
 function cambiarIconoAccionItemPedido( item, icono_class ){
     //
@@ -63,11 +77,17 @@ function marcarItemPedidoRevisado( id, valor, elemento, color, item, icono_class
     cambiarIconoAccionItemPedido( item, icono_class );
 }
 /* ----------------------------------------------------------------------------------- */
+function asignarCantDesmarcado( id, cant ){
+    //Asigna la cantidad del ítem al ser desmarcado
+    cantidadItemMarcado( id, val );
+}
+/* ----------------------------------------------------------------------------------- */
 function asignarMontoDesmarcado( id, monto ){
     //Asigna el monto del ítem al ser desmarcdo
     var cant = $.trim( $("#qd" + id ).html() );
     if( cant == 0 ) monto = 0.00;
-    
+
+    cantidadItemMarcado( id, cant );
     montoItemMarcado( id, monto );   
 }
 /* ----------------------------------------------------------------------------------- */
@@ -78,31 +98,42 @@ function obtenerMarcadoItem( item ){
      
     var valor = 0; color = "#f7f7f7"; icono_class = "fa-check-circle";
     asignarMontoDesmarcado( idi, $("#monto" + idi ).val() );
+    //cantidadItemMarcado( idi, $("#qd" + idi ).val() );
+
     if( $( "#iditem" + idi ).val() == 0 ){
         //marcar para eliminar
         valor = idi; color = "#eb8f8f";
         montoItemMarcado( idi, 0.00 );
+        cantidadItemMarcado( idi, 0 );
         icono_class = "fa-times";
     }
+
     marcarItemPedidoRevisado( idi, valor, elemento, color, item, icono_class );
     calcularTotalOrdenPrevio();
+    actualizarTotalCantidad();
 }
 /* ----------------------------------------------------------------------------------- */
- function mensajeRespuestaOrden( contenido ){
+function mensajeRespuestaOrden( contenido ){
     //Muestra el mensaje de respuesta después de 
     actualizarBotonOrden();
     $("#customer_orders").fadeOut( 500, "easeInOutQuart", function(){
         /* container is now hidden so change the html and fade it back in */
         $(this).html( contenido ).fadeIn({ duration: 300, easing: "easeInOutQuart" });
     });
- }
- /* ----------------------------------------------------------------------------------- */
- function montoItemMarcado( id, val ){
+}
+/* ----------------------------------------------------------------------------------- */
+function montoItemMarcado( id, val ){
     //Asigna el valor del monto temporal de ítem de pedido
     $("#montotmp" + id).val( val );
- }
- /* ----------------------------------------------------------------------------------- */
- function registrarOrden(){
+}
+/* ----------------------------------------------------------------------------------- */
+function cantidadItemMarcado( id, val ){
+    //Asigna el valor de la cantidad temporal de ítem de pedido
+    //alert("#canttmp" + id);
+    $("#canttmp" + id).val( val );
+}
+/* ----------------------------------------------------------------------------------- */
+function registrarOrden(){
     //Invoca el registro de un pedido nuevo
     var loader_gif = "<img src='assets/images/ajax-loader.gif'>";
     $.ajax({
@@ -118,9 +149,9 @@ function obtenerMarcadoItem( item ){
             mensajeRespuestaOrden( response );
         }
     });
- }
+}
 /* ----------------------------------------------------------------------------------- */
- function cambiarEstadoOrden(){
+function cambiarEstadoOrden(){
     //Invoca solicitud para cancelar un pedido
     var idorden = $("#idorden").val();
     var estado = $("#accion_orden").val();
@@ -136,7 +167,7 @@ function obtenerMarcadoItem( item ){
             location.reload();
         }
     });
- }
+}
 /* ----------------------------------------------------------------------------------- */
 function registrarCambiosPedido(){
     //Invoca el registro de los cambios realizados a un pedido

@@ -3,13 +3,13 @@
 		<a href="#!" class="cart-close delitemcart" title="Quitar" 
 		data-item="itemc{n_i}" data-idi="{idi}" onclick="delcartitem(this)"><i class="fa fa-times"></i></a>
 		<div class="col-md-8 cart-left">
-			<a class="cart-image" href="product.php?id={idproducto}">
+			<a class="cart-image" href="product.php?id={idproducto}&iddet={iddetalle}">
 				<img src="{img}" alt="" title="{nombre}" height="50">
 			</a>
 		</div>
 		<div class="col-md-16 cart-right">
 			<div class="cart-title">
-				<a href="product.php?id={idproducto}">{nombre}</a>
+				<a href="product.php?id={idproducto}&iddet={iddetalle}">{nombre}</a>
 			</div>
 			<div class="cart-price">
 				${precio}<span class="x"> x </span>{cantidad} | Talla: {talla}

@@ -18,7 +18,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerListaPaises( $dbh ){
 		//Devuelve la lista de países registrados
-		$q = "Select id, code, name, manufacture from countries order by name ASC";
+		$q = "Select id, code, name, phone_code, manufacture from countries order by name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista_c = obtenerListaRegistros( $data );
