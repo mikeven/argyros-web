@@ -130,7 +130,7 @@
 																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">
 																	<?php echo $cdestacadas[0]["name"]?></a>
 																</span>
-																<div class="collection-action">
+																<div class="collection-action hidden">
 																	<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
@@ -149,7 +149,7 @@
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>"><?php echo $cdestacadas[1]["name"]?></a></span>
-																<div class="collection-action">
+																<div class="collection-action hidden">
 																	<a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
@@ -168,7 +168,7 @@
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>"><?php echo $cdestacadas[2]["name"]?></a></span>
-																<div class="collection-action">
+																<div class="collection-action hidden">
 																	<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
@@ -187,7 +187,7 @@
 															</div>
 															<div class="hover-overlay">
 																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>"><?php echo $cdestacadas[3]["name"]?></a></span>
-																<div class="collection-action">
+																<div class="collection-action hidden">
 																	<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>

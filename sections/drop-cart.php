@@ -1,6 +1,6 @@
 <div id="umbrella" class="list-inline unmargin">
 	<div class="cart-link">
-		<a href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+		<a href="cart.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 			<i class="sub-dropdown1"></i>
 			<i class="sub-dropdown"></i>
 			<div class="num-items-in-cart">

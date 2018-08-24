@@ -167,6 +167,15 @@
 										<li class="clearfix"></li>
 
 										<div class="form-group">
+											<li id="Ciudad-o" class="">
+											<label class="control-label" for="ciudad">Ciudad </label>
+											<input name="ciudad" id="ciudad" class="form-control " 
+											type="text">
+											</li>
+										</div>
+										<li class="clearfix"></li>
+
+										<div class="form-group">
 											<li id="Teléfono" class="">
 											<label class="control-label" for="telefono">Teléfono </label>
 											<input name="telefono" id="telefono" class="form-control " type="text">
@@ -176,14 +185,25 @@
 
 										<div class="form-group">
 											<li id="Country" class="">
-											<label class="control-label" for="tcliente">Tipo cliente </label>
-												<select name="tcliente" class="form-control selectpicker">
+											<label class="control-label" 
+											for="tcliente">Tipo cliente </label>
+												<select id="t-cliente-r" name="tcliente" class="form-control selectpicker">
 				                                    <option disabled selected>Seleccione</option>
 				                                    <option value="Particular">Particular</option>
 				                                    <option value="Tienda">Tienda</option>
-				                                    <option value="Tienda">Joyería</option>
+				                                    <option value="Joyería">Joyería</option>
 				                                    <option value="Distribuidor">Distribuidor</option>
 				                                </select>
+											</li>
+										</div>
+										<li class="clearfix"></li>
+
+										<div id="r-nempresa" class="form-group" style="display: none;">
+											<li id="NEmpresa" class="">
+											<label class="control-label" 
+											for="telefono">Nombre Empresa</label>
+											<input name="nempresa" id="nempresa" 
+											class="form-control" type="text">
 											</li>
 										</div>
 										<li class="clearfix"></li>

@@ -88,7 +88,8 @@
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
 								</li>
-								
+
+								<?php if( isset( $_SESSION["user"] ) ) { ?>
 								<li id="<?php echo $idcatalogo; ?>" class="dropdown mega-menu">
 									<a href="catalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Catálogo</span>
@@ -96,12 +97,21 @@
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
 										<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
 									</a>
-									<?php if( isset( $_SESSION["user"] ) ) { ?>
-										<div id="navegacion-catalogo-mob">
-											<?php include( "nav-catalog-mobile.php" ); ?>
-										</div>
-									<?php } ?>
+									
+									<div id="navegacion-catalogo-mob">
+										<?php include( "nav-catalog-mobile.php" ); ?>
+									</div>
+									
 								</li>
+								<?php } else { ?>
+
+								<li id="catalog">
+									<a href="catalog.php" class="dropdown-toggle dropdown-link"> 
+										<span>Catálogo</span> 
+									</a>
+								</li>
+
+								<?php } ?>
 								
 								<li class="nav-item">
 									<a href="contact.php">

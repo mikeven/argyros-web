@@ -3,29 +3,6 @@
  *
  */
 /* ----------------------------------------------------------------------------------- */
-function registrarUsuario(){
-	//Envía al servidor la invocación a registrar nuevo usuario
-	var form = $("#frm_registro");
-	var form_usr = form.serialize();
-	
-	$.ajax({
-        type:"POST",
-        url:"database/data-user.php",
-        data:{ form_nu: form_usr },
-        success: function( response ){
-        	console.log(response);
-            res = jQuery.parseJSON( response );
-            scroll_To();
-            mensajeAlerta( "#alert-msgs", res.mje );
-            if( res.exito != 1 ){
-                activarBoton( "#btn_register", false );  
-            }
-        }
-    });
-}
-
-/* ----------------------------------------------------------------------------------- */
-
 function actualizarDatosPersonales( form ){
     //Envía al servidor la petición para actualizar datos personales de cuenta de usuario
     var form = $(form);

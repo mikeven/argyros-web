@@ -212,7 +212,8 @@
 		</div>
 	</div>
 	<!-- Validator -->
-	<script src="assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js" type="text/javascript"></script>
+	<script src="assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js" 
+	type="text/javascript"></script>
 	<!-- Footer -->
 	<?php include("sections/footer.php"); ?>
 </body>

@@ -7,11 +7,13 @@ function registrarUsuario(){
 	//Envía al servidor la petición de registro de un nuevo usuario
 	var form = $("#frm_registro");
 	var form_usr = form.serialize();
+    var loader_gif = "<img src='assets/images/ajax-loader.gif'>";
 	
 	$.ajax({
         type:"POST",
         url:"database/data-user.php",
         data:{ form_nu: form_usr },
+
         success: function( response ){
         	console.log(response);
             res = jQuery.parseJSON( response );
@@ -39,9 +41,9 @@ function iniciarSesion( form, mode ){
             if( res.exito == 1 ){
                 if( mode == "full" ){
                     //Redirigir a pantalla de cuenta de usuario
-                    window.location.href = "account.php"; 
+                    window.location.href = "catalog.php"; 
                 }else{
-                    location.reload();
+                    window.location.href = "catalog.php";
                 }
             }else{
                 if( mode == "full" ){
@@ -97,6 +99,15 @@ $( document ).ready(function() {
         var cod_pais = $(this).find(':selected').attr('data-cp');
         var prefijo = "(+" + cod_pais + ") ";
         $("#telefono").val( prefijo );
+    });
+
+    //Formulario Registro de usuarios: Mostrar campo nombre empresa si tipo de cliente es empresa
+    $("#t-cliente-r").on( "change", function(){
+        if( $(this).val() != "Particular" ){
+            $("#r-nempresa").fadeIn(120);
+        }else{
+            $("#r-nempresa").fadeOut(120);
+        }
     });
     /* ......................................................................*/
     if ( $('#frm_registro').exists() ) {

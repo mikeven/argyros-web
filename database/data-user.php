@@ -118,9 +118,10 @@
 		//Registro de nuevo usuario (cliente)
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
 		$q = "insert into clients ( first_name, last_name, email, phone, password, country_id, 
-		company_type, token, client_group_id ) 
+		city, company_type, company_name, token, client_group_id ) 
 		values ( '$usuario[nombre]', '$usuario[apellido]', '$usuario[email]', '$usuario[telefono]', 
-		'$usuario[passw1]', '$usuario[pais]', '$usuario[tcliente]', '$usuario[token]', 1 )";
+		'$usuario[passw1]', '$usuario[pais]', '$usuario[ciudad]', '$usuario[tcliente]', 
+		'$usuario[nempresa]', '$usuario[token]', 1 )";
 		
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	

@@ -41,19 +41,28 @@
 		<div class="footer-link-list col-lg-6 col-md-6 col-xs-24">
 		  <div class="group">
 			<h5 class="general-title">Cuenta</h5>						
-			<ul class="list-unstyled list-styled">						  
-			  <li class="list-unstyled">
-				<a href="login.php">Ingresar</a>
-			  </li>						  
-			  <li class="list-unstyled">
-				<a href="register.php">Crear cuenta</a>
-			  </li>
-			  <li class="list-unstyled">
-				<a href="account.php">Mis pedidos</a>
-			  </li>
-			  <li class="list-unstyled">
-				<a href="catalog.php">Catálogo</a>
-			  </li>						  
+			<ul class="list-unstyled list-styled">
+				
+				<?php if( isset( $_SESSION["login"] ) ) { ?>
+
+					<li class="list-unstyled">
+						<a href="account.php">Mis pedidos</a>
+					</li>
+					<li class="list-unstyled">
+						<a href="catalog.php">Catálogo</a>
+					</li>
+
+				<?php } else { ?>
+
+					<li class="list-unstyled">
+						<a href="login.php">Ingresar</a>
+					</li>						  
+					<li class="list-unstyled">
+						<a href="register.php">Crear cuenta</a>
+					</li>
+					
+				<?php } ?>
+
 			</ul>
 		  </div>
 		</div>
