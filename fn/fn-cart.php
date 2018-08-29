@@ -34,6 +34,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTotalItem( $item ){
 		//Devuelve el monto de un ítem de carrito de compra
+		
 		return $item["quantity"] * $item["unit_price"];
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -71,8 +72,8 @@
 		$base_i = str_replace( "{img}", $item["img_producto"], $base_i );
 		$base_i = str_replace( "{cantidad}", $item["quantity"], $base_i );
 		$base_i = str_replace( "{talla}", $item["seltalla"], $base_i );
-		$base_i = str_replace( "{precio}", $item["unit_price"], $base_i );
-		$base_i = str_replace( "{stotal}", $item["subtotal"], $base_i );
+		$base_i = str_replace( "{precio}", number_format( $item["unit_price"], 2, ".", "," ), $base_i );
+		$base_i = str_replace( "{stotal}", number_format( $item["subtotal"], 2, ".", "," ), $base_i );
 		
 		return $base_i;
 	}

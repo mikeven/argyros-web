@@ -90,7 +90,7 @@
 				<div class="camera_wrap" id="home-slider">
 					<div data-src="assets/images/sld-banner-1.png">
 						<div class="camera_caption camera_title_1 fadeIn" style="left:-240px;">
-						  <a href="collection.html" style="color:#010101;">Distribuidor de Platería</a>
+						  <a href="catalog.php" style="color:#010101;">Distribuidor de Platería</a>
 						</div>
 						<div class="camera_caption camera_caption_1 fadeIn" style="color: rgb(1, 1, 1); left:-240px;">
 							Consulta nuestros productos
@@ -404,7 +404,7 @@
 										</p>
 									</div>
 									<div class="home-banner-action">
-										<a href="#!">Consulta nuestros productos</a>
+										<a href="catalog.php">Consulta nuestros productos</a>
 									</div>
 								</div>
 							</div>
@@ -438,12 +438,12 @@
 		<div id="popup-hide">
 			<input type="checkbox" id="mc-popup-hide" value="1" checked="checked"><label for="mc-popup-hide">Never show this message again</label>
 		</div>-->
-		<!--
-		<video width="99%" height="auto" autoplay controls>
+		
+		<video id="vpopargyros" width="99%" height="auto" autoplay controls>
 		  <source src="assets/videos/argyros.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 		</video>
-		-->
+		
 	</div>
 	
 	<script src="assets/javascripts/cs.global.js" type="text/javascript"></script>

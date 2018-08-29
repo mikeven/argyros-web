@@ -13,7 +13,8 @@
  }
  /* ----------------------------------------------------------------------------------- */
  function asignarPrecioFichaProducto( orig, sel ){
- 	//
+ 	//Muestra el precio del producto según el elemento seleccionado: talla o detalle
+ 	//alert( sel.attr("data-precio-v") );
  	if( orig == "detalle" ){
 	 	if( sel.attr("data-tprecio") == "p" )
 	 		$("#vprice_visible").html("$ " + sel.attr("data-precio") );
@@ -24,7 +25,7 @@
 		if( sel.attr("data-tprecio") != "p" )
 	 		$("#vprice_visible").html("$ " + sel.attr("data-precio") );
  	}
- 	$("#vprice_cart").val( sel.attr("data-precio") );
+ 	$("#vprice_cart").val( sel.attr("data-precio-v") );
  }
  /* ----------------------------------------------------------------------------------- */
  function tallaInicial( selector ){
@@ -108,12 +109,14 @@ $( document ).ready(function() {
 		asignarPrecioFichaProducto( "talla", $(this) );
     });
 	
-	if( getidet != null )
-		$( "#DP-" + getidet ).first().click();
+	if( getidet != null ){
+		$( "#DP-" + getidet ).click();
+	}
 	else
 		$( ".select_pdetail" ).first().click();	//Selección de primer bloque de detalle
 
-    $( ".sizeselector" ).first().click();	//Selección de primer bloque tallas de detalle
+	//$( ".select_pdetail" ).first().click();
+    //$( ".sizeselector" ).first().click();		//Selección de primer bloque tallas de detalle
 
     $(".bcargable").on( "click", function(){
     	//Muestra el próximo bloque de productos del catálogo

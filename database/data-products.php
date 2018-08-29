@@ -77,27 +77,27 @@
 		//Devuelve el valor del precio del gramo de acuerdo al perfil de cliemte
 		$precio = $precio_gramo * $var["variable_b"];
 		
-		return number_format( $precio, 2, ".", " " );	
+		return number_format( $precio, 2, ".", "" );	
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorPeso( $var, $peso, $precio_gramo ){
 		//Devuelve el precio del producto por peso
 		$precio = $peso * $precio_gramo;
-		return number_format( $precio, 2, ".", " " );
+		return number_format( $precio, 2, ".", "" );
 	}
 
 	function obtenerPrecioPorPieza( $var, $precio_pieza ){
 		//Devuelve el precio del producto por pieza
 		$precio = $precio_pieza * ( $var["variable_a"] );
 
-		return number_format( $precio, 2, ".", " " );
+		return number_format( $precio, 2, ".", "" );
 	}
 
 	function obtenerPrecioPorManoObra( $var, $peso, $precio_mo ){
 		//Devuelve el precio del producto por mano de obra
 		$precio = ( $precio_mo * ( $var["variable_c"] ) + $var["material"] ) * $peso * ( $var["variable_d"] );
 		
-		return number_format( $precio, 2, ".", " " );
+		return number_format( $precio, 2, ".", "" );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPreciosPorPesoTalla( $dbh, $var, $rdetalle ){

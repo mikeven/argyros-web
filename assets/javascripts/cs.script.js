@@ -832,9 +832,13 @@ $(window).load(function() {
 });
 
 jQuery(document).ready(function($) {
+
 	 
   /* Cokkies Popup */
   if ($.cookie('mycookie')) {
+    if( document.getElementById('vpopargyros') ){
+      document.getElementById("vpopargyros").pause();
+    }
     // it hasn't been one days yet
   } else {
     /*$.fancybox(
@@ -860,6 +864,12 @@ jQuery(document).ready(function($) {
         'autoSize'          : false,
         'transitionIn'      : 'none',
         'transitionOut'     : 'none',
+        beforeClose: function(){
+          $("#vpopargyros")[0].stop;
+          if( document.getElementById('vpopargyros') ){
+            document.getElementById("vpopargyros").pause();
+          }
+        },
         afterLoad: function(){
           setTimeout( function() {$.fancybox.close(); },500000);
         }

@@ -1430,3 +1430,7 @@ ul#price-table{display:block;width:100%;height:auto;margin-top:40px;}
 #social-footer .fa{
 	font-size: 18px !important;
 }
+
+.delitemcart:hover{
+	cursor: pointer;
+}

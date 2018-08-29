@@ -288,13 +288,13 @@
 																		</div>																	
 																	</div>-->
 
-																	<div id="purchase-1293235843" class="row">
-																		<div class="detail-price col-sm-12" itemprop="price">
-																			<span id="vprice_visible" class="price"><?php echo $pre_pp; ?> </span>
-																			<input id="hprice_type" type="hidden" value="<?php echo $pre_pp; ?>">
-																			<input id="hprice_val" type="hidden" value="<?php echo $pre_pp; ?>">
-																		</div>
-																	</div>
+				<div id="purchase-1293235843" class="row">
+					<div class="detail-price col-sm-12" itemprop="price">
+						<span id="vprice_visible" class="price"><?php echo $pre_pp; ?> </span>
+						<input id="hprice_type" type="hidden" value="<?php echo $pre_pp; ?>">
+						<input id="hprice_val" type="hidden" value="<?php echo $pre_pp; ?>">
+					</div>
+				</div>
 
 																	<?php
 
