@@ -209,7 +209,10 @@
 										<li class="clearfix"></li>
 
 										<li class="unpadding-top action-last">
-											<button id="btn_register" class="btn" type="submit">Enviar</button>
+											<button id="btn_register" class="btn" style="float: left;" 
+											type="submit">Enviar</button>
+											<div id="reg-resp" style="float: left;"></div>
+											<div style="clear: both;"></div>
 										</li>
 
 									</ul>

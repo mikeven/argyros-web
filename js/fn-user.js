@@ -13,8 +13,11 @@ function registrarUsuario(){
         type:"POST",
         url:"database/data-user.php",
         data:{ form_nu: form_usr },
-
+        beforeSend: function(){
+            $("#reg-resp").html( loader_gif );
+        },
         success: function( response ){
+            $("#reg-resp").html( "" );
         	console.log(response);
             res = jQuery.parseJSON( response );
             scroll_To();
