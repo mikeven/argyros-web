@@ -117,11 +117,12 @@
 	function registrarUsuario( $dbh, $usuario ){
 		//Registro de nuevo usuario (cliente)
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
+
 		$q = "insert into clients ( first_name, last_name, email, phone, password, country_id, 
-		city, company_type, company_name, token, client_group_id ) 
+		city, company, company_type, company_name, token, client_group_id ) 
 		values ( '$usuario[nombre]', '$usuario[apellido]', '$usuario[email]', '$usuario[telefono]', 
-		'$usuario[passw1]', '$usuario[pais]', '$usuario[ciudad]', '$usuario[tcliente]', 
-		'$usuario[nempresa]', '$usuario[token]', 1 )";
+		'$usuario[passw1]', '$usuario[pais]', '$usuario[ciudad]', $usuario[es_empresa], 
+		'$usuario[tcliente]', '$usuario[nempresa]', '$usuario[token]', 1 )";
 		
 		$Rs = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );	
@@ -349,6 +350,9 @@
 			$res["exito"] = -1;
 			$res["mje"] = "Dirección de email ya registrada, intente usar una dirección de correo diferente";
 		}else{
+			$usuario["es_empresa"] = NULL;
+			if ( $usuario["tcliente"] != "Particular" )
+				$usuario["es_empresa"] = 1;
 			$usuario["token"] = obtenerTokenUsuarioNuevo( $usuario );
 			$idu = registrarUsuario( $dbh, $usuario );
 			//$idr = registrarRolUsuario( $dbh, $idu, 4, "cliente" );

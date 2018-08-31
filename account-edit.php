@@ -75,7 +75,7 @@
 
 		#panel_edicion_cuenta .list-styled a:hover { color: #a7b239; }
 		#panel_edicion_cuenta .list-styled a:focus { color: #a7b239; }
-		.data_panel_tab, #frm_nombre_empresa{ display: none; }
+		.data_panel_tab, .loculto{ display: none; }
 		.frm_container{ margin-left: 5%; width: 80%; padding:0 0 50px 0; }
 		#cta_es_empresa:hover{ cursor: pointer; }
 		#alert-msgs{ display: none; }
@@ -170,12 +170,23 @@
 											  <input type="text" id="cta_telf" class="form-control" 
 											  name="phone" value="<?php echo $dusuario["phone"]; ?>">
 											</li>
+											<?php
+												$ch_tc = ""; $css_tc = "loculto";
+    											if( $dusuario["company"] == 1 ) {
+    												$ch_tc = "checked";
+    												$css_tc = "";
+    											}
+											?>
+											
 											<li class="clearfix"></li>
 											<li id="cta_es_empresa" class="col-md-12 set_default">
-											  <input type="checkbox" name="cuenta[es_empresa]" value="1"> Compañía
+											  <input id="ch-esempresa" type="checkbox" 
+											  name="cuenta[es_empresa]" 
+											  value="1" <?php echo $ch_tc;?>> Compañía
 											</li>
 											<li class="clearfix"></li>
-											<li id="frm_nombre_empresa" class="col-md-12">
+											<li id="frm_nombre_empresa" 
+											class="col-md-12 <?php echo $css_tc;?>">
 											  <label class="control-label" for="cta_nombre_empresa">Nombre de empresa</label>
 											  <input type="text" id="cta_nombre_empresa" class="form-control" name="nempresa" 
 											  value="<?php echo $dusuario["company_name"]; ?>">

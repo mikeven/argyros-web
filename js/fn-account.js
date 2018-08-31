@@ -108,6 +108,10 @@ $( document ).ready(function() {
     });
 
     $("#cta_es_empresa").on( "click", function(){
+        $("#ch-esempresa").click();
+    });
+
+    $("#ch-esempresa").on( "click", function(){
         $("#frm_nombre_empresa").fadeToggle("slow");
     });
 
