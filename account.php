@@ -193,19 +193,27 @@
 											?>
 												<tr class="<?php echo $ctable; ?>">
 													<td>
-														<a href="order.php?orderid=<?php echo $orden["id"] ?>">#<?php echo $orden["id"] ?></a>
+														<a href="order.php?orderid=<?php echo $orden["id"] ?>">#<?php echo $orden["id"] ?>
+														</a>
 													</td>
 													<td>
-														<span class="note"><?php echo $orden["fecha"] ?></span>
+														<span class="note">
+															<a href="order.php?orderid=<?php echo $orden["id"] ?>">
+																<?php echo $orden["fecha"] ?></a>
+														</span>
 													</td>
 													<td>
 														<?php if ( $orden["estado"] == "revisado" ){ ?>
 														<span class="hltext">
+															<a href="order.php?orderid=<?php echo $orden["id"] ?>">
 															<?php echo "<b>".$orden["estado"]."<b>"; ?>
+															</a>
 														</span>
 														<?php } else {?>
 															<span class="note">
+															<a href="order.php?orderid=<?php echo $orden["id"] ?>">
 																<?php echo $orden["estado"]; ?>
+															</a>
 															</span>
 														<?php } ?>
 													</td>

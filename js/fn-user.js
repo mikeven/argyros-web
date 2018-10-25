@@ -101,7 +101,13 @@ $( document ).ready(function() {
     $("#usuario-pais").on( "change", function(){
         var cod_pais = $(this).find(':selected').attr('data-cp');
         var prefijo = "(+" + cod_pais + ") ";
-        $("#telefono").val( prefijo );
+        $("#lbtlf").html( prefijo );
+    });
+
+    $("#ntelef").on( "blur", function(){
+        var prefijo = $("#lbtlf").html();
+        var ntelf = $("#ntelef").val();
+        $("#telefono").val( prefijo + ntelf );
     });
 
     //Formulario Registro de usuarios: Mostrar campo nombre empresa si tipo de cliente es empresa

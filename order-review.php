@@ -142,14 +142,19 @@
 											</thead>
 										
 											<tbody>
-											<?php foreach ( $carrito as $item ) { ?>
+											<?php 
+												foreach ( $carrito as $item ) { 
+								$lnkp = "product.php?id=$item[idproducto]&iddet=$item[iddetalle]";
+											?>
 												<tr class="odd ">
 													<td>
 														<img src="<?php echo $item["img_producto"]?>" 
 														alt="<?php echo $item["nombre_producto"]?>" width="50">
-														<a href="#!" title=""><?php echo $item["nombre_producto"]?></a>
+														<a href="<?php echo $lnkp; ?>" 
+														title="" target="_blank"><?php echo $item["nombre_producto"]?></a>
 														<div>
-														<span class="note"><?php echo $item["descripcion_producto"]?></span>
+														<span class="note">
+												<?php //echo $item["descripcion_producto"]?></span>
 														(Talla: <?php echo $item["seltalla"]?>)
 														</div>
 													</td>

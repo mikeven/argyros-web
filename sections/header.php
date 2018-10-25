@@ -21,7 +21,12 @@
 	    background: rgba(0, 0, 0, 0.5);
 	}
 	.hnc_selcp:hover{ border-bottom: 1px solid #a7b239; }
-	.tnavcategppal{ color: #a7b239; }
+	
+
+	.cont-lnk-hnc-regresar{
+		padding: 12px 0 20px 0;
+	}
+	.lnk-hnc-regresar:hover{ cursor: pointer; }
 
 	/*@media (max-width: 1024px){ 
 		#navegacion-catalogo-dsk{ visibility: hidden; }
@@ -45,7 +50,8 @@
 	<!--/.Top -->
 	
 	<!-- Facebook Conversion Code for Themes -->
-	<script>(function() {
+	<script>
+	/*(function() {
 	  var _fbq = window._fbq || (window._fbq = []);
 	  if (!_fbq.loaded) {
 		var fbds = document.createElement('script');
@@ -57,7 +63,7 @@
 	  }
 	})();
 	window._fbq = window._fbq || [];
-	window._fbq.push(['track', '6016096938024', {'value':'0.00','currency':'USD'}]);
+	window._fbq.push(['track', '6016096938024', {'value':'0.00','currency':'USD'}]);*/
 	</script>
 	<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6016096938024&amp;cd[value]=0.00&amp;cd[currency]=USD&amp;noscript=1" /></noscript>
 </header>

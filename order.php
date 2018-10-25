@@ -122,6 +122,8 @@
 			padding: 10px 0; 
 		}
 
+		.txa-l{ text-align: left; }
+
 		.coltotales{
 			padding: 5px 8px !important;
 		}

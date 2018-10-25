@@ -50,7 +50,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenesProductoOrden( $dbh, $detalle ){
 		//Devuelve las imágenes de los productos de una orden
-		include( "data-products.php" );
+		//include( "data-products.php" );
 
 		$ndetalle = array();
 		foreach ( $detalle as $reg ) {

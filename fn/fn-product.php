@@ -51,8 +51,12 @@
 	function mostrarDataProducto( $datos ){
 		//
 		$bloque = "";
+		$numItems = count( $datos );
+		$i = 0;
 		foreach ( $datos as $d ) {
-			$bloque .= "<div class='item-info-p'>".$d["nombre"]."</div>";
+			$sep = ",";
+			if( ++$i === $numItems ) $sep = "";
+			$bloque .= "<div class='item-info-p'>".$d["nombre"]. $sep ."</div>";
 		}
 
 		return $bloque;

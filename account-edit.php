@@ -1,6 +1,6 @@
 <?php
     /*
-     * Argyros - Página de registro
+     * Argyros - Edición de cuenta de usuario
      * 
      */
     session_start();
@@ -17,7 +17,9 @@
     include( "fn/fn-catalog.php" );
     include( "fn/common-functions.php" );
     
-    checkSession( '' );
+    if( !isset( $_SESSION["login"] ) ) {
+    	header( "Location: index.php" );
+    }
     $dusuario = obtenerUsuarioSesion( $dbh );
     $paises = obtenerListaPaises( $dbh );
     
@@ -171,21 +173,30 @@
 											  name="phone" value="<?php echo $dusuario["phone"]; ?>">
 											</li>
 											<?php
-												$ch_tc = ""; $css_tc = "loculto";
+												$css_tc = "loculto";
     											if( $dusuario["company"] == 1 ) {
-    												$ch_tc = "checked";
     												$css_tc = "";
     											}
 											?>
 											
 											<li class="clearfix"></li>
-											<li id="cta_es_empresa" class="col-md-12 set_default">
-											  <input id="ch-esempresa" type="checkbox" 
-											  name="cuenta[es_empresa]" 
-											  value="1" <?php echo $ch_tc;?>> Compañía
+											<li id="TCLiente" class="">
+											<label class="control-label" 
+											for="tcliente">Tipo cliente </label>
+				<select id="t-cliente-r" name="tcliente" class="form-control selectpicker">
+                    <option disabled>Seleccione</option>
+                    <option value="Particular" 
+                    <?php echo sop( "Particular", $dusuario["company_type"] )?>>Particular</option>
+                    <option value="Tienda" 
+                    <?php echo sop( "Tienda", $dusuario["company_type"] )?>>Tienda</option>
+                    <option value="Joyería" 
+                    <?php echo sop( "Joyería", $dusuario["company_type"] )?>>Joyería</option>
+                    <option value="Distribuidor" 
+                    <?php echo sop( "Distribuidor", $dusuario["company_type"] )?>>Distribuidor</option>
+                </select>
 											</li>
 											<li class="clearfix"></li>
-											<li id="frm_nombre_empresa" 
+											<li id="r-nempresa" 
 											class="col-md-12 <?php echo $css_tc;?>">
 											  <label class="control-label" for="cta_nombre_empresa">Nombre de empresa</label>
 											  <input type="text" id="cta_nombre_empresa" class="form-control" name="nempresa" 

@@ -127,10 +127,19 @@ $( document ).ready(function() {
 	
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#add-to-cart").on( "click", function(){
+
     	if ( validarSeleccionCarrito() == true ){
             agregarItemCarrito();
-            mensajeAlertaCarrito( "#alert-msgs-notif", "Ítem agregado a compra" );	
-            clickElemento( ".close_alert", 4000 );
+
+            $("#alert-msgs-notif").hide();
+
+            if ( typeof timer != "undefined" ) clearTimeout(timer);
+            
+            timer = setTimeout(function() {
+                $(".close_alert").click();
+            }, 4000 );
+              
+            mensajeAlertaCarrito( "#alert-msgs-notif", "Ítem agregado a compra" );
     	}
     	else{
     		mensajeAlerta( "#alert-msgs", "Debe seleccionar un valor de talla primero" );

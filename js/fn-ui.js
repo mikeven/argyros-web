@@ -96,9 +96,12 @@ function mostrarContenidoElemento( elemento, contenido, t, e ){
 }
 /* ----------------------------------------------------------------------------------- */
 function clickElemento( id, delay ){
-	setTimeout(function() {
+	
+	timer = setTimeout(function() {
         $(id).click();
     }, delay );
+
+    return timer;
 }
 /* ----------------------------------------------------------------------------------- */
 $( document ).ready(function() {

@@ -15,7 +15,7 @@ function actualizarDatosPersonales( form ){
         success: function( response ){
             console.log(response);
             res = jQuery.parseJSON( response );
-            //scroll_To();
+            scroll_To();
             mensajeAlerta( "#alert-msgs", res.mje );
             if( res.exito != 1 ){
                 activarBoton( "#btn_musuario", true );  

@@ -742,9 +742,9 @@ function handleSortBy(){
 function blackout( elem, a ){
   if( $(elem).attr("id") == "drop-catalog" ){
     if( a == "show" ) 
-      $("#blackout-dropdown").fadeIn(300);
+      $("#blackout-dropdown").fadeIn(800);
     if( a == "hide" ){
-      $("#blackout-dropdown").fadeOut(300);
+      $("#blackout-dropdown").fadeOut(800);
       $("#listcatalog").css("min-width", "260px");
       $("#listcatalog").css("right", "135px");
       $(".subcategs_navcatalog").hide();

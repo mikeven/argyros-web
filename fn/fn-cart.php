@@ -68,7 +68,7 @@
 		$base_i = str_replace( "{idproducto}", $item["idproducto"], $base_i );
 		$base_i = str_replace( "{iddetalle}", $item["iddetalle"], $base_i );
 		$base_i = str_replace( "{nombre}", $item["nombre_producto"], $base_i );
-		$base_i = str_replace( "{descripcion}", $item["descripcion_producto"], $base_i );
+		//$base_i = str_replace( "{descripcion}", $item["descripcion_producto"], $base_i );
 		$base_i = str_replace( "{img}", $item["img_producto"], $base_i );
 		$base_i = str_replace( "{cantidad}", $item["quantity"], $base_i );
 		$base_i = str_replace( "{talla}", $item["seltalla"], $base_i );

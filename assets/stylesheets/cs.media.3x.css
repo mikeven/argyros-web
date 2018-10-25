@@ -63,7 +63,7 @@ a:focus, select:focus, input:focus, button:focus{outline:none !important;}
 .variants-wrapper .selector-wrapper:nth-child(1){margin-bottom:15px;}
 .product-page.no_full_width #gallery_main .owl-wrapper-outer .owl-item img{padding-right:20px;}
 .element ul li.row-right .hover-appear .wish-list{border-left:1px solid #dcdcdc;}
-.element ul li.row-right .product-content-left{width:60%;}
+.element ul li.row-right .product-content-left{width:100%;}
 .element ul li.row-right .product-content-right{width:40%;}
 #sandBox .element.full_width ul:hover li.row-right .hover-appear{margin-top:0;}
 .element.full_width ul li.row-right .hover-appear .wish-list{border-left:0;}

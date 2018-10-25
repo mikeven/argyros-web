@@ -94,19 +94,22 @@
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function matchFiltroPrecio( $dbh, $reg, $atributo, $valores_filtros ){
+	function matchFiltroPrecio( $dbh, $reg, $atributo, $valores_filtro ){
 		//Devuelve verdadero si un detalle de producto está en el rango de valores del filtro
 		$match = false;
-		//echo $reg["id"]."-"."precio-peso: ".$reg[$atributo]."<br>";
-		if( ( $reg[$atributo] >= $valores_filtros[0] ) && ( $reg[$atributo] <= $valores_filtros[1] ) )
+
+		if( ( $reg[$atributo] >= $valores_filtro[0] ) && ( $reg[$atributo] <= $valores_filtro[1] ) )
 			$match = true;
+
 		if( $atributo == "precio_pieza" ){
-			$total_precio = $reg["precio_peso"] * $reg["peso"];
-			//echo $total_precio."::"."(".$valores_filtros[0]." - ".$valores_filtros[1].")";
-			//echo "PRECIO P: ".$reg["precio_peso"]." PESO: ".$reg["peso"]."<br>";
-			if( ( $total_precio >= $valores_filtros[0] ) && ( $total_precio <= $valores_filtros[1] ) )
-				$match = true;	
+			$match = false;
+			foreach ( $reg["sizes"] as $rt ) {
+				if( ( $rt["precio"] >= $valores_filtro[0] ) && ( $rt["precio"] <= $valores_filtro[1] ) )
+					$match = true;
+				break;
+			}
 		}
+
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -175,7 +178,7 @@
 		//Devuelve la lista de productos que coinciden en atributo de producto con los valores del filtro
 		$filtrados = array();	
 		foreach ( $productos as $p ){
-			$p = $producto["data"];
+			//$p = $producto["data"];
 			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["data"]["id"], $atributo );
 			if( matchFiltroAtributo( $dbh, /*$p["id"],*/ $vatributos, $valores ) ){
 				$filtrados[] = $p;
@@ -216,14 +219,17 @@
 				}
 			}
 		}
+
 		return $filtrados;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function filtrarProductosPorPrecio( $dbh, $productos, $atributo, $valores_filtros ){
-		//Devuelve la lista de productos si alguno de sus registros en detalle está en rango de precio filtrado 
+		//Devuelve la lista de productos si alguno de sus registros en detalle 
+		//está en rango de precio filtrado 
 		$filtrados = array();
 
 		foreach ( $productos as $prod ){
+
 			foreach ( $prod["detalle"] as $reg ){
 				$cmp = obtenerComparadorConFiltroPorAtributo( $atributo );
 				if( matchFiltroPrecio( $dbh, $reg, $cmp, $valores_filtros ) ){

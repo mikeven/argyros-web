@@ -575,6 +575,10 @@
 		document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
 	   if(oldonload){oldonload()}};
 	}());
+
+	$("#vpopargyros").bind("ended", function() {
+	   $(".fancybox-close").click();
+	});
 	</script>
 
 	<!-- Google Code -->

@@ -27,10 +27,10 @@
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
-	      <td>
+	      <td class="txa-l">
 	      	<input type="hidden" id="iditem<?php echo $r["id"]; ?>" name="ielims[]" value="0">
 	      	<a href="<?php echo $lnk_p; ?>" target="_blank">
-	      		<?php echo $r["producto"]." (".$r["description"].")"." | "."Talla: ".$r["talla"]; ?>
+	      		<?php echo $r["producto"]." | "."Talla: ".$r["talla"]; ?>
 	      	</a>
 	      	<div align="left"><span class="detlist-id-det"><?php echo $cod_dp; ?></span></div>
 	      </td>

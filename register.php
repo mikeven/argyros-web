@@ -30,7 +30,7 @@
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content=""/>
   <title>Crear cuenta::Argyros</title>
-  
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
 	<link href="assets/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"> 	
 	<link href="assets/stylesheets/bootstrap.min.3x.css" rel="stylesheet" type="text/css" media="all">
@@ -41,6 +41,7 @@
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/bootstrap-select-1.12.4/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css" media="all">
+
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="assets/javascripts/jquery.imagesloaded.min.js" type="text/javascript"></script>
@@ -176,9 +177,16 @@
 										<li class="clearfix"></li>
 
 										<div class="form-group">
-											<li id="Teléfono" class="">
+											<li id="Country" class="">
 											<label class="control-label" for="telefono">Teléfono </label>
-											<input name="telefono" id="telefono" class="form-control " type="text">
+											<div class="input-group mb-3">
+											  <span id="lbtlf" class="input-group-addon">(+000)</span>
+											  <input type="text" class="form-control" name="ntelef" 
+											  id="ntelef" aria-label="Username" 
+											  aria-describedby="basic-addon1">
+											  <input type="hidden" name="telefono" 
+											  id="telefono" value="">
+											</div>
 											</li>
 										</div>
 										<li class="clearfix"></li>
@@ -233,5 +241,12 @@
 	</div>
 	<!-- Validator -->
 	<script src="assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).on('keydown', function (e) {
+		  if (e.keyCode == 8 && $('#telefono').is(":focus") && $('#telefono').val().length < 4) {
+		      e.preventDefault();
+		  }
+		});
+	</script>
 	<?php include("sections/footer.php"); ?>
 </body>

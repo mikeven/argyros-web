@@ -172,8 +172,10 @@
 	function modificarDatosUsuario( $usuario, $dbh ){
 		//Actualiza los datos de cuenta de usuario
 		$actualizado = 1;
+		$cmpy = 0; if( $usuario[tcliente] != "Particular" ) $cmpy = 1;
 		$q = "update clients set first_name = '$usuario[name]', last_name = '$usuario[lastname]', 
-		phone = '$usuario[phone]', company_name = '$usuario[nempresa]', country_id = '$usuario[pais]', 
+		phone = '$usuario[phone]', company_type = '$usuario[tcliente]', company = $cmpy,  
+		company_name = '$usuario[nempresa]', country_id = '$usuario[pais]', 
 		city = '$usuario[ciudad]' where id = $usuario[idusuario]";
 		
 		mysqli_query ( $dbh, $q );
@@ -350,7 +352,8 @@
 			$res["exito"] = -1;
 			$res["mje"] = "Dirección de email ya registrada, intente usar una dirección de correo diferente";
 		}else{
-			$usuario["es_empresa"] = NULL;
+			$usuario["es_empresa"] = 0;
+
 			if ( $usuario["tcliente"] != "Particular" )
 				$usuario["es_empresa"] = 1;
 			$usuario["token"] = obtenerTokenUsuarioNuevo( $usuario );

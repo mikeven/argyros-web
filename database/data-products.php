@@ -54,10 +54,16 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProducto( $dbh, $pid ){
 		//Devuelve los registros detalles asociados a un producto dado su id
-		$q = "select dp.id as id, c.name as color, t.name as bano, dp.price_type as tipo_precio, 
+		/*$q = "select dp.id as id, c.name as color, t.name as bano, dp.price_type as tipo_precio, 
 		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
 		dp.weight_price_value as precio_peso FROM product_details dp, treatments t, colors c 
-		where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $pid";
+		where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $pid";*/
+
+		$q = "select dp.id as id, c.name as color, t.name as bano, dp.price_type as tipo_precio, 
+		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.weight_price_value as precio_peso FROM product_details dp
+		LEFT JOIN treatments t ON t.id = dp.treatment_id LEFT JOIN colors c ON dp.color_id = c.id 
+		WHERE dp.product_id = $pid";
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -206,7 +212,6 @@
 
 		if( $producto["data"] ){
 			$producto["detalle"] = obtenerDetalleProductoPorId( $dbh, $pid );
-
 			$producto["detalle"] = cargarPreciosDetalle( $dbh, $producto["detalle"] );
 			$producto["detalle"] = cargarImagenesDetalle( $dbh, $producto["detalle"] );
 			$producto["detalle"] = cargarTallasDetalle( $dbh, $producto["detalle"] );
@@ -307,12 +312,21 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProductoPorId( $dbh, $idp ){
 		//Devuelve los registros detalles asociados a un producto dado su id
+		
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
 		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
 		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
 		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
+		LEFT JOIN colors c ON dp.color_id = c.id WHERE dp.product_id = $idp order by dp.id ASC";
+
+		/*$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
+		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
+		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
+		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp, treatments t, colors c where dp.color_id = c.id and 
-		dp.treatment_id = t.id and dp.product_id = $idp order by dp.id ASC";
+		dp.treatment_id = t.id and dp.product_id = $idp order by dp.id ASC";*/
+
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -321,10 +335,17 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerRegistroDetalleProductoPorId( $dbh, $idd ){
 		//Devuelve un registro de detalle de producto dado su id
-		$q = "select dp.id as id, c.id as color, t.id as bano, dp.price_type as tipo_precio, dp.weight as peso, 
-		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.product_id as pid, 
-		dp.weight_price_value as precio_peso FROM product_details dp, treatments t, colors c 
-		where dp.color_id = c.id and dp.treatment_id = t.id and dp.id = $idd";
+		$q = "select dp.id as id, c.id as color, t.id as bano, dp.price_type as tipo_precio, 
+		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.product_id as pid, dp.weight_price_value as precio_peso 
+		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
+		LEFT JOIN colors c ON dp.color_id = c.id WHERE dp.id = $idd";
+
+		/*select dp.id as id, c.id as color, t.id as bano, dp.price_type as tipo_precio, 
+		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.product_id as pid, dp.weight_price_value as precio_peso 
+		FROM product_details dp, treatments t, colors c 
+		where dp.color_id = c.id and dp.treatment_id = t.id and dp.id = $idd*/
 		
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_fetch_array( $data );		
@@ -355,7 +376,7 @@
 		$q = "select spd.size_id as idtalla, s.name as talla, s.unit as unidad, 
 		spd.weight as peso, spd.adjustable as ajustable, spd.visible as visible 
 		from size_product_detail spd, sizes s where spd.size_id = s.id and 
-		spd.product_detail_id = $idd and spd.visible = 1 order by s.id ASC";
+		spd.product_detail_id = $idd and spd.visible = 1 order by s.name ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

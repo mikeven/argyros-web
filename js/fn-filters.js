@@ -55,6 +55,7 @@ function generarURLFiltroPrecio( tipo, pmin, pmax ){
 function generarURLFiltroPeso( pmin, pmax ){
 	//Invoca la generación de la url para filtrar productos por peso
 	var ucatalogo = $("#urlcatalogoactual").val();
+
     $.ajax({
         type:"POST",
         url:"fn/fn-filters.php",

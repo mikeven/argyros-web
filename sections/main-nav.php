@@ -99,9 +99,8 @@
 									</a>
 									
 									<div id="navegacion-catalogo-mob">
-										<?php include( "nav-catalog-mobile.php" ); ?>
+										<?php include( "nav-catalog-menu.php" ); ?>
 									</div>
-									
 								</li>
 								<?php } else { ?>
 
@@ -132,7 +131,8 @@
 						<i class="sub-dropdown"></i>
 						</span>
 					</a>
-					<form id="header-search" class="search-form dropdown-menu" action="acatalog.php" method="get">
+					<form id="header-search" class="search-form dropdown-menu" 
+					action="acatalog.php" method="get">
 						<!-- <input type="hidden" name="type" value="product"> -->
 						<input type="text" name="busqueda" value="" accesskey="4" autocomplete="off" placeholder="Buscar...">
 						<button type="submit" class="btn">Buscar</button>
@@ -144,9 +144,8 @@
 				<!-- Carrito de compras -->
 			</li>		  		 
 			<li class="mobile-search visible-xs">
-				<form id="mobile-search" class="search-form" action="http://demo.designshopify.com/html_jewelry/search.html" method="get">
-					<input type="hidden" name="type" value="product">
-					<input type="text" class="" name="q" value="" accesskey="4" autocomplete="off" placeholder="Buscar...">
+				<form id="mobile-search" class="search-form" action="acatalog.php" method="get">
+					<input type="text" class="" name="busqueda" value="" accesskey="4" autocomplete="off" placeholder="Buscar...">
 					<button type="submit" class="search-submit" title="search"><i class="fa fa-search"></i></button>
 				</form>
 			</li>		  
@@ -156,7 +155,7 @@
 	<script>
 	  function addaffix(scr){
 		if($(window).innerWidth() >= 1024){
-		  if(scr > $('#top').innerHeight()){
+		  if(scr > /*$('#top').innerHeight()*/60){
 			if(!$('#top').hasClass('affix')){
 			  $('#top').addClass('affix').addClass('animated');
 			}

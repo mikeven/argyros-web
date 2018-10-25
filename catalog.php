@@ -205,15 +205,6 @@
 															?>
 																<div class="home_collections_item col-md-6 col-sm-6 col-xs-24 fadeInUp animated">
 																	<div class="home_collections_item_inner">
-																		<div class="collection-details">
-																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
-																			<?php if($rcp["image"] != "" ) { ?>
-																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
-																			<?php } else { ?>
-																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
-																			<?php } ?>
-																			</a>
-																		</div>
 																		<div class="hover-overlay" align="center">
 																			<span class="col-name">
 																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>"><h6> 
@@ -223,6 +214,16 @@
 																				<a href="acatalog.php?c=<?php echo $rcp["uname"];?>">VER CATÁLOGO</a>
 																			</div>
 																		</div>
+																		<div class="collection-details">
+																			<a href="acatalog.php?c=<?php echo $rcp["uname"];?>" title="<?php echo $rcp["name"];?>">
+																			<?php if($rcp["image"] != "" ) { ?>
+																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																			<?php } else { ?>
+																			<img src="assets/images/<?php echo $rcp["image"];?>" alt="Rings" class="categ_catalog">
+																			<?php } ?>
+																			</a>
+																		</div>
+																		
 																	</div>
 																</div>
 															<?php }} ?>
