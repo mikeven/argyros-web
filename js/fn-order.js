@@ -8,7 +8,7 @@ function actualizarBotonOrden(){
     $("#btn_order").html("Ver mis órdenes");
     $("#btn_order").attr( "href", "account.php");
     $("#btn_order").attr( "id", "btn_account");
-    $("#regresar_carrito").hide();
+    $("#btn_account").show(200);
 }
 /* ----------------------------------------------------------------------------------- */
 function inicializarBotonConfirmacion(){
@@ -142,6 +142,8 @@ function registrarOrden(){
         data:{ neworder: 1 },
         beforeSend: function(){
             $("#loading-icon").html(loader_gif);
+            $("#btn_order").fadeOut(200);
+            $("#regresar_carrito").hide();
         },
         success: function( response ){
             console.log( response );

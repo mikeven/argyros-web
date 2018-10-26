@@ -21,14 +21,14 @@
 		}		
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function checkSession( $page ){
-		/*if( isset( $_SESSION["login"] ) ){
-			if( $page == "index" ) 
-				echo "<script> window.location = 'home.php'</script>";
+	function checkSession( $param ){
+		if( isset( $_SESSION["login"] ) ){
+			if( $param != "" ) 
+				echo "<script> window.location = 'catalog.php'</script>";
 		}else{
-			if( $page == "" )
+			if( $param == "" )
 				echo "<script> window.location = 'index.php'</script>";		
-		}*/
+		}
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function usuarioValido( $usuario, $dbh ){
@@ -144,6 +144,23 @@
 		$data_user = mysqli_fetch_array( $data );
 
 		return $data_user;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function sesionUsuarioBloqueado( $dbh ){
+		//Devuelve verdadero si el usuario en sesión activa está bloqueado
+		$bloqueado = false;
+
+		$usuario = obtenerUsuarioSesion( $dbh );
+		if( $usuario && $usuario["blocked"] == 1 ) 
+			$bloqueado = true;
+		
+		return $bloqueado;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function checkUsuarioBloqueado( $dbh ){
+		if( sesionUsuarioBloqueado( $dbh ) ){
+			echo "<script> window.location = 'index.php?logout'</script>";
+		}
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function usuarioYaRegistrado( $dbh, $email ){

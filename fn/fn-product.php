@@ -4,8 +4,13 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	function imgProductoPpal( $detalle ){
-		$img = $detalle[0]["images"][0];
-		return $img["path"];
+		$path = NULL;
+		
+		if( isset( $detalle[0]["images"][0] ) ){
+			$img = $detalle[0]["images"][0];
+			$path = $img["path"];
+		}
+		return ;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function precioProductoPpal( $detalle ){

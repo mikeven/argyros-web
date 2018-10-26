@@ -15,7 +15,7 @@
     include( "fn/fn-cart.php" );
     include( "fn/fn-filters.php" );
     
-    checkSession( '' );
+    checkUsuarioBloqueado( $dbh );
     if( !isset( $iddetbusqueda ) ) 
     	$iddetbusqueda = "";
 ?>
@@ -274,7 +274,9 @@
 								?>
 							</div>
 							<div id="title-categories">
-								<h1 id="page-title" class="text-right"><?php //echo $etiq_categs; ?></h1>
+								<h1 id="page-title" class="text-right">
+									<?php //echo $etiq_categs; ?>
+								</h1>
 							</div>
 						</div>
 					</div>

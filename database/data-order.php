@@ -48,13 +48,25 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerImgsDetalleProducto( $dbh, $idd, $limite ){
+		//Devuelve los registros de imágenes de detalle de producto, cantidad de registros limitado
+		//por parámetro.
+		$l = "";
+		if( $limite != NULL ) $l = "LIMIT $limite";
+		
+		$q = "select id, path from images where product_detail_id = $idd $l";
+
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenesProductoOrden( $dbh, $detalle ){
 		//Devuelve las imágenes de los productos de una orden
-		//include( "data-products.php" );
 
 		$ndetalle = array();
 		foreach ( $detalle as $reg ) {
-			$data = obtenerImagenesDetalleProducto( $dbh, $reg["product_detail_id"], 1 );
+			$data = obtenerImgsDetalleProducto( $dbh, $reg["product_detail_id"], 1 );
 			$reg["imagen"] = $data[0]["path"];
 			$ndetalle[] = $reg;		
 		}

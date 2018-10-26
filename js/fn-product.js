@@ -50,6 +50,12 @@
 	});
  }
 
+ function marcarBordeDetalle( img ){
+ 	//Marca con un borde la imagen del detalle seleccionado
+ 	$(".img-det-prod").removeClass( "selimgdet" );
+ 	$( img ).addClass( "selimgdet" );
+ }
+
 $( document ).ready(function() {	
     // ============================================================================ //
 
@@ -83,10 +89,12 @@ $( document ).ready(function() {
 
 		var id_prod_url = $("#idprod").val();
 		var id_dp_url = $(this).attr("data-select-iddet");
+		var img_dsel = "#" + $(this).attr("data-iddimg");
 		var new_url = "product.php?id=" + id_prod_url + "&iddet=" + id_dp_url;
 		changeurl( new_url );
 
 		inicializarValoresSelDetalle();
+		marcarBordeDetalle( img_dsel );
 		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
 		asignarPrecioFichaProducto( "detalle", $(this) );

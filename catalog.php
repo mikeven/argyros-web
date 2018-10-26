@@ -12,8 +12,6 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
-    
-    checkSession( '' );
 
 ?>
 <!doctype html>

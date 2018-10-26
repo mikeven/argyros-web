@@ -249,14 +249,14 @@
 														<span>Cancelar</span>
 													</a>
 												</span>
-												<?php if( $orden["estado"] == "cancelado" ) { ?>
-													<span id="_a_cancel_ro" class="action_delete">
+												<?php //if( $orden["estado"] == "cancelado" ) { ?>
+													<span id="_a_cancel_ro" class="action_delete hidden">
 														<a id="a_react_o" href="#!" class="lnco" title="Reactivar"  
 														data-cnt="_a_cancel_ro" data-sta="pendiente">
 															<i class="fa fa-history"></i><span> Reactivar</span>
 														</a>
 													</span>
-												<?php } ?>
+												<?php //} ?>
 											</div>
 											<?php } ?>
 										  </div>

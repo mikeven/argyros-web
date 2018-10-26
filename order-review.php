@@ -15,9 +15,11 @@
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
 
+	checkSession( '' );
+    checkUsuarioBloqueado( $dbh );
     $carrito = $_SESSION["cart"];
     $total = obtenerMontoTotalCarritoCompra();
-    checkSession( '' );
+    
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->

@@ -109,6 +109,18 @@
 			font-size: 11px; font-weight: bold; color: #696f24; 
 		}
 
+		#titulo-detalles-disponibles{
+			padding: 5px 0;
+		}
+
+		.selimgdet{
+			border: 2px solid #a7b239; 
+			-webkit-transition: border-width 1.5s; /* Safari */
+    		transition: border-width 1.5s;
+    		-webkit-transition: border-color 1.5s; /* Safari */
+    		transition: border-color 1.5s;
+		}
+
 		@media (max-width: 500px){
 			#add-to-cart {
 			    margin: 0px;
@@ -132,31 +144,8 @@
 			
 			<div id="content" class="clearfix">        
 				
-				<div id="breadcrumb" class="breadcrumb">
-					<div itemprop="breadcrumb" class="container">
-						<div class="row">
-							<div class="col-md-24">
-								<?php if( isset( $_SESSION["login"] ) ) { ?>
-								<?php if( $is_p ) { ?>
-								<a href="index.php" class="homepage-link" title="Página de inicio">Inicio</a>
-								<span>/</span>
-								<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>" 
-								title="<?php echo $producto["category"]; ?>">
-								<?php echo $producto["category"]; ?>
-								</a>
-								<span>/</span>
-								<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>&s=<?php echo $producto["uname_s"]; ?>" 
-								title="<?php echo $producto["category"]; ?>"><?php echo $producto["subcategory"]; ?></a>
-								<span>/</span>
-								<span class="page-title"><?php echo $producto["name"]; ?></span>
-								<?php } else { ?>
-									<a href="index.php" class="homepage-link" title="Página de inicio">Inicio</a>
-								<?php } ?>
-								<?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>				        
+				<?php include( "sections/breadcrumb-product.php" ); ?>
+
 				<section class="content">
 					
 					<div class="container">
@@ -188,7 +177,8 @@
 											<div id="product-image" class="product-image row no_full_width col-sm-12">           
 												
 												<div class="image featured fadeInUp not-animated" data-animate="fadeInUp"> 
-													<img id="feat_img_producto" src="<?php echo $purl.$img_pp;?>" alt="">
+													<img id="feat_img_producto" 
+													src="<?php echo $purl.$img_pp;?>" alt="">
 												</div>
 
 												<!-- Galería de imágenes de un detalle de producto -->
