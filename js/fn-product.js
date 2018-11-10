@@ -49,14 +49,18 @@
 	    	$(this).fadeOut(150);
 	});
  }
-
+ /* ----------------------------------------------------------------------------------- */
  function marcarBordeDetalle( img ){
  	//Marca con un borde la imagen del detalle seleccionado
  	$(".img-det-prod").removeClass( "selimgdet" );
  	$( img ).addClass( "selimgdet" );
  }
-
-$( document ).ready(function() {	
+ /* ----------------------------------------------------------------------------------- */
+ function detNoDisponible(){
+ 	$("#product-actions").html( $("#det-no-disp").html() );
+ }
+ /* ----------------------------------------------------------------------------------- */
+ $( document ).ready(function() {	
     // ============================================================================ //
 
     //product.php
@@ -99,7 +103,7 @@ $( document ).ready(function() {
 		mostrarDetalleSeleccionado( trg );
 		asignarPrecioFichaProducto( "detalle", $(this) );
 		$("#iddetalle").val( id_dp_url );
-		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
+		/* $("#imgproducto").val( $("#feat_img_producto").attr("src") ); */
 		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
 		tallaInicial( $(this) ); 	//selecciona la primera talla de detalle de producto
 
@@ -158,7 +162,7 @@ $( document ).ready(function() {
 	//Click event to scroll to top
 	$(scrollTop).click(function() {
 	    $('html, body').animate({
-	      scrollTop: 0
+			scrollTop: 0
 	    }, 800);
 	    return false;
 

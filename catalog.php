@@ -189,7 +189,7 @@
 								<div id="page-header"></div>
 								
 								<div class="collection-main-content">									
-									<div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
+								   <div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
 										
 										<?php if( isset( $_SESSION["login"] ) ) { ?>
 											<div id="sandBox-wrapper" class="group-product-item row collection-full">

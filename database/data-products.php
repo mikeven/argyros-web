@@ -52,6 +52,21 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerDetalleProductoDisponible( $detalle ){
+		//Devuelve el registro de detalle con al menos una talla disponible
+		
+		foreach ( $detalle as $regd ) {
+
+			$disp = true; $t_exist = false;
+			$tallas = $regd["sizes"];
+			foreach ( $tallas as $regt ) {
+				$t_exist = true;
+				if( $regt["visible"] != 1 ) $disp = false;
+			}
+			if( $t_exist && $disp ) return $regd;
+		}
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProducto( $dbh, $pid ){
 		//Devuelve los registros detalles asociados a un producto dado su id
 		/*$q = "select dp.id as id, c.name as color, t.name as bano, dp.price_type as tipo_precio, 
@@ -267,12 +282,22 @@
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerImagenProductoCatalogo( $dbh, $idp, $iddp ){
+	function obtenerImagenDetalleProductoDisponible( $dbh, $producto ){
+		//Devuelve las imágenes de un producto cuyo detalle esté disponible
+		$detalle_dsp = obtenerDetalleProductoDisponible( $producto["detalle"] );
+		$reg_p = $producto["data"];
+		
+		$imgs = obtenerImagenProductoCatalogoDetalle( $dbh, $reg_p["id"], $detalle_dsp["id"] );
+
+		return $imgs;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenProductoCatalogo( $dbh, $idp, $iddp, $producto ){
 		//Devuelve la primera imagen de un producto
 		if( $iddp != "" ) 
 			return obtenerImagenProductoCatalogoDetalle( $dbh, $idp, $iddp );
 		else
-			return obtenerImagenProducto( $dbh, $idp );
+			return obtenerImagenDetalleProductoDisponible( $dbh, $producto );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function codigoDisponible( $dbh, $codigo ){

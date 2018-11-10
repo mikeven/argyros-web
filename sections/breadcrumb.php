@@ -1,6 +1,10 @@
 <div class="breadcrum">
 	<a href="index.php" class="homepage-link" title="Regresar a página de inicio">Inicio</a>
 	<span>/</span>
+	<a href="catalog.php">
+		<span class="page-title"><?php echo "Catálogo"; ?></span>
+	</a>
+	<span>/</span>
 	<?php if( isset( $_GET["c"] ) ) {?>
 		<a href="acatalog.php?c=<?php echo $cat; ?>">
 			<span class="page-title"><?php echo $h_ncat["name"]; ?></span>

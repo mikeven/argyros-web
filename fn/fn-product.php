@@ -5,12 +5,26 @@
 	/* ----------------------------------------------------------------------------------- */
 	function imgProductoPpal( $detalle ){
 		$path = NULL;
-		
 		if( isset( $detalle[0]["images"][0] ) ){
 			$img = $detalle[0]["images"][0];
 			$path = $img["path"];
 		}
 		return ;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function imgProductoDetalle( $detalle, $iddet ){
+		//Devuelve la primera imagen del detalle de un producto dado id de detalle
+		$path = NULL;
+
+		foreach ( $detalle as $rd ) {
+			if( $rd["id"] == $iddet ){
+				if( isset( $rd["images"][0] ) ){
+					$img = $rd["images"][0];
+					$path = $img["path"];
+				}
+			}
+		}
+		return $path;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function precioProductoPpal( $detalle ){
@@ -70,26 +84,31 @@
 	if( isset( $_GET["id"] ) && isset( $_SESSION["login"] ) ){
 
 		$pid = $_GET["id"];
-		$is_p = false; $is_pd = true;
+		$is_p = false; $is_pd = true; $det_dsp = true;
 		$data_producto = obtenerProductoPorId( $dbh, $pid );
 		
 		if( $data_producto["data"] ){
 			$is_p = true;
 			$producto = $data_producto["data"];
 			$ls_subc_prod = obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
-			
-			$detalle = $data_producto["detalle"];
-			$producto["lineas"] = obtenerLineasDeProductoPorId( $dbh, $pid );
-			$producto["trabajos"] = obtenerTrabajosDeProductoPorId( $dbh, $pid );
-			
-			if( $detalle ){
-				//Primera imagen del primer registro de detalle
-				$img_pp = imgProductoPpal( $detalle ); 
-				//Precio del primero registro de detalle
-				$pre_pp = precioProductoPpal( $detalle );
-			}
-			else
-				$is_pd = false;
+				
+				$detalle = $data_producto["detalle"];
+				$producto["lineas"] = obtenerLineasDeProductoPorId( $dbh, $pid );
+				$producto["trabajos"] = obtenerTrabajosDeProductoPorId( $dbh, $pid );
+				
+				if( $detalle ){
+					//Primera imagen del primer registro de detalle
+					$img_pp = imgProductoPpal( $detalle ); 
+					//Precio del primero registro de detalle
+					$pre_pp = precioProductoPpal( $detalle );
+					if( isset( $_GET["iddet"] ) ){
+						$img_pp = imgProductoDetalle( $detalle, $_GET["iddet"] );
+						if( !tieneTallasDisponiblesDetalleProducto( $dbh, $_GET["iddet"] ) ) 
+							$det_dsp = false;						
+					}
+				}
+				else
+					$is_pd = false;
 
 			$productos_relacionados = productosRelacionados( $dbh, $producto["idc"] );
 		}

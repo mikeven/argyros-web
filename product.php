@@ -81,7 +81,7 @@
 	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>	
 
 	<style type="text/css">
-		#alert-msgs, #alert-msgs-notif{ display: none; }
+		#alert-msgs, #alert-msgs-notif, #det-no-disp{ display: none; }
 		.rdet_view{ display: none; }
 		.rdet_view_t{ display: none; }
 		.rdet_prop{ display: none; }
@@ -230,7 +230,7 @@
 															<meta itemprop="priceCurrency" content="USD">              
 															<link itemprop="availability" href="http://schema.org/InStock">
 															<form id="frm_scart" method="post" class="variants">
-																<div id="product-actions-1293235843" class="options clearfix">
+																<div id="product-actions" class="options clearfix">
 																	<style scoped>
 																	  label[for="product-select-option-0"] { display: none; }
 																	  #product-select-option-0 { display: none; }
@@ -277,7 +277,12 @@
 																			</label>
 																		</div>																	
 																	</div>-->
-
+																<h3 id="det-no-disp" class="text-left">
+																	<span itemprop="name" 
+																	style="color: #a7b239;">
+																		PRODUCTO NO DISPONIBLE
+																	</span>
+																</h3>
 				<div id="purchase-1293235843" class="row">
 					<div class="detail-price col-sm-12" itemprop="price">
 						<span id="vprice_visible" class="price"><?php echo $pre_pp; ?> </span>
@@ -376,10 +381,15 @@
 	    </div>
 	</div>  
 	
-	<?php include("sections/footer.php");?>
+	<?php include("sections/footer.php"); ?>
 </body>
 
 <script src="js/fn-ui.js" type="text/javascript"></script>
 <script src="js/fn-user.js" type="text/javascript"></script>
 <script src="js/fn-product.js" type="text/javascript"></script>
+<script type="text/javascript">
+	<?php if( $det_dsp != 1 ) { ?>
+		detNoDisponible();
+	<?php } ?>	
+</script>
 <script src="js/fn-cart.js" type="text/javascript"></script>

@@ -15,6 +15,7 @@
     include( "fn/fn-cart.php" );
     include( "fn/fn-filters.php" );
     
+    checkSession( 'catalogo' );
     checkUsuarioBloqueado( $dbh );
     if( !isset( $iddetbusqueda ) ) 
     	$iddetbusqueda = "";
@@ -371,92 +372,93 @@
 													
 													foreach ( $productos as $data_rprod ){	
 													//$productos: fn-catalog.php
+
 														$p = $data_rprod["data"];
-														$img = obtenerImagenProducto( $dbh, $p["id"] );
+														//$img = obtenerImagenProducto( $dbh, $p["id"] );
 														
-														if( productoTieneDetalle( $dbh, $p["id"] ) && 
-															productoTieneImagen( $img ) ){
+														if( productoTieneDetalle( $dbh, $p["id"] ) ){
 
 															$img = obtenerImagenProductoCatalogo( 
-																	$dbh, $p["id"], $iddetbusqueda );
+																	$dbh, $p["id"], $iddetbusqueda, 
+																	$data_rprod );
 
 															$urlp = obtenerUrlProductoCatalogo( 
 																	$p["id"], $iddetbusqueda );
 
 												?>
-															<?php if( $enum == NPAGINACION ){ 
-																	$enum = 0; $bloque++; 
-																	if( $bloque == 1 ) $visible = "visible"; else $visible = "";
-															?>
-																<div class="division_bloque" align="center">
-																	<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
-																	type="button" data-trg="eca<?php echo $bloque; ?>" 
-																	data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
+												<?php if( $enum == NPAGINACION ){ 
+														$enum = 0; $bloque++; 
+														if( $bloque == 1 ) $visible = "visible"; else $visible = "";
+												?>
+													<div class="division_bloque" align="center">
+														<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
+														type="button" data-trg="eca<?php echo $bloque; ?>" 
+														data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
+													</div>
+												<?php } ?>
+												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" 
+													data-alpha="Nombre del producto">
+													<ul class="row-container list-unstyled clearfix">
+														<li class="row-left img-catal-contenedor">
+														<a href="<?php echo $urlp; ?>" class="container_item">
+														
+														<img src="<?php echo $purl.$img[0]["image"] ?>" 
+														class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
+														<span class="sale_banner">
+															<!--<span class="sale_text">
+																Sale
+															</span>-->
+														</span>
+														</a>
+														<div class="hbw">
+															<span class="hoverBorderWrapper"></span>
+														</div>
+														</li>
+														<li class="row-right parent-fly animMix">
+														<div class="product-content-left">
+															<a class="title-5" 
+															href="<?php echo $urlp; ?>">
+															<?php echo $p["name"] ?></a>
+															<span class="spr-badge" id="spr_badge_129323821155" data-rating="0.0">
+																<span class="spr-starrating spr-badge-starrating">
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																	<i class="spr-icon spr-icon-star-empty" style=""></i>
+																</span>
+																<span class="spr-badge-caption"> No reviews </span>
+															</span>
+														</div>
+														<div class="product-content-right">
+															<div class="product-price hidden">
+																<span class="price_sale">$25.00</span>
+																<del class="price_compare"> $30.00</del>
+															</div>
+														</div>
+														<div class="list-mode-description">
+															 <?php echo $p["description"] ?>
+														</div>
+														<div class="hover-appear">
+															<form action="#" method="post">
+																<div class="effect-ajax-cart">
+																	<input name="quantity" value="1" type="hidden">
+																	<button class="select-option" type="button" onclick="window.location.href='<?php echo $urlp; ?>'">
+																	<i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span>
+																	</button>
 																</div>
-															<?php } ?>
-															<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" 
-																data-alpha="Nombre del producto">
-																<ul class="row-container list-unstyled clearfix">
-																	<li class="row-left img-catal-contenedor">
-																	<a href="<?php echo $urlp; ?>" class="container_item">
+															</form>
+															<div class="product-ajax-qs hidden-xs hidden-sm hidden">
+																<div data-handle="curabitur-cursus-dignis" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
+																	<i class="fa fa-eye" title="Vista rápida"></i><span class="list-mode">Vista rápida</span>
 																	
-																	<img src="<?php echo $purl.$img[0]["image"] ?>" 
-																	class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
-																	<span class="sale_banner">
-																		<!--<span class="sale_text">
-																			Sale
-																		</span>-->
-																	</span>
-																	</a>
-																	<div class="hbw">
-																		<span class="hoverBorderWrapper"></span>
-																	</div>
-																	</li>
-																	<li class="row-right parent-fly animMix">
-																	<div class="product-content-left">
-																		<a class="title-5" 
-																		href="<?php echo $urlp; ?>">
-																		<?php echo $p["name"] ?></a>
-																		<span class="spr-badge" id="spr_badge_129323821155" data-rating="0.0">
-																			<span class="spr-starrating spr-badge-starrating">
-																				<i class="spr-icon spr-icon-star-empty" style=""></i>
-																				<i class="spr-icon spr-icon-star-empty" style=""></i>
-																				<i class="spr-icon spr-icon-star-empty" style=""></i>
-																				<i class="spr-icon spr-icon-star-empty" style=""></i>
-																				<i class="spr-icon spr-icon-star-empty" style=""></i>
-																			</span>
-																			<span class="spr-badge-caption"> No reviews </span>
-																		</span>
-																	</div>
-																	<div class="product-content-right">
-																		<div class="product-price hidden">
-																			<span class="price_sale">$25.00</span>
-																			<del class="price_compare"> $30.00</del>
-																		</div>
-																	</div>
-																	<div class="list-mode-description">
-																		 <?php echo $p["description"] ?>
-																	</div>
-																	<div class="hover-appear">
-																		<form action="#" method="post">
-																			<div class="effect-ajax-cart">
-																				<input name="quantity" value="1" type="hidden">
-																				<button class="select-option" type="button" onclick="window.location.href='<?php echo $urlp; ?>'">
-																				<i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span>
-																				</button>
-																			</div>
-																		</form>
-																		<div class="product-ajax-qs hidden-xs hidden-sm hidden">
-																			<div data-handle="curabitur-cursus-dignis" data-target="#quick-shop-modal" class="quick_shop" data-toggle="modal">
-																				<i class="fa fa-eye" title="Vista rápida"></i><span class="list-mode">Vista rápida</span>
-																				
-																			</div>
-																		</div>
-																		
-																	</div>
-																	</li>
-																</ul>
-															</li>
+																</div>
+															</div>
+															
+														</div>
+														</li>
+													</ul>
+												</li>
 												
 												<?php 
 														$enum++; 

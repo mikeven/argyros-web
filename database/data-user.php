@@ -23,11 +23,13 @@
 	/* ----------------------------------------------------------------------------------- */
 	function checkSession( $param ){
 		if( isset( $_SESSION["login"] ) ){
-			if( $param != "" ) 
+			if( $param != "" && $param != "catalogo" ) 
 				echo "<script> window.location = 'catalog.php'</script>";
 		}else{
 			if( $param == "" )
-				echo "<script> window.location = 'index.php'</script>";		
+				echo "<script> window.location = 'index.php'</script>";	
+			if( $param == "catalogo" )
+				echo "<script> window.location = 'catalog.php'</script>";	
 		}
 	}
 	/* ----------------------------------------------------------------------------------- */
