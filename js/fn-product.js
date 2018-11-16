@@ -42,6 +42,33 @@
 	$("." + trg).show();			//mostrar elementos pertenecientes al detalle
  }
  /* ----------------------------------------------------------------------------------- */
+ function mostrarProductosJuego( id_dp ){
+ 	//Muestra la sección de productos pertenecientes al mismo juego
+ 	//$(".rdet_juego_rel").hide();
+ 	$(".epjuego").hide();
+ 	$("#epj" + id_dp ).show("slow");
+ }
+ 
+ /* ----------------------------------------------------------------------------------- */
+ /*function mostrarProductosJuego( id_dp ){
+ 	//Muestra la sección de productos pertenecientes al mismo juego
+ 	var ndiasn = $("#ndiasnuevo").val();
+ 	var purl_s = $("#purl_servidor").val();
+    $.ajax({
+        type:"POST",
+        url:"database/data-sets.php",
+        data:{ pj_idp: id_p, iddp: id_dp, ndiasnuevo: ndiasn, url_s: purl_s },
+        beforeSend: function () {
+            
+        },
+        success: function( response ){
+            console.log( response );
+            $("#seccion-productos-juego").html( response );
+        }
+    });
+ }*/
+
+ /* ----------------------------------------------------------------------------------- */
  function colapsarMenu( idclic ){
  	//Oculta las opciones internas del menú de navegacíón de catálogo
  	$(".subcategs_navcatalog").each(function() {
@@ -102,11 +129,12 @@
 		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
 		asignarPrecioFichaProducto( "detalle", $(this) );
+		
 		$("#iddetalle").val( id_dp_url );
 		/* $("#imgproducto").val( $("#feat_img_producto").attr("src") ); */
 		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
 		tallaInicial( $(this) ); 	//selecciona la primera talla de detalle de producto
-
+		mostrarProductosJuego( id_dp_url );
     });
 
 	//Clic: selección de tallas de un detalle de producto

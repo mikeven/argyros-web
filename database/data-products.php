@@ -9,7 +9,8 @@
 		//Obtiene los datos de un producto dado su id
 		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
 		ca.id as idc, ca.name as category, sc.id as idsc, sc.name as subcategory, 
-		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
+		ca.uname as uname_c, sc.uname as uname_s, m.name as material, 
+		timestampdiff(day, p.created_at, curdate()) as d_antiguedad 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
 		and p.country_id = co.id and p.id = $pid";
@@ -266,6 +267,16 @@
 		//Devuelve las imágenes de un producto dado su id
 		$q = "select i.path as image FROM images i, product_details d 
 		where i.product_detail_id = d.id and d.product_id = $id";
+
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenProductoDetalle( $dbh, $idd ){
+		//Devuelve las imágenes de un producto dado su id
+		$q = "select i.path as image FROM images i, product_details d 
+		where i.product_detail_id = $idd";
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

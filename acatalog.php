@@ -405,9 +405,11 @@
 														<img src="<?php echo $purl.$img[0]["image"] ?>" 
 														class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
 														<span class="sale_banner">
-															<!--<span class="sale_text">
-																Sale
-															</span>-->
+															<?php if( $p["d_antiguedad"] < NDIAS_NUEVO ) { ?>
+																<span class="sale_text">
+																	Nuevo
+																</span>
+															<?php } ?>
 														</span>
 														</a>
 														<div class="hbw">

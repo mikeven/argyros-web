@@ -67,6 +67,33 @@
 		return $relacionados;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function productosJuego( $dbh, $pid, $detalle_p ){
+		//Obtiene los productos pertenecientes al juego al que pertenece el producto actual, 
+		//agrupado por detalle
+
+		$productos_juego = array();		
+
+		foreach ( $detalle_p as $rdet ) {
+			
+			$relacionados_j = array();
+			$detalles_juego_p = obtenerProductosJuegosProducto( $dbh, $rdet["id"] );
+			$rdet_j["id_dp"] = $rdet["id"];
+			
+			foreach ( $detalles_juego_p as $reg_d ) {
+				//Recorrido por cada registro de detalle de producto del juego
+				$imagenes = obtenerImagenesDetalleProducto( $dbh, $reg_d["idd"], "" );
+				if( count( $imagenes ) > 0 ){
+					//Posee al menos una imagen, producto válido
+					$relacionados_j[] = $reg_d;
+				}
+			}
+			$rdet_j["juego_detalle"] = $relacionados_j;
+			$productos_juego[] = $rdet_j;
+		}
+
+		return $productos_juego;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function mostrarDataProducto( $datos ){
 		//
 		$bloque = "";
@@ -104,13 +131,15 @@
 					if( isset( $_GET["iddet"] ) ){
 						$img_pp = imgProductoDetalle( $detalle, $_GET["iddet"] );
 						if( !tieneTallasDisponiblesDetalleProducto( $dbh, $_GET["iddet"] ) ) 
-							$det_dsp = false;						
+							$det_dsp = false;
 					}
+					$productos_juegos = productosJuego( $dbh, $pid, $detalle );
 				}
 				else
 					$is_pd = false;
 
 			$productos_relacionados = productosRelacionados( $dbh, $producto["idc"] );
+			
 		}
 		
 	}

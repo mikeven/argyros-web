@@ -7,6 +7,7 @@
     ini_set( 'display_errors', 1 );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
+	include( "database/data-sets.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php" );
@@ -171,8 +172,11 @@
 									</div><!--end group_sidebar-->
 								</div>
 								<div id="col-main" class="product-page col-xs-24 col-sm-18 no_full_width have-left-slidebar">
+
 									<div itemscope="" itemtype="http://schema.org/Product">
 										<meta itemprop="url" content="/products/donec-condime-fermentum">
+								<input type="hidden" id="ndiasnuevo" value="<?php echo NDIAS_NUEVO;?>">
+								<input type="hidden" id="purl_servidor" value="<?php echo $purl;?>">
 										<div id="product" class="content clearfix">      										
 											<div id="product-image" class="product-image row no_full_width col-sm-12">           
 												
@@ -348,7 +352,15 @@
 										</div>
 									</div>         
 									<!-- Related Products -->
-									<?php include( "sections/product/related-products.php" );?>
+
+									<?php 
+										if( isset( $productos_juegos ) 
+											&& count( $productos_juegos ) > 0 ) {
+											include( "sections/product/set-products.php" );
+										}
+									?>
+
+									<?php include( "sections/product/related-products.php" ); ?>
 								</div>
 							</div>
 							<?php } else { ?>

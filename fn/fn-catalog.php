@@ -19,6 +19,7 @@
 
 	/**/
 	define( "NPAGINACION", 32 );
+	define( "NDIAS_NUEVO", 15 );
 
 	/*.............................................................*/
 	$catalogue_url = $_SERVER["REQUEST_URI"];
