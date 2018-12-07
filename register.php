@@ -15,7 +15,7 @@
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
     
-    checkSession( '' );
+    checkSession( 'registro' );
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->

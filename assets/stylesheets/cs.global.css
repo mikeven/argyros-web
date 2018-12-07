@@ -167,7 +167,7 @@ button{appearance:none;-moz-appearance:none;-webkit-appearance:none;text-shadow:
 .detail-price .price_sale,
 .detail-price span.price{font-family:'Lato', sans-serif;}
 .detail-price .price_compare{margin-left:0;margin-right:10px;font-size:15px;}
-.sale_banner{position:absolute;right:20px;top:20px;z-index:999;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;transition:all 0.2s ease-out;display:table;}
+.sale_banner{position:absolute;right:20px;top:20px;z-index:899;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;transition:all 0.2s ease-out;display:table;}
 .sale_banner .sale_text{background-color:#969d58;color:#ffffff;line-height:18px;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;transition:all 0.2s ease-out;display:table-cell;vertical-align:middle;}
 .about-us div{font-size:12px;margin-bottom:20px;line-height:22px;color:#000000;}
 .about-us li > i{padding-right:10px;}

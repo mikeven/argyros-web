@@ -26,7 +26,7 @@
 			if( $param != "" && $param != "catalogo" ) 
 				echo "<script> window.location = 'catalog.php'</script>";
 		}else{
-			if( $param == "" )
+			if( $param == "" && $param != "registro" )
 				echo "<script> window.location = 'index.php'</script>";	
 			if( $param == "catalogo" )
 				echo "<script> window.location = 'catalog.php'</script>";	

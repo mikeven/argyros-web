@@ -131,7 +131,7 @@
 		asignarPrecioFichaProducto( "detalle", $(this) );
 		
 		$("#iddetalle").val( id_dp_url );
-		/* $("#imgproducto").val( $("#feat_img_producto").attr("src") ); */
+		$("#imgproducto").val( $("#feat_img_producto").attr("src") );
 		$("#idref-detalle").text( $(this).attr("data-select-iddet") );
 		tallaInicial( $(this) ); 	//selecciona la primera talla de detalle de producto
 		mostrarProductosJuego( id_dp_url );

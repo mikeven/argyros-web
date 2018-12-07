@@ -100,7 +100,7 @@
 		$match = false;
 
 		if( ( $reg[$atributo] >= $valores_filtro[0] ) && ( $reg[$atributo] <= $valores_filtro[1] ) )
-			$match = true;
+			$match = true; //Match por tipo de precio: pieza y gramo
 
 		if( $atributo == "precio_pieza" ){
 			$match = false;

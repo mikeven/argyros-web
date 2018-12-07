@@ -61,6 +61,8 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function escribirItem( $n, $base_i, $item ){
+
+		//print_r($item);
 		//Asigna valores de un item a la plantilla del carrito 
 		
 		$base_i = str_replace( "{n_i}", $n, $base_i );							//id elemento contenedor
