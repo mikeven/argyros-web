@@ -86,7 +86,8 @@
 		.rdet_view{ display: none; }
 		.rdet_view_t{ display: none; }
 		.rdet_prop{ display: none; }
-		.product-view-img{ max-width: 50px !important; }
+		.product-view-img{ max-width: 50px !important; border: 1px solid #CCC !important; }
+		#feat_img_producto{ border: 1px solid #CCC !important; }
 		.infoproducto-lista{ font-size: 12px; margin-left: 20px; }
 		.item-info-p{ float: left; margin-right: 5px; }
 		.categ-rel-prod{ color: #808080 !important; }
