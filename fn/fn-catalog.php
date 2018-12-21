@@ -100,13 +100,13 @@
 		$match = false;
 
 		if( ( $reg[$atributo] >= $valores_filtro[0] ) && ( $reg[$atributo] <= $valores_filtro[1] ) )
-			$match = true; //Match por tipo de precio: pieza y gramo
+			$match = true; //Match por tipo de precio: gramo
 
 		if( $atributo == "precio_pieza" ){
 			$match = false;
 			foreach ( $reg["sizes"] as $rt ) {
 				if( ( $rt["precio"] >= $valores_filtro[0] ) && ( $rt["precio"] <= $valores_filtro[1] ) )
-					$match = true;
+					$match = true; //Match por tipo de precio: pieza
 				break;
 			}
 		}

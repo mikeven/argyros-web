@@ -14,7 +14,7 @@
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
    
-    checkSession( '' );
+    checkSession( 'catalogo' );
     if( !isset( $_GET["id"] ) ){
     	echo "<script> window.location = 'catalog.php'</script>";
     }
