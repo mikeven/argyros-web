@@ -244,7 +244,7 @@
 		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
 		p.material_id = m.id and p.country_id = co.id and p.category_id = $idc 
 		and p.subcategory_id = $idsc order by p.name ASC";
-	
+		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;	

@@ -19,6 +19,7 @@
     checkUsuarioBloqueado( $dbh );
     if( !isset( $iddetbusqueda ) ) 
     	$iddetbusqueda = "";
+    
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -116,7 +117,6 @@
 
 		 });
 	</script>
-	
 </head>
 <style>
 	#options {

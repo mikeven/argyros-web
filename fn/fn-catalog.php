@@ -316,7 +316,8 @@
 		$cat = $_GET["c"];
 		$sub = $_GET["s"];
 
-		$productos_catalogo = obtenerProductosC_S( $dbh, oic( $dbh, $cat, 'c' ), oic( $dbh, $sub, 's' ) );
+		$productos_catalogo = obtenerProductosC_S( $dbh, 	oic( $dbh, $cat, 'c' ), 
+															oic( $dbh, $sub, 's' ) );
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_catalogo );
 
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
@@ -329,7 +330,7 @@
 
 		$productos_catalogo = obtenerProductosC_( $dbh, oic( $dbh, $cat, 'c' ) );
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_catalogo );
-		
+
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
 	}
 	/*..........................................................................*/
