@@ -244,7 +244,7 @@
 	}
 
 	.imgcatal{
-		max-width: 250px;
+		/*max-width: 250px;: genera espacio blanco a la derecha*/
   		height: auto;
 	}
 

@@ -34,12 +34,6 @@
 			return mysqli_fetch_array( $data );
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerPreciosDetalleProducto( $dbh, $reg_det, $variables ){
-		//Devuelve los precios de cada detalle de producto según el tipo de precio y el valor 
-		//correspondiente de la variable asociada
-		print_r( $reg_det );		
-	}
-	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenesDetalleProducto( $dbh, $idd, $limite ){
 		//Devuelve los registros de imágenes de detalle de producto, cantidad de registros limitado
 		//por parámetro.
@@ -117,7 +111,8 @@
 
 	function obtenerPrecioPorManoObra( $var, $peso, $precio_mo ){
 		//Devuelve el precio del producto por mano de obra
-		$precio = ( $precio_mo * ( $var["variable_c"] ) + $var["material"] ) * $peso * ( $var["variable_d"] );
+		$precio = ( $precio_mo * ( $var["variable_c"] ) + $var["material"] ) 
+					* $peso * ( $var["variable_d"] );
 		
 		return number_format( $precio, 2, ".", "" );
 	}
@@ -162,35 +157,23 @@
 		return $peso;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerValorPrecioPorTipoPrecio( $dbh, $var, $reg_detalle ){
-		//Devuelve el valor del precio del producto calculado por tipo de precio y perfil de usuario
-		
-		$precio = NULL;
-		
-		if( $reg_detalle["tipo_precio"] == "p" ){
-			$precio = obtenerPrecioPorPieza( $var, $reg_detalle["precio_pieza"] );
-		}
-		/*if( $reg_detalle["tipo_precio"] == "g" ){
-			$precio = obtenerPrecioPorManoObra( $var_gr_usuario, $peso, $reg_detalle["precio_mo"] );
-		}*/
-
-		return $precio;
-	}
-	/* ----------------------------------------------------------------------------------- */
 	function cargarPreciosDetalle( $dbh, $detalle ){
 		//Devuelve los precios por pieza o peso de cada registro de detalle de producto,  
 		//asociado al perfil de usuario y tipos de precio.
 		$ndetalle = array();
-		$var_gr_usuario = variablesGrupoUsuario( $dbh );
+		$var_gr_u = variablesGrupoUsuario( $dbh );
 
 		foreach ( $detalle as $det ) {
-			$det["precio"] = obtenerValorPrecioPorTipoPrecio( $dbh, $var_gr_usuario, $det );
+
+			if( $det["tipo_precio"] == "p" )
+				$det["precio"] = obtenerPrecioPorPieza( $var_gr_u, $reg_detalle["precio_pieza"] );
 			
 			if( $det["tipo_precio"] == "g" )
-				$det["precio_peso"] = obtenerPrecioPorGramo( $var_gr_usuario, $det["precio_peso"] );
+				$det["precio_peso"] = obtenerPrecioPorGramo( $var_gr_u, $det["precio_peso"] );
 
-			if( $det["tipo_precio"] == "mo" )
-				$det["precio_peso"] = obtenerPrecioPorManoObra( $var_gr_usuario, 1, $det["precio_mo"] );
+			if( $det["tipo_precio"] == "mo" ){
+				$det["precio_mo"] = obtenerPrecioPorManoObra( $var_gr_u, 1, $det["precio_mo"] );
+			}
 			
 			$ndetalle[] = $det;
 		}
@@ -350,7 +333,7 @@
 		//Devuelve los registros detalles asociados a un producto dado su id
 		
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
-		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
+		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, product_id as pid,  
 		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
 		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 

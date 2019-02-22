@@ -14,7 +14,7 @@
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
     
-    checkSession( '' );
+    checkSession( 'recuperar' );
     if( isset( $_GET["token_reset"] ) ){
     	$token = $_GET["token_reset"];
     	$usuario = obtenerUsuarioTokenNuevoPassword( $dbh, $token );

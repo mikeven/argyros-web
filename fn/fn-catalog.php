@@ -95,17 +95,30 @@
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function matchFiltroPrecio( $dbh, $reg, $atributo, $valores_filtro ){
+	function matchFiltroPrecio( $dbh, $reg, $atr, $vals_filtro, $ft ){
 		//Devuelve verdadero si un detalle de producto está en el rango de valores del filtro
 		$match = false;
+		
+		if( $atr == "precio_peso" || $atr == "precio_mo" ){
 
-		if( ( $reg[$atributo] >= $valores_filtro[0] ) && ( $reg[$atributo] <= $valores_filtro[1] ) )
-			$match = true; //Match por tipo de precio: gramo
-
-		if( $atributo == "precio_pieza" ){
+			if( count( $ft ) > 0 ){ 
+				// filtro adicional por tallas
+				foreach ( $reg["sizes"] as $rt ) {
+					if ( ( $reg[$atr] >= $vals_filtro[0] ) && ( $reg[$atr] <= $vals_filtro[1] ) 
+						&& condTalla( $ft, $rt["talla"] ) )
+						$match = true; 		// Match con talla filtrada 
+					break;
+				}
+			} else {
+				if( ( $reg[$atr] >= $vals_filtro[0] ) && ( $reg[$atr] <= $vals_filtro[1] ) )
+				$match = true;  			// Match por tipo de precio: gramo | mo	
+			}
+		}
+		/*...................................................................*/	
+		if( $atr == "precio_pieza" ){
 			$match = false;
 			foreach ( $reg["sizes"] as $rt ) {
-				if( ( $rt["precio"] >= $valores_filtro[0] ) && ( $rt["precio"] <= $valores_filtro[1] ) )
+				if( ( $rt["precio"] >= $vals_filtro[0] ) && ( $rt["precio"] <= $vals_filtro[1] ) )
 					$match = true; //Match por tipo de precio: pieza
 				break;
 			}
@@ -114,13 +127,23 @@
 		return $match;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function matchFiltroPeso( $dbh, $detalle, $atributo, $valores_filtros ){
+	function condTalla( $ft, $talla ){
+		//
+		$cond = false;
+		if( count( $ft ) == 0 ) $cond = true;
+		if( count( $ft ) > 0 && in_array( $talla, $ft ) ) $cond = true;
+		
+		return $cond;
+	} 
+	/* ----------------------------------------------------------------------------------- */
+	function matchFiltroPeso( $dbh, $detalle, $atr, $val_filtros, $ft ){
 		//Devuelve verdadero si un atributo peso en detalle de producto está en el rango de valores del filtro
 		$match = false;
 		
 		foreach ( $detalle["sizes"] as $reg ) {
-			if( ( $reg[$atributo] >= $valores_filtros[0] ) && ( $reg[$atributo] <= $valores_filtros[1] ) )
-			$match = true;
+			if( ( $reg[$atr] >= $val_filtros[0] ) && ( $reg[$atr] <= $val_filtros[1] ) 
+				&& condTalla( $ft, $reg["talla"] ) )	
+				$match = true;
 		}
 		return $match;
 	}
@@ -162,13 +185,14 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerComparadorConFiltroPorAtributo( $atributo ){
-		//Devuelve la lista de atributos a comparar con los filtros de url
+		//Devuelve la lista de atributos (bd) a comparar con los filtros de url
 		$comparadores = array( 
-			P_FLT_BANO => "ubano",
-			P_FLT_COLOR => "ucolor",
-			P_FLT_TALLA => "ucolor",
-			P_FLT_PIEZA => "precio_pieza",
-			P_FLT_PESO => "precio_peso",
+			P_FLT_BANO 		=> "ubano",
+			P_FLT_COLOR 	=> "ucolor",
+			P_FLT_TALLA 	=> "ucolor",
+			P_FLT_PIEZA 	=> "precio_pieza",
+			P_FLT_PESO 		=> "precio_peso",
+			"precio_mo" 	=> "precio_mo",
 			P_FLT_PESO_PROD => "peso" 
 		);
 
@@ -189,15 +213,15 @@
 		return $filtrados;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, $parametro, $valores_filtro ){
+	function filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, $param, $vals_filtro ){
 		//Devuelve la lista de productos que coinciden en atributo detalle de producto con los valores del filtro
 		$filtrados = array();
 
 		foreach ( $productos as $p ){
 			$detalle = obtenerDetalleProductoPorId( $dbh, $p["data"]["id"] );
-			$atributo = obtenerComparadorConFiltroPorAtributo( $parametro );
+			$atributo = obtenerComparadorConFiltroPorAtributo( $param );
 
-			if( matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $valores_filtro ) ){
+			if( matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $vals_filtro ) ){
 				$filtrados[] = $p;
 			}
 		}
@@ -205,7 +229,8 @@
 		return $filtrados;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, $atributo, $valores_filtros ){
+	function filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, 
+																$atributo, $vals_filtros ){
 		//Devuelve la lista de productos que coinciden en varios valores de un atributo de 
 		//detalle de producto con los valores del filtro ( Tallas )
 		$filtrados = array();
@@ -214,7 +239,7 @@
 			$detalle = $prod["detalle"];
 			foreach ( $detalle as $reg ){
 				$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $reg["id"], $atributo );
-				if( matchFiltroAtributo( $dbh, $vatributos, $valores_filtros ) ){
+				if( matchFiltroAtributo( $dbh, $vatributos, $vals_filtros ) ){
 					$filtrados[] = $prod;
 					break;
 				}
@@ -224,16 +249,16 @@
 		return $filtrados;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function filtrarProductosPorPrecio( $dbh, $productos, $atributo, $valores_filtros ){
+	function filtrarProductosPorPrecio( $dbh, $productos, $atr, $vals_filtros, $ft ){
 		//Devuelve la lista de productos si alguno de sus registros en detalle 
-		//está en rango de precio filtrado 
+		//está en rango de precio filtrado (precio por peso: precio x gr | precio x mo) 
 		$filtrados = array();
 
 		foreach ( $productos as $prod ){
-
 			foreach ( $prod["detalle"] as $reg ){
-				$cmp = obtenerComparadorConFiltroPorAtributo( $atributo );
-				if( matchFiltroPrecio( $dbh, $reg, $cmp, $valores_filtros ) ){
+				if( $reg["tipo_precio"] == "mo" ) $atr = "precio_mo";
+				$cmp = obtenerComparadorConFiltroPorAtributo( $atr );
+				if( matchFiltroPrecio( $dbh, $reg, $cmp, $vals_filtros, $ft ) ){
 					$filtrados[] = $prod;
 					break;
 				}
@@ -243,14 +268,14 @@
 		return $filtrados;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function filtrarProductosPorPeso( $dbh, $productos, $atributo, $valores_filtros ){
-		//Devuelve la lista de productos si alguno de sus registros en detalle está en rango de precio filtrado 
+	function filtrarProductosPorPeso( $dbh, $productos, $atr, $val_filtros, $ft ){
+		//Devuelve la lista de productos si alguno de sus registros en detalle está en rango de peso filtrado 
 		$filtrados = array();
 
 		foreach ( $productos as $prod ){
 			foreach ( $prod["detalle"] as $reg ){
-				$cmp = obtenerComparadorConFiltroPorAtributo( $atributo );
-				if( matchFiltroPeso( $dbh, $reg, $cmp, $valores_filtros ) ){
+				$cmp = obtenerComparadorConFiltroPorAtributo( $atr );
+				if( matchFiltroPeso( $dbh, $reg, $cmp, $val_filtros, $ft ) ){
 					$filtrados[] = $prod;
 					break;
 				}
