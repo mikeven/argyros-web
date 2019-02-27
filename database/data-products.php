@@ -89,17 +89,17 @@
 		return $tiene_detalle;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerPrecioPorPeso( $peso, $precio_gramo ){
+		//Devuelve el precio del producto por peso
+		$precio = $peso * $precio_gramo;
+		return number_format( $precio, 2, ".", "" );
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorGramo( $var, $precio_gramo ){
 		//Devuelve el valor del precio del gramo de acuerdo al perfil de cliemte
 		$precio = $precio_gramo * $var["variable_b"];
 		
 		return number_format( $precio, 2, ".", "" );	
-	}
-	/* ----------------------------------------------------------------------------------- */
-	function obtenerPrecioPorPeso( $var, $peso, $precio_gramo ){
-		//Devuelve el precio del producto por peso
-		$precio = $peso * $precio_gramo;
-		return number_format( $precio, 2, ".", "" );
 	}
 
 	function obtenerPrecioPorPieza( $var, $precio_pieza ){
@@ -117,20 +117,16 @@
 		return number_format( $precio, 2, ".", "" );
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerPreciosPorPesoTalla( $dbh, $var, $rdetalle ){
+	function obtenerPreciosPorPesoTalla( $dbh, $rdetalle ){
 		//Devuelve el valor del precio asociado de acuerdo al perfil del cliente y tipo de precio 
 		$ntallas = array();
 		$tallas = $rdetalle["sizes"];
 
 		foreach ( $tallas as $r ) {
-			if( $rdetalle["tipo_precio"] == "g" )
-				$r["precio"] = obtenerPrecioPorPeso( $var, $r["peso"], $rdetalle["precio_peso"] );
+			if( $rdetalle["tipo_precio"] == "g" || $rdetalle["tipo_precio"] == "mo" )
+				$r["precio"] = obtenerPrecioPorPeso( $r["peso"], $rdetalle["precio"] );
 			
-			if( $rdetalle["tipo_precio"] == "mo" )
-				$r["precio"] = obtenerPrecioPorManoObra( $var, $r["peso"], $rdetalle["precio_mo"] );
-			
-			if( $rdetalle["tipo_precio"] == "p" )
-				$r["precio"] = obtenerPrecioPorPieza( $var, $rdetalle["precio_pieza"] );
+			if( $rdetalle["tipo_precio"] == "p" ) $r["precio"] = $rdetalle["precio"];
 			
 			$ntallas[] = $r;			
 		}
@@ -166,13 +162,16 @@
 		foreach ( $detalle as $det ) {
 
 			if( $det["tipo_precio"] == "p" )
-				$det["precio"] = obtenerPrecioPorPieza( $var_gr_u, $reg_detalle["precio_pieza"] );
+				$det["precio"] = obtenerPrecioPorPieza( $var_gr_u, $det["precio_pieza"] );
 			
-			if( $det["tipo_precio"] == "g" )
+			if( $det["tipo_precio"] == "g" ){
 				$det["precio_peso"] = obtenerPrecioPorGramo( $var_gr_u, $det["precio_peso"] );
+				$det["precio"] = $det["precio_peso"];
+			}
 
 			if( $det["tipo_precio"] == "mo" ){
 				$det["precio_mo"] = obtenerPrecioPorManoObra( $var_gr_u, 1, $det["precio_mo"] );
+				$det["precio"] = $det["precio_mo"];
 			}
 			
 			$ndetalle[] = $det;
@@ -198,7 +197,7 @@
 
 		foreach ( $detalle as $det ){
 			$det["sizes"] = obtenerTallasDetalleProducto( $dbh, $det["id"] );
-			$det["sizes"] = obtenerPreciosPorPesoTalla( $dbh, $var_gr_usuario, $det );
+			$det["sizes"] = obtenerPreciosPorPesoTalla( $dbh, $det );
 			$ndetalle[] = $det;
 		}
 		

@@ -99,28 +99,34 @@
 		//Devuelve verdadero si un detalle de producto está en el rango de valores del filtro
 		$match = false;
 		
-		if( $atr == "precio_peso" || $atr == "precio_mo" ){
-
+		if( ( $atr == "precio_peso" ) && $reg["tipo_precio"] != "p" ){
+			
+			if( $reg["tipo_precio"]== "mo" ) $atr = "precio_mo";
+			
 			if( count( $ft ) > 0 ){ 
 				// filtro adicional por tallas
 				foreach ( $reg["sizes"] as $rt ) {
 					if ( ( $reg[$atr] >= $vals_filtro[0] ) && ( $reg[$atr] <= $vals_filtro[1] ) 
-						&& condTalla( $ft, $rt["talla"] ) )
+						&& condTalla( $ft, $rt["talla"] ) ){
 						$match = true; 		// Match con talla filtrada 
-					break;
+						break;
+					}
 				}
 			} else {
 				if( ( $reg[$atr] >= $vals_filtro[0] ) && ( $reg[$atr] <= $vals_filtro[1] ) )
-				$match = true;  			// Match por tipo de precio: gramo | mo	
+					$match = true;  		// Match por tipo de precio: gramo | mo	
 			}
 		}
-		/*...................................................................*/	
+		
+		/* ....................................................................... */	
+		
 		if( $atr == "precio_pieza" ){
 			$match = false;
 			foreach ( $reg["sizes"] as $rt ) {
-				if( ( $rt["precio"] >= $vals_filtro[0] ) && ( $rt["precio"] <= $vals_filtro[1] ) )
-					$match = true; //Match por tipo de precio: pieza
-				break;
+				if( ( $rt["precio"] >= $vals_filtro[0] ) && ( $rt["precio"] <= $vals_filtro[1] ) ){
+					$match = true;			//Match por tipo de precio: pieza
+					break;
+				}
 			}
 		}
 
@@ -253,11 +259,11 @@
 		//Devuelve la lista de productos si alguno de sus registros en detalle 
 		//está en rango de precio filtrado (precio por peso: precio x gr | precio x mo) 
 		$filtrados = array();
-
+		
 		foreach ( $productos as $prod ){
 			foreach ( $prod["detalle"] as $reg ){
-				if( $reg["tipo_precio"] == "mo" ) $atr = "precio_mo";
-				$cmp = obtenerComparadorConFiltroPorAtributo( $atr );
+				$atr_f = $atr;
+				$cmp = obtenerComparadorConFiltroPorAtributo( $atr_f );
 				if( matchFiltroPrecio( $dbh, $reg, $cmp, $vals_filtros, $ft ) ){
 					$filtrados[] = $prod;
 					break;

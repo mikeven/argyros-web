@@ -41,12 +41,13 @@
 			  <span class="gs_circ"><?php echo "Color: ".$pdet["color"]; ?></span> |  
 			  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> <br>
 			  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
-			  <?php if( $pdet["tipo_precio"] == "g" || $pdet["tipo_precio"] == "mo" ) { 
-				  		
+			  <?php if ( $pdet["tipo_precio"] != "p" ){
+
+			  		if( $pdet["tipo_precio"] == "g" ) 
 				  		$precio_x_peso = $pdet["precio_peso"];
-				  	
-				  		/*if( $pdet["tipo_precio"] == "mo" ) 
-				  			$precio_x_peso = $pdet["precio_mo"];*/
+				  		
+				  	if( $pdet["tipo_precio"] == "mo" ) 
+				  			$precio_x_peso = $pdet["precio_mo"];
 			  ?>
 			  | <span class="gs_circ">Precio por g: 
 				  	<span id="rpreciop_g">$ 
