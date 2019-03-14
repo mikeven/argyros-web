@@ -54,7 +54,7 @@
 		$server = "http://argyros.com.pa/nuevo";
 		$url_activacion = $server."/verified_account.php?token_account=".$datos["token"];
 		$plantilla = str_replace( "{url_activation}", $url_activacion, $plantilla );
-		$plantilla = str_replace( "{user}", $datos["name"], $plantilla );
+		$plantilla = str_replace( "{user}", $datos["nombre"], $plantilla );
 		
 		return $plantilla;
 	}

@@ -26,7 +26,7 @@
 			if( $param != "" && $param != "catalogo" ) 
 				echo "<script> window.location = 'catalog.php'</script>";
 		}else{
-			if( $param == "" && $param != "registro" )
+			if( $param == "" && $param != "registro" && $param != "verificacion" )
 				echo "<script> window.location = 'index.php'</script>";	
 			if( $param == "catalogo" )
 				echo "<script> window.location = 'catalog.php'</script>";	
@@ -388,7 +388,7 @@
 			}
 			else{
 				$res["exito"] = -1;
-				$res["mje"] = "Error al enviar mensaje: $res[msg]";
+				$res["mje"] = "Error al enviar mensaje: $remail[msg]";
 			}			
 		}
 

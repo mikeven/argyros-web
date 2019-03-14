@@ -13,7 +13,7 @@
     include( "fn/fn-product.php");
     include( "fn/fn-catalog.php" );
     
-    checkSession( '' );
+    checkSession( 'verificacion' );
 	$vrf = NULL;
     if( isset( $_GET["token_account"] ) ){
     	$ta = $_GET["token_account"];

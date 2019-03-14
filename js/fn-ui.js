@@ -18,7 +18,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
 /* ----------------------------------------------------------------------------------- */
 function changeurl( url ){
 	var new_url = url;
-	window.history.pushState( "data", "Title", new_url );
+	window.history.replaceState( "data", "Title", new_url );
 	document.title = url;
 }
 /* ----------------------------------------------------------------------------------- */

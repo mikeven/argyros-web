@@ -21,7 +21,6 @@ function obtenerCarritoCompra(){
         url:"fn/fn-cart.php",
         data:{ get_cart: 1 },
         success: function( response ){
-            console.log(response);
             cart = jQuery.parseJSON( response );
             imprimirCarritoTienda( cart );            
         }

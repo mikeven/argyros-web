@@ -29,6 +29,10 @@
 					<?php } ?>
 
 				<?php } ?>
+				| 
+				<a href="javascript:history.back()"> 
+					<span class="page-title"><i class="fa fa-arrow-left"></i> Volver</span>
+				</a>
 			</div>
 		</div>
 	</div>
