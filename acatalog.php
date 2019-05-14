@@ -251,6 +251,13 @@
 	.img-catal-contenedor{
 		height:270px !important; 
 	}
+	@media(max-width: 768px){
+		.imgcatal{
+	  		height: auto;
+	  		margin: 0 auto;
+	  		width: 70%;
+		}
+	}
 
 	#flt-breadcrumb{ margin-left: 50px; }
 	#flt-breadcrumb a{ font-weight: 500; color: #818285; }
@@ -377,7 +384,7 @@
 														//$img = obtenerImagenProducto( $dbh, $p["id"] );
 														
 														if( productoTieneDetalle( $dbh, $p["id"] ) ){
-
+															
 															$img = obtenerImagenProductoCatalogo( 
 																	$dbh, $p["id"], $iddetbusqueda, 
 																	$data_rprod );
@@ -388,7 +395,9 @@
 												?>
 												<?php if( $enum == NPAGINACION ){ 
 														$enum = 0; $bloque++; 
-														if( $bloque == 1 ) $visible = "visible"; else $visible = "";
+														if( $bloque == 1 ) 
+															$visible = "visible"; 
+														else $visible = "";
 												?>
 													<div class="division_bloque" align="center">
 														<button id="bc<?php echo $bloque; ?>" class="btn bcargable <?php echo $visible; ?>" 
@@ -441,7 +450,7 @@
 														<div class="list-mode-description">
 															 <?php echo $p["description"] ?>
 														</div>
-														<div class="hover-appear">
+														<div class="hover-appear hidden-xs">
 															<form action="#" method="post">
 																<div class="effect-ajax-cart">
 																	<input name="quantity" value="1" type="hidden">
@@ -464,7 +473,7 @@
 												
 												<?php 
 														$enum++; 
-														} // if ($p[detalle])
+														} // if productoTieneDetalle
 													} // foreach
 												?>
 												
