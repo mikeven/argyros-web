@@ -4,10 +4,18 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerIdCategoriaPorUname( $dbh, $uname, $tabla ){
+	function obtenerIdCategoriaPorUname( $dbh, $uname ){
 		//Devuelve el id de una categoría dado su uname
-		$q = "Select id from $tabla where uname = '$uname'";		
+		$q = "Select id from categories where uname = '$uname'";		
 
+		$data = mysqli_query( $dbh, $q );
+		return mysqli_fetch_array( $data );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerIdSubCategoriaPorUname( $dbh, $uname, $idc ){
+		//Devuelve el id de una subcategoría dado su uname
+		$q = "Select id from subcategories where uname = '$uname' and category_id = $idc";		
+		
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_fetch_array( $data );
 	}

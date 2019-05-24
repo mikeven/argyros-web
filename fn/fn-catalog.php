@@ -27,12 +27,16 @@
 	if( isset( $urlparsed["query"] ) )
 		parse_str( $urlparsed["query"], $url_params );
 	/*.............................................................*/
-	function oic( $dbh, $uname, $t ){
-		//Obtiene el id de las categorías dado su uname
-		if( $t == 'c' ) $tabla = "categories";
-		if( $t == 's' ) $tabla = "subcategories";
-
-		$data = obtenerIdCategoriaPorUname( $dbh, $uname, $tabla );
+	function oic( $dbh, $t, $uname_c, $uname_s ){
+		//Obtiene el id de las categorías / subcategorías dado su uname
+		if( $t == 'c' ) {
+			$data = obtenerIdCategoriaPorUname( $dbh, $uname_c );
+		}
+		if( $t == 's' ) {
+			$idc = obtenerIdCategoriaPorUname( $dbh, $uname_c );
+			$data = obtenerIdSubCategoriaPorUname( $dbh, $uname_s, $idc["id"] );
+		}
+		
 		return $data["id"];
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -347,8 +351,9 @@
 		$cat = $_GET["c"];
 		$sub = $_GET["s"];
 
-		$productos_catalogo = obtenerProductosC_S( $dbh, 	oic( $dbh, $cat, 'c' ), 
-															oic( $dbh, $sub, 's' ) );
+		$productos_catalogo = obtenerProductosC_S( $dbh, 	oic( $dbh, 'c', $cat, "" ), 
+															oic( $dbh, 's', $cat, $sub ) );
+		
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_catalogo );
 
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );

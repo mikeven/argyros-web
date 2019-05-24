@@ -357,7 +357,7 @@
 		}
 		
 		if( isset( $_GET["c"] ) ){
-			$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
+			$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"] );
 			$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
 		}
 	}
