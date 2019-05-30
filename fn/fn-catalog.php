@@ -350,7 +350,7 @@
 		//Búsqueda de productos por categoría y subcategoría
 		$cat = $_GET["c"];
 		$sub = $_GET["s"];
-
+								//$dbh, $t, $uname_c, $uname_s
 		$productos_catalogo = obtenerProductosC_S( $dbh, 	oic( $dbh, 'c', $cat, "" ), 
 															oic( $dbh, 's', $cat, $sub ) );
 		
@@ -363,8 +363,8 @@
 	if( isset( $_GET["c"] ) && !isset( $_GET["s"] ) ){
 		//Búsqueda de productos solo por categoría
 		$cat = $_GET["c"];
-
-		$productos_catalogo = obtenerProductosC_( $dbh, oic( $dbh, $cat, 'c' ) );
+		
+		$productos_catalogo = obtenerProductosC_( $dbh, oic( $dbh, 'c', $cat, "" ) );
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_catalogo );
 
 		$h_ncat = obtenerCategoriaPorUname( $dbh, $cat );
