@@ -121,8 +121,9 @@
 		//Devuelve el valor del precio asociado de acuerdo al perfil del cliente y tipo de precio 
 		$ntallas = array();
 		$tallas = $rdetalle["sizes"];
-
+		
 		foreach ( $tallas as $r ) {
+
 			if( $rdetalle["tipo_precio"] == "g" || $rdetalle["tipo_precio"] == "mo" )
 				$r["precio"] = obtenerPrecioPorPeso( $r["peso"], $rdetalle["precio"] );
 			
@@ -391,10 +392,11 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTallasDetalleProducto( $dbh, $idd ){
 		//Devuelve los registros de tallas DISPONIBLES de detalle de producto
-		$q = "select spd.size_id as idtalla, s.name as talla, s.unit as unidad, 
-		spd.weight as peso, spd.adjustable as ajustable, spd.visible as visible 
-		from size_product_detail spd, sizes s where spd.size_id = s.id and 
-		spd.product_detail_id = $idd and spd.visible = 1 order by s.name ASC";
+		$q = "select spd.size_id as idtalla, s.name as talla, spd.visible as visible, 
+		spd.adjustable as ajustable, convert(s.name, decimal) as vsize, s.unit as unidad, 
+		spd.weight as peso from size_product_detail spd, sizes s 
+		where spd.size_id = s.id and spd.product_detail_id = $idd and spd.visible = 1 
+		order by vsize ASC, talla ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -408,7 +410,6 @@
 		$detalle["imagenes"] 	= obtenerImagenesDetalleProducto( $dbh, $idd );
 
 		return $detalle;
-		
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTallasPorCategoria( $dbh, $idc ){
@@ -526,7 +527,7 @@
 		}
 
 		if( $param == "codigo" ){
-			$q = "select id from products where visible = 1 and id in ( select dp.product_id 
+			$q = "select id from products where  id in ( select dp.product_id 
 			from product_details dp where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' )";
 		}
 

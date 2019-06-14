@@ -209,7 +209,7 @@
 			$data["orden"] = $orden;
 			$data["total"] = number_format( $total, 2, '.', ',' );
 			enviarMensajeEmail( "nuevo_pedido_usuario", $data, $data["usuario"]["email"] );
-			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $email_admin );
+			//enviarMensajeEmail( "nuevo_pedido_administrador", $data, $email_admin );
 		}
 		if( $estado == "pedido_confirmado" ){
 			//Notificación de confirmación de pedido: Administrador
@@ -233,23 +233,26 @@
 	if( isset( $_POST["neworder"] ) ){
 		session_start();
 		ini_set( 'display_errors', 1 );
-		$carrito = $_SESSION["cart"];
-		include( "../database/bd.php" );
-		include( "../fn/fn-cart.php" );
-	
-		if ( count( $carrito ) > 0 ) {
-			$orden = obtenerDatosCreacionOrden( $carrito );
-			$orden["id"] = registrarOrden( $dbh, $orden );
-			$n = registrarDetalleOrden( $dbh, $orden, $carrito );
-			if( $n > 0 ){
-				$monto_tcart = obtenerMontoTotalCarritoCompra();
-				notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
-				vaciarCarrito();
-				echo mensajeRespuestaOrden();
+		if( isset( $_SESSION["cart"] ) ){
+			$carrito = $_SESSION["cart"];
+			include( "../database/bd.php" );
+			include( "../fn/fn-cart.php" );
+		
+			if ( count( $carrito ) > 0 ) {
+				$orden = obtenerDatosCreacionOrden( $carrito );
+				$orden["id"] = registrarOrden( $dbh, $orden );
+				$n = registrarDetalleOrden( $dbh, $orden, $carrito );
+				if( $n > 0 ){
+					$monto_tcart = obtenerMontoTotalCarritoCompra();
+					//notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
+					vaciarCarrito();
+					echo mensajeRespuestaOrden();
+				}
 			}
+			else 
+				echo "Error al guardar su pedido";
 		}
-		else 
-			echo "Error al guardar su pedido";
+		else echo "Sesión expirada, ingrese a su cuenta nuevamente";
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Petición para cancelar una orden ( pedido )
