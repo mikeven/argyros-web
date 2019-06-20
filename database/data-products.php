@@ -393,7 +393,7 @@
 	function obtenerTallasDetalleProducto( $dbh, $idd ){
 		//Devuelve los registros de tallas DISPONIBLES de detalle de producto
 		$q = "select spd.size_id as idtalla, s.name as talla, spd.visible as visible, 
-		spd.adjustable as ajustable, convert(s.name, decimal) as vsize, s.unit as unidad, 
+		spd.adjustable as ajustable, convert(s.name, decimal(4,2)) as vsize, s.unit as unidad, 
 		spd.weight as peso from size_product_detail spd, sizes s 
 		where spd.size_id = s.id and spd.product_detail_id = $idd and spd.visible = 1 
 		order by vsize ASC, talla ASC";
@@ -414,7 +414,8 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTallasPorCategoria( $dbh, $idc ){
 		//Devuelve las tallas asociadas a una categoría de producto
-		$q = "select id, name, unit from sizes where category_id = $idc order by name ASC";
+		$q = "select id, name, unit, convert(name, decimal(4,2)) as vsize 
+		from sizes where category_id = $idc order by vsize ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );

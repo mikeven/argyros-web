@@ -41,8 +41,10 @@
 				$texto = $tprecio.": ".$vector[0]."gr - ".$vector[1]." gr";	
 			}
 		}
-		else
-			$texto = ucfirst( str_replace( "-", " ", $texto ) ); 
+		else{
+			$texto = ucfirst( str_replace( "-", " ", $texto ) );
+			if( $texto == "N/A" )  $texto = "Ajustable/Única";	// Tallas únicas - ajustables
+		}
 
 		return $texto;
 	}

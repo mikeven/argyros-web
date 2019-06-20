@@ -53,9 +53,7 @@
 
 					<div id="flt_precio_prod" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Precio por pieza 
-							</p>
+							<p class="title"> Precio por pieza  </p>
 							De (ej. 12.75; 25 )
 							<input type="text" id="flt_pre_pro_min" class="form-control input_flt" placeholder="$"
 							name="f_pprod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
@@ -68,9 +66,7 @@
 
 					<div id="flt_precio_gramo" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Precio por gramo 
-							</p>
+							<p class="title"> Precio por gramo </p>
 							De (ej. 0.75; 3 )
 							<input type="text" id="flt_pre_pes_min" class="form-control input_flt" placeholder="$"
 							name="f_ppeso_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
@@ -84,9 +80,7 @@
 
 					<div id="flt_peso" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Peso de producto (g)
-							</p>
+							<p class="title"> Peso de producto (g) </p>
 							De (Gramos: ej.: 0.5; 2 )
 							<input type="text" id="flt_peso_min" class="form-control input_flt" placeholder="gr"
 							name="f_peso_prod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
@@ -100,10 +94,14 @@
 
 					<div id="flt_talla" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Talla
-							</p>
+							<p class="title"> Talla </p>
 							<ul>
+							<?php 
+							$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, 'N/A' ) ;
+							?>
+								<li><a title="Talla ajustable" href="<?php echo $url_f; ?>">
+									<span class="fe-checkbox"></span>Ajustable/Única</a>
+								</li>
 								<?php foreach ( $filtro_tallas as $t ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, trim( $t["name"] ) );
 								?>
@@ -117,9 +115,7 @@
 
 					<div id="flt_bano" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Baños
-							</p>
+							<p class="title"> Baños </p>
 							<ul>
 								<?php foreach ( $d_filtros["banos"] as $b ){  
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_BANO, trim( $b["ubano"] ) );
@@ -134,9 +130,7 @@
 
 					<div id="flt_trabajo" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Trabajo
-							</p>
+							<p class="title"> Trabajo </p>
 							<ul>
 								<?php foreach ( $d_filtros["trabajos"] as $t ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TRABAJO, trim( $t["utrabajo"] ) );
@@ -151,9 +145,7 @@
 
 					<div id="flt_linea" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Línea
-							</p>
+							<p class="title"> Línea </p>
 							<ul>
 								<?php foreach ( $d_filtros["lineas"] as $l ) {
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_LINEA, trim( $l["ulinea"] ) );
@@ -168,9 +160,7 @@
 
 					<div id="flt_color" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title">
-								Colores
-							</p>
+							<p class="title"> Colores </p>
 							<ul>
 								<?php foreach ( $d_filtros["colores"] as $c ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_COLOR, trim( $c["ucolor"] ) );

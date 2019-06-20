@@ -74,7 +74,7 @@
     	return $cdestacadas;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function matchFiltroAtributo( $dbh, /*$idp, */$valores_atributo, $valores_filtro ){
+	function matchFiltroAtributo( $dbh, $valores_atributo, $valores_filtro ){
 		//Devuelve verdadero si un producto posee atributos coincidentes a los filtros
 		$nulineas = array();
 		$match = false;
@@ -215,7 +215,7 @@
 		foreach ( $productos as $p ){
 			//$p = $producto["data"];
 			$vatributos = obtenerComparadoresConFiltroPorAtributo( $dbh, $p["data"]["id"], $atributo );
-			if( matchFiltroAtributo( $dbh, /*$p["id"],*/ $vatributos, $valores ) ){
+			if( matchFiltroAtributo( $dbh, $vatributos, $valores ) ){
 				$filtrados[] = $p;
 			}
 		}
