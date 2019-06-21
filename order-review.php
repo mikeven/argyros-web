@@ -128,7 +128,8 @@
 										<table class="table-hover">
 											<thead>
 												<tr>
-													<th class="order_number">
+													<th class="order_number"> </th>
+													<th class="order_number" style="text-align: left;">
 														Item
 													</th>
 													<th class="date">
@@ -152,6 +153,8 @@
 													<td>
 														<img src="<?php echo $item["img_producto"]?>" 
 														alt="<?php echo $item["nombre_producto"]?>" width="50">
+													</td>
+													<td style="text-align: left;">
 														<a href="<?php echo $lnkp; ?>" 
 														title="" target="_blank"><?php echo $item["nombre_producto"]?></a>
 														<div>
