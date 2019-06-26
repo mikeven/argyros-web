@@ -189,6 +189,8 @@
 											<?php 
 												$no = 0;
 												foreach ( $ordenes as $orden ) {
+													$det_o = obtenerDetalleOrden( $dbh, $orden["id"] );
+													$total_o = calcularTotalOrden( $orden, $det_o );
 													if( $orden["leido"] == "no-leido" ) $ctable = "hlighted"; else $ctable = "";
 											?>
 												<tr class="<?php echo $ctable; ?>">
@@ -219,7 +221,7 @@
 													</td>
 													
 													<td>
-														<span class="note">$<?php echo $orden["total"] ?></span>
+														<span class="note">$<?php echo $total_o ?></span>
 													</td>
 												</tr>
 											<?php $no++; } ?>

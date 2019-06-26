@@ -13,11 +13,10 @@
 		  $total_n_items = 0;
 	      foreach ( $odetalle as $r ) {
 	        $total_item = $r["cant_rev"] * $r["price"];
-	        $total_n_items += $r["cant_rev"];
 	        $lnk_p = "product.php?id=$r[product_id]&iddet=$r[product_detail_id]";
 	        $cod_dp = "#" . $r["product_id"] . " - " . $r["product_detail_id"];
-	        
-	        if( $r["cant_rev"] != 0 ){
+	        if( ( $r["cant_rev"] != 0 ) && ( $r["item_status"] != "retirado" ) ){
+	        	$total_n_items += $r["cant_rev"];
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
 	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>

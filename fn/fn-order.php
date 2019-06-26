@@ -35,6 +35,7 @@
 		if( $orden ){
 			$odetalle = $data_orden["detalle"];
 			$orden["icono_e"] = obtenerIconoEstado( $orden["estado"] );
+			$orden["nitems"] = obtenerNumeroItemsOrden( $orden, $odetalle );
 			$orden["total_ajuste"] = calcularTotalOrdenRevisada( $odetalle );
 			leerOrden( $dbh, $_GET["orderid"], "leido" );
 		}

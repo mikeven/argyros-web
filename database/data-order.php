@@ -10,9 +10,9 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerRegistroOrdenPorId( $dbh, $ido, $idu ){
-		//Devuelve el registro de una orden dado su id
-		$q = "select o.id, o.user_id as idu, o.total_price as total, o.total_count as nitems, 
-		o.client_note, o.admin_note, o.order_status as estado, 
+		// Devuelve el registro de una orden dado su id
+		$q = "select o.id, o.user_id as idu, o.total_price as total, o.client_note, 
+		o.admin_note, o.order_status as estado, 
 		date_format( o.created_at,'%d/%m/%Y') as fecha, c.id as cid, c.first_name nombre, 
 		c.last_name as apellido, c.email as email, g.name as grupo_cliente 
 		from orders o, clients c, client_group g where o.user_id = c.id and c.client_group_id = g.id 
@@ -23,13 +23,45 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function calcularTotalOrdenRevisada( $detalle ){
-		//Devuelve el total de una orden después de haber sido revisado/confirmado
+		// Devuelve el total de una orden después de haber sido revisado/confirmado
 		$monto = 0;
 		foreach ( $detalle as $item ) {
-			$monto += $item["cant_rev"] * $item["price"];
+			if( $item["item_status"] != "retirado" )
+				$monto += $item["cant_rev"] * $item["price"];
 		}
 
 		return $monto;		
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function calcularTotalOrden( $orden, $detalle ){
+		// Devuelve el total de una orden después de haber sido revisado/confirmado
+		$monto = 0;
+
+		foreach ( $detalle as $item ){
+			if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" )
+				$monto += $item["quantity"] * $item["price"];
+			else{
+				if( $item["item_status"] != "retirado" )
+					$monto += $item["cant_rev"] * $item["price"];
+			}
+		}
+
+		return $monto;		
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerNumeroItemsOrden( $orden, $detalle ){
+		// Devuelve el número de ítems válidos para una orden
+		$items = 0;
+		foreach ( $detalle as $i ) {
+			if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" )
+				$items++; 
+			else{
+				if( ( $i["cant_rev"] != 0 ) && ( $i["item_status"] != "retirado" ) ) 
+					$items++;
+			}
+		}
+		
+		return $items;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleOrden( $dbh, $ido ){
