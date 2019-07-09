@@ -377,7 +377,7 @@
 				$usuario["es_empresa"] = 1;
 			$usuario["token"] = obtenerTokenUsuarioNuevo( $usuario );
 			$idu = registrarUsuario( $dbh, $usuario );
-			//$idr = registrarRolUsuario( $dbh, $idu, 4, "cliente" );
+			
 			$remail = enviarMensajeEmail( "usuario_nuevo", $usuario, $usuario["email"] );
 
 			if( $remail["exito"] == 1 ){
