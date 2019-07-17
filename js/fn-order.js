@@ -206,6 +206,11 @@ $( document ).ready(function() {
     $("#btn_order").on( "click", function(){
         registrarOrden();
     });
+
+    $("#frm_mpedido").submit(function(e){
+        e.preventDefault();
+        $("#btn_confpedido").click();
+    });
     
     //Clic: opciones para confirmar, muestra botón cancelar 
     $("#cancel_cancel").on( "click", function(){

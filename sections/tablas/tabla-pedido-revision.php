@@ -82,11 +82,11 @@
 		<li class="clearfix"></li>
 		<li id="li_orden_obs">
 			<label class="control-label" for="orden_obs">Observaciones</label>
-			<input type="email" value="" name="observaciones" id="orden_obs" class="form-control">
+			<input type="text" value="" name="observaciones" id="orden_obs" class="form-control">
 		</li>
 	</ul>
 	<div id="b_confirmacion_pedido">
-		<a href="#!" data-toggle="modal" data-target="#confirmar-accion" 
+		<a id="btn_confpedido" href="#!" data-toggle="modal" data-target="#confirmar-accion" 
 		class="btn btn-1" id="btn_conf_ped" style="float:left">Confirmar cambios en pedido</a>
 	</div>
 </div>
