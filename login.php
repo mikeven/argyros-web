@@ -3,8 +3,7 @@
      * Argyros - Página de inicio de sesión
      * 
      */
-    session_start();
-    ini_set( 'display_errors', 1 );
+    include( "database/init.php" );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
 	include( "database/data-system.php" );

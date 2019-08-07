@@ -3,13 +3,12 @@
      * Argyros - Página Nosotros
      * 
      */
-    session_start();
-    ini_set( 'display_errors', 1 );
+    include( "database/init.php" );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
-    include( "fn/fn-product.php");
+    include( "fn/fn-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
     
