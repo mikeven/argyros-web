@@ -5,6 +5,6 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	ini_set( 'display_errors', 1 );
-	ini_set( "session.gc_maxlifetime", 14400 );
+	ini_set( "session.gc_maxlifetime", 28800 );
     session_start();
 ?>
