@@ -113,7 +113,29 @@
 
 		    $(".bootstrap-tagsinput input").attr('readonly', true);
 
+		    /*$('html, body').animate({
+			   scrollTop: $('#2335').offset().top 
+			}, 2000);*/
+
+			
+
 		 });
+
+		/*$(window).on('load', function() {
+			var bot = 0;
+		    while ( !$('#2381').is(":visible") ) {
+				
+			  	bot++;
+			  	$("#bc" + bot).click();
+			  	if( $('#2381').is(":visible") ) {
+				  	
+				  	$('html, body').animate({
+						scrollTop: $('#2381').offset().top - 300 
+					}, 2000);
+				
+				}
+			}
+		});*/
 	</script>
 </head>
 <style>
@@ -403,11 +425,12 @@
 														data-pb="bc<?php echo $bloque + 1; ?>">Ver más</button>
 													</div>
 												<?php } ?>
-												<li class="element first no_full_width cargable eca<?php echo $bloque; ?>" 
+												<li id="bl<?php echo $p['id']?>" class="element first no_full_width cargable eca<?php echo $bloque; ?>" 
 													data-alpha="Nombre del producto">
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left img-catal-contenedor">
-														<a href="<?php echo $urlp; ?>" class="container_item">
+														<a id="<?php echo $p['id']?>" 
+															href="<?php echo $urlp; ?>" class="container_item">
 														
 														<img src="<?php echo $purl.$img[0]["image"] ?>" 
 														class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
