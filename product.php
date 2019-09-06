@@ -400,6 +400,11 @@
 <script src="js/fn-user.js" type="text/javascript"></script>
 <script src="js/fn-product.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+	$("#backbutton").on( "click", function(){
+		window.location = document.referrer + '&refp=1';
+	});
+
 	<?php if( $det_dsp != 1 ) { ?>
 		detNoDisponible();
 	<?php } ?>	

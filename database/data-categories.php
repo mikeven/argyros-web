@@ -26,7 +26,18 @@
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista_c = obtenerListaRegistros( $data );
+		$lista_c = filtrarNone( $lista_c, "id" );
 		return $lista_c;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function filtrarNone( $lista, $nid ){
+		//Filtrar la categoría neutra del listado obtenido de BD
+		$nlista = array();
+		foreach ( $lista as $reg ) {
+			if( $reg[$nid] != 1 ) $nlista[] = $reg;
+		}
+
+		return $nlista;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerCategoriaPorId( $dbh, $id ){

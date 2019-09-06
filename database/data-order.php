@@ -276,7 +276,7 @@
 				$n = registrarDetalleOrden( $dbh, $orden, $carrito );
 				if( $n > 0 ){
 					$monto_tcart = obtenerMontoTotalCarritoCompra();
-					//notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
+					notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
 					vaciarCarrito();
 					echo mensajeRespuestaOrden();
 				}

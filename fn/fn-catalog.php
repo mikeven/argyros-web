@@ -7,6 +7,7 @@
 	/*Filtros: */
 	define( "SEPFLT", "_" );
 	define( "SEPVALFLT", "-" );
+	define( "P_SCROLL_PROD", "refp" );
 	define( "P_FLT_LINEA", "lin" );
 	define( "P_FLT_TRABAJO", "tra" );
 	define( "P_FLT_COLOR", "col" );

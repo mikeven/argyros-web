@@ -56,13 +56,15 @@
 		
 		foreach ( $url_params as $param=>$valor ){
 			
-			if( ( $param == "c" ) || ( $param == "s" ) || ( $param == P_TEXTO_BUSQUEDA ) ){
+			if( ( $param == "c" ) || ( $param == "s" ) || ( $param == P_TEXTO_BUSQUEDA ) || 
+				( $param == P_SCROLL_PROD ) ){
 				
 			}else{
 				$valores = explode( SEPFLT, $valor );
 				foreach ( $valores as $texto ) {
 					if( $texto != "" ){
-						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, $param, trim( $texto ) );
+						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, 
+																$param, trim( $texto ) );
 						$item_filtro["texto"] = obtenerTextoEtiquetaFiltro( $param, $texto );
 						$data_filtro[] = $item_filtro;
 					}
