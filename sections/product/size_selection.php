@@ -22,7 +22,7 @@
 						$ptalla["talla"] = "única";
 						if( $ptalla["ajustable"] == 1 )
 							$ptalla["talla"] = "ajustable";
-					};
+					}
 					if( $s_t == 0 ) $t_ini = "ti-".$pdet["id"]; else $t_ini = "";
 			?>
 				<div id="<?php echo $t_ini; ?>" data-value="<?php echo $ptalla["talla"]; ?>" 

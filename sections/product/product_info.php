@@ -4,10 +4,12 @@
 		<span><?php echo $producto["description"]; ?></span>
 	</div>
 	<div id="referencia-producto">
+		
 		<span>
 			#:<?php echo $producto["id"]; ?>-
-			<span id="idref-detalle"><?php echo $_GET["iddet"]; ?></span>
-		</span>				
+			<span id="idref-detalle"><?php /*echo $_GET["iddet"];*/ ?></span>
+		</span>
+
 	</div>
 	<div class="row description sb-wrapper left-sample-block">
 		<div class="col-sm-12">
