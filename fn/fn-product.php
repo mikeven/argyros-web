@@ -44,11 +44,11 @@
 		return $imgs;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function productosRelacionados( $dbh, $idc ){
+	function productosRelacionados( $dbh, $idc, $idsc ){
 		//Obtiene los productos pertenecientes a las subcategorías del producto visto
 		$relacionados = array();
 
-		$lprods = obtenerProductosC_( $dbh, $idc );
+		$lprods = obtenerProductosC_SRand( $dbh, $idc, $idsc );
 		foreach ( $lprods as $prod ){
 			//Recorrido por los productos obtenidos
 			$detalle = obtenerDetalleProductoPorId( $dbh, $prod["id"] );
@@ -138,7 +138,8 @@
 				else
 					$is_pd = false;
 
-			$productos_relacionados = productosRelacionados( $dbh, $producto["idc"] );
+			$productos_relacionados = 
+			productosRelacionados( $dbh, $producto["idc"], $producto["idsc"] );
 			
 		}
 		

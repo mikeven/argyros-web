@@ -315,9 +315,8 @@
 														
 													<?php } ?>
 													
-													<?php include("sections/product/product_details_list.php")?>
-
 												</div>
+												<?php include("sections/product/product_details_list.php"); ?>
 												<!-- C-OCULTOS -->
 												<div id="data_cart" class="hidden">
 											    	<input type="hidden" id="idi_cart" name="idicart" value="<?php echo $pre_pp; ?>">

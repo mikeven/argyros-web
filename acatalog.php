@@ -412,6 +412,7 @@
 
 															$urlp = obtenerUrlProductoCatalogo( 
 																	$p["id"], $iddetbusqueda );
+															$titulo_p = "(#".$p["id"].") ".$p["name"]
 
 												?>
 												<?php if( $enum == NPAGINACION ){ 
@@ -451,7 +452,8 @@
 														<div class="product-content-left">
 															<a class="title-5" 
 															href="<?php echo $urlp; ?>">
-															<?php echo $p["name"] ?></a>
+																<?php echo $titulo_p; ?>
+															</a>
 															<span class="spr-badge" id="spr_badge_129323821155" data-rating="0.0">
 																<span class="spr-starrating spr-badge-starrating">
 																	<i class="spr-icon spr-icon-star-empty" style=""></i>

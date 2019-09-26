@@ -226,7 +226,21 @@
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
 		p.material_id = m.id and p.country_id = co.id and p.category_id = $idc 
-		and p.subcategory_id = $idsc order by p.name ASC";
+		and p.subcategory_id = $idsc order by p.id DESC";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerProductosC_SRand( $dbh, $idc, $idsc ){
+		//Devuelve la lista de productos pertenecientes a una categoría y subcategoría
+		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
+		ca.name as category, sc.name as subcategory, m.name as material 
+		FROM products p, categories ca, subcategories sc, countries co, materials m 
+		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
+		p.material_id = m.id and p.country_id = co.id and p.category_id = $idc 
+		and p.subcategory_id = $idsc order by rand()";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -239,7 +253,7 @@
 		ca.name as category, m.name as material 
 		FROM products p, categories ca, countries co, materials m 
 		where p.visible = 1 and p.category_id = ca.id and p.material_id = m.id 
-		and p.country_id = co.id and p.category_id = $idc order by p.name ASC";
+		and p.country_id = co.id and p.category_id = $idc order by p.id DESC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
