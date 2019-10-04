@@ -241,7 +241,7 @@
 			$data["orden"] = $orden;
 			$data["total"] = number_format( $total, 2, '.', ',' );
 			enviarMensajeEmail( "nuevo_pedido_usuario", $data, $data["usuario"]["email"] );
-			//enviarMensajeEmail( "nuevo_pedido_administrador", $data, $email_admin );
+			enviarMensajeEmail( "nuevo_pedido_administrador", $data, $email_admin );
 		}
 		if( $estado == "pedido_confirmado" ){
 			//Notificación de confirmación de pedido: Administrador
