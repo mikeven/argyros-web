@@ -108,7 +108,7 @@
 		$( "#" + trg ).show();
 	});
 
-	//Clic: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
+	//Click: Muestra las subcategorías de una categoría principal al ubicar el cursor sobre el texto
 	$(".hnc_selector-mob").on( "click", function(){
 		var trg = $(this).attr("data-trg");
 		colapsarMenu( trg );		
@@ -187,7 +187,7 @@
 
 	}); // scroll END
 
-	//Clic event to scroll to top
+	//Click event to scroll to top
 	$(scrollTop).click(function() {
 	    $('html, body').animate({
 			scrollTop: 0

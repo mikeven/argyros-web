@@ -80,7 +80,7 @@
 <body class="templateIndex notouch">
   
 	<!-- Header -->
-	<?php include( "sections/header.php" );?>
+	<?php //include( "sections/header.php" );?>
   
     <div id="content-wrapper-parent">
         <div id="content-wrapper">  

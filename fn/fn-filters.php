@@ -133,6 +133,7 @@
 			//$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
 			$detalle = $producto["detalle"];
 			foreach ( $detalle as $reg ){
+				//echo $reg["id_color"].">> ".$reg["id"]."<br>";
 				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
 					$color["id_color"] = $reg["id_color"];
 					$color["color"] = $reg["color"];
@@ -285,6 +286,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params ){
+		
 		$ft = array();
 		//Filtro de productos comparando con el atributo 'Línea' de del producto
 		if( isset( $_GET[P_FLT_LINEA] ) ){
@@ -395,8 +397,9 @@
 	else{
 		if( isset( $_SESSION["login"] ) ) {
 		//Flujo natural, sin la llamada asíncrona
-		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
+		// d_filtros :   
 		$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );
+		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
 		}	
 	}
 

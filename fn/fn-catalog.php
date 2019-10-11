@@ -91,10 +91,13 @@
 	function matchFiltroAtributoDetalle( $dbh, $detalle, $atributo, $valores_filtro ){
 		//Devuelve verdadero si un detalle de producto posee atributos coincidentes a los filtros
 		$match = false;
-
+		
 		foreach ( $detalle as $reg ) {
-			if( in_array( $reg[$atributo], $valores_filtro ) )
+
+			if( in_array( $reg[$atributo], $valores_filtro ) && 
+				tieneTallasDisponiblesDetalleProducto( $dbh, $reg["id"] ) ){
 				$match = true;
+			}
 		}
 		
 		return $match;
