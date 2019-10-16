@@ -97,16 +97,18 @@
 							<p class="title"> Talla </p>
 							<ul>
 							<?php 
-							$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, 'N/A' ) ;
+								//$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, 'N/A' ) ;
 							?>
-								<li><a title="Talla ajustable" href="<?php echo $url_f; ?>">
+								<li style="display: none;"><a title="Talla ajustable" href="<?php echo $url_f; ?>">
 									<span class="fe-checkbox"></span>Ajustable/Única</a>
 								</li>
 								<?php foreach ( $filtro_tallas as $t ) { 
 									$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_TALLA, trim( $t["name"] ) );
+									$n_talla = $t["name"];  if ( $t["name"] == "ajust" )  $n_talla  = "Ajustable";
+                                          					if ( $t["name"] == "unica" )  $n_talla  = "Única";
 								?>
-									<li><a title="Talla <?php echo $t["name"]?>" href="<?php echo $url_f; ?>">
-										<span class="fe-checkbox"></span> <?php echo $t["name"]?></a>
+									<li><a title="Talla <?php echo $n_talla; ?>" href="<?php echo $url_f; ?>">
+										<span class="fe-checkbox"></span> <?php echo $n_talla; ?></a>
 									</li>
 								<?php } ?>
 							</ul>

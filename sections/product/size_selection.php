@@ -18,11 +18,10 @@
 				$s_t = 0;
 				foreach ( $tallas as $ptalla ) {
 					if( !isset( $ptalla["precio"] ) ) $ptalla["precio"] = "";
-					if( $ptalla["talla"] == 'N/A' ) {
-						$ptalla["talla"] = "única";
-						if( $ptalla["ajustable"] == 1 )
-							$ptalla["talla"] = "ajustable";
-					}
+					
+					if( $ptalla["talla"] == 'unica' ) 	$ptalla["talla"] = "Única";
+					if( $ptalla["talla"] == "ajust" )	$ptalla["talla"] = "Ajustable";
+
 					if( $s_t == 0 ) $t_ini = "ti-".$pdet["id"]; else $t_ini = "";
 			?>
 				<div id="<?php echo $t_ini; ?>" data-value="<?php echo $ptalla["talla"]; ?>" 
