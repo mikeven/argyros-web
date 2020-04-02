@@ -27,7 +27,7 @@
 		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
-		and p.country_id = co.id and ca.id = $idc ORDER BY p.id DESC LIMIT 1";
+		and p.country_id = co.id and ca.id = $idc and p.id in (select product_id from product_details) ORDER BY p.id DESC LIMIT 1";
 
 		$data = mysqli_query( $dbh, $q );
 		if( $data )

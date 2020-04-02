@@ -118,7 +118,19 @@ los socios buscan establecer una distribuidora a mayor escala para toda centro-s
 							</div>
 						</div>
 					</div>
-				</section>        
+				</section> 
+				<section class="content">        
+					<div class="container">
+						<div class="row">
+							<div id="col-main" class="col-md-24 normal-page clearfix">
+								<div class="page about-us ">
+									
+									<img src="assets/images/IMG_0643.png" width="100%">
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>       
 			</div>
 		</div>
 	</div>
