@@ -432,7 +432,7 @@
 													<ul class="row-container list-unstyled clearfix">
 														<li class="row-left img-catal-contenedor">
 														<a id="<?php echo $p['id']?>" 
-															href="<?php echo $urlp; ?>" class="container_item">
+															href="<?php echo $urlp; ?>" class="container_item" target="_blank">
 														
 														<img src="<?php echo $purl.$img[0]["image"] ?>" 
 														class="img-responsive imgcatal" alt="<?php echo $p["name"] ?>">
@@ -445,13 +445,12 @@
 														</span>
 														</a>
 														<div class="hbw">
-															<span class="hoverBorderWrapper"></span>
+															<span class="hoverBorderWrapper hidden"></span>
 														</div>
 														</li>
 														<li class="row-right parent-fly animMix">
 														<div class="product-content-left">
-															<a class="title-5" 
-															href="<?php echo $urlp; ?>">
+															<a class="title-5" href="<?php echo $urlp; ?>" target="_blank">
 																<?php echo $titulo_p; ?>
 															</a>
 															<span class="spr-badge" id="spr_badge_129323821155" data-rating="0.0">
@@ -475,10 +474,10 @@
 															 <?php echo $p["description"] ?>
 														</div>
 														<div class="hover-appear hidden-xs">
-															<form action="#" method="post">
+															<form action="#" method="post" class="hidden">
 																<div class="effect-ajax-cart">
 																	<input name="quantity" value="1" type="hidden">
-																	<button class="select-option" type="button" onclick="window.location.href='<?php echo $urlp; ?>'">
+																	<button class="select-option hidden" type="button" onclick="window.location.href='<?php echo $urlp; ?>'">
 																	<i class="fa fa-th-list" title="Ver detalles"></i><span class="list-mode">Ver detalle</span>
 																	</button>
 																</div>

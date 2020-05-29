@@ -1,6 +1,6 @@
 <?php
     /*
-     * Argyros - Página Nosotros
+     * Argyros - Página Contacto
      * 
      */
     include( "database/init.php" );
@@ -12,7 +12,7 @@
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
     
-    checkSession( '' );
+    //checkSession( '' );
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -56,9 +56,6 @@
 	<script src="assets/javascripts/jquery.fancybox-buttons.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.zoom.js" type="text/javascript"></script>	
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
-
-	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-	<script src="assets/javascripts/jquery.gmap.min.js" type="text/javascript"></script>
 
 	<!-- Tooltips -->
 	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>
@@ -181,29 +178,13 @@
 										</ul>
 									</div>
 								</div>
+								<div id="argyrosmap" class="row">
+									<div class="col-md-24 col-xs-12">
+										<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.7666607647825!2d-79.8918163335422!3d9.353905121954526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fab6da7351ea6fd%3A0x348395c688cc68ad!2sArgyros%20Inc.!5e0!3m2!1sen!2sve!4v1588710889502!5m2!1sen!2sve" width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+									</div>
+								</div>
 							</div>
-							<div id="contact_map_wrapper">
-								<div id="contact_map" class="map"></div>
-								<script>
-								jQuery(document).ready(function($) {
-									if(jQuery().gMap){
-										if($('#contact_map').length){
-										  $('#contact_map').gMap({
-											zoom: 17,
-											scrollwheel: false,
-											maptype: 'ROADMAP',
-											markers:[{
-												latitude: 9.354224,
-												longitude: -79.891181,
-												html: "Edificio Silver Crown, local 2, Zona Libre de Colón, Panamá"
-
-											}]
-										  });
-										}
-									}
-								});
-								</script>
-							</div>
+							
 						</div>
 					</div> 
 				</section>        

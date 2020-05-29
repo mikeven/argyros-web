@@ -291,7 +291,7 @@ h6.general-title:before{content:'';background:url(../images/home_line.png) no-re
 .group_home_products .wrapper-title{text-align:center;}
 #home_products{margin-left:-10px;margin-right:-10px;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:flex;-webkit-flex-flow:row wrap;-moz-flex-flow:row wrap;-ms-flex-flow:row wrap;flex-flow:row wrap;justify-content:left;-moz-justify-content:left;-ms-justify-content:left;-webkit-justify-content:left;}
 .home_products .element{width:33.3%;vertical-align:top;padding:0 10px 30px !important;}
-.home-banner-wrapper{background:url(../images/home_banner_image.jpg) no-repeat center;width:100%;min-height:500px;background-repeat:no-repeat;background-attachment:fixed;background-position:50% 80%;background-size:140%;}
+.home-banner-wrapper{background:url(../images/IMG_0644.jpg) no-repeat center;width:100%;min-height:500px;background-repeat:no-repeat;background-attachment:fixed;background-position:0% -35%; background-size: cover;}
 #home-banner img.img-banner-caption{margin-bottom:20px;margin-top:8%;}
 #home-banner .home-banner-caption p,
 #home-banner .home-banner-action a{color:#fff;font-weight:500;line-height:20px;font-size:15px;}
@@ -1044,10 +1044,10 @@ form.comment-form{margin-top:20px;}
 .panel-title > a.collapsed{color:#000000;}
 .panel-title > a:hover,
 .panel-title.active > a{color:#a7b239;}
-.panel-title > a{font-family:'Belleza', sans-serif;font-size:14px;font-weight:600;color:#a7b239;line-height:30px;display:block;text-transform:capitalize;}
+.panel-title > a{font-family:'Belleza', sans-serif;font-size:18px;font-weight:600;color:#a7b239;line-height:30px;display:block;text-transform:capitalize;}
 .panel-body p,
 .panel-body ul,
-.panel-body ol{font-family:'Lato', sans-serif;font-size:14px;color:#000000;line-height:17px;margin-bottom:25px;}
+.panel-body ol{font-family:'Lato', sans-serif;font-size:15px;color:#000000;line-height:17px;margin-bottom:25px;}
 .panel-body ul > li{list-style:circle;margin-left:30px;line-height:13px;}
 .panel-body ol > li{list-style-type:decimal;margin-left:30px;line-height:13px;}
 .panel-default > .panel-heading + .panel-collapse > .panel-body{border-top:none;margin-left:-15px;margin-right:-15px;margin-top:-15px;padding-bottom:20px;background-color:#f7f7f7;}

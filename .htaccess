@@ -1,0 +1,4 @@
+# Argyros redirecting from non-www to www
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^argyros.com.pa [NC]
+RewriteRule (.*) https://www.argyros.com.pa%{REQUEST_URI} [L,R=301]

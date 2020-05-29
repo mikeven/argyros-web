@@ -51,7 +51,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function mensajeNuevoUsuario( $plantilla, $datos ){
 		//Llenado de mensaje para plantilla de nuevo usuario
-		$server = "http://argyros.com.pa/nuevo";
+		$server = "https://www.argyros.com.pa";
 		$url_activacion = $server."/verified_account.php?token_account=".$datos["token"];
 		$plantilla = str_replace( "{url_activation}", $url_activacion, $plantilla );
 		$plantilla = str_replace( "{user}", $datos["nombre"], $plantilla );
@@ -71,7 +71,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function mensajeRecuperarPassword( $plantilla, $datos ){
 		//Llenado de mensaje para plantilla de recuperación de contraseña
-		$server = "http://argyros.com.pa/nuevo";
+		$server = "https://www.argyros.com.pa";
 		$url_reset = $server."/password_reset.php?token_reset=".$datos;
 		$plantilla = str_replace( "{url_pass_reset}", $url_reset, $plantilla );
 		

@@ -25,6 +25,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
@@ -87,9 +88,9 @@
 			<!-- Main Slideshow -->
 			<div class="home-slider-wrapper clearfix">
 				<div class="camera_wrap" id="home-slider">
-					<div data-src="assets/images/sld-banner-1.png">
+					<div data-src="assets/images/IMG_2042.jpg">
 						<div class="camera_caption camera_title_1 fadeIn" style="left:-240px;">
-						  <a href="catalog.php" style="color:#010101;">Distribuidor de Platería</a>
+						  <a href="catalog.php" style="color:#010101;" class="hidden-xs">Distribuidor de Platería</a>
 						</div>
 						<div class="camera_caption camera_caption_1 fadeIn" style="color: rgb(1, 1, 1); left:-240px;">
 							Consulta nuestros productos
@@ -98,8 +99,8 @@
 							<a href="catalog.php" class="btn">VER CATÁLOGO</a>
 						</div>
 					</div>
-					<div data-src="assets/images/sld-banner-2.png"> </div>
-					<div data-src="assets/images/sld-banner-3.png"> </div>
+					<div data-src="assets/images/IMG_2022.jpg"> </div>
+					<div data-src="assets/images/IMG_0927.jpg"> </div>
 				</div>
 			</div> 
 			<!-- Content -->

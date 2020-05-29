@@ -9,13 +9,10 @@
 				<a href="about-us.php">Acerca de Argyros</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="about-us.php">Nuestros Clientes</a>
+				<a href="about-us.php#nuestros-clientes">Nuestros Clientes</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="about-us.php">Nuestros productos</a>
-			  </li>						  
-			  <li class="list-unstyled">
-				<a href="contact.php">Contáctanos</a>
+				<a href="about-us.php#nuestros-productos">Nuestros productos</a>
 			  </li>						  
 			</ul>
 		  </div>
@@ -25,15 +22,15 @@
 		  <div class="group">
 			<h5 class="general-title">Información</h5>						
 			<ul class="list-unstyled list-styled">						  
-			  <li class="list-unstyled">
-				<a href="#!">Preguntas frecuentes</a>
-			  </li>						  
-			  <li class="list-unstyled">
+			  <li class="list-unstyled hidden">
 				<a href="#!">Como comprar</a>
 			  </li>						  
 			  <li class="list-unstyled">
-				<a href="#!">Términos y Condiciones</a>
-			  </li>						  
+				<a href="terms-and-conditions.php">Términos y Condiciones</a>
+			  </li>	
+			  <li class="list-unstyled">
+				<a href="contact.php">Contáctanos</a>
+			  </li>					  
 			</ul>
 		  </div>
 		</div>

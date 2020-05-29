@@ -6,8 +6,7 @@
 	<div id="referencia-producto">
 		
 		<span>
-			#:<?php echo $producto["id"]; ?>-
-			<span id="idref-detalle"><?php /*echo $_GET["iddet"];*/ ?></span>
+			#:<?php echo $producto["id"]; ?>-<span id="idref-detalle"><?php /*echo $_GET["iddet"];*/ ?></span>
 		</span>
 
 	</div>

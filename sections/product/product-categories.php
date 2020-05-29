@@ -12,3 +12,5 @@
 		<?php } ?>
 	</ul>
 </div>
+<hr>
+<a href="#!" onclick="window.close()"><i class="fa fa-times"></i> Cerrar ventana</a>

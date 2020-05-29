@@ -187,7 +187,7 @@
 							<div id="collection-content">
 								<div id="page-header"></div>
 								
-								<div class="collection-main-content">									
+								<div class="collection-main-content" style="min-height: 295px">									
 								   <div id="col-main" class="collection collection-page col-xs-24 col-sm-24">
 										
 										<?php if( isset( $_SESSION["login"] ) ) { ?>
