@@ -178,6 +178,8 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function login( $data_user ){
+		ini_set("session.cookie_lifetime","7200");
+		ini_set("session.gc_maxlifetime","7200");
 		session_start();
 		
 		$_SESSION["login"] = 1;

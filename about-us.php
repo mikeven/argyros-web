@@ -24,8 +24,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<link rel="canonical" href="http://demo.designshopify.com/" />
-	<meta name="description" content="" />
+	<link rel="canonical" href="https://www.argyros.com.pa/" />
+	<meta name="description" content="Argyros - Nosotros"/>
 	<title>Nosotros::Argyros</title>
 
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -210,7 +210,7 @@
 													</p>
 													<br>
 													<p>	
-														Nuestro gran objetivo es superar las expectativas de nuestros clientes. Buscamos ser sus aliados comerciales, quienes puedan facilitarles y hacerles más eficientes su estilo de negocio.
+														Nuestro gran objetivo es superar las expectativas de nuestros clientes. Buscamos ser sus aliados comerciales, quienes puedan facilitarles y hacerles más eficientes su estilo de negocio.							
 													</p>
 												</div>
 												<div class="wspacer"></div>

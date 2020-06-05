@@ -27,7 +27,8 @@
 		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
-		and p.country_id = co.id and ca.id = $idc and p.id in (select product_id from product_details) ORDER BY p.id DESC LIMIT 1";
+		and p.country_id = co.id and ca.id = $idc and p.visible = 1 
+		and p.id in (select product_id from product_details) ORDER BY p.id DESC LIMIT 1";
 
 		$data = mysqli_query( $dbh, $q );
 		if( $data )
@@ -87,6 +88,22 @@
 		if( count( $detalle ) > 0 ) $tiene_detalle = true;
 
 		return $tiene_detalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function productoTieneDetalleVisible( $dbh, $idp ){
+		//Devuelve verdadero si un producto posee registros de detalle visibles
+		$tiene_detalle_visible = false;
+
+		$detalle = obtenerDetalleProducto( $dbh, $idp );
+		foreach ( $detalle as $det ) {
+			$tallas = obtenerTallasDetalleProducto( $dbh, $det["id"] );
+			foreach ( $tallas as $t ) {
+				if( $t["visible"] == 1 ) 
+					$tiene_detalle_visible = true;
+			}
+		}
+
+		return $tiene_detalle_visible;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorPeso( $peso, $precio_gramo ){
