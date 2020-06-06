@@ -16,16 +16,23 @@
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> 
+<html lang="en" class="no-js"> 
+<!--<![endif]-->
 
 <!-- Mirrored from demo.designshopify.com/html_jewelry/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:53:52 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
+
 	<meta charset="UTF-8">
+	<!-- Added by HTTrack -->
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<!-- /Added by HTTrack -->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 	<link rel="canonical" href="https://www.argyros.com.pa/" />
 	<meta name="description" content="Argyros - Nosotros"/>
+	<meta name="keywords" content="Argyros, Nosotros, About us"/>
 	<title>Nosotros::Argyros</title>
 
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>

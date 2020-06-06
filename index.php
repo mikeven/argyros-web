@@ -34,6 +34,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="https://www.argyros.com.pa/" />
   <meta name="description" content="Distribuidor de platería"/>
+  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/alogo.png">
+  <meta name="keywords" content="Argyros, Distribuidor, Platería"/>
   <title>Argyros, Inc.</title>
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
