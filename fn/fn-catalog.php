@@ -336,8 +336,9 @@
 		
 		//Búsqueda en la unión: idproducto - id_detalle_producto
 		$prods_por_ids = obtenerProductosParametroDetalleProducto( $dbh, $busqueda, "codigo" );
+
 		if( count( $prods_por_ids ) > 0 ){
-			$vproductos = array_merge( $vproductos, $prods_por_ids );
+			$vproductos = $prods_por_ids;//array_merge( $vproductos, $prods_por_ids );
 			$busqueda_detalle = $busqueda;
 		}
 
@@ -394,7 +395,7 @@
 			$iddetbusqueda = obtenerIdDetalleCodigoBusqueda( $param_busqueda );
 
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda["productos"] );
-
+		
 		$h_ncat = "Búsqueda: ".$busqueda;
 	}
 	/*..........................................................................*/

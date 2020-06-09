@@ -527,7 +527,7 @@
 		p.material_id = m.id and p.country_id = co.id ) 
 		and ( lower(p.name) like lower('%$busqueda%') or lower(p.description) like lower('%$busqueda%') 
 		or lower(p.code) like lower('%$busqueda%') or lower(m.name) like lower('%$busqueda%') 
-		or lower(ca.name) like lower('%$busqueda%') or lower(sc.name) like lower('%$busqueda%') )";
+		or lower(ca.name) like lower('%$busqueda%') or lower(sc.name) like lower('%$busqueda%') ) order by id DESC";
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -541,26 +541,26 @@
 
 		if( $param == "bano" ){
 			$q = "select id from products where visible = 1 and id in ( select dp.product_id from product_details dp, treatments t 
-			where dp.treatment_id = t.id and lower(t.name) like lower('%$busqueda%') )";
+			where dp.treatment_id = t.id and lower(t.name) like lower('%$busqueda%') ) order by id DESC";
 		}
 		if( $param == "color" ){
 			$q = "select id from products where visible = 1 and id in ( select dp.product_id from product_details dp, colors c 
-			where dp.color_id = c.id and lower(c.name) like lower('%$busqueda%') )";
+			where dp.color_id = c.id and lower(c.name) like lower('%$busqueda%') ) order by id DESC";
 		}
 		if( $param == "trabajo" ){
 			$q = "select p.id from products p, making_product mp, makings m  
 			where where p.visible = 1 and p.id = mp.product_id and mp.making_id = m.id 
-			and lower(m.name) like lower('%$busqueda%')";
+			and lower(m.name) like lower('%$busqueda%') order by id DESC";
 		}
 		if( $param == "linea" ){
 			$q = "select p.id from products p, line_product lp, plines l  
 			where p.visible = 1 and p.id = lp.product_id and lp.line_id = l.id 
-			and lower(l.name) like lower('%$busqueda%')";
+			and lower(l.name) like lower('%$busqueda%') order by id DESC";
 		}
 
 		if( $param == "codigo" ){
-			$q = "select id from products where  id in ( select dp.product_id 
-			from product_details dp where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' )";
+			$q = "select id from products where id in ( select dp.product_id 
+			from product_details dp where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' ) order by id DESC";
 		}
 
 		$data = mysqli_query( $dbh, $q );
