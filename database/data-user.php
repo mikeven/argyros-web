@@ -372,24 +372,33 @@
 			$res["exito"] = -1;
 			$res["mje"] = "Dirección de email ya registrada, intente usar una dirección de correo diferente";
 		}else{
+			
 			$usuario["es_empresa"] = 0;
 
 			if ( $usuario["tcliente"] != "Particular" )
 				$usuario["es_empresa"] = 1;
+			
 			$usuario["token"] = obtenerTokenUsuarioNuevo( $usuario );
 			$idu = registrarUsuario( $dbh, $usuario );
 			
-			$remail = enviarMensajeEmail( "usuario_nuevo", $usuario, $usuario["email"] );
+			if( $idu > 0 ){
+				
+				$remail = enviarMensajeEmail( "usuario_nuevo", $usuario, $usuario["email"] );
 
-			if( $remail["exito"] == 1 ){
-				$res["exito"] = 1;
-				$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
-				"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
-				"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";;
-			}
-			else{
-				$res["exito"] = -1;
-				$res["mje"] = "Error al enviar mensaje: $remail[msg]";
+				if( $remail["exito"] == 1 ){
+					$res["exito"] = 1;
+					$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
+					"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
+					"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";;
+				}
+				else{
+					$res["exito"] = -1;
+					$res["mje"] = "Error al enviar mensaje: $remail[msg]";
+				}
+
+			}else{
+				$res["exito"] = -2;
+				$res["mje"] = "Error al registrar cuenta de usuario";
 			}			
 		}
 

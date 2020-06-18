@@ -284,9 +284,8 @@
 															</label>
 														</div>																	
 													</div>-->
-													<h3 id="det-no-disp" class="text-left">
-														<span itemprop="name" 
-														style="color: #a7b239;">
+													<h3 id="det-no-disp" class="text-left hidden">
+														<span itemprop="name" style="color: #a7b239;" class="nodisponible">
 															PRODUCTO NO DISPONIBLE
 														</span>
 													</h3>
@@ -419,8 +418,10 @@
 		window.location = document.referrer + '&refp=1';
 	});
 
-	<?php if( $det_dsp != 1 ) { ?>
+	<?php /*if( $det_dsp != 1 ) { 
+		// No tiene detalles disponibles ?>
 		detNoDisponible();
-	<?php } ?>	
+	<?php }*/ ?>
+		
 </script>
 <script src="js/fn-cart.js" type="text/javascript"></script>

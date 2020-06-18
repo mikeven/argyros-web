@@ -18,9 +18,9 @@
 	define( "P_FLT_PESO_PROD", "peso" );
 	define( "P_TEXTO_BUSQUEDA", "busqueda" );
 
-	/**/
 	define( "NPAGINACION", 32 );
 	define( "NDIAS_NUEVO", 15 );
+	$busqueda_por_codigo = false;
 
 	/*.............................................................*/
 	$catalogue_url = $_SERVER["REQUEST_URI"];
@@ -387,12 +387,15 @@
 	/*..........................................................................*/
 	if( isset( $_GET[P_TEXTO_BUSQUEDA] ) ){
 		//Búsqueda de productos por texto ingresado por el buscador
+		
 		$busqueda = $_GET[P_TEXTO_BUSQUEDA];
 		$productos_busqueda = obtenerProductosPorBusqueda( $dbh, $busqueda );
 		
 		$param_busqueda = $productos_busqueda["busqueda_detalle"];
-		if( $param_busqueda )
+		if( $param_busqueda ){
+			$busqueda_por_codigo = true;
 			$iddetbusqueda = obtenerIdDetalleCodigoBusqueda( $param_busqueda );
+		}
 
 		$productos = obtenerProductosDataDetalle( $dbh, $productos_busqueda["productos"] );
 		

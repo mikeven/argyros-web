@@ -8,7 +8,7 @@
 		
 		<?php foreach ( $detalle as $pdet ) { 
 
-			if( isset( $pdet["images"][0] ) && tieneTallasDisponiblesDetalleProducto( $dbh, $pdet["id"] ) ){
+			if( isset( $pdet["images"][0] ) /*&& tieneTallasDisponiblesDetalleProducto( $dbh, $pdet["id"] )*/ ){
 				$i = $pdet["images"][0]; ?>
 
 				<li class="image opt-pdetalle">

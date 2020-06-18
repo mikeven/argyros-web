@@ -404,7 +404,7 @@
 														$p = $data_rprod["data"];
 														//$img = obtenerImagenProducto( $dbh, $p["id"] );
 														
-														if( productoTieneDetalleVisible( $dbh, $p["id"] ) ){
+														if( productoTieneDetalleVisible( $dbh, $p["id"] ) || $busqueda_por_codigo ){
 															
 															$img = obtenerImagenProductoCatalogo( 
 																	$dbh, $p["id"], $iddetbusqueda, 

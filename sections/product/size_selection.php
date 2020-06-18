@@ -46,7 +46,13 @@
 				} 
 			?>
 
-			<?php } ?>
+			<?php } else { ?>
+				<h3 id="tallas-no-disp" class="text-left">
+					<span itemprop="name" style="color: #a7b239;" class="nodisponible">
+						PRODUCTO NO DISPONIBLE
+					</span>
+				</h3>
+			<?php } //.else ?>
 
 		</div>
 

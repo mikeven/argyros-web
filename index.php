@@ -4,8 +4,9 @@
     * 
     */
     $ts = 60*60*24;
-	ini_set("session.gc_maxlifetime", $ts );
-	session_set_cookie_params($ts);
+	/*ini_set("session.gc_maxlifetime", $ts );
+	session_set_cookie_params($ts);*/
+	ini_set( "session.gc_maxlifetime", "86400" ); 
 
     include( "database/init.php" );
     include( "database/bd.php" );
@@ -427,7 +428,7 @@
 			</div>
 		</div>
 	</div>
-	
+	<?php echo ini_get("session.gc_maxlifetime"); ?>
 	<?php include("sections/footer.php");?>
 	
 	<div class="newsletter-popup" style="display: none;" align="center">
