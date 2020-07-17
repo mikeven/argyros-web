@@ -3,11 +3,7 @@
     * Argyros - Página de inicio
     * 
     */
-    $ts = 60*60*24;
-	/*ini_set("session.gc_maxlifetime", $ts );
-	session_set_cookie_params($ts);*/
-	ini_set( "session.gc_maxlifetime", "86400" ); 
-
+     
     include( "database/init.php" );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
@@ -30,6 +26,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="UTF-8">
+  <meta name="servername" content="SolucionesXYZ">
   <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
@@ -428,7 +425,7 @@
 			</div>
 		</div>
 	</div>
-	<?php echo ini_get("session.gc_maxlifetime"); ?>
+	
 	<?php include("sections/footer.php");?>
 	
 	<div class="newsletter-popup" style="display: none;" align="center">

@@ -152,6 +152,8 @@
 		background: #f1f2ed !important;
 		border-top:1px solid #818285;
 		border-bottom:1px solid #818285;
+		max-height: 500px;
+    	overflow-y: scroll;
 	}
 	
 	.tab_filtro_contenido{ display: none; }

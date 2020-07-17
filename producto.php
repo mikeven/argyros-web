@@ -17,6 +17,8 @@
     if( !isset( $_GET["id"] ) ){
     	echo "<script> window.location = 'catalog.php'</script>";
     }
+
+    print_r($detalle);
 ?>
 
 <!doctype html>

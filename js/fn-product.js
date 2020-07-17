@@ -14,7 +14,7 @@
  /* ----------------------------------------------------------------------------------- */
  function asignarPrecioFichaProducto( orig, sel ){
  	//Muestra el precio del producto según el elemento seleccionado: talla o detalle
- 	//alert( sel.attr("data-precio-v") );
+ 	
  	if( orig == "detalle" ){
 	 	if( sel.attr("data-tprecio") == "p" )
 	 		$("#vprice_visible").html("$ " + sel.attr("data-precio") );
@@ -47,6 +47,12 @@
  	//$(".rdet_juego_rel").hide();
  	$(".epjuego").hide();
  	$("#epj" + id_dp ).show("slow");
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function evaluarVisibilidadSelectorCompra( iddet ){
+ 	// Evalúa si un detalle de producto tiene opción a seleccionar cantidades y agregarse a carrito
+	var valor = $( "#detdsp-" + iddet ).val();
+ 	visibilidadCompra( valor );
  }
  
  /* ----------------------------------------------------------------------------------- */
@@ -85,6 +91,14 @@
  /* ----------------------------------------------------------------------------------- */
  function detNoDisponible(){
  	$("#product-actions").html( $("#det-no-disp").html() );
+ }
+ /* ----------------------------------------------------------------------------------- */
+ function visibilidadCompra( valor ){
+ 	// Oculta/Muestra el selector de cantidades y botón "Agregar a carrito"
+ 	if( valor == 1 )
+ 		$("#seleccion-cant").show();
+ 	else
+ 		$("#seleccion-cant").hide();
  }
  /* ----------------------------------------------------------------------------------- */
  $( document ).ready(function() {	
@@ -126,8 +140,9 @@
 
 		inicializarValoresSelDetalle();
 		marcarBordeDetalle( img_dsel );
-		var trg = $(this).attr("data-regdet");		//asignación de un detalle objetivo
+		var trg = $(this).attr("data-regdet");			//asignación de un detalle objetivo
 		mostrarDetalleSeleccionado( trg );
+		evaluarVisibilidadSelectorCompra( id_dp_url );	// Evalúa si muestra el selector de cantidades y botón de carrito
 		asignarPrecioFichaProducto( "detalle", $(this) );
 		
 		$("#iddetalle").val( id_dp_url );

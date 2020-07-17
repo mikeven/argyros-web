@@ -7,12 +7,12 @@
 	$basedatos = "dbargyros";*/
 
 	$servidor = "127.0.0.1";
-	$usuariobd = "argyrosbd";
+	$usuariobd = "argyrosa_bd";
 	$passbd = "argyros@bd";
-	$basedatos = "argyros18";
+	$basedatos = "argyrosa_20";
 	//require_once($_SERVER['DOCUMENT_ROOT'].'/lib/FirePHPCore/fb.php');
 	
-	$dbh = mysqli_connect ( $servidor, $usuariobd, $passbd ) or die('No se puede conectar a '.$servidor.": ". mysql_error());
+	$dbh = mysqli_connect ( $servidor, $usuariobd, $passbd ) or die('No se puede conectar a '.$servidor.": ". mysqli_error($dbh));
 	mysqli_select_db ( $dbh, $basedatos );
 	mysqli_query( $dbh, "SET NAMES 'utf8'" );
 	/* ----------------------------------------------------------------------------------- */

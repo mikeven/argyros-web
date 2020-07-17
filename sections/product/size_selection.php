@@ -41,12 +41,14 @@
 						<img class="crossed-out" src="assets/images/soldout.png" alt="">
 					</label>
 				</div>
+				<input type="hidden" id="detdsp-<?php echo $pdet["id"]; ?>" value="1">
 			<?php 
 				$ct++; $cn++; $s_t++;
 				} 
 			?>
 
 			<?php } else { ?>
+				<input type="hidden" id="detdsp-<?php echo $pdet["id"]; ?>" value="0">
 				<h3 id="tallas-no-disp" class="text-left">
 					<span itemprop="name" style="color: #a7b239;" class="nodisponible">
 						PRODUCTO NO DISPONIBLE

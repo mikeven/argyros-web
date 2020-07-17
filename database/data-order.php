@@ -273,16 +273,21 @@
 			if ( count( $carrito ) > 0 ) {
 				$orden = obtenerDatosCreacionOrden( $carrito );
 				$orden["id"] = registrarOrden( $dbh, $orden );
-				$n = registrarDetalleOrden( $dbh, $orden, $carrito );
-				if( $n > 0 ){
-					$monto_tcart = obtenerMontoTotalCarritoCompra();
-					notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
-					vaciarCarrito();
-					echo mensajeRespuestaOrden();
+				
+				if( $orden["id"] != 0 ){
+					$n = registrarDetalleOrden( $dbh, $orden, $carrito );
+					if( $n > 0 ){
+						$monto_tcart = obtenerMontoTotalCarritoCompra();
+						notificarActualizacionPedido( $dbh, "nuevo_pedido", $orden, $monto_tcart );
+						vaciarCarrito();
+						echo mensajeRespuestaOrden();
+					}
+				}else{
+					echo "Error al guardar su pedido, favor reporte este inconveniente";
 				}
 			}
 			else 
-				echo "Error al guardar su pedido";
+				echo "Error al guardar su pedido, la lista de compra está vacía";
 		}
 		else echo "Sesión expirada, ingrese a su cuenta nuevamente";
 	}

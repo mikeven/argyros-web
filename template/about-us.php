@@ -16,22 +16,16 @@
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> 
-<html lang="en" class="no-js"> 
-<!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
 
 <!-- Mirrored from demo.designshopify.com/html_jewelry/about-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:53:52 GMT -->
-
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-
 	<meta charset="UTF-8">
-	<!-- Added by HTTrack -->
-	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-	<!-- /Added by HTTrack -->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<link rel="canonical" href="https://www.argyros.com.pa/" />
-	<meta name="description" content="Argyros - Nosotros"/>
+	<link rel="canonical" href="http://demo.designshopify.com/" />
+	<meta name="description" content="" />
 	<title>Nosotros::Argyros</title>
 
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -112,7 +106,7 @@
 		#pgh4{
 			background: url('assets/images/IMG_0643.png');
 			background-size: cover;
-			background-position-y: 45%;
+			
 		}
 
 		#pgh-1{
@@ -216,7 +210,7 @@
 													</p>
 													<br>
 													<p>	
-														Nuestro gran objetivo es superar las expectativas de nuestros clientes. Buscamos ser sus aliados comerciales, quienes puedan facilitarles y hacerles más eficientes su estilo de negocio.							
+														Nuestro gran objetivo es superar las expectativas de nuestros clientes. Buscamos ser sus aliados comerciales, quienes puedan facilitarles y hacerles más eficientes su estilo de negocio.
 													</p>
 												</div>
 												<div class="wspacer"></div>
@@ -248,7 +242,7 @@
 											
 										<div class="row img_parag" id="pgh4">
 											<div id="col_pgh4" class="col-md-12 col-xs-24 col-md-offset-6 col_pgh">
-												<div style="height: 160px"></div>
+												<div class="wspacer-2"></div>
 												<div class="txt_pgh_w">
 													<p style="text-align: center;">
 														Desde nuestra apertura, nos hemos logrado posicionar como una de las empresas más importantes del sector de distribución de platería 925 en toda la región.
@@ -256,15 +250,14 @@
 													<br>
 													<p style="text-align: center;">¡Vive la experiencia Argyros, te esperamos!</p>
 												</div>
-												<div class="wspacer"></div>
-												
+												<div class="wspacer-2"></div>
 											</div>
 										</div>	
 									
 									</div>
 									<br><br>
 									<div id="videoargyros_" align="center">
-										<iframe width="100%" height="560" src="https://www.youtube.com/embed/TForV-OMPGU?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										<iframe width="100%" height="560" src="https://www.youtube.com/embed/TForV-OMPGU?rel=0&autoplay=1 " frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 									</div>
 
 								</div>
