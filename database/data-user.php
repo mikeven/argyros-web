@@ -189,6 +189,16 @@
 		return $login;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function actualizarFechaUltimoInicioSesion( $dbh, $id ){
+		// Actualiza la fecha de último inicio de sesión de clientes.
+		$actualizado = 1;
+		$q = "update clients set last_login = NOW() where id = $id";
+		mysqli_query ( $dbh, $q );
+		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
+		
+		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function modificarDatosUsuario( $usuario, $dbh ){
 		//Actualiza los datos de cuenta de usuario
 		$actualizado = 1;
@@ -340,6 +350,7 @@
 			}
 			if( ( $data_user["verified"] == 1 ) && ( $data_user["blocked"] != 1 ) ){
 				login( $data_user, $dbh );
+				actualizarFechaUltimoInicioSesion( $dbh, $data_user["id"] );
 				$res["exito"] = 1;
 				$res["mje"] = "Inicio de sesión exitoso";
 			}
