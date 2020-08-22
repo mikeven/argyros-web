@@ -50,17 +50,21 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProductoDisponible( $detalle ){
 		//Devuelve el registro de detalle con al menos una talla disponible
-		
+		$reg_det = NULL;
 		foreach ( $detalle as $regd ) {
 
-			$disp = true; $t_exist = false;
+			/*$disp = true; $t_exist = false;
 			$tallas = $regd["sizes"];
 			foreach ( $tallas as $regt ) {
 				$t_exist = true;
 				if( $regt["visible"] != 1 ) $disp = false;
 			}
-			if( $t_exist && $disp ) return $regd;
+			if( $t_exist && $disp ) return $regd;*/
+			if( $regd["available"] ){ 
+				$reg_det = $regd; break;
+			}
 		}
+		return $reg_det;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerDetalleProducto( $dbh, $pid ){
@@ -214,9 +218,10 @@
 		$var_gr_usuario = variablesGrupoUsuario( $dbh );
 
 		foreach ( $detalle as $det ){
-			$det["sizes"] = obtenerTallasDetalleProducto( $dbh, $det["id"] );
-			$det["sizes"] = obtenerPreciosPorPesoTalla( $dbh, $det );
-			$ndetalle[] = $det;
+			$det["sizes"] 		= obtenerTodasTallasDetalleProducto( $dbh, $det["id"] );
+			$det["sizes"] 		= obtenerPreciosPorPesoTalla( $dbh, $det );
+			$det["available"]	= tieneTallasDisponiblesDetalleProducto( $dbh, $det["id"] );
+			$ndetalle[] 		= $det;
 		}
 		
 		return $ndetalle;
@@ -301,7 +306,7 @@
 		//Devuelve las imágenes de un producto dado su id e id de detalle 
 		$q = "select i.path as image FROM images i, product_details d 
 		where i.product_detail_id = d.id and d.product_id = $idp and d.id = $iddp";
-
+		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;
@@ -319,6 +324,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenProductoCatalogo( $dbh, $idp, $iddp, $producto ){
 		//Devuelve la primera imagen de un producto
+
 		if( $iddp != "" ) 
 			return obtenerImagenProductoCatalogoDetalle( $dbh, $idp, $iddp );
 		else
@@ -411,10 +417,15 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTodasTallasDetalleProducto( $dbh, $idd ){
 		//Devuelve los registros de tallas de detalle de producto, DISPONIBLES Y NO DISPONIBLES
-		$q = "select spd.size_id as idtalla, s.name as talla, spd.weight as peso, 
+		/*$q = "select spd.size_id as idtalla, s.name as talla, spd.weight as peso, 
 		spd.adjustable as ajustable, spd.visible as visible 
 		from size_product_detail spd, sizes s where spd.size_id = s.id and 
-		spd.product_detail_id = $idd order by s.id ASC";
+		spd.product_detail_id = $idd order by s.id ASC";*/
+
+		$q = "select spd.size_id as idtalla, s.name as talla, spd.visible as visible, 
+		spd.adjustable as ajustable, convert(s.name, decimal(4,2)) as vsize, s.unit as unidad, 
+		spd.weight as peso from size_product_detail spd, sizes s 
+		where spd.size_id = s.id and spd.product_detail_id = $idd order by vsize ASC, talla ASC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -514,6 +525,14 @@
 		//Actualiza el valor talla-peso de un detalle de producto
 		$q = "update size_product_detail set visible = $estado where size_id = $idtalla and 
 		product_detail_id = $iddetprod";
+		
+		$data = mysqli_query( $dbh, $q );
+		return $data;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function actualizarFechaNoDisponibilidad( $dbh, $iddetprod ){
+		// Actualiza la fecha de un producto al NO estar disponible
+		$q = "update product_details set unavailable_at = NOW() where id = $iddetprod";
 		
 		$data = mysqli_query( $dbh, $q );
 		return $data;

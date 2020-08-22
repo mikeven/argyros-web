@@ -24,7 +24,7 @@
 		$mail->Port = 587;
 		$mail->Username = "envios@argyros.com.pa";
 		$mail->Password = "sendargyros";
-		$mail->SetFrom('envios@argyros.com.pa', 'Argyros');
+		$mail->SetFrom( 'envios@argyros.com.pa', 'Argyros' );
 		$mail->Subject = $asunto;
 		$mail->CharSet = 'UTF-8';
 		$mail->MsgHTML( $mensaje );

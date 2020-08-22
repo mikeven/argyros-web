@@ -1,8 +1,8 @@
 # Argyros redirecting from non-www to www
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^argyros.com.pa [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule (.*) https://www.argyros.com.pa%{REQUEST_URI} [L,R=301]
+# RewriteEngine on
+# RewriteCond %{HTTP_HOST} ^argyros.com.pa [NC]
+# RewriteCond %{SERVER_PORT} 80
+# RewriteRule (.*) https://www.argyros.com.pa%{REQUEST_URI} [L,R=301]
 
 # Argyros redirecting from http to https
 RewriteEngine On
@@ -15,3 +15,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     php_value session.gc_maxlifetime 86400
 </IfModule>
 
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php71” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php71 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

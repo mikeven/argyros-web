@@ -12,7 +12,7 @@
 	function obtenerRegistroOrdenPorId( $dbh, $ido, $idu ){
 		// Devuelve el registro de una orden dado su id
 		$q = "select o.id, o.user_id as idu, o.total_price as total, o.client_note, 
-		o.admin_note, o.order_status as estado, 
+		o.admin_note, o.revision_note, o.order_status as estado, 
 		date_format( o.created_at,'%d/%m/%Y') as fecha, c.id as cid, c.first_name nombre, 
 		c.last_name as apellido, c.email as email, g.name as grupo_cliente 
 		from orders o, clients c, client_group g where o.user_id = c.id and c.client_group_id = g.id 
@@ -218,8 +218,8 @@
 					//Si ítem no fue descartado (retirado) del pedido por el cliente 
 					$id_det_prod = $det["product_detail_id"];
 					$idtalla = $det["idtalla"];
-					actualizarDisponibilidadTallaProducto( $dbh, 
-						$det["product_detail_id"], $det["idtalla"], 0 );
+					actualizarDisponibilidadTallaProducto( $dbh, $det["product_detail_id"], $det["idtalla"], 0 );
+					actualizarFechaNoDisponibilidad( $dbh, $det["product_detail_id"] );
 					actualizarDisponibilidadProductoPorAjuste( $dbh, $det["product_id"] );
 				}
 			}

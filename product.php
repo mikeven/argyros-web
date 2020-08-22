@@ -9,10 +9,10 @@
 	include( "database/data-sets.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
-    include( "fn/fn-product.php" );
+    include( "fn/fn-single-product.php" );
     include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
-   
+
     checkSession( 'catalogo' );
     if( !isset( $_GET["id"] ) ){
     	echo "<script> window.location = 'catalog.php'</script>";
@@ -58,11 +58,9 @@
 	<link href="assets/stylesheets/cs.media.3x.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/spr.css" rel="stylesheet" type="text/css" media="all">
 	<link href="assets/stylesheets/addthis.css" rel="stylesheet" type="text/css" media="all">
-	<!--<link href="assets/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">-->
-	<!--<link href="assets/tooltips/css/tooltipster.bundle.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css" rel="stylesheet" type="text/css" media="all">
-	<link href="assets/tooltips/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-noir.min.css" rel="stylesheet" type="text/css" media="all">-->
 
+	<!-- exZoom -->
+	<link href="assets/stylesheets/jquery.exzoom.css" rel="stylesheet" type="text/css" media="all">
 
 	<script src="assets/javascripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="assets/javascripts/jquery.imagesloaded.min.js" type="text/javascript"></script>
@@ -124,12 +122,37 @@
     		transition: border-color 1.5s;
 		}
 
+		.tx_not_available{
+			font-size: 11px; font-weight: bold; color: #CF132C;
+		}
+
 		@media (max-width: 500px){
 			#add-to-cart {
 			    margin: 0px;
 			    padding:0px 5px; 
 			    font-size: 12px !important;
 			}
+
+			#exzoom {
+	        	width: 350px;
+	        	/*height: 400px;*/
+	    	}
+		}
+
+		@media (min-width: 501px){
+			#exzoom {
+	        	width: 420px;
+	        	/*height: 400px;*/
+	    	}
+		}
+
+		.img_pdet_container{ position: relative; }
+		.etq_agotado{ 
+			position: absolute;
+			top: 0;
+			left: 20%;
+			font-size: 11px; font-weight: bold; color: #CF132C;
+			opacity: 0.5;
 		}
 
 	</style>
@@ -180,32 +203,23 @@
 									<input type="hidden" id="ndiasnuevo" value="<?php echo NDIAS_NUEVO;?>">
 									<input type="hidden" id="purl_servidor" value="<?php echo $purl;?>">
 									<div id="product" class="content clearfix">      										
-										<div id="product-image" class="product-image row no_full_width col-sm-12">           
-											
-											<div class="image featured fadeInUp not-animated" data-animate="fadeInUp"> 
-												<img id="feat_img_producto" 
-												src="<?php echo $purl.$img_pp;?>" alt="">
+										<div id="product-image" class="product-image row no_full_width col-sm-12">   
+											<div class="catalog_container" style="position: relative;">
+											<div class="exzoom hidden" id="exzoom">
+											    <div class="exzoom_img_box">
+											        <ul class='exzoom_img_ul'>
+											        	<?php foreach ( $imgs_detalle as $idet ) { ?>
+											            	<li><img src="<?php echo $purl.$idet[path] ?>"/></li>
+											            <?php } ?>
+											        </ul>
+											    </div>
+											    <div class="exzoom_nav"></div>
+											    <p class="exzoom_btn">
+											        <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+											        <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+											    </p>
 											</div>
-
-											<!-- Galería de imágenes de un detalle de producto -->
-											<div id="gallery_main" class="product-image-thumb thumbs mobile_full_width product_detail_views">
-												<?php foreach ( $detalle as $pdet ){  
-												$imgs_rdet = $pdet["images"]; ?>
-												<div id="rdet<?php echo $pdet["id"];?>" class="rdet_view">
-													<ul style="opacity: 0; display: block;" class="slide-product-image owl-carousel owl-theme">
-														<?php foreach ( $imgs_rdet as $idet ) { ?>
-														<li class="image">
-															<a href="<?php echo $purl.$idet["path"];?>" class="cloud-zoom-gallery active">
-																<img src="<?php echo $purl.$idet["path"];?>" 
-																alt="<?php echo $producto["name"]; ?>" class="product-view-img">
-															</a>
-														</li>
-														<?php } ?>
-													</ul>
-												</div>
-												<?php } ?>
 											</div>
-                                            <!-- /.Galería de imágenes de un detalle de producto -->
                                             
                                             <!--<h4 id="page-title" class="text-left">
 												<span itemprop="name">Más opciones</span>
@@ -230,7 +244,7 @@
 								<div id="product-header" class="clearfix">
 									<div id="product-info-right" class="group_sidebar">
 										
-										<?php include( "sections/product/product_info.php" );?>     
+										<?php include( "sections/product/zoom_info.php" );?>     
 										
 										<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
 											<meta itemprop="priceCurrency" content="USD">              
@@ -291,7 +305,7 @@
 													</h3>
 													<div id="purchase-1293235843" class="row">
 														<div class="detail-price col-sm-12" itemprop="price">
-															<span id="vprice_visible" class="price"><?php echo $pre_pp; ?> </span>
+															<span id="vprice_visible" class="price">$ <?php echo $pre_pp; ?> </span>
 															<input id="hprice_type" type="hidden" value="<?php echo $pre_pp; ?>">
 															<input id="hprice_val" type="hidden" value="<?php echo $pre_pp; ?>">
 														</div>
@@ -299,25 +313,25 @@
 
 													<?php
 
-													if( $producto["visible"] == 1 ){
-														
-														include("sections/product/size_selection.php");
+													if( $detalle_producto["available"] == 1 ){
+
+														include("sections/product/product_size_selection.php");
 														
 														include("sections/product/qty_selection.php");
-														
+
 													} else { ?>
 
-													<h3 id="page-title" class="text-left">
-														<span itemprop="name" 
-														style="color: #a7b239;">
-															PRODUCTO NO DISPONIBLE
-														</span>
-													</h3>
+														<h3 id="page-title" class="text-left">
+															<span itemprop="name" 
+															style="color: #a7b239;">
+																PRODUCTO NO DISPONIBLE
+															</span>
+														</h3>
 														
 													<?php } ?>
 													
 												</div>
-												<?php include("sections/product/product_details_list.php"); ?>
+												<?php include("sections/product/product_details_models.php"); ?>
 												<!-- C-OCULTOS -->
 												<div id="data_cart" class="hidden">
 											    	<input type="hidden" id="idi_cart" name="idicart" value="<?php echo $pre_pp; ?>">
@@ -325,7 +339,8 @@
 											    	<input type="hidden" id="iddetalle" name="iddetalle" value="<?php echo $detalle[0]["id"]; ?>">
 											    	<input type="hidden" id="nproducto" name="nombre_producto" value="<?php echo $producto["name"]; ?>">
 											    	<input type="hidden" id="dproducto" name="descripcion_producto" value="<?php echo $producto["description"]; ?>">
-											    	<input type="hidden" id="imgproducto" name="img_producto" value="<?php echo $img_pp; ?>">
+											    	<input type="hidden" id="imgproducto" name="img_producto" 
+											    	value="<?php echo $purl.$img_pp; ?>">
 											    	<input type="hidden" id="stalla" name="seltalla" value="">
 											    	<input type="hidden" id="vidseltalla" name="idseltalla" value="">
 											    	<input type="hidden" id="vprice_cart" name="unit_price" value="<?php echo $pre_pp; ?>">
@@ -411,8 +426,9 @@
 
 <script src="js/fn-ui.js" type="text/javascript"></script>
 <script src="js/fn-user.js" type="text/javascript"></script>
-<script src="js/fn-product.js" type="text/javascript"></script>
+<script src="js/fn-single-product.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 	$("#backbutton").on( "click", function(){
 		window.location = document.referrer + '&refp=1';
 	});
@@ -424,3 +440,25 @@
 		
 </script>
 <script src="js/fn-cart.js" type="text/javascript"></script>
+<script src="assets/javascripts/jquery.exzoom.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    $('.catalog_container').imagesLoaded( function() {
+	    $("#exzoom").exzoom({
+	        // thumbnail nav options
+		    "navWidth": 60,
+		    "navHeight": 60,
+		    "navItemNum": 3,
+		    "navItemMargin": 7,
+		    "navBorder": 1,
+
+		    // autoplay
+		    "autoPlay": true,
+
+		    // autoplay interval in milliseconds
+		    "autoPlayTimeout": 10000
+		});
+	    $("#exzoom").removeClass('hidden');
+	});
+
+</script>

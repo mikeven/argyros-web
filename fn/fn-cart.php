@@ -32,6 +32,17 @@
 		return $pos;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function quitarCantidadesCero( $cart ){
+		// Devuelve el carrito sin los ítems con cantidades en cero.
+		$pos = -1;
+		foreach ( $cart as $index => $item ) {
+			if( $item["quantity"] == 0 )
+				eliminarItemCarrito( $index );	
+		}
+
+		return $_SESSION["cart"];
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerTotalItem( $item ){
 		//Devuelve el monto de un ítem de carrito de compra
 		

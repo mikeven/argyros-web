@@ -3,13 +3,53 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
-	function imgProductoPpal( $detalle ){
+	function registroDetalleProducto( $detalle, $iddet ){
+		//Devuelve el registro de detalle actual(cargado en la ficha) de un producto dado id de detalle
+		$reg_detalle = NULL;
+
+		foreach ( $detalle as $reg ) {
+			if( $reg["id"] == $iddet ){
+				$reg_detalle = $reg; break;
+			}
+		}
+		return $reg_detalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerPrimerIdDetalleDisponible( $detalle ){
+		// Devuelve el primer registro de detalle disponible del producto
+		$registro = $detalle[0]["id"];
+
+		foreach ( $detalle as $rdet ) {
+			if( $rdet["available"] ){
+				$registro = $rdet; break;
+			}
+		}
+		
+		return $registro["id"];
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerModelosProductos( $detalle ){
+		// Devuelve los modelos de un producto ( registro de detalles ) ordenados por disponibilidad
+		$disponibles = array();
+		$agotados = array();
+		foreach ( $detalle as $rdet ) {
+			if( $rdet["available"] )
+				$disponibles[] 	= $rdet;
+			else 
+				$agotados[]		= $rdet;
+		}
+		return array_merge( $disponibles, $agotados );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function imgProductoPpal( $images ){
+		//Devuelve la primera imagen del detalle del producto
 		$path = NULL;
+
 		if( isset( $detalle[0]["images"][0] ) ){
 			$img = $detalle[0]["images"][0];
 			$path = $img["path"];
 		}
-		return ;
+		return $path;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function imgProductoDetalle( $detalle, $iddet ){
@@ -28,11 +68,10 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function precioProductoPpal( $detalle ){
-		$d = $detalle[0];
-		$pre = "";
-		if( $d["tipo_precio"] != "g" ) $pre = $d["precio"];
-
-		return $pre;
+		// Devuelve el precio de la primera talla del detalle de producto
+		$talla_inicial 	= $detalle["sizes"][0];
+		
+		return $talla_inicial["precio"];
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function imgsDetFichaProducto( $detalle ){
@@ -112,34 +151,39 @@
 
 		$pid = $_GET["id"];
 		$is_p = false; $is_pd = true; $det_dsp = true;
-		$data_producto = obtenerProductoPorId( $dbh, $pid );
+		$data_producto 						= obtenerProductoPorId( $dbh, $pid );
 		
 		if( $data_producto["data"] ){
 			$is_p = true;
-			$producto = $data_producto["data"];
-			$ls_subc_prod = obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
+			$producto 						= $data_producto["data"];
+			$ls_subc_prod 					= obtenerListaSubCategoriasCategoria( $dbh, $producto["idc"] );
 				
-				$detalle = $data_producto["detalle"];
-				$producto["lineas"] = obtenerLineasDeProductoPorId( $dbh, $pid );
-				$producto["trabajos"] = obtenerTrabajosDeProductoPorId( $dbh, $pid );
+				$detalle 					= $data_producto["detalle"];
+				$producto["lineas"] 		= obtenerLineasDeProductoPorId( $dbh, $pid );
+				$producto["trabajos"] 		= obtenerTrabajosDeProductoPorId( $dbh, $pid );
 				
 				if( $detalle ){
-					//Primera imagen del primer registro de detalle
-					$img_pp = imgProductoPpal( $detalle ); 
-					//Precio del primero registro de detalle
-					$pre_pp = precioProductoPpal( $detalle );
+					$modelos_productos		= obtenerModelosProductos( $detalle );
 					if( isset( $_GET["iddet"] ) ){
-						$img_pp = imgProductoDetalle( $detalle, $_GET["iddet"] );
-						if( !tieneTallasDisponiblesDetalleProducto( $dbh, $_GET["iddet"] ) ) 
-							$det_dsp = false;
+
+						$detalle_producto	= registroDetalleProducto( $detalle, $_GET["iddet"] );
+
+						$imgs_detalle 		= $detalle_producto["images"];
+						$img_pp 			= $imgs_detalle[0]["path"];
+						$pre_pp 			= precioProductoPpal( $detalle_producto );
+						//if( !tieneTallasDisponiblesDetalleProducto( $dbh, $_GET["iddet"] ) ) 
+						if( !$detalle_producto["available"] )
+							$det_dsp 		= false;
+					}else{
+						$iddet 				= obtenerPrimerIdDetalleDisponible( $detalle );
+						echo "<script> window.location = 'product.php?id=$pid&iddet=$iddet'</script>";
 					}
-					$productos_juegos = productosJuego( $dbh, $pid, $detalle );
+					$productos_juegos 		= productosJuego( $dbh, $pid, $detalle );
 				}
 				else
 					$is_pd = false;
 
-			$productos_relacionados = 
-			productosRelacionados( $dbh, $producto["idc"], $producto["idsc"] );
+			$productos_relacionados 		= productosRelacionados( $dbh, $producto["idc"], $producto["idsc"] );
 		}	
 		
 	}

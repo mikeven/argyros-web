@@ -172,7 +172,7 @@ $( document ).ready(function() {
     });
 
     //Click: Muestra panel de confirmación previa a eliminar ítem de carrito ( página carrito )
-    $("#list_content_cart").on('click', '.e_itemcart', function(){
+    $(document).on('click', '.e_itemcart', function(){
         var iditem = $(this).attr("data-idi");
 
         $( "#lnk" + iditem ).hide();

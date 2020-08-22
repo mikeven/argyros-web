@@ -16,7 +16,7 @@
 
 	checkSession( '' );
     checkUsuarioBloqueado( $dbh );
-    $carrito = $_SESSION["cart"];
+    $carrito = quitarCantidadesCero( $_SESSION["cart"] );
     $total = obtenerMontoTotalCarritoCompra();
     
 ?>
@@ -146,7 +146,7 @@
 											<tbody>
 											<?php 
 												foreach ( $carrito as $item ) { 
-								$lnkp = "product.php?id=$item[idproducto]&iddet=$item[iddetalle]";
+													$lnkp = "product.php?id=$item[idproducto]&iddet=$item[iddetalle]";
 											?>
 												<tr class="odd ">
 													<td>
@@ -158,7 +158,7 @@
 														title="" target="_blank"><?php echo $item["nombre_producto"]?></a>
 														<div>
 														<span class="note">
-												<?php //echo $item["descripcion_producto"]?></span>
+														<?php //echo $item["descripcion_producto"]?></span>
 														(Talla: <?php echo $item["seltalla"]?>)
 														</div>
 													</td>

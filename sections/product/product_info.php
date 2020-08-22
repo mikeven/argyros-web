@@ -6,7 +6,7 @@
 	<div id="referencia-producto">
 		
 		<span>
-			#:<?php echo $producto["id"]; ?>-<span id="idref-detalle"><?php /*echo $_GET["iddet"];*/ ?></span>
+			#:<?php echo $producto["id"]; ?>-<span id="idref-detalle"><?php echo $_GET["iddet"]; ?></span>
 		</span>
 
 	</div>
@@ -37,27 +37,31 @@
 	</div>
 
 	<div id="description-2" class="col-sm-24 group-variants">
-		<?php foreach ( $detalle as $pdet ) { ?>
-		  <div id="rdt-p<?php echo $pdet["id"]; ?>" class="rdet_prop rdet<?php echo $pdet["id"] ?>">
-			  <span class="gs_circ"><?php echo "Color: ".$pdet["color"]; ?></span> |  
-			  <span class="gs_circ"><?php echo $pdet["bano"]; ?></span> <br>
-			  <span class="gs_circ">Peso: <span id="rtallp<?php echo $pdet["id"]; ?>"></span> </span>
-			  <?php if ( $pdet["tipo_precio"] != "p" ){
+		<?php 
+			$peso_inicial = $detalle_producto["sizes"][0]["peso"];
+			if( $detalle_producto["available"] ) $peso_inicial = "";
+		?>
+		<span class="gs_circ"><?php echo "Color: ".$detalle_producto["color"]; ?></span> |  
+		<span class="gs_circ"><?php echo $detalle_producto["bano"]; ?></span> <br>
+		<span class="gs_circ">Peso: 
+			<span id="rtallp<?php echo $detalle_producto["id"]; ?>"><?php echo $peso_inicial ?></span> 
+		</span>
+		<?php 
+			if ( $detalle_producto["tipo_precio"] != "p" ){
 
-			  		if( $pdet["tipo_precio"] == "g" ) 
-				  		$precio_x_peso = $pdet["precio_peso"];
-				  		
-				  	if( $pdet["tipo_precio"] == "mo" ) 
-				  			$precio_x_peso = $pdet["precio_mo"];
-			  ?>
-			  | <span class="gs_circ">Precio por g: 
-				  	<span id="rpreciop_g">$ 
-				  		<?php echo $precio_x_peso; ?> 
-				  	</span> 
-				</span>
-				<?php } ?>
-		  </div>
-	  	<?php } ?>	
+				if( $detalle_producto["tipo_precio"] == "g" ) 
+		  		$precio_x_peso = $detalle_producto["precio_peso"];
+		  		
+		  	if( $detalle_producto["tipo_precio"] == "mo" ) 
+		  			$precio_x_peso = $detalle_producto["precio_mo"];
+		?>
+		| <span class="gs_circ">Precio por g: 
+		  	<span id="rpreciop_g">$ 
+		  		<?php echo $precio_x_peso; ?> 
+		  	</span> 
+		</span>
+		<?php } ?>
+	  
 	</div>
 </div>
 <!-- /.Bloque información de producto -->
