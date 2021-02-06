@@ -10,7 +10,7 @@
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
+    
     include( "fn/fn-cart.php" );
     
     checkSession( 'login' );
@@ -27,6 +27,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content="" />
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Inicio de sesión::Argyros</title>
   
 <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -67,6 +68,8 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
+
+	<?php include( "fn/ga.php" ); ?>
 
 	<style> #alert-msgs{ display: none; } </style>
 </head>

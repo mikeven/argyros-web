@@ -14,15 +14,43 @@
     $(".total_cant_cart").html(cart.total_cant);        //Cantidad de unidades total en carrito
  }
 /* ----------------------------------------------------------------------------------- */
-function obtenerCarritoCompra(){
+/*function guardarEstadoCarrito(){
+
+    var items_sesioncart = Object.keys( cart.data_cart ).length;
+
+    if( items_sesioncart > 0 ){
+
+        var ckdata = JSON.stringify( cart.data_cart );
+        $.cookie( "ckcart", ckdata, { expires : 2 } );
+    }
+
+    if ( typeof $.cookie( "ckcart" ) === 'undefined' )
+        console.log( "No hay carrito guardado" );
+    else{ 
+        var items_cookie = JSON.parse( $.cookie( "ckcart" ) );
+        console.log( items_cookie );
+    } 
+}*/
+/* ----------------------------------------------------------------------------------- */
+function registrarInicioCarrito(){
+    // Registra cookie de carrito de compra
+    if ( typeof $.cookie( "ckcart" ) === 'undefined' )
+        $.cookie( "ckcart", true, { expires : 2 } );
+}
+/* ----------------------------------------------------------------------------------- */
+function obtenerCarritoCompra( accion ){
     //Solicita los elementos en el carrito de compra
+
     $.ajax({
         type:"POST",
         url:"fn/fn-cart.php",
-        data:{ get_cart: 1 },
+        data:{ get_cart: 1, param: accion },
         success: function( response ){
             cart = jQuery.parseJSON( response );
-            imprimirCarritoTienda( cart );            
+            if( accion == 'agregar' )
+                registrarInicioCarrito();
+                    
+            imprimirCarritoTienda( cart );
         }
     });   
 }
@@ -42,7 +70,8 @@ function notificarCarritoActualizado(){
 function asignarIdItem(){
     //Asignar id item carrito compra
     var idd = $("#iddetalle").val();
-    var vta = $("#stalla").val();
+    var vta = $("#vidseltalla").val();
+    
     $("#idi_cart").val( idd + "-" + vta );
 }
 /* ----------------------------------------------------------------------------------- */
@@ -55,6 +84,17 @@ function validarSeleccionCarrito(){
  	return valido;
 }
 /* ----------------------------------------------------------------------------------- */
+function validarSeleccionCarritoModal( frm ){
+    //Chequeo de valores y condiciones para permitir agregar un ítem al carrito de compra
+    var valido  = true;
+    var cant    = $( frm + " input[name='quantity']").val()
+    
+    if( cant < 1 || cant == "" )
+        valido = false; 
+    
+    return valido;
+}
+/* ----------------------------------------------------------------------------------- */
 function eliminarItemCarrito( elem, nitem ){
     //Elimina un elemento del carrito de compra
     
@@ -63,9 +103,8 @@ function eliminarItemCarrito( elem, nitem ){
         url:"fn/fn-cart.php",
         data:{ delitem_c: nitem },
         success: function( response ){
-            //console.log( response );
             $( "." + elem ).fadeOut( 500, function(){
-                obtenerCarritoCompra(); 
+                obtenerCarritoCompra( 'eliminar' ); 
             });
         }
     });
@@ -78,9 +117,22 @@ function actualizarItemCarrito( iditem, cant ){
         url:"fn/fn-cart.php",
         data:{ mitem_c: iditem, q:cant },
         success: function( response ){
-            //console.log( response );
-            obtenerCarritoCompra();
+            obtenerCarritoCompra('actualizar');
             notificarCarritoActualizado();
+        }
+    });
+}
+/* ----------------------------------------------------------------------------------- */
+function cargarCarritoGuardadoSesion(){
+    //Procesa todos los ítems contenido en el carrito guardado para agregarse a la sesión del carrito
+    
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-cart.php",
+        data:{ get_filecart: cart },
+        success: function( response ){
+            console.log( response );
+            obtenerCarritoCompra('');            
         }
     });
 }
@@ -95,12 +147,24 @@ function agregarItemCarrito(){
         url:"fn/fn-cart.php",
         data:{ item_cart: cart },
         success: function( response ){
-        	//console.log(response);
-            obtenerCarritoCompra();			
+            obtenerCarritoCompra('agregar');			
         }
     });
 }
+/* ----------------------------------------------------------------------------------- */
+function agregarItemCarritoVentana( frm_detalle ){
+    //Agrega un ítem de compra al carrito desde la ventana emergente
+    var cart = $( frm_detalle ).serialize();
 
+    $.ajax({
+        type:"POST",
+        url:"fn/fn-cart.php",
+        data:{ item_cart: cart },
+        success: function( response ){
+            obtenerCarritoCompra('agregar');         
+        }
+    });
+}
 /* ----------------------------------------------------------------------------------- */
 function delcartitem( item ){
     //Invoca la eliminación de un ítem del carrito de compra ( Menú desplegable ) 
@@ -123,8 +187,8 @@ function modificarCantidadCarrito( trg, cant ){
 $( document ).ready(function() {	
 // =================================================================================== //
     
-    obtenerCarritoCompra();
-	
+    obtenerCarritoCompra('');
+
     //Clic: agregar elemento de catálogo a carrito de compra
     $("#add-to-cart").on( "click", function(){
 
@@ -146,6 +210,8 @@ $( document ).ready(function() {
     		clickElemento( ".close_alert", 5000 );
     	}
     });
+    
+    /* ----------------------------------------------------------------------------------- */
 
     //Blur: actualización de cantidad de ítem carrito de compra
     $("#list_content_cart").on('blur', '.mq_itemcart', function(){

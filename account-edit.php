@@ -13,7 +13,7 @@
     include( "database/data-categories.php" );
     include( "fn/fn-order.php");
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/common-functions.php" );
     
     if( !isset( $_SESSION["login"] ) ) {
@@ -35,6 +35,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content="" />
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Datos de cuenta :: Argyros</title>
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -71,6 +72,7 @@
 	<script src="js/fn-account.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
+	<?php include( "fn/ga.php" ); ?>
 	
 	<style>
 

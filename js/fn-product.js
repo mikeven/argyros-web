@@ -177,7 +177,7 @@
     	//Muestra el próximo bloque de productos del catálogo
     	var bloque = $(this).attr("data-trg");
     	var pboton = $(this).attr("data-pb");
-    	obtenerCarritoCompra();
+    	obtenerCarritoCompra('');
     	
     	$("." + bloque).fadeIn("slow");
 		$("#" + pboton).fadeIn("slow");
@@ -214,6 +214,26 @@
 
 	/* Scroll catálogo TOP */
 	// ============================================================================ //
+
+	//Click modal product catalogue
+	/*$(".quick_shop").on( "click", function(){
+
+		var bloque_tallas = $( "#" + $(this).attr( "data-idbloque-talla" ) );
+
+	    $("#modal_img_prod").attr("src", $(this).attr("data-img") );
+	    $(".url_lnkproduct").attr("href", $(this).attr("data-link") );
+	    $("#quick-shop-title a").html( $(this).attr("data-ids") );
+	    $("#quick-shop-description p").html( $(this).attr("data-descripcion") );
+	    $("#quick-shop-product-id p").html( $(this).attr("data-ids") );
+	    $("#modal_price_prod").html( $(this).attr("data-precio") );
+
+	    $("#qs-pais").html( $(this).attr("data-pais") );
+	    $("#qs-material").html( $(this).attr("data-material") );
+	    $("#qs-color").html( $(this).attr("data-color") );
+	    $("#qs-bano").html( $(this).attr("data-bano") );
+
+	    $("#qs-data-tallas").html( $(bloque_tallas).html() );
+	}); */// click() scroll top END
 
 });
 

@@ -2,6 +2,7 @@
 	<div itemprop="breadcrumb" class="container">
 		<div class="row">
 			<div class="col-md-24">
+
 				<?php if( isset( $_SESSION["login"] ) ) { ?>
 
 					<?php if( $is_p ) { ?>
@@ -9,16 +10,16 @@
 					title="Página de inicio">Inicio</a>
 					<span>/</span>
 
-					<a href="catalog.php" title="Catálogo">Catálogo</a>
+					<a href="categories.php" title="Catálogo">Catálogo</a>
 					<span>/</span>
 
-					<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>" 
+					<a href="<?php echo URLBASECAT?>?c=<?php echo $producto["uname_c"]; ?>" 
 					title="<?php echo $producto["category"]; ?>">
 					<?php echo $producto["category"]; ?>
 					</a>
 					<span>/</span>
 
-					<a href="acatalog.php?c=<?php echo $producto["uname_c"]; ?>&s=<?php echo $producto["uname_s"]; ?>" 
+					<a href="<?php echo URLBASECAT?>?c=<?php echo $producto["uname_c"]; ?>&s=<?php echo $producto["uname_s"]; ?>" 
 					title="<?php echo $producto["category"]; ?>">
 					<?php echo $producto["subcategory"]; ?></a>
 					<span>/</span>

@@ -1,10 +1,14 @@
 <?php
     /*
-     * Argyros - Header
+     * Argyros - header
      * 
      */
     $lh_cat_ppal = obtenerListaCategorias( $dbh );
-    //$l_sc_p = obtenerSubcategoriasCategoriasNavCatalogo( $dbh );
+    /* ----------------------------------------------------------------------------------- */
+	function reempEspacio( $texto ){
+		return str_replace( " ", "&nbsp;", $texto );
+	}
+	/* ----------------------------------------------------------------------------------- */
 ?>
 <style>
 	.subcategs_navcatalog{ display: none; }
@@ -40,7 +44,7 @@
 <header id="top" class="clearfix">
 	
 	<!-- Navigation -->
-	<?php include("main-nav.php"); ?>
+	<?php include("navigation.php"); ?>
 	<!-- /.Navigation -->
 	
 	<div class="line"></div>

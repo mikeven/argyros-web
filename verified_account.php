@@ -10,7 +10,7 @@
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     
     checkSession( 'verificacion' );
 	$vrf = NULL;
@@ -68,6 +68,7 @@
 
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
+	<?php include( "fn/ga.php" ); ?>
 
 </head>
 <body itemscope="" itemtype="http://schema.org/WebPage" class="templateCustomersRegister notouch">

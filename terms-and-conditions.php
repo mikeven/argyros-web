@@ -22,11 +22,16 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-	<link rel="canonical" href="http://demo.designshopify.com/" />
-	<meta name="description" content="" />
-	<title>Términos y condiciones::Argyros</title>
+  <meta name="servername" content="SolucionesXYZ">
+  <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <link rel="canonical" href="https://www.argyros.com.pa/" />
+  <meta name="description" content="Argyros - Términos y condiciones"/>
+  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/a-image.png">
+  <meta name="keywords" content="Argyros, Distribuidor, Platería"/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
+  <title>Términos y condiciones::Argyros</title>
 
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
   
@@ -60,6 +65,8 @@
 	<script src="js/fn-aboutus.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<?php include( "fn/ga.php" ); ?>
 
 	<style>
 		#videoargyros{

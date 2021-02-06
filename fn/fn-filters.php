@@ -398,8 +398,8 @@
 		if( isset( $_SESSION["login"] ) ) {
 		//Flujo natural, sin la llamada asíncrona
 		// d_filtros :   
-		$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );
-		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
+			$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );
+			$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
 		}	
 	}
 

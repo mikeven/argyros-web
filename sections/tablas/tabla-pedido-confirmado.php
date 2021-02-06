@@ -19,7 +19,11 @@
 	        	$total_n_items += $r["cant_rev"];
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
-	      <td><img src="<?php echo $purl.$r["imagen"]; ?>" width="70"></td>
+	      <td>
+	      	<a href="#pop-img" class="fancybox pop-img" data-src="<?php echo $purl.$r["imagen"]; ?>">
+	      		<img src="<?php echo $purl.$r["imagen"]; ?>" width="70">
+	      	</a>
+	      </td>
 	      <td class="txa-l">
 	      	<input type="hidden" id="iditem<?php echo $r["id"]; ?>" name="ielims[]" value="0">
 	      	<a href="<?php echo $lnk_p; ?>" target="_blank">
@@ -47,3 +51,6 @@
 	    </tr>
 	</tbody>
 </table>
+<div id="pop-img" style="display: none;">
+	<img id="img-pop" src="" alt="" width="100%" class="img-responsive">
+</div>

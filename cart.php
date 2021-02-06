@@ -4,19 +4,18 @@
     * 
     */
     session_start();
-    ini_set( 'display_errors', 1 );
     include( "database/bd.php" );
 	include( "database/data-user.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php" );
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
     
     $carrito = $_SESSION["cart"];
-    //imprimirCarrito();
+    
     checkSession( '' );
-    //print_r($detalle);
+    
 ?>
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -25,12 +24,17 @@
 <!-- Mirrored from demo.designshopify.com/html_jewelry/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:54:10 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-  <meta charset="UTF-8">
+  <meta name="servername" content="SolucionesXYZ">
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-  <link rel="canonical" href="http://demo.designshopify.com/" />
-  <meta name="description" content="" />
-  <title>Carrito</title>
+  <link rel="canonical" href="https://www.argyros.com.pa/" />
+  <meta name="description" content="Distribuidor de platería"/>
+  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/a-image.png">
+  <meta name="keywords" content="Argyros, Distribuidor, Platería"/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
+  <title>Carrito de compra::Argyros</title>
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
   
@@ -77,6 +81,9 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+
+	<?php include( "fn/ga.php" ); ?>
+	
 	<style>
 		.cart-qty-group{ border: 0; }
 		#label-msgs, .toggle_elim_item_cart{ display: none; }

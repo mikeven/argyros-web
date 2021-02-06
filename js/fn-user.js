@@ -18,15 +18,26 @@ function registrarUsuario(){
         },
         success: function( response ){
             $("#reg-resp").html( "" );
-        	console.log(response);
             res = jQuery.parseJSON( response );
-            scroll_To();
-            mensajeAlerta( "#alert-msgs", res.mje );
-            if( res.exito != 1 ){
-                activarBoton( "#btn_register", true );  
-            }
+            //scroll_To();
+            //mensajeAlerta( "#alert-msgs", res.mje );
+            if( res.exito == 1 )
+                window.location.href = res.url;
+            else activarBoton( "#btn_register", true );  
         }
     });
+}
+/* ----------------------------------------------------------------------------------- */
+function chequearEstadoCarrito(){
+    // Evalúa si existe un estado previo del carrito de compra y se carga en variable de sesión del carrito.
+
+    if ( typeof $.cookie( "ckcart" ) === 'undefined' )
+        console.log( "No existen elementos de carrito guardado" );
+    else{ 
+        //Cookie registrada:
+        console.log( "Obteniendo carrito guardado..." );
+        cargarCarritoGuardadoSesion();
+    }
 }
 /* ----------------------------------------------------------------------------------- */
 function iniciarSesion( form, mode ){
@@ -39,14 +50,15 @@ function iniciarSesion( form, mode ){
         url:"database/data-user.php",
         data:{ usr_login: form_log },
         success: function( response ){
-            console.log(response);
+            console.log( response );
             res = jQuery.parseJSON( response );
             if( res.exito == 1 ){
+                chequearEstadoCarrito();
                 if( mode == "full" ){
                     //Redirigir a pantalla de cuenta de usuario
-                    window.location.href = "catalog.php"; 
+                    window.location.href = "categories.php"; 
                 }else{
-                    window.location.href = "catalog.php";
+                    window.location.href = "categories.php";
                 }
             }else{
                 if( mode == "full" ){
@@ -72,7 +84,7 @@ function enviarDatosContacto( datos ){
         url:"database/data-user.php",
         data:{ form_ctc: form_co },
         success: function( response ){
-            console.log(response);
+            
             res = jQuery.parseJSON( response );
             scroll_To();
             mensajeAlerta( "#alert-msgs", res.mje );
@@ -171,6 +183,13 @@ $( document ).ready(function() {
                         },
                     }
                 },
+                acepto_terminos: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Debe marcar la casilla de confirmación'
+                        }
+                    }
+                }
             }
         });
 

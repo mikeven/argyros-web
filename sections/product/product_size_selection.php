@@ -21,6 +21,7 @@
 					if( $ptalla["talla"] == "ajust" )	$ptalla["talla"] = "Ajustable";
 
 					if( $s_t == 0 ) $t_ini = "ti-".$detalle_producto["id"]; else $t_ini = "";
+					if( $ptalla["visible"] ){
 			?>
 				<div id="<?php echo $t_ini; ?>" data-value="<?php echo $ptalla[talla]; ?>" 
 				class="swatch-element medium available seltdp" 
@@ -42,7 +43,8 @@
 				<input type="hidden" id="detdsp-<?php echo $detalle_producto[id]; ?>" value="1">
 			<?php 
 				$ct++; $cn++; $s_t++;
-				} 
+					} //end if
+				} //end foreach
 			?>
 
 		</div>

@@ -25,7 +25,7 @@ a:focus, select:focus, input:focus, button:focus{outline:none !important;}
 @media (max-width:1199px){.customer-links{width:86%;}
 .top-logo{text-align:center;}
 .top-navigation ul li.top-logo{width:20%;}
-.top-navigation ul li.navigation{width:68%;}
+.top-navigation ul li.navigation{width:65%;}
 .top-navigation ul li.umbrella{padding-left:0;}
 #home_blog .home-blog-item .date{width:70px;height:70px;}
 @-moz-document url-prefix(){.header-search input{padding-left:5px;padding-right:5px;width:45%;}

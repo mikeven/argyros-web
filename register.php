@@ -11,7 +11,7 @@
     include( "database/data-countries.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
     
     checkSession( 'registro' );
@@ -28,6 +28,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <meta name="description" content=""/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Crear cuenta::Argyros</title>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -67,7 +68,8 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
-
+	<?php include( "fn/ga.php" ); ?>
+	
 	<style>
 		#alert-msgs{ display: none; }
 	</style>
@@ -207,10 +209,19 @@
 
 										<div id="r-nempresa" class="form-group" style="display: none;">
 											<li id="NEmpresa" class="">
-											<label class="control-label" 
-											for="telefono">Nombre Empresa</label>
+											<label class="control-label" for="telefono">Nombre Empresa</label>
 											<input name="nempresa" id="nempresa" 
 											class="form-control" type="text">
+											</li>
+										</div>
+										<li class="clearfix"></li>
+
+										<div class="form-group">
+											<li id="TyC" class="">
+												<input type="checkbox" id="aceptacion" name="acepto_terminos" value="" required>
+  												<label for="acepto_terminos"> Confirmo que he leído y acepto los 
+  													<a href="https://argyros.com.pa/terms-and-conditions.php">Términos y Condiciones <span class="req">*</span></a>
+  												</label><br>
 											</li>
 										</div>
 										<li class="clearfix"></li>

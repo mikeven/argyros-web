@@ -1,8 +1,10 @@
 <?php 
-	/* Argyros - Funciones carrito de compra */
+	/* Argyros - Funciones de carrito de compra */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
+	define( "PFXCARTFILE", "savedusercart-id_" );
+
 	function imprimirCarrito(){
 		$c = $_SESSION["cart"];
 		foreach ( $c as $e ) {
@@ -13,6 +15,7 @@
 	function vaciarCarrito(){
 		//Reinicia el vector de sesión del carrito de compra
 		$_SESSION["cart"] = array();
+		eliminarArchivoCarrito();
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function eliminarItemCarrito( $pos ){
@@ -96,15 +99,38 @@
 		echo json_encode( $carrito );	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerCarritoCompra(){
+	function guardarEstadoCarrito( $carrito ){
+		// Devuelve el contenido de carrito de compra con los datos a almacenar en cookie
+		$filename = PFXCARTFILE.$_SESSION["user"]["id"];
+
+		$json_string = json_encode( $carrito );
+		$file = "ckfiles/".$filename.".json";
+		file_put_contents( $file, $json_string );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function eliminarArchivoCarrito(){
+		// Devuelve el contenido de carrito de compra con los datos a almacenar en cookie
+		$filename = PFXCARTFILE.$_SESSION["user"]["id"];
+		if( file_exists( "../fn/ckfiles/".$filename.".json" ) )
+			unlink( "../fn/ckfiles/".$filename.".json" );
+		//var_dump( file_exists( "../fn/ckfiles/".$filename.".json" ) );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerCarritoCompra( $param ){
 		//Obtiene los ítems de la sesión de compra y los organiza en las vistas del contenido del carrito
 
 		$plantilla_item_dsp = file_get_contents( "../fn/cart-item.html" );		//Plantilla display desplegable
 		$plantilla_item_pag = file_get_contents( "../fn/cart-item-page.html" );	//Plantilla página carrito
 
-		$carrito = $_SESSION["cart"];
-		$cart = ""; $lpag = ""; 
-		$ni = 0; $total_cart = 0.00; $total_cant = 0;
+		$cart 		= ""; 		$lpag 		= ""; 
+		$ni 		= 0; 		$total_cart = 0.00; 	$total_cant = 0;
+		$carrito 	= NULL;		$ck_cart 	= NULL;
+
+		if( isset( $_SESSION["cart"] ) ){
+			$carrito = $_SESSION["cart"];
+			if( $param != "" )
+				$ck_cart = guardarEstadoCarrito( $carrito );
+		}
 		
 		foreach ( $carrito as $item ) {
 			
@@ -116,6 +142,8 @@
 			$total_cant += $item["quantity"];  
 			$ni++; 
 		}
+
+		$res["data_cart"] = $ck_cart;
 		$res["cart"] = $cart;
 		$res["lpag"] = $lpag;
 		$res["total_price"] = number_format( $total_cart, 2, '.', ',' );
@@ -143,7 +171,25 @@
 		$carrito = $_SESSION["cart"];
 		$carrito[] = $item;
 		$_SESSION["cart"] = $carrito;
-		obtenerCarritoCompra();
+
+		//obtenerCarritoCompra();
+	}
+	/* ----------------------------------------------------------------------------------- */
+	//Async: Obtiene el contenido del carrito previamente guardado y lo carga en la variable de sesión
+	if( isset( $_POST["get_filecart"] ) ){
+		session_start();
+
+		$filename 			= PFXCARTFILE.$_SESSION["user"]["id"];
+
+		$filecart 			= file_get_contents( "ckfiles/".$filename.".json" );
+		$cart 				= json_decode( $filecart, true );
+		$_SESSION["cart"] 	= $cart;
+		
+		echo $filename;
+		
+		print_r($cart);
+		echo "--";
+		print_r($_SESSION["cart"]);
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Async: recepción de ítem de compra para agregar a carrito
@@ -174,7 +220,9 @@
 	//Async: solicitud para obtener el contenido del carrito de compra
 	if( isset( $_POST["get_cart"] ) ){
 		session_start();
-		obtenerCarritoCompra();
+		$param = $_POST["param"];
+
+		obtenerCarritoCompra( $param );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Async: solicitud para modificar cantidad en ítem de carrito de compra

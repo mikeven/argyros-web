@@ -10,7 +10,7 @@
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php" );
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
    
     //checkSession( '' );
@@ -21,19 +21,19 @@
 <!doctype html>
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-
-<!-- Mirrored from demo.designshopify.com/html_jewelry/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 12 Jul 2017 16:51:32 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="UTF-8">
+
   <meta name="servername" content="SolucionesXYZ">
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="https://www.argyros.com.pa/" />
   <meta name="description" content="Distribuidor de platería"/>
-  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/alogo.png">
+  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/a-image.png">
   <meta name="keywords" content="Argyros, Distribuidor, Platería"/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Argyros, Inc.</title>
   
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -72,6 +72,8 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 
+	<?php include( "fn/ga.php" ); ?>
+
 	<style>
       .collection-details img{
         max-width: 100% !important;
@@ -79,6 +81,8 @@
       .newsletter-popup{
       	padding: 30px;
       }
+
+      #content-wrapper-parent{ margin-top: 0px; }
     </style>
 </head>
 
@@ -94,13 +98,13 @@
 				<div class="camera_wrap" id="home-slider">
 					<div data-src="assets/images/IMG_2042.jpg">
 						<div class="camera_caption camera_title_1 fadeIn" style="left:-240px;">
-						  <a href="catalog.php" style="color:#010101;" class="hidden-xs">Distribuidor de Platería</a>
+						  <a href="categories.php" style="color:#010101;" class="hidden-xs">Distribuidor de Platería</a>
 						</div>
 						<div class="camera_caption camera_caption_1 fadeIn" style="color: rgb(1, 1, 1); left:-240px;">
 							Consulta nuestros productos
 						</div>
 						<div class="camera_cta_1">
-							<a href="catalog.php" class="btn">VER CATÁLOGO</a>
+							<a href="categories.php" class="btn">VER CATÁLOGO</a>
 						</div>
 					</div>
 					<div data-src="assets/images/IMG_2022.jpg"> </div>
@@ -122,7 +126,7 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>" title="<?php echo $cdestacadas[0]["name"]?>">
+																<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[0]["uname"]?>" title="<?php echo $cdestacadas[0]["name"]?>">
 																<?php if ( $cdestacadas[0]["image"] != "" ) { ?>
 																	<img src="assets/images/<?php echo $cdestacadas[0]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
 																<?php } else { ?>
@@ -131,11 +135,11 @@
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">
+																<span class="col-name"><a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[0]["uname"]?>">
 																	<?php echo $cdestacadas[0]["name"]?></a>
 																</span>
 																<div class="collection-action hidden">
-																	<a href="acatalog.php?c=<?php echo $cdestacadas[0]["uname"]?>">VER CATÁLOGO</a>
+																	<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[0]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -143,7 +147,7 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=<?php echo $cdestacadas[1]["name"]?>" title="<?php echo $cdestacadas[1]["name"]?>">
+																<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[1]["name"]?>" title="<?php echo $cdestacadas[1]["name"]?>">
 																<?php if ( $cdestacadas[1]["image"] != "" ) { ?>
 																	<img src="assets/images/<?php echo $cdestacadas[1]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
 																<?php } else { ?>
@@ -152,9 +156,9 @@
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>"><?php echo $cdestacadas[1]["name"]?></a></span>
+																<span class="col-name"><a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[1]["uname"]?>"><?php echo $cdestacadas[1]["name"]?></a></span>
 																<div class="collection-action hidden">
-																	<a href="acatalog.php?c=<?php echo $cdestacadas[1]["uname"]?>">VER CATÁLOGO</a>
+																	<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[1]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -162,7 +166,7 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>" title="<?php echo $cdestacadas[2]["name"]?>">
+																<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[2]["uname"]?>" title="<?php echo $cdestacadas[2]["name"]?>">
 																<?php if ( $cdestacadas[2]["image"] != "" ) { ?>
 																	<img src="assets/images/<?php echo $cdestacadas[2]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
 																<?php } else { ?>
@@ -171,9 +175,9 @@
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>"><?php echo $cdestacadas[2]["name"]?></a></span>
+																<span class="col-name"><a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[2]["uname"]?>"><?php echo $cdestacadas[2]["name"]?></a></span>
 																<div class="collection-action hidden">
-																	<a href="acatalog.php?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
+																	<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[2]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -181,7 +185,7 @@
 													<div class="home_collections_item">
 														<div class="home_collections_item_inner">
 															<div class="collection-details">
-																<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>" title="<?php echo $cdestacadas[3]["name"]?>">
+																<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[3]["uname"]?>" title="<?php echo $cdestacadas[3]["name"]?>">
 																<?php if ( $cdestacadas[3]["image"] != "" ) { ?>
 																	<img src="assets/images/<?php echo $cdestacadas[3]["image"]?>" alt="<?php echo $cdestacadas[0]["name"]?>">
 																<?php } else { ?>
@@ -190,9 +194,9 @@
 																</a>
 															</div>
 															<div class="hover-overlay">
-																<span class="col-name"><a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>"><?php echo $cdestacadas[3]["name"]?></a></span>
+																<span class="col-name"><a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[3]["uname"]?>"><?php echo $cdestacadas[3]["name"]?></a></span>
 																<div class="collection-action hidden">
-																	<a href="acatalog.php?c=<?php echo $cdestacadas[3]["uname"]?>">VER CATÁLOGO</a>
+																	<a href="<?php echo URLBASECAT?>?c=<?php echo $cdestacadas[3]["uname"]?>">VER CATÁLOGO</a>
 																</div>
 															</div>
 														</div>
@@ -253,12 +257,14 @@
 																No reviews </span>
 																</span>
 															</div>
+															<!--
 															<div class="product-content-right">
 																<div class="product-price hidden">
 																	<span class="price_sale">$25.00</span>
 																	<del class="price_compare"> $30.00</del>
 																</div>
 															</div>
+															-->
 															<div class="list-mode-description">
 																 <?php echo $pdestacados[0]["description"]?>
 															</div>
@@ -408,7 +414,7 @@
 										</p>
 									</div>
 									<div class="home-banner-action">
-										<a href="catalog.php">Consulta nuestros productos</a>
+										<a href="categories.php">Consulta nuestros productos</a>
 									</div>
 								</div>
 							</div>
@@ -451,7 +457,7 @@
 	</div>
 	
 	<script src="assets/javascripts/cs.global.js" type="text/javascript"></script>
- 
+ 	<!--
 	<div id="quick-shop-modal" class="modal in" role="dialog" aria-hidden="false" tabindex="-1" data-width="800">
 		<div class="modal-backdrop in" style="height: 742px;">
 		</div>
@@ -558,31 +564,32 @@
 			</div>
 		</div>
 	</div>
+	-->
 	<!--Androll-->
 	
 	<!-- Validator -->
 	<script src="assets/bootstrapvalidator/dist/js/bootstrapValidator.min.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
-	adroll_adv_id = "HTF7KIWJRBHHXL46WLUDBC";
-	adroll_pix_id = "IE5CHDRTR5ABXH2P6QXAVM";
-	(function () {
-	var oldonload = window.onload;
-	window.onload = function(){
-	   __adroll_loaded=true;
-	   var scr = document.createElement("script");
-	   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
-	   scr.setAttribute('async', 'true');
-	   scr.type = "text/javascript";
-	   scr.src = host + "/j/roundtrip.js";
-	   ((document.getElementsByTagName('head') || [null])[0] ||
-		document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
-	   if(oldonload){oldonload()}};
-	}());
+		adroll_adv_id = "HTF7KIWJRBHHXL46WLUDBC";
+		adroll_pix_id = "IE5CHDRTR5ABXH2P6QXAVM";
+		(function () {
+		var oldonload = window.onload;
+		window.onload = function(){
+		   __adroll_loaded=true;
+		   var scr = document.createElement("script");
+		   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+		   scr.setAttribute('async', 'true');
+		   scr.type = "text/javascript";
+		   scr.src = host + "/j/roundtrip.js";
+		   ((document.getElementsByTagName('head') || [null])[0] ||
+			document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+		   if(oldonload){oldonload()}};
+		}());
 
-	$("#vpopargyros").bind("ended", function() {
-	   $(".fancybox-close").click();
-	});
+		$("#vpopargyros").bind("ended", function() {
+		   $(".fancybox-close").click();
+		});
 	</script>
 
 	<!-- Google Code -->

@@ -18,7 +18,7 @@
 
  function posicionarMenu() {
     
-    var altura_del_header = 100;
+    var altura_del_header = 60;
     var altura_del_menu = $('.menu').outerHeight(true);
 
     if ($(window).scrollTop() >= altura_del_header){
@@ -41,7 +41,7 @@ function generarURLFiltroPrecio( tipo, pmin, pmax ){
 	var ucatalogo = $("#urlcatalogoactual").val();
     $.ajax({
         type:"POST",
-        url:"fn/fn-filters.php",
+        url:"fn/fn-data-filters.php",
         data:{ urltipo_precio:tipo, p_min:pmin, p_max:pmax, url_c:ucatalogo },
         success: function( response ){
             console.log( response );
@@ -58,7 +58,7 @@ function generarURLFiltroPeso( pmin, pmax ){
 
     $.ajax({
         type:"POST",
-        url:"fn/fn-filters.php",
+        url:"fn/fn-data-filters.php",
         data:{ urltipo_precio:"peso_producto", peso_min:pmin, peso_max:pmax, url_c:ucatalogo },
         success: function( response ){
             console.log( response );

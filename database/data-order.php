@@ -176,14 +176,14 @@
 	function cambiarEstadoItemPedidoRevisado( $dbh, $ido, $iddp, $estado ){
 		//Cambia el estado de un ítem de pedido revisado
 		$q = "update order_details set item_status = '$estado' where id = $iddp and order_id = $ido";
-		//echo $q;
+		
 		return mysqli_query( $dbh, $q );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function ingresarObservacionesCliente( $dbh, $pedido ){
 		//Guarda observaciones por parte del cliente al confirmar un pedido
 		$q = "update orders set client_note = '$pedido[observaciones]' where id = $pedido[id_orden]";
-		//echo $q;
+		
 		return mysqli_query( $dbh, $q );
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -265,6 +265,7 @@
 	if( isset( $_POST["neworder"] ) ){
 		session_start();
 		ini_set( 'display_errors', 1 );
+
 		if( isset( $_SESSION["cart"] ) ){
 			$carrito = $_SESSION["cart"];
 			include( "../database/bd.php" );

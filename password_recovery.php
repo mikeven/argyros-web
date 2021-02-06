@@ -67,6 +67,7 @@
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
 	<script src="js/fn-ui.js" type="text/javascript"></script>
+	<?php include( "fn/ga.php" ); ?>
 
 	<style> #alert-msgs{ display: none; } </style>
 </head>

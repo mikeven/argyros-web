@@ -130,65 +130,23 @@
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_insert_id( $dbh );
 	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerImagenSubcategoria( $dbh, $idsc ){
+		// Devuelve la imagen del primer producto con detalle disponible de una subcategoría de producto
+		$q = "select i.path as imagen, p.id, p.name 
+				from products p, product_details dp, categories ca, subcategories sc, images i  
+				where dp.product_id = p.id and p.category_id = ca.id and p.subcategory_id = sc.id and 
+				sc.id = $idsc and i.product_detail_id = dp.id and dp.id in 
+				(select product_detail_id from size_product_detail where visible = 1 and product_detail_id = dp.id ) 
+				order by dp.repositioned_at desc, dp.created_at limit 1";
+
+		$data = mysqli_query( $dbh, $q );
+		return mysqli_fetch_array( $data );	
+	}
 
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Categorías */
 	/* ----------------------------------------------------------------------------------- */
-	//Obtener subcategorías de una categoría
-	if( isset( $_POST["m_subcategs"] ) ){
-		include( "bd.php" );
-		$idc = $_POST["m_subcategs"];
-		$subcategorias = obtenerListaSubCategoriasCategoria( $dbh, $idc );
-		echo json_encode( $subcategorias );
-	}
-	/* ----------------------------------------------------------------------------------- */
-	//Invoca crear nuevo registro de categoría principal
-	if( isset( $_GET["ncategoria"] ) ){
-		include( "bd.php" );
 
-		$nombre = mysqli_real_escape_string( $dbh, $_POST["nombre"] );
-		$idc = agregarCategoria( $dbh, $nombre );
-		
-		if( ( $idc != 0 ) && ( $idc != "" ) ){
-			header( "Location: ../categories.php?agregar_categoria&success" );
-		}
-	}
-	/* ----------------------------------------------------------------------------------- */
-	//Invoca crear nuevo registro de subcategoría
-	if( isset( $_GET["nsubcategoria"] ) ){
-		include( "bd.php" );
-		
-		$nombre = mysqli_real_escape_string( $dbh, $_POST["nombre"] );
-		$idsc = agregarSubcategoria( $dbh, $nombre, $_POST["idcategoria"] );
-		
-		if( ( $idsc != 0 ) && ( $idsc != "" ) ){
-			header( "Location: ../subcategories.php?addsubcategory&success" );
-		}
-	}
-	/* ----------------------------------------------------------------------------------- */
-	//Editar datos de categoría principal
-	if( isset( $_GET["category-edit"] ) ){
-		include( "bd.php" );
-		$idc = $_POST["idcategoria"];
-		$nombre = mysqli_real_escape_string( $dbh, $_POST["nombre"] );
-		$r = modificarCategoria( $dbh, $_POST["idcategoria"], $nombre );
-		
-		if( ( $r != 0 ) && ( $r != "" ) ){
-			header( "Location: ../categories.php?id=".$idc."&edit&success" );
-		}
-	}
-	/* ----------------------------------------------------------------------------------- */
-	//Editar datos de subcategoría
-	if( isset( $_GET["subcategory-edit"] ) ){
-		include( "bd.php" );
-		$idsc = $_POST["idsubcategoria"];
-		$idc = $_POST["idcategoria"];
-		$nombre = mysqli_real_escape_string( $dbh, $_POST["nombre"] );
-		$r = modificarSubCategoria( $dbh, $idsc, $nombre, $idc );
-		
-		if( ( $r != 0 ) && ( $r != "" ) ){
-			header( "Location: ../subcategory-edit.php?id=".$idsc."&edit&success" );
-		}
-	}
 	/* ----------------------------------------------------------------------------------- */
 ?>

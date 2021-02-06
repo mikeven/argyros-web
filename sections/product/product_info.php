@@ -55,9 +55,9 @@
 		  	if( $detalle_producto["tipo_precio"] == "mo" ) 
 		  			$precio_x_peso = $detalle_producto["precio_mo"];
 		?>
-		| <span class="gs_circ">Precio por g: 
+		| <span class="gs_circ"> 
 		  	<span id="rpreciop_g">$ 
-		  		<?php echo $precio_x_peso; ?> 
+		  		<?php echo $precio_x_peso; ?> $/g:
 		  	</span> 
 		</span>
 		<?php } ?>

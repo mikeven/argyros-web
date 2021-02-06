@@ -146,8 +146,8 @@ function registrarOrden(){
             $("#regresar_carrito").hide();
         },
         success: function( response ){
-            console.log( response );
             $("#loading-icon").fadeOut(200);
+            $.removeCookie( "ckcart" );
             mensajeRespuestaOrden( response );
         }
     });
@@ -253,6 +253,22 @@ $( document ).ready(function() {
         registrarCambiosPedido();
     });
     /* ----------------------------------------------------------------------------------- */
+    $(".pop-img").on( "click", function(){
+        var trg = $(this).attr("data-src");
+        $("#img-pop").attr( "src", trg );
+    });
+
+    $('.bloque_pedido .fancybox').fancybox({
+        'autoDimensions'    : false,
+        'width'             : 325,
+        'height'            : 'auto',
+        'autoSize' : false,
+
+        beforeShow: function(){
+          $(".fancybox-skin").css("background-image","none");
+          $(".fancybox-skin").css("background-color","#fff");
+        }
+    });
 });
 
 /*

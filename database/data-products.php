@@ -9,8 +9,9 @@
 		//Obtiene los datos de un producto dado su id
 		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
 		ca.id as idc, ca.name as category, sc.id as idsc, sc.name as subcategory, 
-		ca.uname as uname_c, sc.uname as uname_s, m.name as material, 
-		timestampdiff(day, p.created_at, curdate()) as d_antiguedad 
+		ca.uname as uname_c, sc.uname as uname_s, m.name as material, p.provider_id1 as idpvd1, 
+		p.manfact_code1 as codigof1, p.manfact_code2 as codigof2, p.manfact_code3 as codigof3,   
+		timestampdiff(day, p.created_at, curdate()) as d_antiguedad  
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
 		and p.country_id = co.id and p.id = $pid";
@@ -22,13 +23,12 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerUltimoProductoCategoria( $dbh, $idc ){
 		//Obtiene los datos de un producto dado su id
-		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
-		ca.id as idc, ca.name as category, sc.id as idsc, sc.name as subcategory, 
-		ca.uname as uname_c, sc.uname as uname_s, m.name as material 
-		FROM products p, categories ca, subcategories sc, countries co, materials m 
-		where p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
+		$q = "select p.id, p.code, p.name, p.description, p.visible as visible 
+		from products p, product_details dp, categories ca, subcategories sc, countries co, materials m 
+		where dp.product_id = p.id and p.category_id = ca.id and p.subcategory_id = sc.id and p.material_id = m.id 
 		and p.country_id = co.id and ca.id = $idc and p.visible = 1 
-		and p.id in (select product_id from product_details) ORDER BY p.id DESC LIMIT 1";
+		and p.id in (select product_id from product_details) 
+		order by dp.repositioned_at desc, dp.created_at desc limit 1";
 
 		$data = mysqli_query( $dbh, $q );
 		if( $data )
@@ -75,7 +75,7 @@
 		where dp.color_id = c.id and dp.treatment_id = t.id and dp.product_id = $pid";*/
 
 		$q = "select dp.id as id, c.name as color, t.name as bano, dp.price_type as tipo_precio, 
-		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
 		dp.weight_price_value as precio_peso FROM product_details dp
 		LEFT JOIN treatments t ON t.id = dp.treatment_id LEFT JOIN colors c ON dp.color_id = c.id 
 		WHERE dp.product_id = $pid";
@@ -83,6 +83,18 @@
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
 		return $lista;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerDetalleProductoPorIdDetalle( $dbh, $iddet ){
+		//Devuelve el registro de detalle dado su id
+		
+		$q = "select dp.id as iddet, dp.price_type as tipo_precio, dp.piece_price_value as precio_pieza, 
+		dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		FROM product_details dp WHERE dp.id = $iddet";
+		
+		$data = mysqli_query( $dbh, $q );
+		if( $data )
+			return mysqli_fetch_array( $data );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function productoTieneDetalle( $dbh, $idp ){
@@ -117,7 +129,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerPrecioPorGramo( $var, $precio_gramo ){
-		//Devuelve el valor del precio del gramo de acuerdo al perfil de cliemte
+		//Devuelve el valor del precio del gramo de acuerdo al perfil de cliente
 		$precio = $precio_gramo * $var["variable_b"];
 		
 		return number_format( $precio, 2, ".", "" );	
@@ -143,14 +155,14 @@
 		$ntallas = array();
 		$tallas = $rdetalle["sizes"];
 		
-		foreach ( $tallas as $r ) {
+		foreach ( $tallas as $t ) {
 
 			if( $rdetalle["tipo_precio"] == "g" || $rdetalle["tipo_precio"] == "mo" )
-				$r["precio"] = obtenerPrecioPorPeso( $r["peso"], $rdetalle["precio"] );
+				$t["precio"] = obtenerPrecioPorPeso( $t["peso"], $rdetalle["precio"] );
 			
-			if( $rdetalle["tipo_precio"] == "p" ) $r["precio"] = $rdetalle["precio"];
+			if( $rdetalle["tipo_precio"] == "p" ) $t["precio"] = $rdetalle["precio"];
 			
-			$ntallas[] = $r;			
+			$ntallas[] = $t;			
 		}
 
 		return $ntallas;
@@ -202,6 +214,27 @@
 		return $ndetalle;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function preciosDetalle( $dbh, $detalle ){
+		//Devuelve los precios por pieza o peso de un registro de detalle de producto,  
+		//asociado al perfil de usuario y tipos de precio.
+		$var_gr_u = variablesGrupoUsuario( $dbh );
+
+		if( $detalle["tipo_precio"] == "p" )
+			$detalle["precio"] 		= obtenerPrecioPorPieza( $var_gr_u, $detalle["precio_pieza"] );
+		
+		if( $detalle["tipo_precio"] == "g" ){
+			$detalle["precio_peso"] = obtenerPrecioPorGramo( $var_gr_u, $detalle["precio_peso"] );
+			$detalle["precio"] 		= $detalle["precio_peso"];
+		}
+
+		if( $detalle["tipo_precio"] == "mo" ){
+			$detalle["precio_mo"] 	= obtenerPrecioPorManoObra( $var_gr_u, 1, $detalle["precio_mo"] );
+			$detalle["precio"] 		= $detalle["precio_mo"];
+		}
+		
+		return $detalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function cargarImagenesDetalle( $dbh, $detalle ){
 		//Devuelve las imagenes de cada registro de detalle de producto
 		$ndetalle = array();
@@ -210,6 +243,14 @@
 			$ndetalle[] = $det;
 		}
 		return $ndetalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function imagenesDetalle( $dbh, $detalle ){
+		//Devuelve las imagenes de un registro de detalle de producto
+		
+		$detalle["images"] = obtenerImagenesDetalleProducto( $dbh, $detalle["iddet"], NULL );
+		
+		return $detalle;
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function cargarTallasDetalle( $dbh, $detalle ){
@@ -227,6 +268,17 @@
 		return $ndetalle;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function tallasDetalle( $dbh, $detalle ){
+		//Devuelve las tallas de un registro de detalle de producto
+		$var_gr_usuario 		= variablesGrupoUsuario( $dbh );
+
+		$detalle["sizes"] 		= obtenerTodasTallasDetalleProducto( $dbh, $detalle["iddet"] );
+		$detalle["sizes"] 		= obtenerPreciosPorPesoTalla( $dbh, $detalle );
+		$detalle["available"]	= tieneTallasDisponiblesDetalleProducto( $dbh, $detalle["iddet"] );
+		
+		return $detalle;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductoPorId( $dbh, $pid ){
 		//Devuelve los datos de producto, registros de detalle e imágenes registradas 
 		$producto["data"] = obtenerDatosProductoPorId( $dbh, $pid );
@@ -237,6 +289,16 @@
 			$producto["detalle"] = cargarImagenesDetalle( $dbh, $producto["detalle"] );
 			$producto["detalle"] = cargarTallasDetalle( $dbh, $producto["detalle"] );
 		}
+
+		return $producto;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerItemCatalogo( $dbh, $producto ){
+		//Devuelve los datos de producto, registros de detalle e imágenes registradas 
+		
+		$producto 			= preciosDetalle( $dbh, $producto );
+		$producto 			= imagenesDetalle( $dbh, $producto );
+		$producto 			= tallasDetalle( $dbh, $producto );
 
 		return $producto;
 	}
@@ -256,13 +318,21 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerProductosC_SRand( $dbh, $idc, $idsc ){
-		//Devuelve la lista de productos pertenecientes a una categoría y subcategoría
-		$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
+		//Devuelve la lista aleatoria de productos pertenecientes a una categoría y subcategoría
+		/*$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
 		ca.name as category, sc.name as subcategory, m.name as material 
 		FROM products p, categories ca, subcategories sc, countries co, materials m 
 		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
 		p.material_id = m.id and p.country_id = co.id and p.category_id = $idc 
-		and p.subcategory_id = $idsc order by rand()";
+		and p.subcategory_id = $idsc order by rand() LIMIT 10";*/
+
+		$q = "select p.id as idp, p.name, p.description, ca.id as idc, ca.name as categoria, dp.id as iddet, 
+		timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
+		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
+		FROM products p, categories ca, subcategories sc, product_details dp 
+		WHERE dp.product_id = p.id and p.category_id = ca.id and p.subcategory_id = sc.id 
+		and sc.category_id = ca.id and sc.id = $idsc and ca.id = $idc 
+		order by dp.repositioned_at DESC, rand() DESC, dp.created_at DESC LIMIT 15";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -276,6 +346,69 @@
 		FROM products p, categories ca, countries co, materials m 
 		where p.visible = 1 and p.category_id = ca.id and p.material_id = m.id 
 		and p.country_id = co.id and p.category_id = $idc order by p.id DESC";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function productosIdsProducto( $dbh, $idp, $iddet, $flt_dsu ){
+		// Catálogo: Devuelve la lista de productos a nivel de detalle dado el id del producto y detalle (si es indicado)
+		if( $iddet != NULL )
+			$cond = "and dp.id = $iddet"; else $cond = "";
+		if( $flt_dsu == true ) 
+			$cond_dsu = "and dp.disused is null"; else $cond_dsu = "";
+
+		$q = "select p.id as idp, p.code, p.name, p.description, co.name as pais, ca.id as idc,  
+		ca.name as categoria, m.name as material, dp.id as iddet, dp.color_id as id_color, c.name as color, 
+		c.uname as ucolor, dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, 
+		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso, 
+		timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
+		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
+		FROM products p, categories ca, countries co, materials m, product_details dp 
+		LEFT JOIN treatments t ON t.id = dp.treatment_id LEFT JOIN colors c ON dp.color_id = c.id 
+		WHERE p.country_id = co.id and p.material_id = m.id and dp.product_id = p.id and p.category_id = ca.id 
+		$cond_dsu and p.id = $idp $cond order by dp.id DESC";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function productosCategoriaSubcategoria( $dbh, $idc, $idsc ){
+		// Catálogo: Devuelve la lista de productos a nivel de detalle pertenecientes a una categoría y subcategoría
+
+		$q = "select p.id as idp, p.code, p.name, p.description, co.name as pais, ca.id as idc,  
+		ca.name as categoria, m.name as material, dp.id as iddet, dp.color_id as id_color, c.name as color, 
+		c.uname as ucolor, dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, 
+		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso, 
+		timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
+		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
+		FROM products p, categories ca, subcategories sc, countries co, materials m, product_details dp 
+		LEFT JOIN treatments t ON t.id = dp.treatment_id LEFT JOIN colors c ON dp.color_id = c.id 
+		WHERE p.country_id = co.id and p.material_id = m.id and dp.product_id = p.id and p.category_id = ca.id 
+		and p.subcategory_id = sc.id and sc.category_id = ca.id and sc.id = $idsc and ca.id = $idc 
+		and dp.disused is null order by dp.repositioned_at DESC, dp.created_at DESC";
+		
+		$data = mysqli_query( $dbh, $q );
+		$lista = obtenerListaRegistros( $data );
+		return $lista;	
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function productosCategoria( $dbh, $idc ){
+		// Catálogo: Devuelve la lista de productos pertenecientes a una categoría
+		
+		$q = "select p.id as idp, p.code, p.name, p.description, co.name as pais, ca.id as idc,  
+		ca.name as categoria, m.name as material, dp.id as iddet, dp.color_id as id_color, c.name as color, 
+		c.uname as ucolor, dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, 
+		dp.price_type as tipo_precio, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.weight_price_value as precio_peso, timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
+		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
+		FROM products p, categories ca, countries co, materials m, 
+		product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
+		LEFT JOIN colors c ON dp.color_id = c.id WHERE p.country_id = co.id and p.material_id = m.id 
+		and dp.product_id = p.id and p.category_id = ca.id and p.category_id = $idc and dp.disused is null 
+		order by dp.repositioned_at DESC, dp.created_at DESC";
 		
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -371,8 +504,8 @@
 		
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
 		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, product_id as pid,  
-		dp.price_type as tipo_precio, dp.weight as peso, dp.piece_price_value as precio_pieza, 
-		manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		dp.price_type as tipo_precio, dp.piece_price_value as precio_pieza, dp.disused as desuso, 
+		dp.reference_id as ref_id, manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
 		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
 		LEFT JOIN colors c ON dp.color_id = c.id WHERE dp.product_id = $idp order by dp.id ASC";
 
@@ -392,7 +525,7 @@
 	function obtenerRegistroDetalleProductoPorId( $dbh, $idd ){
 		//Devuelve un registro de detalle de producto dado su id
 		$q = "select dp.id as id, c.id as color, t.id as bano, dp.price_type as tipo_precio, 
-		dp.weight as peso, dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
+		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, 
 		dp.product_id as pid, dp.weight_price_value as precio_peso 
 		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
 		LEFT JOIN colors c ON dp.color_id = c.id WHERE dp.id = $idd";
@@ -417,11 +550,6 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTodasTallasDetalleProducto( $dbh, $idd ){
 		//Devuelve los registros de tallas de detalle de producto, DISPONIBLES Y NO DISPONIBLES
-		/*$q = "select spd.size_id as idtalla, s.name as talla, spd.weight as peso, 
-		spd.adjustable as ajustable, spd.visible as visible 
-		from size_product_detail spd, sizes s where spd.size_id = s.id and 
-		spd.product_detail_id = $idd order by s.id ASC";*/
-
 		$q = "select spd.size_id as idtalla, s.name as talla, spd.visible as visible, 
 		spd.adjustable as ajustable, convert(s.name, decimal(4,2)) as vsize, s.unit as unidad, 
 		spd.weight as peso from size_product_detail spd, sizes s 
@@ -456,7 +584,7 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerTallasPorCategoria( $dbh, $idc ){
 		//Devuelve las tallas asociadas a una categoría de producto
-		$q = "select id, name, unit, convert(name, decimal(4,2)) as vsize 
+		$q = "select id as idtalla, name as talla, unit as unidad, convert(name, decimal(4,2)) as vsize 
 		from sizes where category_id = $idc order by vsize ASC";
 		
 		$data = mysqli_query( $dbh, $q );
@@ -538,15 +666,15 @@
 		return $data;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerProductosParametroDirectoProducto( $dbh, $busqueda ){
+	function obtenerIdsProductosParametroDirectoProducto( $dbh, $busqueda ){
 		//Devuelve los registros de producto que coinciden con la búsqueda en algunos de sus parámetros:
 
 		$q = "select p.id from products p, categories ca, subcategories sc, countries co, materials m 
 		where (p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
-		p.material_id = m.id and p.country_id = co.id ) 
-		and ( lower(p.name) like lower('%$busqueda%') or lower(p.description) like lower('%$busqueda%') 
-		or lower(p.code) like lower('%$busqueda%') or lower(m.name) like lower('%$busqueda%') 
-		or lower(ca.name) like lower('%$busqueda%') or lower(sc.name) like lower('%$busqueda%') ) order by id DESC";
+		p.material_id = m.id and p.country_id = co.id ) and ( lower(p.name) like lower('%$busqueda%') 
+		or lower(p.description) like lower('%$busqueda%') or lower(p.code) like lower('%$busqueda%') 
+		or lower(m.name) like lower('%$busqueda%') or lower(ca.name) like lower('%$busqueda%') 
+		or lower(sc.name) like lower('%$busqueda%') ) order by id DESC";
 
 		$data = mysqli_query( $dbh, $q );
 		$lista = obtenerListaRegistros( $data );
@@ -559,27 +687,40 @@
 		//algunos de sus parámetros en su detalle
 
 		if( $param == "bano" ){
-			$q = "select id from products where visible = 1 and id in ( select dp.product_id from product_details dp, treatments t 
-			where dp.treatment_id = t.id and lower(t.name) like lower('%$busqueda%') ) order by id DESC";
+			$q = "select p.id, dp1.id as iddet from products p, product_details dp1 
+					where dp1.product_id = p.id and p.id in ( select dp2.product_id from product_details dp2, treatments t 
+					where dp2.treatment_id = t.id and lower(t.name) like lower('%$busqueda%') and dp2.id = dp1.id )";
 		}
 		if( $param == "color" ){
-			$q = "select id from products where visible = 1 and id in ( select dp.product_id from product_details dp, colors c 
-			where dp.color_id = c.id and lower(c.name) like lower('%$busqueda%') ) order by id DESC";
+			$q = "select p.id, dp1.id as iddet from products p, product_details dp1 
+					where dp1.product_id = p.id and p.id in ( select dp2.product_id from product_details dp2, colors c 
+					where dp2.color_id = c.id and lower(c.name) like lower('%$busqueda%') and dp2.id = dp1.id )";
 		}
 		if( $param == "trabajo" ){
-			$q = "select p.id from products p, making_product mp, makings m  
-			where where p.visible = 1 and p.id = mp.product_id and mp.making_id = m.id 
-			and lower(m.name) like lower('%$busqueda%') order by id DESC";
+			$q = "select p.id, dp.id as iddet from products p, product_details dp, making_product mp, makings m 
+					where dp.product_id = p.id and p.id = mp.product_id and mp.making_id = m.id 
+					and lower(m.name) like lower('%$busqueda%')";
 		}
 		if( $param == "linea" ){
-			$q = "select p.id from products p, line_product lp, plines l  
-			where p.visible = 1 and p.id = lp.product_id and lp.line_id = l.id 
-			and lower(l.name) like lower('%$busqueda%') order by id DESC";
+
+			$q = "select p.id, dp.id as iddet from products p, product_details dp, line_product lp, plines l  
+					where dp.product_id = p.id and p.id = lp.product_id and lp.line_id = l.id 
+					and lower(l.name) like lower('%$busqueda%') LIMIT 1000";
 		}
 
 		if( $param == "codigo" ){
-			$q = "select id from products where id in ( select dp.product_id 
-			from product_details dp where CONCAT( dp.product_id,'-',dp.id ) = '$busqueda' ) order by id DESC";
+			$q = "select p.id, dp.id as iddet from products p, product_details dp 
+					where dp.product_id = p.id and concat( dp.product_id,'-',dp.id ) = '$busqueda'";
+		}
+
+		if( $param == "id_producto" ){
+			$q = "select p.id, dp.id as iddet from products p, product_details dp 
+					where dp.product_id = p.id and concat( '#i', dp.product_id ) = '$busqueda'";
+		}
+
+		if( $param == "id_detalle" ){
+			$q = "select p.id, dp.id as iddet from products p, product_details dp 
+					where dp.product_id = p.id and concat( '#d', dp.id ) = '$busqueda'";
 		}
 
 		$data = mysqli_query( $dbh, $q );
@@ -588,9 +729,11 @@
 		return $lista;
 	} 
 	/* ----------------------------------------------------------------------------------- */
-
-
-
+	function obtenerProveedorPorId( $dbh, $id ){
+		//Devuelve el registro de proveedor dado su id
+		$q = "select id, name, number from providers where id = $id";
+		return mysqli_fetch_array( mysqli_query( $dbh, $q ) );
+	}
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de Productos */
 	/* ----------------------------------------------------------------------------------- */

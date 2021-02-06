@@ -10,6 +10,7 @@
 	<div class="col-md-6 phone-shopping" align="center">
 	  <span>Distribuidor de platería</span>
 	</div>
+	
 	<div class="col-md-18">
 	  <ul class="text-right">
 		<li class="customer-links hidden-xs">
@@ -77,5 +78,6 @@
 		</li>        
 	  </ul>
 	</div>
+
   </div>
 </div>

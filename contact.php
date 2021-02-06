@@ -8,8 +8,8 @@
 	include( "database/data-user.php" );
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
     include( "fn/fn-cart.php" );
     
     //checkSession( '' );
@@ -22,10 +22,15 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="UTF-8">
+  <meta name="servername" content="SolucionesXYZ">
+  <meta name="google-site-verification" content="uMXohbTO1Kgmqq8PSaGTjxNPfuUZxLmcIbZ2cSFhDWI" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-  <link rel="canonical" href="http://demo.designshopify.com/" />
-  <meta name="description" content="" />
+  <link rel="canonical" href="https://www.argyros.com.pa/" />
+  <meta name="description" content="Argyros - Contacto"/>
+  <meta property="og:image" content="https://www.argyros.com.pa/assets/images/a-image.png">
+  <meta name="keywords" content="Argyros, Distribuidor, Platería"/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Contacto::Argyros</title>
   	
     <link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -68,6 +73,7 @@
 	<script src="js/fn-product.js" type="text/javascript"></script>
 	<script src="js/fn-user.js" type="text/javascript"></script>
 	<script src="js/fn-cart.js" type="text/javascript"></script>
+	<?php include( "fn/ga.php" ); ?>
 
 	<style>
 		#contact-form{
@@ -179,7 +185,7 @@
 									</div>
 								</div>
 								<div id="argyrosmap" class="row">
-									<div class="col-md-24 col-xs-12">
+									<div class="col-md-24 col-xs-24">
 										<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.7666607647825!2d-79.8918163335422!3d9.353905121954526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fab6da7351ea6fd%3A0x348395c688cc68ad!2sArgyros%20Inc.!5e0!3m2!1sen!2sve!4v1588710889502!5m2!1sen!2sve" width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
 									</div>
 								</div>

@@ -10,7 +10,7 @@
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-single-product.php" );
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
 
     checkSession( 'catalogo' );
@@ -34,6 +34,7 @@
   <link rel="canonical" href="http://demo.designshopify.com/" />
   <?php if( isset( $is_p ) && $is_p ) { ?>
   <meta name="description" content="<?php echo $producto["description"]; ?>"/>
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <?php }  ?>
   <?php if( isset( $is_p ) && $is_p ) { ?>
   	<title><?php echo $producto["name"]; ?> :: Argyros</title>
@@ -79,7 +80,7 @@
 	<script src="assets/javascripts/cs.script.js" type="text/javascript"></script>
 	<!-- Tooltips -->
 	<script src="assets/tooltips/js/tooltipster.bundle.min.js" type="text/javascript"></script>	
-
+	<?php include( "fn/ga.php" ); ?>
 	<style type="text/css">
 		#alert-msgs, #alert-msgs-notif, #det-no-disp{ display: none; }
 		.rdet_view{ display: none; }
@@ -92,22 +93,28 @@
 		.categ-rel-prod{ color: #808080 !important; }
 		.categ-rel-prod:hover{ color: #a7b239 !important; }
 
-		li i.fa{
+		/*li i.fa{
 			font-size: 15px;
 		    vertical-align: 4px;
-		    /*padding-right: 5px;
-		    color: #808080;*/
-		}
+		    padding-right: 5px;
+		    color: #808080;
+		}*/
+		
 		#not-found{
 			margin-top: 25px;
 		}
 
-		#gallery_main .owl-wrapper-outer .opt-pdetalle img {
+		#disused_product_reference { max-width: 100px; }
+
+		#gallery_main .owl-wrapper-outer .opt-pdetalle img, #disused_product_reference img{
 		    height: 100px !important;
 		}
 
 		#referencia-producto, .detlist-id-det{
 			font-size: 11px; font-weight: bold; color: #696f24; 
+		}
+		#referencia-producto-pvd{
+			font-size: 11px; font-weight: bold; color: #73879C; 
 		}
 
 		#titulo-detalles-disponibles{
@@ -121,6 +128,11 @@
     		-webkit-transition: border-color 1.5s; /* Safari */
     		transition: border-color 1.5s;
 		}
+
+		.label_disused{ 
+			font-size: 20px; font-weight: bold; color: #808080; 
+		}
+		.img_ref_disused{ border: 2px solid #DDD; }
 
 		.tx_not_available{
 			font-size: 11px; font-weight: bold; color: #CF132C;
@@ -249,7 +261,7 @@
 										<div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="col-sm-24 group-variants">
 											<meta itemprop="priceCurrency" content="USD">              
 											<link itemprop="availability" href="http://schema.org/InStock">
-											<form id="frm_scart" method="post" class="variants">
+											<form id="frm_scart" method="post" class="variants" onsubmit="return false">
 												
 												<div id="product-actions" class="options clearfix">
 													<style scoped>
@@ -313,37 +325,54 @@
 
 													<?php
 
-													if( $detalle_producto["available"] == 1 ){
+													if( $detalle_producto["available"] == 1 	// disponible y 
+														&& $detalle_producto["desuso"] != 1 ){	// no en 'desuso'
 
-														include("sections/product/product_size_selection.php");
+														include( "sections/product/product_size_selection.php" );
 														
-														include("sections/product/qty_selection.php");
+														include( "sections/product/qty_selection.php" );
 
 													} else { ?>
-
+															
 														<h3 id="page-title" class="text-left">
-															<span itemprop="name" 
-															style="color: #a7b239;">
+															<span itemprop="name" style="color: #a7b239;">
 																PRODUCTO NO DISPONIBLE
 															</span>
-														</h3>
+															<?php if( $detalle_producto["desuso"]) { ?>
+																<span class="label_disused">
+																	<i class="fa fa-history"></i>
+																</span>
+															<?php } ?>
+														</h3>	
 														
+														<?php if( $detalle_producto["desuso"] && $prod_ref ) 
+															include( "sections/product/product_disused_reference.php" ); ?>
+
 													<?php } ?>
-													
 												</div>
-												<?php include("sections/product/product_details_models.php"); ?>
+												
+												<?php 
+													if( !$detalle_producto["desuso"] )
+														include("sections/product/product_details_models.php"); 
+												?>
+												
 												<!-- C-OCULTOS -->
 												<div id="data_cart" class="hidden">
-											    	<input type="hidden" id="idi_cart" name="idicart" value="<?php echo $pre_pp; ?>">
-											    	<input type="hidden" id="idprod" name="idproducto" value="<?php echo $pid; ?>">
-											    	<input type="hidden" id="iddetalle" name="iddetalle" value="<?php echo $detalle[0]["id"]; ?>">
-											    	<input type="hidden" id="nproducto" name="nombre_producto" value="<?php echo $producto["name"]; ?>">
-											    	<input type="hidden" id="dproducto" name="descripcion_producto" value="<?php echo $producto["description"]; ?>">
+											    	<input type="hidden" id="idi_cart" name="idicart" value="">
+											    	<input type="hidden" id="idprod" name="idproducto" 
+											    	value="<?php echo $pid; ?>">
+											    	<input type="hidden" id="iddetalle" name="iddetalle" 
+											    	value="<?php echo $_GET[iddet]; ?>">
+											    	<input type="hidden" id="nproducto" name="nombre_producto" 
+											    	value="<?php echo $producto["name"]; ?>">
+											    	<input type="hidden" id="dproducto" name="descripcion_producto" 
+											    	value="<?php echo $producto["description"]; ?>">
 											    	<input type="hidden" id="imgproducto" name="img_producto" 
 											    	value="<?php echo $purl.$img_pp; ?>">
 											    	<input type="hidden" id="stalla" name="seltalla" value="">
 											    	<input type="hidden" id="vidseltalla" name="idseltalla" value="">
-											    	<input type="hidden" id="vprice_cart" name="unit_price" value="<?php echo $pre_pp; ?>">
+											    	<input type="hidden" id="vprice_cart" name="unit_price" 
+											    	value="<?php echo $pre_pp; ?>">
 											    </div>
 											</form>
 											<!-- wishlist -->                                          
@@ -382,9 +411,8 @@
 								<!-- Related Products -->
 
 								<?php 
-									if( isset( $productos_juegos ) 
-										&& count( $productos_juegos ) > 0 ) {
-										include( "sections/product/set-products.php" );
+									if( isset( $productos_juegos ) && count( $productos_juegos ) > 0 ) {
+										include( "sections/product/products-set.php" );
 									}
 								?>
 
@@ -453,7 +481,7 @@
 		    "navBorder": 1,
 
 		    // autoplay
-		    "autoPlay": true,
+		    "autoPlay": false,
 
 		    // autoplay interval in milliseconds
 		    "autoPlayTimeout": 10000

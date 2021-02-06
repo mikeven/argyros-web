@@ -574,11 +574,23 @@ function handleMap(){
     }
   }
 }
+
+/* Handle price mode */
+function togglePriceTags( handle ){
+
+  $(".togwgt").hide();
+  if( handle == "grid" )
+    $(".short_wgt").fadeIn(100);
+  else
+    $(".full_wgt").fadeIn(100);
+}
     
 /* Handle Grid - List */
 function handleGridList(){
   if($('#goList').length){
     $('#goList').on(clickEv, function(e){
+      togglePriceTags( "list" );
+
       $(this).parent().find('li').removeClass('active');
       $(this).addClass('active');
       
@@ -600,6 +612,8 @@ function handleGridList(){
   
   if($('#goGrid').length){
     $('#goGrid').on(clickEv, function(e){
+      togglePriceTags( "grid" );
+
       $(this).parent().find('li').removeClass('active');
       $(this).addClass('active');
       
@@ -622,6 +636,7 @@ function handleGridList(){
 function handleGridListajax(){
   if($('#goList').length){
     $('#goList').on(clickEv, function(e){
+      
       $(this).parent().find('li').removeClass('active');
       $(this).addClass('active');
       
@@ -696,18 +711,17 @@ function handleToolTip(){
     
 /* Handle product quantity */
 function handleQuantity(){
+
   if($('.quantity-wrapper').length){
     $('.quantity-wrapper').on(clickEv, '.qty-up', function() {
       var $this = $(this);
-      
       var qty = $this.data('src');
       $(qty).val(parseInt($(qty).val()) + 1);
+      
     });
     $('.quantity-wrapper').on(clickEv, '.qty-down', function() {
       var $this = $(this);
-      
       var qty = $this.data('src');
-      
       if(parseInt($(qty).val()) > 1)
         $(qty).val(parseInt($(qty).val()) - 1);
     });
@@ -894,6 +908,18 @@ jQuery(document).ready(function($) {
       $(".fancybox-skin").css("background-color","#fff");
     }
   }); 
+
+  $('#tabs_detail .fancybox').fancybox({
+    'autoDimensions'    : false,
+    'width'             : 850,
+    'height'            : 'auto',
+    'autoSize' : false,
+
+    beforeShow: function(){
+      $(".fancybox-skin").css("background-image","none");
+      $(".fancybox-skin").css("background-color","#fff");
+    }
+  });
      
   /* SwitchImage */
   $('#product .thumbs a').on('click', function(e) {

@@ -25,12 +25,12 @@
 		
 		if( isset( $_SESSION["login"] ) ){
 			if( $param != "" && $param != "catalogo" ) 
-				echo "<script> window.location = 'catalog.php'</script>";
+				echo "<script> window.location = 'categories.php'</script>";
 		}else{
 			if( $param == "" && $param != "registro" && $param != "verificacion" )
 				echo "<script> window.location = 'index.php'</script>";	
 			if( $param == "catalogo" )
-				echo "<script> window.location = 'catalog.php'</script>";	
+				echo "<script> window.location = 'categories.php'</script>";	
 		}
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -108,15 +108,6 @@
 		return $data_user["orders_email"];
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function registrarInicioSesion( $usuario, $dbh ){
-		$adj_time = 96; // Tiempo para ajustar diferencia con hora de servidor ( minutos )
-		$adjsql = "NOW() + INTERVAL $adj_time MINUTE";
-		$query = "insert into ingreso values ('', $usuario[idUsuario], $adjsql )";
-		$Rs = mysql_query ( $query, $dbh );
-
-		return mysql_insert_id();	
-	}
-	/* ----------------------------------------------------------------------------------- */
 	function registrarUsuario( $dbh, $usuario ){
 		//Registro de nuevo usuario (cliente)
 		//user_group_id (1) : Defecto -> Tipo de usuario por defecto
@@ -177,13 +168,13 @@
 		return $existe;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function login( $data_user ){
+	function userLogin( $data_user ){
 		session_start();
 		
 		$_SESSION["login"] = 1;
 		$_SESSION["user"] = $data_user;
 		$_SESSION["cart"] = array();
-		//registrarInicioSesion( $data_user, $dbh );
+		
 		$login = true; 
 
 		return $login;
@@ -197,6 +188,14 @@
 		if( mysqli_affected_rows( $dbh ) == -1 ) $actualizado = 0;
 		
 		return $actualizado;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function registrarInicioSesion( $dbh, $idc ){
+		// Registra la fecha y hora en la cual un usuario inicia sesión
+		$q 	= "insert into client_logins ( date, fk_client ) values ( NOW(), $idc )";
+		
+		$Rs = mysqli_query( $dbh, $q );
+		return mysqli_insert_id( $dbh );	
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function modificarDatosUsuario( $usuario, $dbh ){
@@ -349,8 +348,9 @@
 				"<br>Póngase en contacto con el administrador de la página</p>";
 			}
 			if( ( $data_user["verified"] == 1 ) && ( $data_user["blocked"] != 1 ) ){
-				login( $data_user, $dbh );
-				actualizarFechaUltimoInicioSesion( $dbh, $data_user["id"] );
+				userLogin( $data_user, $dbh );
+				//actualizarFechaUltimoInicioSesion( $dbh, $data_user["id"] );
+				registrarInicioSesion( $dbh, $data_user["id"] );
 				$res["exito"] = 1;
 				$res["mje"] = "Inicio de sesión exitoso";
 			}
@@ -398,9 +398,11 @@
 
 				if( $remail["exito"] == 1 ){
 					$res["exito"] = 1;
-					$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
+					/*$res["mje"] = "<p>Registro de usuario con éxito. Se ha enviado un mensaje con las instrucciones para activar su cuenta.".
 					"<br>Si no ha recibido el mensaje, haga clic en el siguiente enlace</p>".
-					"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";;
+					"<p><button id='btn_login' class='btn'>Reenviar mensaje de activación</button></p>";*/
+
+					$res["url"] = "registered_account.php?user_t=$usuario[token]";
 				}
 				else{
 					$res["exito"] = -1;

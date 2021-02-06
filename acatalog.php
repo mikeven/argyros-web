@@ -32,7 +32,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <link rel="canonical" href="http://demo.designshopify.com/"/>
   <meta name="description" content=""/>
-  <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <link rel="icon" type="image/png" href="https://www.argyros.com.pa/assets/images/afavicon.png">
   <title>Catálogo::Argyros</title>
   
 	<link href="assets/stylesheets/font.css" rel='stylesheet' type='text/css'>
@@ -77,6 +78,7 @@
 
 	<script>
 		$( document ).ready(function() {
+
 			$("#catalog-filters").hide();
 			$("#tfilters").click( function(){ 
                $("#catalog-filters").fadeToggle( 100, "linear" );
@@ -140,6 +142,8 @@
 	</script>
 </head>
 <style>
+	
+	#panel_filtro, #catalog-filters{ display: none; }
 	#options {
 	    margin-top: 20px;
 	    margin-bottom: 30px;
@@ -178,7 +182,8 @@
 	}
 
 	.seccion_filtros_catalogo{
-		
+		top: 0;
+		transition: top 0.8s;
 	}
 
 	@media( max-width: 1024px ){
@@ -294,24 +299,6 @@
 		<div id="content-wrapper">  
 			<!-- Content -->
 			<div id="content" class="clearfix">                
-				
-				<div id="breadcrumb" class="breadcrumb">
-					<div itemprop="breadcrumb" class="container">
-						<div class="row">
-							<div id="argy-breadcrumb" class="col-md-12">
-								<?php 
-									if( isset( $_SESSION["login"] ) ) 
-										include( "sections/breadcrumb.php" ); 
-								?>
-							</div>
-							<div id="title-categories">
-								<h1 id="page-title" class="text-right">
-									<?php //echo $etiq_categs; ?>
-								</h1>
-							</div>
-						</div>
-					</div>
-				</div>
                 
 				<section class="content">
 					<div class="container">
@@ -325,27 +312,35 @@
 									<div class="navbar-collapse">
 										<ul class="nav">
 											<li class="dropdown mega-menu">
-											<div style="float:left;">
-												<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
-												<span>Filtros <i class="fa fa-caret-down"></i></span>
-												<!-- <i class="fa fa-caret-down"></i> -->
-												<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
-												<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
-												</a>
-											</div>
-											<div id="flt-breadcrumb" style="float:left;"></div>
-											<div style="clear:both;"></div>
-											<hr>
-											<div id="panel_tag_filters">
-												<?php  
-													foreach ( $d_filtros["url"] as $flt_vo ) { ?>
-													<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
-														<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
-													</a> 
-												<?php } ?>
-											</div>
-											<input id="panel_filtro" type="text" value="" readonly="true"/>
-											<?php include( "sections/filters.php" ); ?>
+												<hr>
+												<div style="float:left;">
+													<a id="tfilters" href="#!" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+													<span>Filtros <i class="fa fa-caret-down"></i></span>
+													<!-- <i class="fa fa-caret-down"></i> -->
+													<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
+													<i class="sub-dropdown visible-sm visible-md visible-lg"></i>
+													</a>
+												</div>
+												<div id="flt-breadcrumb" style="float:left;">
+													<?php 
+														if( isset( $_SESSION["login"] ) ) 
+															include( "sections/breadcrumb.php" ); 
+													?>
+												</div>
+												<div id="panel_tag_filters" style="float: right;">
+													<?php  
+														foreach ( $d_filtros["url"] as $flt_vo ) { ?>
+														<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
+															<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
+														</a> 
+													<?php } ?>
+												</div>
+												<input id="panel_filtro" type="text" value="" readonly="true"/>
+												<div style="clear:both;"></div>
+												<hr>
+												
+												
+												<?php include( "sections/filters.php" ); ?>
 											</li>
 										</ul>
 									</div>

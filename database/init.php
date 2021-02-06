@@ -5,6 +5,9 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	ini_set( 'display_errors', 1 );
-	ini_set( "session.gc_maxlifetime", 28800 );
     session_start();
+
+    if( isset( $_SESSION["user"] ) ){
+    	setcookie( "ckuser", $_SESSION["user"]["id"], time() + 3600 );  
+    }
 ?>

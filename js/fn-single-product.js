@@ -176,7 +176,7 @@
     	//Muestra el próximo bloque de productos del catálogo
     	var bloque = $(this).attr("data-trg");
     	var pboton = $(this).attr("data-pb");
-    	obtenerCarritoCompra();
+    	obtenerCarritoCompra('');
     	
     	$("." + bloque).fadeIn("slow");
 		$("#" + pboton).fadeIn("slow");

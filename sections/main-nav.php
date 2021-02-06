@@ -91,7 +91,7 @@
 
 								<?php if( isset( $_SESSION["user"] ) ) { ?>
 								<li id="<?php echo $idcatalogo; ?>" class="dropdown mega-menu">
-									<a href="catalog.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
+									<a href="categories.php" class="dropdown-toggle dropdown-link" data-toggle="dropdown">
 										<span>Catálogo</span>
 										<!-- <i class="fa fa-caret-down"></i> -->
 										<i class="sub-dropdown1 visible-sm visible-md visible-lg"></i>
@@ -105,7 +105,7 @@
 								<?php } else { ?>
 
 								<li id="catalog">
-									<a href="catalog.php" class="dropdown-toggle dropdown-link"> 
+									<a href="categories.php" class="dropdown-toggle dropdown-link"> 
 										<span>Catálogo</span> 
 									</a>
 								</li>
