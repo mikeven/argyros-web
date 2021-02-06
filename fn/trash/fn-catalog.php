@@ -41,11 +41,6 @@
 		return $data["id"];
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function reempEspacio( $texto ){
-		$reemplazo = str_replace( " ", "&nbsp;", $texto );
-		return $reemplazo;
-	}
-	/* ----------------------------------------------------------------------------------- */
 	function productoTieneImagen( $img ){
 		//Devuelve verdadero si un producto posee imagen en su detalle
 		$tiene_imagen = false;

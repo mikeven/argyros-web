@@ -3,24 +3,13 @@
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
-	
-	function yaAgregadoVectores( $elem, $vector, $clave ){
-		//Retorna verdadero o falso si un registro está contenido en un vector de registros comparando con una clave del registro
-
-		$contenido = false;
-		foreach ( $vector as $reg ) {
-			if( $reg[$clave] == $elem[$clave] )
-				$contenido = true;	
-		}
-		return $contenido;
-	}
-	/* ----------------------------------------------------------------------------------- */
 	function obtenerVectorValoresFiltro( $url_params, $param ){
 		//Devuelve un vector con los valores contenidos en un parámetro de la URL
 		
-		$string_vector = $url_params[$param];	//tra=_tra1_tra2..._traN
+		$string_vector = $url_params[$param];	//tra = _tra1_tra2..._traN
 		$vector = explode( SEPFLT, $string_vector );
 		unset( $vector[0] ); 					// Se elimina el inicio de la url
+		
 		return $vector;
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -42,8 +31,10 @@
 				$texto = $tprecio.": ".$vector[0]."gr - ".$vector[1]." gr";	
 			}
 		}
-		else
-			$texto = ucfirst( str_replace( "-", " ", $texto ) ); 
+		/*else{
+			$texto = ucfirst( str_replace( "-", " ", $texto ) );
+			if( $texto == "N/A" )  $texto = "Ajustable/Única";	// Tallas únicas - ajustables
+		}*/
 
 		return $texto;
 	}
@@ -54,14 +45,16 @@
 		$data_filtro = array();
 		
 		foreach ( $url_params as $param=>$valor ){
-			//echo $param."=".$valor.($param != "s")."<br>";
-			if( ( $param == "c" ) || ( $param == "s" ) || ( $param == P_TEXTO_BUSQUEDA ) ){
+			
+			if( ( $param == "c" ) || ( $param == "s" ) || ( $param == P_TEXTO_BUSQUEDA ) || 
+				( $param == P_SCROLL_PROD ) ){
 				
 			}else{
 				$valores = explode( SEPFLT, $valor );
 				foreach ( $valores as $texto ) {
 					if( $texto != "" ){
-						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, $param, trim( $texto ) );
+						$item_filtro["url_filtro"] = urlFiltro( $catalogue_url, $url_params, 
+																$param, trim( $texto ) );
 						$item_filtro["texto"] = obtenerTextoEtiquetaFiltro( $param, $texto );
 						$data_filtro[] = $item_filtro;
 					}
@@ -70,95 +63,128 @@
 		}
 		return $data_filtro;
 	}
-
 	/* ----------------------------------------------------------------------------------- */
+	function yaAgregadoVectores( $elem, $vector, $clave ){
+		//Retorna verdadero o falso si un registro está contenido en un vector de registros comparando con una clave del registro
 
+		$contenido = false;
+		foreach ( $vector as $reg ) {
+			if( $reg[$clave] == $elem[$clave] )
+				$contenido = true;	
+		}
+		return $contenido;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerIdsTallasCategoria( $tallas ){
+		// Devuelve un vector con los ids de las tallas de categoría
+		$idtallas = array();
+		foreach ( $tallas as $t ) {
+			$idtallas[] = $t["id"];
+		}
+		return $idtallas;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerTallasProductos( $dbh, $productos, $tallas_ctg ){
+		//Devuelve las tallas incluídas en los productos asociadas a la categoría
+		$filtros_tallas_productos 				= array();
+		$idtallas_ctg 							= obtenerIdsTallasCategoria( $tallas_ctg );
+		
+		foreach ( $tallas_ctg as $tc ) {
+
+			foreach ( $productos as $producto ) {
+
+				$tallas_producto 					= $producto["sizes"];
+
+				foreach ( $tallas_producto as $tprod ) {
+
+					if( $tc["idtalla"] == $tprod["idtalla"] ){
+						
+						if( yaAgregadoVectores( $tc, $filtros_tallas_productos, "idtalla" ) == false ){
+							$talla["idtalla"] 			= $tc["idtalla"];
+							$talla["talla"] 			= $tc["talla"];
+							$talla["utalla"] 			= $producto["talla"];
+							$filtros_tallas_productos[] = $tc;
+						}
+
+					}
+
+				}
+
+			}
+			
+		}
+
+		return $filtros_tallas_productos;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerTrabajosProductos( $dbh, $productos ){
 		//Devuelve los trabajos incluídos en los productos
 		$filtros_trab_productos = array();
 		
 		foreach ( $productos as $p ) {
-			$p = $p["data"];
-			$trabajos_p = obtenerTrabajosDeProductoPorId( $dbh, $p["id"] );
-			foreach ( $trabajos_p as $trabajo ) {
-				if( yaAgregadoVectores( $trabajo, $filtros_trab_productos, "idtrabajo" ) == false )
-					$filtros_trab_productos[] = $trabajo;
+			
+			if( $p["available"] ){
+				$trabajos_p 	= obtenerTrabajosDeProductoPorId( $dbh, $p["idp"] );
+				foreach ( $trabajos_p as $trabajo ) {
+					if( yaAgregadoVectores( $trabajo, $filtros_trab_productos, "idtrabajo" ) == false )
+						$filtros_trab_productos[] = $trabajo;
+				}
 			}
 		}
+		
 		return $filtros_trab_productos;
 	}
-
 	/* ----------------------------------------------------------------------------------- */
-
 	function obtenerLineasProductos( $dbh, $productos ){
 		//Devuelve las líneas incluídas en los productos
 		$filtros_linea_productos = array();
 		
 		foreach ( $productos as $p ) {
-			$p = $p["data"];
-			$lineas_p = obtenerLineasDeProductoPorId( $dbh, $p["id"] );
-			foreach ( $lineas_p as $linea ) {
-				if( yaAgregadoVectores( $linea, $filtros_linea_productos, "idlinea" ) == false )
-					$filtros_linea_productos[] = $linea;
+			if( $p["available"] ){
+				$lineas_p = obtenerLineasDeProductoPorId( $dbh, $p["idp"] );
+				foreach ( $lineas_p as $linea ) {
+					if( yaAgregadoVectores( $linea, $filtros_linea_productos, "idlinea" ) == false )
+						$filtros_linea_productos[] = $linea;
+				}
 			}
 		}
 		return $filtros_linea_productos;
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-	
 	function obtenerBanosProductos( $dbh, $productos ){
 		//Devuelve los baños incluídos en los productos
 		$filtros_bano_productos = array();
 		
 		foreach ( $productos as $producto ) {
-			//$detalle = obtenerDetalleProductoPorId( $dbh, $producto["data"]["id"] );
-			$detalle = $producto["detalle"];
-			//print_r($detalle);
-			foreach ( $detalle as $reg ) {
-				if( yaAgregadoVectores( $reg, $filtros_bano_productos, "id_bano" ) == false ){
-					$bano["id_bano"] = $reg["id_bano"];
-					$bano["bano"] = $reg["bano"];
-					$bano["ubano"] = $reg["ubano"];
-					$filtros_bano_productos[] = $bano;
+			if( $producto["available"] ){
+				if( yaAgregadoVectores( $producto, $filtros_bano_productos, "id_bano" ) == false ){
+					$bano["id_bano"] 			= $producto["id_bano"];
+					$bano["bano"] 				= $producto["bano"];
+					$bano["ubano"] 				= $producto["ubano"];
+					$filtros_bano_productos[] 	= $bano;
 				}
 			}
 		}
 
 		return $filtros_bano_productos;
 	}
-
 	/* ----------------------------------------------------------------------------------- */
-
 	function obtenerColoresProductos( $dbh, $productos ){
 		//Devuelve los baños incluídos en los productos
 		$filtros_color_productos = array();
 		
 		foreach ( $productos as $producto ){
-			//$detalle = obtenerDetalleProductoPorId( $dbh, $producto["id"] );
-			$detalle = $producto["detalle"];
-			foreach ( $detalle as $reg ){
-				if( yaAgregadoVectores( $reg, $filtros_color_productos, "id_color" ) == false ){
-					$color["id_color"] = $reg["id_color"];
-					$color["color"] = $reg["color"];
-					$color["ucolor"] = $reg["ucolor"];
-					$filtros_color_productos[] = $color;
+			if( $producto["available"] ){
+				if( yaAgregadoVectores( $producto, $filtros_color_productos, "id_color" ) == false ){
+					$color["id_color"] 			= $producto["id_color"];
+					$color["color"] 			= $producto["color"];
+					$color["ucolor"] 			= $producto["ucolor"];
+					$filtros_color_productos[] 	= $color;
 				}
 			}
 		}
 
 		return $filtros_color_productos;
-	}
-	
-	/* ----------------------------------------------------------------------------------- */
-	
-	function debug_to_console($data) {
-	    if(is_array($data) || is_object($data))
-		{
-			echo("<script>console.log('PHP: ".json_encode($data)."');</script>");
-		} else {
-			echo("<script>console.log('PHP: ".$data."');</script>");
-		}
 	}
 
 	/* ----------------------------------------------------------------------------------- */
@@ -175,23 +201,16 @@
 	}
 
 	/* ----------------------------------------------------------------------------------- */
-
 	function paramEnUrl( $p, $url_params ){
 		//Devuelve si un parámetro está contenido en la URL
-
 		return in_array( $p, array_keys( $url_params ) );
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-
 	function valorEnParamUrl( $valor, $string_valores ){
 		//Devuelve si un valor de un parámetro está contenido en la cadena del valor del parámetro
-		
 		return strpos( $string_valores, $valor );
 	}
-
 	/* ----------------------------------------------------------------------------------- */
-
 	function agregarParametroConValorURL( $url_params, $parametro, $valor ){
 		//Devuelve un parámetro con un valor nuevo agregado
 		$vparam = "&".$parametro."=".SEPFLT.$valor;
@@ -219,7 +238,6 @@
 
 		return $url_nueva;
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
 	
 	function urlFiltro( $url_base, $url_params, $param, $val ){
@@ -232,33 +250,31 @@
 			//(siempre que no sea parámetro de precio)
 			if( $param == P_FLT_PIEZA || $param == P_FLT_PESO || $param == P_FLT_PESO_PROD ){
 				//Eliminación de parámetro relacionados a precios( pieza, peso )
-				$url_nueva = eliminarValorParametroURL( $url_base, $val );
-				$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
+				$url_nueva 			= eliminarValorParametroURL( $url_base, $val );
+				$url_nueva 			= ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
 			}else{
 
 				if( valorEnParamUrl( $val, $url_params[$param] ) == false ){
 					//Valor de parámetro no está en la URL, se agrega
-					$nuevo_param = agregarValorParametroURL( $url_params, $param, $val );
-					$url_nueva = str_replace( $url_params[$param], $nuevo_param, $url_base );
+					$nuevo_param 	= agregarValorParametroURL( $url_params, $param, $val );
+					$url_nueva 		= str_replace( $url_params[$param], $nuevo_param, $url_base );
 				}else{
 					//Valor de parámetro ya está en la URL, se elimina
-					$url_nueva = eliminarValorParametroURL( $url_base, SEPFLT.$val );
-					$url_nueva = ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
+					$url_nueva 		= eliminarValorParametroURL( $url_base, SEPFLT.$val );
+					$url_nueva 		= ajustarParametrosEnUrl( $url_nueva, $url_params, $param );
 				}
 			}
 
 		}else{
 			//Si el parámetro no está incluído en la URL se agrega el parámetro nuevo con su valor
-			$nuevo_param = agregarParametroConValorURL( $url_params, $param, $val );
-			$url_nueva .= $nuevo_param;
+			$nuevo_param 			= agregarParametroConValorURL( $url_params, $param, $val );
+			$url_nueva 				.= $nuevo_param;
 		}
 
 		$url_filtro = $url_nueva;
 		return $url_filtro;
 	}
-
 	/* ----------------------------------------------------------------------------------- */
-
 	function urlFiltroPrecio( $url_base, $url_params, $param, $pmin, $pmax ){
 		//Devuelve el url parametrizado con los valores de filtro para precios
 		$url_nueva = $url_base;
@@ -276,12 +292,11 @@
 
 		return $url_filtro;
 	}
-	
 	/* ----------------------------------------------------------------------------------- */
-	
-	function obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params ){
+	function obtenerTextoPanelFiltros( $dbh, $productos, $d_tallas, $catalogue_url, $url_params ){
 		
 		//data-products.php:
+		$data_filtros["tallas"] 	= $d_tallas;//obtenerTallasProductos( $dbh, $productos, $d_tallas );
 		$data_filtros["trabajos"] 	= obtenerTrabajosProductos( $dbh, $productos );
 		$data_filtros["lineas"] 	= obtenerLineasProductos( $dbh, $productos );
 		$data_filtros["banos"] 		= obtenerBanosProductos( $dbh, $productos );
@@ -292,71 +307,65 @@
 
 		return $data_filtros;
 	}
-
 	/* ----------------------------------------------------------------------------------- */
-
 	function obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params ){
+		
 		$ft = array();
 		//Filtro de productos comparando con el atributo 'Línea' de del producto
 		if( isset( $_GET[P_FLT_LINEA] ) ){
-			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
-			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, 
-			$valores_filtros );
-			//fn-catalog.php		
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
+			$productos 			= filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $vals_filtros );
+			//fn-catalogue.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Trabajo' de del producto
 		if( isset( $_GET[P_FLT_TRABAJO] ) ){
-			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
-			$productos = filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, 
-			$valores_filtros );
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
+			$productos 			= filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $vals_filtros );
 			//fn-catalog.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
 		if( isset( $_GET[P_FLT_BANO] ) ){
-			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
-			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, 
-			$valores_filtros );
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
+			$productos 			= filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $vals_filtros );
 			//fn-catalog.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Color' de detalle de producto
 		if( isset( $_GET[P_FLT_COLOR] ) ){
-			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
-			$productos = filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, 
-			$valores_filtros );
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
+			$productos 			= filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $vals_filtros );
 			//fn-catalog.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
 		if( isset( $_GET[P_FLT_TALLA] ) ){
-			$valores_filtros = obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
-			$productos = filtrarProductosPorRegistroAtributoDetalleProducto( $dbh, $productos, 
-			P_FLT_TALLA, $valores_filtros );
-			$ft = $valores_filtros;
+
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
+			$productos 			= filtrarProductosPorTallasProducto( $dbh, $productos, $vals_filtros );
+			$ft 				= $vals_filtros;
 			//fn-catalog.php
 		}
 
 		//Filtro de productos comparando con el atributo 'Precio pieza' de detalle de producto
 		if( isset( $_GET[P_FLT_PIEZA] ) ){
-			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PIEZA );
-			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, $valores_filtros );
+			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PIEZA );
+			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, $vals_filtros, $ft );
 			//fn-catalog.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Precio peso' de detalle de producto
 		if( isset( $_GET[P_FLT_PESO] ) ){
-			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO );
-			$productos = filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, $valores_filtros );
+			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO );
+			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, $vals_filtros, $ft );
 			//fn-catalog.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Peso' de detalle de producto
 		if( isset( $_GET[P_FLT_PESO_PROD] ) ){
-			$valores_filtros = obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO_PROD );
-			$productos = filtrarProductosPorPeso( 
-				$dbh, $productos, P_FLT_PESO_PROD, $valores_filtros, $ft );
+			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO_PROD );
+			$productos 			= filtrarProductosPorPeso( $dbh, $productos, P_FLT_PESO_PROD, $vals_filtros, $ft );
 			//fn-catalog.php		
 		}
 
@@ -367,20 +376,18 @@
 	/* ----------------------------------------------------------------------------------- */
 
 	if( isset( $_SESSION["login"] ) ) {
-		if( isset( $_GET["c"] ) && isset( $_GET["s"] ) ){
-			
-		}
-		
+		$tallas_ctg 			= NULL;
 		if( isset( $_GET["c"] ) ){
-			$idc = obtenerIdCategoriaPorUname( $dbh, $_GET["c"], "categories" );
-			$filtro_tallas = obtenerTallasPorCategoria( $dbh, $idc["id"] );
+			$idc 				= obtenerIdCategoriaPorUname( $dbh, $_GET["c"] );
+			$tallas_ctg 		= obtenerTallasPorCategoria( $dbh, $idc["id"] );
 		}
 	}
 
 	if( isset( $_POST["urltipo_precio"] ) ){
 		//Llamada asíncrona para generar URL para filtrar por precio (pieza, gramo, peso producto )
 		
-		include( "fn-catalog.php" );
+		include( "fn-catalogue.php" );
+		
 		$catalogue_url = $_POST["url_c"];
 		$urlparsed = parse_url( $catalogue_url );
 		
@@ -405,11 +412,11 @@
 	}
 	else{
 		if( isset( $_SESSION["login"] ) ) {
-		//Flujo natural, sin la llamada asíncrona
-		$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $catalogue_url, $url_params );
-		$productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );
+			//	Flujo natural, sin la llamada asíncrona
+			//	$productos : fn-catalogue.php
+			//  $productos = obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params );
+			$d_filtros = obtenerTextoPanelFiltros( $dbh, $productos, $tallas_ctg, $catalogue_url, $url_params );
 		}	
 	}
-
 	/* ----------------------------------------------------------------------------------- */
 ?>

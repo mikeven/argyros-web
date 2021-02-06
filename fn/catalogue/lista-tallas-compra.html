@@ -1,0 +1,54 @@
+<div class="product-detail-size-list">
+	<div class="row">
+		<form id="itemcart{iddet}{idtalla}" class="variants frm-scart" onsubmit="return false">
+			<div class="quantity-wrapper clearfix row">
+				<div class="col-md-4" style="padding-right: 5px">
+					<div class="wrapper">{talla} {und}</div>
+				</div>
+				<div class="col-md-5">
+					<div class="wrapper">{peso_talla}</div>
+				</div>
+				<div class="col-md-6" style="text-align: center;">
+					<div class="wrapper">{precio_talla}$</div>
+				</div>
+				<div class="col-md-5" style="text-align: center;">
+					<div class="wrapper">
+						<div class="wrapper">
+							<input id="q{iddet}{idtalla}" name="quantity" value="1" maxlength="3" size="3" 
+							class="item-quantity" type="text">
+							<span class="qty-group">
+								<span class="qty-wrapper">
+									<span data-original-title="Aumentar" class="qty-up btooltip" data-toggle="tooltip" data-placement="top" title="" data-src="#q{iddet}{idtalla}">
+										<i class="fa fa-caret-right"></i>
+									</span>
+									<span data-original-title="Restar" class="qty-down btooltip" data-toggle="tooltip" data-placement="top" title="" data-src="#q{iddet}{idtalla}">
+										<i class="fa fa-caret-left"></i>
+									</span>
+								</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="wrapper modal-addtocart"> 
+						<a class="action btn btn-1 add-to-cart" data-frmtrg="itemcart{iddet}{idtalla}" 
+							data-msg-notice="#alert-msgs">
+							<i class="fa fa-shopping-cart"></i> 
+						</a> 
+					</div>
+				</div>
+			</div>
+			<div class="data_cart_modal hidden">
+		    	<input type="hidden" name="idicart" 				value="{iddet}-{idtalla}">
+		    	<input type="hidden" name="idproducto" 				value="{p_id}">
+		    	<input type="hidden" name="iddetalle" 				value="{iddet}">
+		    	<input type="hidden" name="nombre_producto" 		value="{nombre}">
+		    	<input type="hidden" name="descripcion_producto" 	value="{descripcion}">
+		    	<input type="hidden" name="img_producto" 	    	value="{img}">
+		    	<input type="hidden" name="seltalla" 				value="{talla}">
+		    	<input type="hidden" name="idseltalla" 				value="{idtalla}">
+		    	<input type="hidden" name="unit_price" 				value="{precio_talla}">
+		    </div>
+		</form>
+	</div>
+</div>
