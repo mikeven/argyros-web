@@ -612,7 +612,7 @@ h6.general-title{text-align:center;margin-top:57px;margin-bottom:67px;}
 .element .row-right span.dash,
 #product-info-right span.dash,
 #quick-shop-price-container.detail-price span.dash{color:#cccccc;}
-#content .content{background-color:#f7f7f7;padding-bottom:50px;}
+#content .content{background-color:#f7f7f7;padding-bottom:50px; min-height: 45vh;}
 .templateIndex #content .content{background-color:transparent;padding-bottom:0;}
 .collection-banner{margin-top:43px;}
 #options{margin-top:50px;margin-bottom:30px;}

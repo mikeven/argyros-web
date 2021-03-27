@@ -47,8 +47,8 @@ function obtenerCarritoCompra( accion ){
         data:{ get_cart: 1, param: accion },
         success: function( response ){
             cart = jQuery.parseJSON( response );
-            if( accion == 'agregar' )
-                registrarInicioCarrito();
+            /*if( accion == 'agregar' )
+                registrarInicioCarrito();*/
                     
             imprimirCarritoTienda( cart );
         }

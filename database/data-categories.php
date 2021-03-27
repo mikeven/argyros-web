@@ -133,15 +133,24 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenSubcategoria( $dbh, $idsc ){
 		// Devuelve la imagen del primer producto con detalle disponible de una subcategoría de producto
-		$q = "select i.path as imagen, p.id, p.name 
-				from products p, product_details dp, categories ca, subcategories sc, images i  
+		
+		$q = "select p.id as pid, dp.id as iddet 
+				from products p, product_details dp, categories ca, subcategories sc
 				where dp.product_id = p.id and p.category_id = ca.id and p.subcategory_id = sc.id and 
-				sc.id = $idsc and i.product_detail_id = dp.id and dp.id in 
-				(select product_detail_id from size_product_detail where visible = 1 and product_detail_id = dp.id ) 
-				order by dp.repositioned_at desc, dp.created_at limit 1";
+				sc.id = $idsc and dp.id in 
+					(select product_detail_id from size_product_detail where visible = 1 and product_detail_id = dp.id ) 
+				order by dp.repositioned_at desc, dp.created_at desc limit 1";
 
-		$data = mysqli_query( $dbh, $q );
-		return mysqli_fetch_array( $data );	
+		$data = mysqli_fetch_array( mysqli_query( $dbh, $q ) );
+
+		if( $data ){
+			$qi = "select path as imagen from images 
+				where product_detail_id = $data[iddet] order by id asc limit 1";
+
+			return mysqli_fetch_array( mysqli_query( $dbh, $qi ) );	
+			
+		}else 
+			return null;
 	}
 
 	/* ----------------------------------------------------------------------------------- */

@@ -8,6 +8,7 @@
     var filtros = datos.filtros;
 
     $("#panel_tag_filters").html( filtros.enlaces_filtros );
+    $("#opciones_filtro_categoria").html( filtros.categorias );
     $("#opciones_filtro_talla").html( filtros.tallas );
     $("#opciones_filtro_bano").html( filtros.banos );
     $("#opciones_filtro_trabajo").html( filtros.trabajos );
@@ -30,7 +31,7 @@
             $("#carga_catalogo").html( loader_gif );
         },
         success: function( response ){
-            //console.log( response );
+            console.log( response );
             datos = jQuery.parseJSON( response );
             mostrarElementosCatalogo( datos, carga_inicial );
             $("#carga_catalogo").html( "" );  

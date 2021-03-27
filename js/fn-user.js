@@ -31,13 +31,15 @@ function registrarUsuario(){
 function chequearEstadoCarrito(){
     // Evalúa si existe un estado previo del carrito de compra y se carga en variable de sesión del carrito.
 
-    if ( typeof $.cookie( "ckcart" ) === 'undefined' )
+    /*if ( typeof $.cookie( "ckcart" ) === 'undefined' )
         console.log( "No existen elementos de carrito guardado" );
     else{ 
         //Cookie registrada:
         console.log( "Obteniendo carrito guardado..." );
-        cargarCarritoGuardadoSesion();
-    }
+        
+    }*/
+    console.log( "Obteniendo carrito guardado..." );
+    cargarCarritoGuardadoSesion();
 }
 /* ----------------------------------------------------------------------------------- */
 function iniciarSesion( form, mode ){
@@ -53,7 +55,7 @@ function iniciarSesion( form, mode ){
             console.log( response );
             res = jQuery.parseJSON( response );
             if( res.exito == 1 ){
-                chequearEstadoCarrito();
+                /*chequearEstadoCarrito();*/
                 if( mode == "full" ){
                     //Redirigir a pantalla de cuenta de usuario
                     window.location.href = "categories.php"; 

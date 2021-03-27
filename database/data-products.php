@@ -220,16 +220,19 @@
 		$var_gr_u = variablesGrupoUsuario( $dbh );
 
 		if( $detalle["tipo_precio"] == "p" )
-			$detalle["precio"] 		= obtenerPrecioPorPieza( $var_gr_u, $detalle["precio_pieza"] );
+			$detalle["precio"] 		= obtenerPrecioPorPieza( $var_gr_u, $detalle["precio_pieza"] ); 
+			// $detalle["precio"] : Precio por pieza
 		
 		if( $detalle["tipo_precio"] == "g" ){
 			$detalle["precio_peso"] = obtenerPrecioPorGramo( $var_gr_u, $detalle["precio_peso"] );
-			$detalle["precio"] 		= $detalle["precio_peso"];
+			$detalle["precio"] 		= $detalle["precio_peso"];										
+			// $detalle["precio"] : Precio por pieza
 		}
 
 		if( $detalle["tipo_precio"] == "mo" ){
 			$detalle["precio_mo"] 	= obtenerPrecioPorManoObra( $var_gr_u, 1, $detalle["precio_mo"] );
-			$detalle["precio"] 		= $detalle["precio_mo"];
+			$detalle["precio"] 		= $detalle["precio_mo"];										
+			// $detalle["precio"] : Precio por pieza
 		}
 		
 		return $detalle;
@@ -317,21 +320,17 @@
 		return $lista;	
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerProductosC_SRand( $dbh, $idc, $idsc ){
+	function obtenerProductosC_SRand( $dbh, $idc, $idsc, $idprov1 ){
 		//Devuelve la lista aleatoria de productos pertenecientes a una categoría y subcategoría
-		/*$q = "select p.id, p.code, p.name, p.description, p.visible as visible, co.name as pais, 
-		ca.name as category, sc.name as subcategory, m.name as material 
-		FROM products p, categories ca, subcategories sc, countries co, materials m 
-		where p.visible = 1 and p.category_id = ca.id and p.subcategory_id = sc.id and 
-		p.material_id = m.id and p.country_id = co.id and p.category_id = $idc 
-		and p.subcategory_id = $idsc order by rand() LIMIT 10";*/
-
+		
 		$q = "select p.id as idp, p.name, p.description, ca.id as idc, ca.name as categoria, dp.id as iddet, 
 		timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
 		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
 		FROM products p, categories ca, subcategories sc, product_details dp 
 		WHERE dp.product_id = p.id and p.category_id = ca.id and p.subcategory_id = sc.id 
-		and sc.category_id = ca.id and sc.id = $idsc and ca.id = $idc 
+		and sc.category_id = ca.id and sc.id = $idsc and ca.id = $idc and p.provider_id1 = $idprov1 
+		AND dp.id IN ( SELECT product_detail_id FROM size_product_detail 
+		WHERE product_detail_id = dp.id AND visible = 1) 
 		order by dp.repositioned_at DESC, rand() DESC, dp.created_at DESC LIMIT 15";
 		
 		$data = mysqli_query( $dbh, $q );
@@ -360,9 +359,10 @@
 			$cond_dsu = "and dp.disused is null"; else $cond_dsu = "";
 
 		$q = "select p.id as idp, p.code, p.name, p.description, co.name as pais, ca.id as idc,  
-		ca.name as categoria, m.name as material, dp.id as iddet, dp.color_id as id_color, c.name as color, 
-		c.uname as ucolor, dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, 
-		dp.piece_price_value as precio_pieza, dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso, 
+		ca.name as categoria, ca.uname as ucat, m.name as material, dp.id as iddet, 
+		dp.color_id as id_color, c.name as color, c.uname as ucolor, dp.treatment_id as id_bano, 
+		t.name as bano, t.uname as ubano, dp.price_type as tipo_precio, dp.piece_price_value as precio_pieza, 
+		dp.manufacture_value as precio_mo, dp.weight_price_value as precio_peso, 
 		timestampdiff(day, dp.created_at, curdate()) as d_antiguedad, 
 		timestampdiff(day, dp.repositioned_at, curdate()) as d_reposicion 
 		FROM products p, categories ca, countries co, materials m, product_details dp 
@@ -427,11 +427,11 @@
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerImagenProductoDetalle( $dbh, $idd ){
 		//Devuelve las imágenes de un producto dado su id
-		$q = "select i.path as image FROM images i, product_details d 
-		where i.product_detail_id = $idd";
+		$q = "select i.path as image from images i, product_details d 
+				where i.product_detail_id = d.id and d.id = $idd";
 
 		$data = mysqli_query( $dbh, $q );
-		$lista = obtenerListaRegistros( $data );
+		$lista = obtenerListaRegistros2( $data );
 		return $lista;
 	}
 	/* ----------------------------------------------------------------------------------- */
@@ -505,7 +505,8 @@
 		$q = "select dp.id as id, dp.color_id as id_color, c.name as color, c.uname as ucolor, 
 		dp.treatment_id as id_bano, t.name as bano, t.uname as ubano, product_id as pid,  
 		dp.price_type as tipo_precio, dp.piece_price_value as precio_pieza, dp.disused as desuso, 
-		dp.reference_id as ref_id, manufacture_value as precio_mo, dp.weight_price_value as precio_peso 
+		dp.reference_id as ref_id, dp.is_substitute as sustituto, dp.manufacture_value as precio_mo, 
+		dp.weight_price_value as precio_peso 
 		FROM product_details dp LEFT JOIN treatments t ON t.id = dp.treatment_id 
 		LEFT JOIN colors c ON dp.color_id = c.id WHERE dp.product_id = $idp order by dp.id ASC";
 
@@ -543,6 +544,15 @@
 	function obtenerImagenDetalleProductoPorId( $dbh, $id_img ){
 		//Devuelve el registro de imagen de detalle de producto
 		$q = "select id, path from images where id = $id_img";
+
+		$data = mysqli_query( $dbh, $q );
+		return mysqli_fetch_array( $data );
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function obtenerCantidadTallasDisponibles( $dbh, $iddp ){
+		// Devuelve la cantidad de tallas disponibles de un detalle de producto
+		$q = "select count(*) as disponibles from size_product_detail 
+				where product_detail_id = $iddp and visible = 1";
 
 		$data = mysqli_query( $dbh, $q );
 		return mysqli_fetch_array( $data );
@@ -627,6 +637,16 @@
 		foreach ( $tallas_det as $t ) {
 			if( $t["visible"] == 1 ) $disponible = true;
 		}
+		return $disponible;
+	}
+	/* ----------------------------------------------------------------------------------- */
+	function tieneTallasVisiblesProductoDetalle( $dbh, $iddp ){
+		//Devuelve verdadero si hay registros de tallas disponibles en un detalles de un producto
+		$disponible = false;
+
+		$tallas_det = obtenerCantidadTallasDisponibles( $dbh, $iddp );
+		if( $tallas_det["disponibles"] > 0 ) $disponible = true;
+		
 		return $disponible;
 	}
 	/* ----------------------------------------------------------------------------------- */

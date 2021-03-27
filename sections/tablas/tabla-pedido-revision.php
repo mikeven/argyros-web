@@ -1,31 +1,41 @@
 <table class="tabla-pedido">
 	<thead>
 	<tr>
-		<th> </th>
+		<th>N°</th>
 		<th>Producto</th>
+		<th></th>
 		<th>Cantidad Solicitada</th>
 		<?php if( $orden["estado"] == "revisado" ) { ?>
 			<th class="colrev">Cantidad Disponible</th>
 		<?php } ?>
 		<th>Precio unit</th>
 		<th>Total</th>
+		<th>Peso</th>
 		<th class="colrev_"> </th>
 	</tr>
 	</thead>
 	<tbody>
 		<?php 
-		  $total_n_items = 0;
-	      foreach ( $odetalle as $r ) {
-	        $total_item = obtenerTotalItemOrden( $r, $orden["estado"] );
-	        if( $orden["estado"] == "revisado" )
-	        	$total_n_items += $r["cant_rev"];
-	        if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" ){
-	        	$total_n_items += $r["quantity"];
-	        }
-	        $lnk_p = "product.php?id=$r[product_id]&iddet=$r[product_detail_id]";
-	        $cod_dp = "#" . $r["product_id"] . " - " . $r["product_detail_id"];
+		  $item_nro 		= 0;	
+		  $total_n_items 	= 0;
+
+		  foreach ( $odetalle as $r ) {
+		  	
+		  	$item_nro++;
+		    $total_item 	= obtenerTotalItemOrden( $r, $orden["estado"] );
+		    $tot_peso_item 	= obtenerTotalPesoItemOrden( $r, $orden["estado"] );
+		    
+		    if( $orden["estado"] == "revisado" )
+		    	$total_n_items += $r["cant_rev"];
+		    if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" ){
+		    	$total_n_items += $r["quantity"];
+		    }
+
+		    $lnk_p = "product.php?id=$r[product_id]&iddet=$r[product_detail_id]";
+		    $cod_dp = "#" . $r["product_id"] . " - " . $r["product_detail_id"];
 	    ?>
 	    <tr id="ir<?php echo $r["id"]; ?>">
+	      <td align="center"><?php echo $item_nro ?></td>
 	      <td>
 	      	<a href="#pop-img" class="fancybox pop-img" data-src="<?php echo $purl.$r["imagen"]; ?>">
 	      		<img src="<?php echo $purl.$r["imagen"]; ?>" width="70">
@@ -53,12 +63,14 @@
 	      	<input type="hidden" id="monto<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
 	      	<input class="sumatmp" type="hidden" id="montotmp<?php echo $r["id"]; ?>" value="<?php echo $total_item; ?>">
 	      </td>
+	      <td><?php echo number_format( $tot_peso_item, 2, ".", " " ) ?> gr</td>
 	      <?php if( $orden["estado"] == "revisado" ) { ?>
 		      <td>
 		      	<i id="x<?php echo $r["id"]; ?>" class="fa fa-check-circle icancelp" data-t="<?php echo $r["id"]; ?>">
 		      	</i>
 		      </td>
 	      <?php } ?>
+
 	    </tr>
 	    <?php } ?>
 	    <tr id="monto_orden_tabla">

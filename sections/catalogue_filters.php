@@ -13,10 +13,10 @@
 							<?php if( !isset( $_GET[P_TEXTO_BUSQUEDA] ) ) { ?>
 								<li><a title="Talla" href="#!" class="flt_selector" data-flt-cnt="flt_talla">Talla</a></li>
 							<?php } else { ?>
-								<!--<li>
+								<li>
 									<a title="Categoria" href="#!" class="flt_selector" 
 									data-flt-cnt="flt_categoria">Categoría</a>
-								</li>-->
+								</li>
 							<?php } ?>
 							<li><a title="Baño" href="#!" class="flt_selector" data-flt-cnt="flt_bano">Baño</a></li>
 							<li><a title="Trabajo" href="#!" class="flt_selector" data-flt-cnt="flt_trabajo">Trabajo</a></li>
@@ -58,7 +58,7 @@
 
 					<div id="flt_peso" class="tab_filtro_contenido">
 						<div class="tag-group" id="coll-filter-3">
-							<p class="title"> Peso de producto (g) </p>
+							<p class="title"> Peso de producto (gr) </p>
 							De (Gramos: ej.: 0.5; 2 )
 							<input type="text" id="flt_peso_min" class="form-control input_flt" placeholder="gr"
 							name="f_peso_prod_min" value="" style="width:50%" onkeypress="return isNumberKey(event)">
@@ -77,7 +77,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Talla </p>
 							<ul>
-								<div id="opciones_filtro_talla" class="opciones_filtro"></div>
+								<div id="opciones_filtro_talla"></div>
 							</ul>
 						</div>
 					</div>
@@ -88,16 +88,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Categoría </p>
 							<ul>
-
-							<?php foreach ( $filtro_categorias as $c ) { 
-								$url_f = urlFiltro( $catalogue_url, $url_params, P_FLT_CATEGORIA, trim( $c["name"] ) );
-								$n_catg = $c["name"];  
-							?>
-								<li><a title="<?php echo $n_catg; ?>" href="<?php echo $url_f; ?>">
-									<span class="fe-checkbox"></span> <?php echo $n_catg; ?></a>
-								</li>
-							<?php } ?>
-								
+								<div id="opciones_filtro_categoria"></div>
 							</ul>
 						</div>
 					</div>
@@ -108,7 +99,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Baños </p>
 							<ul>
-								<div id="opciones_filtro_bano" class="opciones_filtro"></div>
+								<div id="opciones_filtro_bano"></div>
 							</ul>
 						</div>
 					</div>
@@ -117,7 +108,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Trabajo </p>
 							<ul>
-								<div id="opciones_filtro_trabajo" class="opciones_filtro"></div>
+								<div id="opciones_filtro_trabajo"></div>
 							</ul>
 						</div>
 					</div>
@@ -126,7 +117,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Línea </p>
 							<ul>
-								<div id="opciones_filtro_linea" class="opciones_filtro"></div>
+								<div id="opciones_filtro_linea"></div>
 							</ul>
 						</div>
 					</div>
@@ -135,7 +126,7 @@
 						<div class="tag-group" id="coll-filter-3">
 							<p class="title"> Colores </p>
 							<ul>
-								<div id="opciones_filtro_color" class="opciones_filtro"></div>
+								<div id="opciones_filtro_color"></div>
 							</ul>
 						</div>
 					</div>

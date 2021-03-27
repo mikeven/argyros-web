@@ -34,6 +34,18 @@
 		}
 		return $lista_c;
 	}
+
+
+	function obtenerListaRegistros2( $data ){
+		//Devuelve un arreglo con los resultados de un resultset de BD
+		$lista_c = array();
+		if( $data ){
+			while( $c = mysqli_fetch_array( $data, MYSQLI_ASSOC ) ){
+				$lista_c[] = $c;	
+			}
+		}
+		return $lista_c;
+	}
 	/* ----------------------------------------------------------------------------------- */
 	function obtenerFechaConFormato($lnk, $fecha, $formato){
 		$q = "Select DATE_FORMAT('$fecha','$formato') as fecha";

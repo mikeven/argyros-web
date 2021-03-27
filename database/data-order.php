@@ -54,10 +54,10 @@
 		$items = 0;
 		foreach ( $detalle as $i ) {
 			if( $orden["estado"] == "pendiente" || $orden["estado"] == "cancelado" )
-				$items++; 
+				$items += $i["quantity"]; 
 			else{
 				if( ( $i["cant_rev"] != 0 ) && ( $i["item_status"] != "retirado" ) ) 
-					$items++;
+					$items += $i["cant_rev"]; 
 			}
 		}
 		
@@ -69,9 +69,8 @@
 		$q = "select od.id, od.order_id, od.product_id, od.product_detail_id, 
 		od.size_id as idtalla, od.quantity, od.price, od.available as cant_rev, 
 		od.check_revision as estado_rev, od.item_status, p.name as producto, 
-		p.description, s.name as talla, s.unit 
-		from orders o, order_details od, products p, sizes s, 
-		size_product_detail sd, product_details pd 
+		p.description, s.name as talla, s.unit, sd.weight as peso  
+		from orders o, order_details od, products p, sizes s, size_product_detail sd, product_details pd 
 		where od.order_id = o.id and od.product_id = p.id and od.product_detail_id = pd.id and 
 		od.size_id = s.id and sd.product_detail_id = pd.id and sd.size_id = s.id and o.id = $ido";
 

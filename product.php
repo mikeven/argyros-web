@@ -104,9 +104,12 @@
 			margin-top: 25px;
 		}
 
-		#disused_product_reference { max-width: 100px; }
+		#disused_product_reference { max-width: 150px !important; }
+		#disused_product_reference img{
+		    height: 150px !important;
+		}
 
-		#gallery_main .owl-wrapper-outer .opt-pdetalle img, #disused_product_reference img{
+		#gallery_main .owl-wrapper-outer .opt-pdetalle img {
 		    height: 100px !important;
 		}
 
@@ -335,12 +338,13 @@
 													} else { ?>
 															
 														<h3 id="page-title" class="text-left">
-															<span itemprop="name" style="color: #a7b239;">
-																PRODUCTO NO DISPONIBLE
-															</span>
 															<?php if( $detalle_producto["desuso"]) { ?>
-																<span class="label_disused">
-																	<i class="fa fa-history"></i>
+																<span itemprop="name" style="color: #a7b239;">
+																	PRODUCTO SUSTITUIDO POR:
+																</span>
+															<?php } else { ?>
+																<span itemprop="name" style="color: #a7b239;">
+																	PRODUCTO NO DISPONIBLE
 																</span>
 															<?php } ?>
 														</h3>	

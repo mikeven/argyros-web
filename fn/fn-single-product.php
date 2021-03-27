@@ -83,18 +83,18 @@
 		return $imgs;
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function productosRelacionados( $dbh, $idc, $idsc ){
+	function productosRelacionados( $dbh, $producto ){
 		//Obtiene los productos pertenecientes a las subcategorías del producto visto
 		$relacionados 				= array();
-		$det_dsp					= false;
-		$lprods 					= obtenerProductosC_SRand( $dbh, $idc, $idsc );
+		$idc 						= $producto["idc"];
+		$idsc 						= $producto["idsc"];
+		$idprov1 					= $producto["idpvd1"];
+		$lprods 					= obtenerProductosC_SRand( $dbh, $idc, $idsc, $idprov1 );
 		$idp_ant 					= "";
 		
 		foreach ( $lprods as $prod ){
-			if( tieneTallasDisponiblesDetalleProducto( $dbh, $prod["iddet"] ) && $prod["idp"] != $idp_ant ) 
+			if( tieneTallasVisiblesProductoDetalle( $dbh, $prod["iddet"] ) ) 
 				$relacionados[] 	= $prod;
-			$idp_ant = $prod["idp"];
-
 		}
 		
 		return $relacionados;
@@ -180,6 +180,7 @@
 				if( $detalle ){
 					$prod_ref 				= NULL;
 					$modelos_productos		= obtenerModelosProductos( $detalle );
+					
 					if( isset( $_GET["iddet"] ) ){
 
 						$detalle_producto	= registroDetalleProducto( $detalle, $_GET["iddet"] );
@@ -191,20 +192,28 @@
 						if( !$detalle_producto["available"] ) 
 							$det_dsp 		= false;			// Indicador de producto sin tallas disponibles
 
-						if( $detalle_producto["desuso"] && $detalle_producto["ref_id"] != "" )
+						if( $detalle_producto["desuso"] && $detalle_producto["ref_id"] != "" ){
 							// Producto de referencia por producto en desuso 
 							$prod_ref 		= obtenerReferenciaPorDesuso( $dbh, $detalle_producto["ref_id"] );
-						
+							
+							/*if( !$detalle_producto["sustituto"] ){ 
+								// Producto duplicado, se redirecciona a su referencia
+								$lnk = "product.php?id=$prod_ref[pid]&iddet=$prod_ref[id]";
+								echo "<script> window.location = '$lnk'</script>";
+							}*/
+						}
+					
 					}else{
 						$iddet 				= obtenerPrimerIdDetalleDisponible( $detalle );
 						echo "<script> window.location = 'product.php?id=$pid&iddet=$iddet'</script>";
 					}
+
 					$productos_juegos 		= obtenerProductosJuego( $dbh, $_GET["iddet"] );
 				}
 				else
 					$is_pd = false;
 
-			$productos_relacionados 		= productosRelacionados( $dbh, $producto["idc"], $producto["idsc"] );
+			$productos_relacionados 		= productosRelacionados( $dbh, $producto );
 		}	
 		
 	}

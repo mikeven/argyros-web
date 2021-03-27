@@ -19,17 +19,12 @@
 					?>
 				</div>
 				<div id="panel_tag_filters" style="float: right;">
-					<?php  
-						foreach ( $d_filtros["url"] as $flt_vo ) { ?>
-						<a href="<?php echo $flt_vo["url_filtro"]; ?>" class="tfilt">
-							<?php echo $flt_vo["texto"]; ?> <i class="fa fa-times"></i>
-						</a> 
-					<?php } ?>
+					
 				</div>
 				<input id="panel_filtro" type="text" value="" readonly="true"/>
 				<div style="clear:both;"></div>
 				<hr>
-				<?php include( "filters-catalogue.php" ); ?>
+				<?php include( "catalogue_filters.php" ); ?>
 			</li>
 		</ul>
 	</div>

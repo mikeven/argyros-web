@@ -2,7 +2,7 @@
 
 <?php $lnk_producto = "product.php?id=$prod_ref[pid]&iddet=$prod_ref[id]"; ?>
 
-<span itemprop="name" style="color: #808080;"> Ver producto </span>
+<!-- <span itemprop="name" style="color: #808080;"> SUSTITUIDO POR </span> -->
 
 <div id="disused_product_reference">
 	

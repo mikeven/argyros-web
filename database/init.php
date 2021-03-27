@@ -7,7 +7,7 @@
 	ini_set( 'display_errors', 1 );
     session_start();
 
-    if( isset( $_SESSION["user"] ) ){
+    /*if( isset( $_SESSION["user"] ) ){
     	setcookie( "ckuser", $_SESSION["user"]["id"], time() + 3600 );  
-    }
+    }*/
 ?>

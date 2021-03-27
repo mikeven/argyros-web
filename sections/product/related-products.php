@@ -14,7 +14,7 @@
 
 						$lnkp = "product.php?id=".$prod["idp"]."&iddet=".$prod["iddet"];
 
-						$img = obtenerImagenProducto( $dbh, $prod["idp"] );
+						$img = obtenerImagenProductoDetalle( $dbh, $prod["iddet"] );
 
 			?>
 

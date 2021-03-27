@@ -22,8 +22,8 @@
 		  <div class="group">
 			<h5 class="general-title">Información</h5>						
 			<ul class="list-unstyled list-styled">						  
-			  <li class="list-unstyled hidden">
-				<a href="#!">Como comprar</a>
+			  <li class="list-unstyled">
+				<a href="how-to-buy.php">Como comprar</a>
 			  </li>						  
 			  <li class="list-unstyled">
 				<a href="terms-and-conditions.php">Términos y Condiciones</a>
@@ -46,7 +46,7 @@
 						<a href="account.php">Mis pedidos</a>
 					</li>
 					<li class="list-unstyled">
-						<a href="catalog.php">Catálogo</a>
+						<a href="categories.php">Catálogo</a>
 					</li>
 
 				<?php } else { ?>

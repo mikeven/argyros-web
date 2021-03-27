@@ -132,6 +132,26 @@
 		return $filtros_tallas_productos;
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function obtenerCategoriasProductos( $dbh, $productos ){
+		//Devuelve las categorías incluídas en los productos
+		$filtros_ctgs_productos = array();
+		
+		foreach ( $productos as $producto ) {
+			
+			if( $producto["available"] ){
+
+				if( yaAgregadoVectores( $producto, $filtros_ctgs_productos, "idc" ) == false ){
+					$catg["idc"] 				= $producto["idc"];
+					$catg["categoria"] 			= $producto["categoria"];
+					$catg["ucat"] 				= $producto["ucat"];
+					$filtros_ctgs_productos[] 	= $catg;
+				}
+			}
+		}
+		
+		return $filtros_ctgs_productos;
+	}
+	/* ----------------------------------------------------------------------------------- */
 	function obtenerTrabajosProductos( $dbh, $productos ){
 		//Devuelve los trabajos incluídos en los productos
 		$filtros_trab_productos = array();
@@ -312,6 +332,7 @@
 		
 		//data-products.php:
 		$data_filtros["tallas"] 	= $d_tallas;//obtenerTallasProductos( $dbh, $productos, $d_tallas );
+		$data_filtros["categorias"] = obtenerCategoriasProductos( $dbh, $productos );
 		$data_filtros["trabajos"] 	= obtenerTrabajosProductos( $dbh, $productos );
 		$data_filtros["lineas"] 	= obtenerLineasProductos( $dbh, $productos );
 		$data_filtros["banos"] 		= obtenerBanosProductos( $dbh, $productos );
@@ -339,33 +360,42 @@
 	function obtenerProductosFiltrados( $dbh, $productos, $catalogue_url, $url_params, $ver_ocultos ){
 		
 		$ft = array();
+
 		//Filtro de productos comparando con el atributo 'Línea' de del producto
 		if( isset( $url_params[P_FLT_LINEA] ) ){
 			
 			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_LINEA );
 			$productos 			= filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_LINEA, $vals_filtros );
-			//fn-catalogue.php		
+			//fn-data-catalogue.php			
 		}
 
 		//Filtro de productos comparando con el atributo 'Trabajo' de del producto
 		if( isset( $url_params[P_FLT_TRABAJO] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_TRABAJO );
 			$productos 			= filtrarProductosPorAtributoProducto( $dbh, $productos, P_FLT_TRABAJO, $vals_filtros );
-			//fn-catalog.php	
+			//fn-data-catalogue.php		
+		}
+
+		//Filtro de productos comparando con el atributo 'Categoría' de del producto
+		if( isset( $url_params[P_FLT_CATEGORIA] ) ){
+			
+			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_CATEGORIA );
+			$productos 			= filtrarProductosPorAtributoDetalleProducto( $productos, P_FLT_CATEGORIA, $vals_filtros );
+			//fn-data-catalogue.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Baño' de detalle de producto
 		if( isset( $url_params[P_FLT_BANO] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_BANO );
-			$productos 			= filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_BANO, $vals_filtros );
-			//fn-catalog.php		
+			$productos 			= filtrarProductosPorAtributoDetalleProducto( $productos, P_FLT_BANO, $vals_filtros );
+			//fn-data-catalogue.php			
 		}
 
 		//Filtro de productos comparando con el atributo 'Color' de detalle de producto
 		if( isset( $url_params[P_FLT_COLOR] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_COLOR );
-			$productos 			= filtrarProductosPorAtributoDetalleProducto( $dbh, $productos, P_FLT_COLOR, $vals_filtros );
-			//fn-catalog.php	
+			$productos 			= filtrarProductosPorAtributoDetalleProducto( $productos, P_FLT_COLOR, $vals_filtros );
+			//fn-data-catalogue.php		
 		}
 
 		//Filtro de productos comparando con el atributo 'Talla' de detalle de producto
@@ -374,28 +404,30 @@
 			$vals_filtros 		= obtenerVectorValoresFiltro( $url_params, P_FLT_TALLA );
 			$productos 			= filtrarProductosPorTallasProducto( $dbh, $productos, $vals_filtros );
 			$ft 				= $vals_filtros;
-			//fn-catalog.php
+			//fn-data-catalogue.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Precio pieza' de detalle de producto
 		if( isset( $url_params[P_FLT_PIEZA] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PIEZA );
-			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, $vals_filtros, $ft );
-			//fn-catalog.php		
+			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PIEZA, 
+																   $vals_filtros, $ft, $ver_ocultos );
+			//fn-data-catalogue.php	
 		}
 
 		//Filtro de productos comparando con el atributo 'Precio peso' de detalle de producto
 		if( isset( $url_params[P_FLT_PESO] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO );
-			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, $vals_filtros, $ft );
-			//fn-catalog.php		
+			$productos 			= filtrarProductosPorPrecio( $dbh, $productos, P_FLT_PESO, 
+																   $vals_filtros, $ft, $ver_ocultos );
+			//fn-data-catalogue.php			
 		}
 
 		//Filtro de productos comparando con el atributo 'Peso' de detalle de producto
 		if( isset( $url_params[P_FLT_PESO_PROD] ) ){
 			$vals_filtros 		= obtenerVectorValoresFiltroPrecio( $url_params, P_FLT_PESO_PROD );
 			$productos 			= filtrarProductosPorPeso( $dbh, $productos, P_FLT_PESO_PROD, $vals_filtros, $ft );
-			//fn-catalog.php		
+			//fn-data-catalogue.php			
 		}
 
 		if( $ver_ocultos == false )	
@@ -409,13 +441,13 @@
 		// Devuelve las opciones de filtro por cada atributo de los productos filtrados
 		$opciones = array(); 
 		
-		/*$o_categorias = "";
+		$o_categorias = "";
 		foreach ( $d_filtros["categorias"] as $c ){
-			$url_f 		= urlFiltro( $catalogue_url, $url_params, P_FLT_CATEGORIA, trim( $t["talla"] ) );
-            $o_categorias .= "<li><a title='$c[nombre]' href='$url_f'>
-								<span class='fe-checkbox'></span> $c[nombre]</a>
+			$url_f 		= urlFiltro( $catalogue_url, $url_params, P_FLT_CATEGORIA, trim( $c["ucat"] ) );
+            $o_categorias .= "<li><a title='$c[categoria]' href='$url_f'>
+								<span class='fe-checkbox'></span> $c[categoria]</a>
 							  </li>";
-		}*/
+		}
 
 		$o_filtros = "";
 		foreach ( $d_filtros["url"] as $flt_vo ) {
@@ -468,9 +500,9 @@
 						    </li>";
 		}
 		
-		//$opciones["categorias"] = $o_categorias;
 		$opciones["enlaces_filtros"] 	= $o_filtros;
 		$opciones["tallas"] 			= $o_tallas;
+		$opciones["categorias"] 		= $o_categorias;
 		$opciones["banos"] 				= $o_banos;
 		$opciones["trabajos"] 			= $o_trabajos;
 		$opciones["lineas"] 			= $o_lineas;

@@ -49,11 +49,16 @@
 	function obtenerProductosJuegosProducto( $dbh, $idd ){
 		//Obtiene todos los productos que comparten el mismo juego que un producto dado su id
 		$detalles_p = array();
-		$juegos = obtenerJuegosProducto( $dbh, $idd );
+		$juegos 	= obtenerJuegosProducto( $dbh, $idd );
+		$ids_flt 	= array();
+		
 		foreach ( $juegos as $j ) {
 			$lista = obtenerDetallesProductoPorJuego( $dbh, $j["set_id"] );
 			foreach ( $lista as $r ) {
-				$detalles_p[] = $r;
+				if( !in_array( $r["idp"], $ids_flt ) ){
+					$ids_flt[] 		= $r["idp"];
+					$detalles_p[] 	= $r;
+				}
 			}
 		}
 

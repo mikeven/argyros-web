@@ -3,6 +3,8 @@
 	/* Argyros - Funciones de usuarios */
 	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
+	define( "PFXCARTFILE", "savedusercart-id_" );
+
 	function ultimaActualizacion( $dbh, $idu ){
 		//Retorna la fecha donde se realizó la última actualización de documentos de usuario
 		$q = "select date_format(ultima_act_doc,'%Y-%m-%d') as fecha from clients where id = $idu";
@@ -318,6 +320,15 @@
 		return $data_user["noleidos"];
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function cargarContenidoCarritoArchivo(){
+		//Obtiene el contenido del carrito previamente guardado y lo carga en la variable de sesión
+
+		$filename 			= PFXCARTFILE.$_SESSION["user"]["id"];
+
+		$filecart 			= file_get_contents( "../fn/ckfiles/".$filename.".json" );
+		$_SESSION["cart"] 	= json_decode( $filecart, true );
+	}
+	/* ----------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------- */
 	/* Solicitudes asíncronas al servidor para procesar información de usuarios */
 	/* ----------------------------------------------------------------------------------- */
@@ -330,6 +341,8 @@
 	//Inicio de sesión (asinc)
 	if( isset( $_POST["usr_login"] ) ){
 		include( "bd.php" );
+		//include( "../fn/fn-cart.php" );
+
 		parse_str( $_POST["usr_login"], $usuario );
 
 		$data_user = obtenerUsuarioLogin( $dbh, $usuario["email"], $usuario["password"] );
@@ -350,6 +363,7 @@
 			if( ( $data_user["verified"] == 1 ) && ( $data_user["blocked"] != 1 ) ){
 				userLogin( $data_user, $dbh );
 				//actualizarFechaUltimoInicioSesion( $dbh, $data_user["id"] );
+				cargarContenidoCarritoArchivo();
 				registrarInicioSesion( $dbh, $data_user["id"] );
 				$res["exito"] = 1;
 				$res["mje"] = "Inicio de sesión exitoso";

@@ -12,7 +12,7 @@
     include( "fn/fn-product.php" );
     include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
-   
+  
     //checkSession( '' );
     $cdestacadas = obtenerCategoriasDestacadas( $dbh );
     $pdestacados = obtenerProductosDestacados( $dbh, $cdestacadas );

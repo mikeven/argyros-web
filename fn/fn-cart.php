@@ -100,7 +100,7 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function guardarEstadoCarrito( $carrito ){
-		// Devuelve el contenido de carrito de compra con los datos a almacenar en cookie
+		// Guarda el contenido del carrito de compra en el archivo del usuario en sesión
 		$filename = PFXCARTFILE.$_SESSION["user"]["id"];
 
 		$json_string = json_encode( $carrito );
@@ -109,14 +109,14 @@
 	}
 	/* ----------------------------------------------------------------------------------- */
 	function eliminarArchivoCarrito(){
-		// Devuelve el contenido de carrito de compra con los datos a almacenar en cookie
+		// Elimina el archivo del carrito de compra asociado al usuario en sesión
 		$filename = PFXCARTFILE.$_SESSION["user"]["id"];
 		if( file_exists( "../fn/ckfiles/".$filename.".json" ) )
 			unlink( "../fn/ckfiles/".$filename.".json" );
 		//var_dump( file_exists( "../fn/ckfiles/".$filename.".json" ) );
 	}
 	/* ----------------------------------------------------------------------------------- */
-	function obtenerCarritoCompra( $param ){
+	function obtenerContenidoCarritoCompra( $param ){
 		//Obtiene los ítems de la sesión de compra y los organiza en las vistas del contenido del carrito
 
 		$plantilla_item_dsp = file_get_contents( "../fn/cart-item.html" );		//Plantilla display desplegable
@@ -127,6 +127,10 @@
 		$carrito 	= NULL;		$ck_cart 	= NULL;
 
 		if( isset( $_SESSION["cart"] ) ){
+			
+			if( $param == "" )
+				actualizarContenidoCarritoArchivo();
+			
 			$carrito = $_SESSION["cart"];
 			if( $param != "" )
 				$ck_cart = guardarEstadoCarrito( $carrito );
@@ -175,10 +179,19 @@
 		//obtenerCarritoCompra();
 	}
 	/* ----------------------------------------------------------------------------------- */
+	function actualizarContenidoCarritoArchivo(){
+		//Actualiza el contenido del carrito desde la carga del archivo previamente guardado
+
+		$filename 			= PFXCARTFILE.$_SESSION["user"]["id"];
+
+		$filecart 			= file_get_contents( "ckfiles/".$filename.".json" );
+		$_SESSION["cart"] 	= json_decode( $filecart, true );
+	}
+	/* ----------------------------------------------------------------------------------- */
 	//Async: Obtiene el contenido del carrito previamente guardado y lo carga en la variable de sesión
 	if( isset( $_POST["get_filecart"] ) ){
-		session_start();
-
+		//session_start();
+		/*
 		$filename 			= PFXCARTFILE.$_SESSION["user"]["id"];
 
 		$filecart 			= file_get_contents( "ckfiles/".$filename.".json" );
@@ -189,7 +202,7 @@
 		
 		print_r($cart);
 		echo "--";
-		print_r($_SESSION["cart"]);
+		print_r($_SESSION["cart"]);*/
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Async: recepción de ítem de compra para agregar a carrito
@@ -222,7 +235,7 @@
 		session_start();
 		$param = $_POST["param"];
 
-		obtenerCarritoCompra( $param );
+		obtenerContenidoCarritoCompra( $param );
 	}
 	/* ----------------------------------------------------------------------------------- */
 	//Async: solicitud para modificar cantidad en ítem de carrito de compra

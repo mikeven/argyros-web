@@ -10,7 +10,7 @@
     include( "database/data-products.php" );
     include( "database/data-categories.php" );
     include( "fn/fn-product.php");
-    include( "fn/fn-catalog.php" );
+    include( "fn/fn-catalogue.php" );
     include( "fn/fn-cart.php" );
     
     checkSession( 'recuperar' );

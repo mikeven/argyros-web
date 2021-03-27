@@ -190,7 +190,7 @@
 										</table>
 									</div>
 									<div id="nota_tyc_center" class="nota_tyc">
-										Al procesar este pedido usted acepta los <a href="https://argyros.com.pa/terms-and-conditions.php"> Términos y Condiciones </a> de Argyros Inc.
+										Al procesar este pedido usted acepta los <a href="https://argyros.com.pa/terms-and-conditions.php" target="_blank"> Términos y Condiciones </a> de Argyros Inc.
 									</div>
 								</div>
 								<?php } ?>
@@ -239,7 +239,7 @@
 								<a href="login.php" class="btn">Iniciar sesión</a>
 								<?php } ?>
 								<div id="nota_tyc_right" class="nota_tyc">
-									Al procesar este pedido usted acepta los <a href="https://argyros.com.pa/terms-and-conditions.php"> Términos y Condiciones </a> de Argyros Inc.
+									Al procesar este pedido usted acepta los <a href="https://argyros.com.pa/terms-and-conditions.php" target="_blank"> Términos y Condiciones </a> de Argyros Inc.
 								</div>
 							</div>
 
